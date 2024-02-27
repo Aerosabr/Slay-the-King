@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Inventory : MonoBehaviour
+public class InventoryManager : MonoBehaviour
 {
     public GameObject InventoryMenu;
     private bool menuActivated;
@@ -27,5 +27,10 @@ public class Inventory : MonoBehaviour
             menuActivated = true;
             Debug.Log("Inventory toggled: " + menuActivated);
         }
+    }
+
+    public void AddItem(string itemName, int quantity, Sprite itemSprite)
+    {
+        Debug.Log("ItemName = " + itemName + "quantity = " + quantity + "itemSprite = " + itemSprite);
     }
 }
