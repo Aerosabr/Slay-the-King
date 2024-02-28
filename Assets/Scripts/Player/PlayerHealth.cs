@@ -25,7 +25,7 @@ public class PlayerHealth : MonoBehaviour
 
     public void ChangeHealth(int amount)
     {
-        Debug.Log("[PlayerHealth] ChangeHealth called with amount: " + amount);
+        Debug.Log("[PlayerHealth] ChangeHealth called with amount: " + amount + "/" + maxHealth);
         health += amount;
         health = Mathf.Clamp(health, 0, maxHealth);
         UpdateHealthUI();

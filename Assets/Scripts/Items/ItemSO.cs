@@ -11,16 +11,25 @@ public class ItemSO : ScriptableObject
     public int amountToChangeStat;
     public int amountToChangeAttribute;
 
-    public void UseItem()
+    public bool UseItem()
     {
         Debug.Log("UseItem called.");
         if (statToChange == StatToChange.health)
         {
             Debug.Log($"Healing with amount: {amountToChangeStat}");
             PlayerHealth playerHealth = GameObject.FindObjectOfType<PlayerHealth>();
-            playerHealth.ChangeHealth(amountToChangeStat);
-            //GameObject.Find("PlayerHealth").GetComponent<PlayerHealth>().ChangeHealth(amountToChangeStat);
+            if (playerHealth.health == playerHealth.maxHealth)
+            {
+                return false;
+            }
+            else
+            {
+                playerHealth.ChangeHealth(amountToChangeStat);
+                return true;
+            }
         }
+        return false;
+
     }
 
     public enum StatToChange
