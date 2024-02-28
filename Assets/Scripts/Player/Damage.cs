@@ -7,7 +7,7 @@ public class Damage : MonoBehaviour
     // Start is called before the first frame update
 
     public int damage = 1;
-    private Health playerHealth;
+    private PlayerHealth playerHealth;
 
     void Start()
     {
@@ -26,10 +26,10 @@ public class Damage : MonoBehaviour
         {
             if(playerHealth == null)
             {
-                playerHealth = collision.gameObject.GetComponent<Health>();
+                playerHealth = collision.gameObject.GetComponent<PlayerHealth>();
 
             }
-            playerHealth.TakeDamage(damage);
+            playerHealth.ChangeHealth(damage);
         }
     }
 }

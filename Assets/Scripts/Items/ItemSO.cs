@@ -6,21 +6,27 @@ using UnityEngine;
 public class ItemSO : ScriptableObject
 {
     public string itemName;
-    public StatToChange stateToChange = new StatToChange();
+    public StatToChange statToChange = new StatToChange();
     public AttributeToChange attributeToChange = new AttributeToChange();
     public int amountToChangeStat;
     public int amountToChangeAttribute;
 
     public void UseItem()
     {
-
+        Debug.Log("UseItem called.");
+        if (statToChange == StatToChange.health)
+        {
+            Debug.Log($"Healing with amount: {amountToChangeStat}");
+            PlayerHealth playerHealth = GameObject.FindObjectOfType<PlayerHealth>();
+            playerHealth.ChangeHealth(amountToChangeStat);
+            //GameObject.Find("PlayerHealth").GetComponent<PlayerHealth>().ChangeHealth(amountToChangeStat);
+        }
     }
 
     public enum StatToChange
     {
         none,
         health,
-        gold,
     };
 
     public enum AttributeToChange

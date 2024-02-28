@@ -84,7 +84,13 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
 
     public void OnLeftClick()
     {
-        inventoryManager.DeselectAllSlots();
+        if (thisItemSelected)
+        {
+            Debug.Log($"Using item: {itemName}");
+            inventoryManager.UseItem(itemName);
+        }
+
+    inventoryManager.DeselectAllSlots();
         selectedShader.SetActive(true);
         thisItemSelected = true;
         ItemDescriptionNameText.text = itemName;
