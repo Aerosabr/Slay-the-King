@@ -135,13 +135,13 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         SpriteRenderer sr = itemToDrop.AddComponent<SpriteRenderer>();
         sr.sprite = itemSprite;
         sr.sortingOrder = 5;
-        sr.sortingLayerName = "Ground";
+        sr.sortingLayerName = "Environment";
 
         //Add a collider
         itemToDrop.AddComponent<BoxCollider2D>();
 
         //Set the location
-        itemToDrop.transform.position = GameObject.FindWithTag("Player").transform.position + new Vector3(1.0f,0,1.0f);
+        itemToDrop.transform.position = GameObject.FindWithTag("Player").transform.position + new Vector3(2.0f,0,0.0f);
         itemToDrop.transform.localScale = new Vector3(.5f, .5f, .5f);
 
         //Subtract the item
