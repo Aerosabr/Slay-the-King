@@ -27,4 +27,9 @@ public class Player : MonoBehaviour
         Health = health;
     }
 
+    public void Attack()
+    {
+
+    }
+
 }

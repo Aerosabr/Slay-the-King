@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
+using System.Linq;
 public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager instance;
@@ -12,6 +13,14 @@ public class PlayerManager : MonoBehaviour
         instance = this;
     }
 
+    void Start()
+    {
+        for (int i = 1; i < 5; i++)
+        {
+            AddPlayer(i);
+        }
+    }
+
     public void AddPlayer(int slot)
     {
         if (Players.Count == 4)
@@ -19,13 +28,48 @@ public class PlayerManager : MonoBehaviour
       
         Player player = new Player(Random.Range(1, 100));
         Players.Add(slot, player);
-        PlayerSlots.instance.updateUI();
+        PlayerUI.instance.updateUI();
     }
 
     public void RemovePlayer(int slot)
     {
         Players.Remove(slot);
-        PlayerSlots.instance.updateUI();
+        PlayerUI.instance.updateUI();
     }
 
+    public void PlayerAttack(int player)
+    {
+        BattleManager.instance.Actions.Add(new BattleAction(player, "Attack"));
+        PlayerUI.instance.PlayerAction(player);
+        ActionBar.instance.UpdateActionBar();
+    }
+
+    public void PlayerBlock(int player)
+    {
+        BattleManager.instance.Actions.Add(new BattleAction(player, "Block"));
+        PlayerUI.instance.PlayerAction(player);
+        ActionBar.instance.UpdateActionBar();
+    }
+
+    public void PlayerAbility(int player)
+    {
+        BattleManager.instance.Actions.Add(new BattleAction(player, "Ability"));
+        PlayerUI.instance.PlayerAction(player);
+        ActionBar.instance.UpdateActionBar();
+    }
+
+    public void PlayerUltimate(int player)
+    {
+        BattleManager.instance.Actions.Add(new BattleAction(player, "Ultimate"));
+        PlayerUI.instance.PlayerAction(player);
+        ActionBar.instance.UpdateActionBar();
+    }
+
+    public void PlayerCancel(int player)
+    {
+        BattleManager.instance.Actions.RemoveAt(BattleManager.instance.Actions.FindIndex(obj => obj.PlayerNum == player));
+
+        PlayerUI.instance.PlayerCancel(player);
+        ActionBar.instance.UpdateActionBar();
+    }
 }
