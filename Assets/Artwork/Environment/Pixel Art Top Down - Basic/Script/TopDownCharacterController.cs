@@ -6,45 +6,105 @@ namespace Cainos.PixelArtTopDown_Basic
 {
     public class TopDownCharacterController : MonoBehaviour
     {
-        public float speed;
 
-        private Animator animator;
+        public Rigidbody2D body;
+        public SpriteRenderer spriteRenderer;
+
+        public List<Sprite> nSprites;
+        public List<Sprite> neSprites;
+        public List<Sprite> eSprites;
+        public List<Sprite> seSprites;
+        public List<Sprite> sSprites;
+
+        public List<Sprite> swSprites;
+        public List<Sprite> wSprites;
+        public List<Sprite> nwSprites;
+        public float walkSpeed;
+        public float frameRate;
+        public float idleTime;
+        public Vector2 direction;
 
         private void Start()
         {
-            animator = GetComponent<Animator>();
         }
 
 
         private void Update()
         {
-            Vector2 dir = Vector2.zero;
-            if (Input.GetKey(KeyCode.A))
-            {
-                dir.x = -1;
-                animator.SetInteger("Direction", 3);
-            }
-            else if (Input.GetKey(KeyCode.D))
-            {
-                dir.x = 1;
-                animator.SetInteger("Direction", 2);
-            }
+            direction = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")).normalized;
 
-            if (Input.GetKey(KeyCode.W))
-            {
-                dir.y = 1;
-                animator.SetInteger("Direction", 1);
-            }
-            else if (Input.GetKey(KeyCode.S))
-            {
-                dir.y = -1;
-                animator.SetInteger("Direction", 0);
-            }
+            body.velocity = direction * walkSpeed;
 
-            dir.Normalize();
-            animator.SetBool("IsMoving", dir.magnitude > 0);
+            HandleSpriteFlip();
 
-            GetComponent<Rigidbody2D>().velocity = speed * dir;
+            List<Sprite> directionSprites = GetSpriteDirection();
+            
+            if(directionSprites != null)
+            {
+                float playTime = Time.time - idleTime;
+                int totalFrames = (int)(playTime*frameRate);
+                int frame = totalFrames % directionSprites.Count;
+                spriteRenderer.sprite = directionSprites[frame];
+            }
+            else
+            {
+
+            }
+        }
+
+        public void HandleSpriteFlip()
+        {
+            if(!spriteRenderer.flipX && direction.x < 0 )
+            {
+                spriteRenderer.flipX = true;
+            }
+            else if(spriteRenderer.flipX && direction.x > 0)
+            {
+                spriteRenderer.flipX = false;
+            }
+        }
+
+        public List<Sprite> GetSpriteDirection()
+        {
+            List<Sprite> selectedSprites = null;
+            if(direction.y > 0)
+            {
+                if(Mathf.Abs(direction.x) > 0)
+                {
+                    selectedSprites = neSprites;
+                }
+                else if(Mathf.Abs(direction.x) == 0)
+                {
+                    selectedSprites = nSprites;
+                }
+                else if(Mathf.Abs(direction.x) < 0)
+                {
+                    selectedSprites = nwSprites;
+                }
+            }
+            else if(direction.y < 0)
+            {
+                if(Mathf.Abs(direction.x) > 0)
+                {
+                    selectedSprites = seSprites;
+                }
+                else if(Mathf.Abs(direction.x) == 0)
+                {
+                    selectedSprites = sSprites;
+                }
+                else if(Mathf.Abs(direction.x) < 0)
+                {
+                    selectedSprites = swSprites;
+                }
+            }
+            else
+            {
+                if(Mathf.Abs(direction.x) > 0)
+                {
+                    selectedSprites = eSprites;
+                }
+            }
+            return selectedSprites;
         }
     }
 }
