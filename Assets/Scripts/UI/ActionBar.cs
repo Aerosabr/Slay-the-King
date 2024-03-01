@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class ActionBar : MonoBehaviour
 {
+    //UI script that displays current actions taken
     public static ActionBar instance;
     public List<GameObject> Actions = new List<GameObject>();
 

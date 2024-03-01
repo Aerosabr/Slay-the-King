@@ -4,6 +4,7 @@ using UnityEngine;
 
 public abstract class Class : ScriptableObject
 {
+    //Main class that all character classes derive from
     public string Name; //Class Name
     public string Description; //Class description
     public Sprite ClassIcon;
