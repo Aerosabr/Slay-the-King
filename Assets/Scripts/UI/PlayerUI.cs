@@ -22,6 +22,7 @@ public class PlayerUI : MonoBehaviour
             }
             else
                 Slots[i].transform.GetChild(0).GetComponent<Text>().text = "Add Player";
+            Slots[i].SetActive(false);
         }
     }
 
@@ -30,19 +31,24 @@ public class PlayerUI : MonoBehaviour
         foreach (GameObject a in Slots)
         {
             a.transform.GetChild(1).gameObject.SetActive(true);
-            a.transform.GetChild(2).gameObject.SetActive(false);
         }
-    }
-
-    public void PlayerCancel(int player)
-    {
-        Slots[player - 1].transform.GetChild(1).gameObject.SetActive(true);
-        Slots[player - 1].transform.GetChild(2).gameObject.SetActive(false);
     }
 
     public void PlayerAction(int player)
     {
         Slots[player - 1].transform.GetChild(1).gameObject.SetActive(false);
-        Slots[player - 1].transform.GetChild(2).gameObject.SetActive(true);
+    }
+
+    public void SwitchPlayer(int index)
+    {
+        for (int i = 0; i < Slots.Count; i++)
+        {
+            if (i + 1 == index)
+            {
+                Slots[i].SetActive(true);
+            }
+            else
+                Slots[i].SetActive(false);
+        }
     }
 }

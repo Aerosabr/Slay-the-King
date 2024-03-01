@@ -39,9 +39,10 @@ public class PlayerManager : MonoBehaviour
 
     public void PlayerAttack(int player)
     {
-        BattleManager.instance.Actions.Add(new BattleAction(player, "Attack"));
+        BattleManager.instance.Actions.Add(new BattleAction(player, "Attack", 1, "Increase"));
         PlayerUI.instance.PlayerAction(player);
         ActionBar.instance.UpdateActionBar();
+        Targetable.instance.FindTargettable();
     }
 
     public void PlayerBlock(int player)
@@ -53,7 +54,7 @@ public class PlayerManager : MonoBehaviour
 
     public void PlayerAbility(int player)
     {
-        BattleManager.instance.Actions.Add(new BattleAction(player, "Ability"));
+        BattleManager.instance.Actions.Add(new BattleAction(player, "Ability", 1, "Decrease"));
         PlayerUI.instance.PlayerAction(player);
         ActionBar.instance.UpdateActionBar();
     }
@@ -65,11 +66,4 @@ public class PlayerManager : MonoBehaviour
         ActionBar.instance.UpdateActionBar();
     }
 
-    public void PlayerCancel(int player)
-    {
-        BattleManager.instance.Actions.RemoveAt(BattleManager.instance.Actions.FindIndex(obj => obj.PlayerNum == player));
-
-        PlayerUI.instance.PlayerCancel(player);
-        ActionBar.instance.UpdateActionBar();
-    }
 }

@@ -11,16 +11,32 @@ public class BattleManager : MonoBehaviour
     public BattlePosition[,] PlayerPositions;
     public BattlePosition[,] EnemyPositions;
     public List<BattleAction> Actions = new List<BattleAction>();
+    public ActionEnergy ActionEnergy;
+
+    public List<GameObject> Enemies = new List<GameObject>();
 
     public bool temp;
 
-    void Awake()
+    private void Awake()
     {
         PlayerPositions = new BattlePosition[3, 3];
         EnemyPositions = new BattlePosition[3, 3];
         instance = this;
         TurnNum = 1;
         PlayerAction = true;
+        ActionEnergy = new ActionEnergy(6, 3);
+        for (int i = 0; i < 3; i++)
+        {
+            for (int j = 0; j < 3; j++)
+            {
+                EnemyPositions[i, j] = new BattlePosition();
+            }
+        }
+    }
+
+    private void Start()
+    {
+        GenerateRandomEnemies();
     }
 
     void Update()
@@ -29,6 +45,29 @@ public class BattleManager : MonoBehaviour
         {
             StartCoroutine(ExecuteActions());
         }    
+    }
+
+    public void GenerateRandomEnemies()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            for (int j = 0; j < 3; j++)
+            {
+                if (Random.Range(0, 3) == 1)
+                {
+                    int temp = (i * 3) + j;
+                    EnableSprite(temp);
+                    EnemyPositions[i, j].hasCharacter = true;
+                }
+                else
+                    EnemyPositions[i, j].hasCharacter = false;
+            }
+        }
+    }
+
+    public void EnableSprite(int index)
+    {
+        Enemies[index].SetActive(true);
     }
 
     IEnumerator ExecuteActions()
@@ -51,14 +90,4 @@ public class BattleManager : MonoBehaviour
 
 }
 
-public class BattleAction : MonoBehaviour
-{
-    public int PlayerNum;
-    public string Action;
 
-    public BattleAction(int playerNum, string action)
-    {
-        PlayerNum = playerNum;
-        Action = action;
-    }
-}
