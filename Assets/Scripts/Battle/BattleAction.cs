@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BattleAction : MonoBehaviour
 {
+    //Battle script that represents each action made by players
     public int PlayerNum;
     public string Action;
 

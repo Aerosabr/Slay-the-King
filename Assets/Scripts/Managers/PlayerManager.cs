@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using System.Linq;
 public class PlayerManager : MonoBehaviour
 {
+    //Script that contains all players and manages their inputs
     public static PlayerManager instance;
     public Dictionary<int, Player> Players = new Dictionary<int, Player>();
 
@@ -39,10 +40,7 @@ public class PlayerManager : MonoBehaviour
 
     public void PlayerAttack(int player)
     {
-        BattleManager.instance.Actions.Add(new BattleAction(player, "Attack", 1, "Increase"));
-        PlayerUI.instance.PlayerAction(player);
-        ActionBar.instance.UpdateActionBar();
-        Targetable.instance.FindTargettable();
+        StartCoroutine(ChoosingTarget(player, new BattleAction(player, "Attack", 1, "Increase")));
     }
 
     public void PlayerBlock(int player)
@@ -54,16 +52,27 @@ public class PlayerManager : MonoBehaviour
 
     public void PlayerAbility(int player)
     {
-        BattleManager.instance.Actions.Add(new BattleAction(player, "Ability", 1, "Decrease"));
-        PlayerUI.instance.PlayerAction(player);
-        ActionBar.instance.UpdateActionBar();
+        StartCoroutine(ChoosingTarget(player, new BattleAction(player, "Ability", 1, "Decrease")));
     }
 
     public void PlayerUltimate(int player)
     {
-        BattleManager.instance.Actions.Add(new BattleAction(player, "Ultimate"));
+        StartCoroutine(ChoosingTarget(player, new BattleAction(player, "Ultimate")));
+    }
+
+    public void PlayerCancel(int player)
+    {
+
+    }
+
+    IEnumerator ChoosingTarget(int player, BattleAction action)
+    {
+        Targetable.instance.Targetted = false;
+        Targetable.instance.FindTargettable();
+        yield return new WaitUntil(() => Targetable.instance.Targetted);
+        Targetable.instance.Targetted = false;
+        BattleManager.instance.Actions.Add(action);
         PlayerUI.instance.PlayerAction(player);
         ActionBar.instance.UpdateActionBar();
     }
-
 }

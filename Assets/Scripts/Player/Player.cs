@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, Entity
 {
+    //Class that represents each individual player's stats and inventory
     //Equipment
     public Helmet Helmet;
     public Chestplate Chestplate;
@@ -32,4 +33,8 @@ public class Player : MonoBehaviour
 
     }
 
+    public void Damaged(int damage) 
+    { 
+    
+    }
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BattleManager : MonoBehaviour
 {
+    //Main battle script that manages the battle mechanic
     public static BattleManager instance;
     public int TurnNum;
     public bool PlayerAction;

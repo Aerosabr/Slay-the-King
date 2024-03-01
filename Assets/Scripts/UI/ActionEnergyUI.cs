@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class ActionEnergyUI : MonoBehaviour
 {
+    //UI script that manages action energy bar
     public static ActionEnergyUI instance;
     public List<GameObject> Energy = new List<GameObject>();
     public GameObject EnergyText;

@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class Targetable : MonoBehaviour
 {
+    //Battle script that manages UI and functions for targettable enemies
     public static Targetable instance;
     public List<GameObject> Target = new List<GameObject>();
+
+    public bool Targetted;
 
     private void Awake()
     {
@@ -14,6 +17,7 @@ public class Targetable : MonoBehaviour
 
     public void RemoveTargets()
     {
+        Targetted = true;
         foreach (GameObject target in Target)
         {
             target.SetActive(false);

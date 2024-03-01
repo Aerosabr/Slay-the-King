@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class PlayerUI : MonoBehaviour
 {
+    //UI script that manages player actions bar
     public static PlayerUI instance;
     public List<GameObject> Slots = new List<GameObject>();
 
