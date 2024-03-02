@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System;
 
-public class ItemSlot : MonoBehaviour, IPointerClickHandler
+public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
 {
     //ITEM DATA
     public string itemName;
@@ -17,20 +17,12 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     public Sprite emptySprite;
     public ItemType itemType;
 
-    [SerializeField]
-    private int maxNumberOfItems;
-
     //ITEM SLOT
     [SerializeField]
     private TMP_Text quantityText;
 
     [SerializeField]
     private Image itemImage;
-
-    //ITEM DESCRIPTION SLOT
-    public Image itemDescriptionImage;
-    public TMP_Text ItemDescriptionNameText;
-    public TMP_Text ItemDescriptionText;
 
     public GameObject selectedShader;
     public bool thisItemSelected;
@@ -52,30 +44,18 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         this.itemName = itemName;
         this.itemSprite = itemSprite;
         this.itemDescription = itemDescription;
-        this.quantity += quantity;
+        this.quantity = 1;
+        isFull = true;
 
         itemImage.sprite = itemSprite;
 
-        if (this.quantity >= maxNumberOfItems)
-        {
-            quantityText.text = maxNumberOfItems.ToString();
-            quantityText.enabled = true;
-            isFull = true;
 
-            //return leftovers
-            int extraItems = this.quantity - maxNumberOfItems;
-            this.quantity = maxNumberOfItems;
-            return extraItems;
-        }
-        //Update quantity text
-        quantityText.text = this.quantity.ToString();
-        quantityText.enabled = true;
         return 0;
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if(eventData.button == PointerEventData.InputButton.Left)
+        if (eventData.button == PointerEventData.InputButton.Left)
         {
             OnLeftClick();
         }
@@ -105,11 +85,6 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
             inventoryManager.DeselectAllSlots();
             selectedShader.SetActive(true);
             thisItemSelected = true;
-            ItemDescriptionNameText.text = itemName;
-            ItemDescriptionText.text = itemDescription;
-            itemDescriptionImage.sprite = itemSprite;
-            if (itemDescriptionImage.sprite == null)
-                itemDescriptionImage.sprite = emptySprite;
         }
     }
 
@@ -117,10 +92,6 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     {
         quantityText.enabled = false;
         itemImage.sprite = emptySprite;
-
-        ItemDescriptionNameText.text = "";
-        ItemDescriptionText.text = "";
-        itemDescriptionImage.sprite = emptySprite;
     }
 
     public void OnRightClick()
@@ -143,7 +114,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         itemToDrop.AddComponent<BoxCollider2D>();
 
         //Set the location
-        itemToDrop.transform.position = GameObject.FindWithTag("Player").transform.position + new Vector3(2.0f,0,0.0f);
+        itemToDrop.transform.position = GameObject.FindWithTag("Player").transform.position + new Vector3(2.0f, 0, 0.0f);
         itemToDrop.transform.localScale = new Vector3(.5f, .5f, .5f);
 
         //Subtract the item
