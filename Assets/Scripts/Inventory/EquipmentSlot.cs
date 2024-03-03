@@ -112,6 +112,7 @@ public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
     private void EmptySlot()
     {
         itemImage.sprite = emptySprite;
+        isFull = false;
     }
 
     public void OnRightClick()
