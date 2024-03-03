@@ -18,11 +18,13 @@ public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
     public ItemType itemType;
 
     //ITEM SLOT
-    [SerializeField]
-    private TMP_Text quantityText;
 
     [SerializeField]
     private Image itemImage;
+
+    //EQUIPMENT SLOT
+    [SerializeField]
+    private EquippedSlot helmetSlot, chestSlot, legsSlot, weaponSlot, glovesSlot, bootsSlot;
 
     public GameObject selectedShader;
     public bool thisItemSelected;
@@ -55,14 +57,34 @@ public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (eventData.button == PointerEventData.InputButton.Left)
+        if (thisItemSelected)
         {
-            OnLeftClick();
+            EquipGear();
         }
-        if (eventData.button == PointerEventData.InputButton.Right)
+        else
         {
-            OnRightClick();
+            inventoryManager.DeselectAllSlots();
+            selectedShader.SetActive(true);
+            thisItemSelected = true;
         }
+    }
+
+    private void EquipGear()
+    {
+        if (itemType == ItemType.helmet)
+            helmetSlot.EquipGear(itemSprite, itemName, itemDescription);
+        if (itemType == ItemType.chest)
+            chestSlot.EquipGear(itemSprite, itemName, itemDescription);
+        if (itemType == ItemType.legs)
+            legsSlot.EquipGear(itemSprite, itemName, itemDescription);
+        if (itemType == ItemType.weapon)
+            weaponSlot.EquipGear(itemSprite, itemName, itemDescription);
+        if (itemType == ItemType.gloves)
+            glovesSlot.EquipGear(itemSprite, itemName, itemDescription);
+        if (itemType == ItemType.boots)
+            bootsSlot.EquipGear(itemSprite, itemName, itemDescription);
+
+        EmptySlot();
     }
 
     public void OnLeftClick()
@@ -74,7 +96,6 @@ public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
             if (usable)
             {
                 this.quantity -= 1;
-                quantityText.text = this.quantity.ToString();
                 if (this.quantity <= 0)
                     EmptySlot();
             }
@@ -90,7 +111,6 @@ public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
 
     private void EmptySlot()
     {
-        quantityText.enabled = false;
         itemImage.sprite = emptySprite;
     }
 
@@ -119,7 +139,6 @@ public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
 
         //Subtract the item
         this.quantity -= 1;
-        quantityText.text = this.quantity.ToString();
         if (this.quantity <= 0)
             EmptySlot();
     }
