@@ -9,102 +9,32 @@ namespace Cainos.PixelArtTopDown_Basic
 
         public Rigidbody2D body;
         public SpriteRenderer spriteRenderer;
+       public Animator animator;
 
-        public List<Sprite> nSprites;
-        public List<Sprite> neSprites;
-        public List<Sprite> eSprites;
-        public List<Sprite> seSprites;
-        public List<Sprite> sSprites;
-
-        public List<Sprite> swSprites;
-        public List<Sprite> wSprites;
-        public List<Sprite> nwSprites;
         public float walkSpeed;
-        public float frameRate;
         public float idleTime;
         public Vector2 direction;
-
-        private void Start()
-        {
-        }
-
+        public Vector2 idleDirection;
 
         private void Update()
         {
             direction = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")).normalized;
-
             body.velocity = direction * walkSpeed;
 
-            HandleSpriteFlip();
-
-            List<Sprite> directionSprites = GetSpriteDirection();
-            
-            if(directionSprites != null)
-            {
-                float playTime = Time.time - idleTime;
-                int totalFrames = (int)(playTime*frameRate);
-                int frame = totalFrames % directionSprites.Count;
-                spriteRenderer.sprite = directionSprites[frame];
-            }
-            else
-            {
-
-            }
+            // HandleSpriteFlip();
+            UpdateChildPositions();
         }
 
-        public void HandleSpriteFlip()
+        private void UpdateChildPositions()
         {
-            if(!spriteRenderer.flipX && direction.x < 0 )
+            // Iterate through all child objects
+            for (int i = 0; i < transform.childCount; i++)
             {
-                spriteRenderer.flipX = true;
-            }
-            else if(spriteRenderer.flipX && direction.x > 0)
-            {
-                spriteRenderer.flipX = false;
-            }
-        }
+                Transform child = transform.GetChild(i);
 
-        public List<Sprite> GetSpriteDirection()
-        {
-            List<Sprite> selectedSprites = null;
-            if(direction.y > 0)
-            {
-                if(Mathf.Abs(direction.x) > 0)
-                {
-                    selectedSprites = neSprites;
-                }
-                else if(Mathf.Abs(direction.x) == 0)
-                {
-                    selectedSprites = nSprites;
-                }
-                else if(Mathf.Abs(direction.x) < 0)
-                {
-                    selectedSprites = nwSprites;
-                }
+                // Update child position to match the main body
+                child.position = transform.position;
             }
-            else if(direction.y < 0)
-            {
-                if(Mathf.Abs(direction.x) > 0)
-                {
-                    selectedSprites = seSprites;
-                }
-                else if(Mathf.Abs(direction.x) == 0)
-                {
-                    selectedSprites = sSprites;
-                }
-                else if(Mathf.Abs(direction.x) < 0)
-                {
-                    selectedSprites = swSprites;
-                }
-            }
-            else
-            {
-                if(Mathf.Abs(direction.x) > 0)
-                {
-                    selectedSprites = eSprites;
-                }
-            }
-            return selectedSprites;
         }
     }
 }
