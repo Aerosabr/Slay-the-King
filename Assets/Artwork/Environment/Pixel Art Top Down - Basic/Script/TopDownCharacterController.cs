@@ -16,15 +16,30 @@ namespace Cainos.PixelArtTopDown_Basic
         public Vector2 direction;
         public Vector2 idleDirection;
 
+        public bool isShooting = false;
+
         private void Update()
         {
-            direction = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")).normalized;
-            body.velocity = direction * walkSpeed;
+            if(Input.GetMouseButtonDown(0) && !isShooting)
+            {
+                body.velocity = new Vector2(0,0);
+                isShooting = true;
+                StartCoroutine(Shoot());
+            }
+            if(!isShooting)
+            {
+                direction = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")).normalized;
+                body.velocity = direction * walkSpeed;
 
-            // HandleSpriteFlip();
-            UpdateChildPositions();
+                // HandleSpriteFlip();
+                UpdateChildPositions();
+            }
         }
-
+        private IEnumerator Shoot()
+        {
+            yield return new WaitForSeconds(1.1f);
+            isShooting = false;
+        }
         private void UpdateChildPositions()
         {
             // Iterate through all child objects

@@ -11,15 +11,34 @@ public class AnimateSprite : MonoBehaviour
     public Vector2 direction;
     public Vector2 idleDirection;
 
+    public bool isShooting = false;
+
     private void Update()
     {
-        direction = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")).normalized;
+        if(Input.GetMouseButtonDown(0) && !isShooting)
+        {
+            isShooting = true;
+            StartCoroutine(Shoot());
+        }
+        if(!isShooting)
+        {
+            direction = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")).normalized;
 
-        UpdateAnimatorParameters();
+            UpdateAnimatorParameters();
+        }
 
         // HandleSpriteFlip();
     }
 
+
+    private IEnumerator Shoot()
+    {
+        //Shoot!
+        animator.SetFloat("attackSpeed", 1);
+        PlayAnimation("Shoot");
+        yield return new WaitForSeconds(1.1f);
+        isShooting = false;
+    }
     private void UpdateAnimatorParameters()
     {
         animator.SetFloat("speed", direction.magnitude * walkSpeed);
