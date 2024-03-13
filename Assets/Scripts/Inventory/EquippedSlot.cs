@@ -23,10 +23,12 @@ public class EquippedSlot : MonoBehaviour, IPointerClickHandler
     private string itemDescription;
 
     private InventoryManager inventoryManager;
+    private EquipmentSOLibrary equipmentSOLibrary;
 
     private void Start()
     {
         inventoryManager = GameObject.Find("InventoryCanvas").GetComponent<InventoryManager>();
+        equipmentSOLibrary = GameObject.Find("InventoryCanvas").GetComponent<EquipmentSOLibrary>();
     }
 
     //OTHER VARIABLES
@@ -84,6 +86,13 @@ public class EquippedSlot : MonoBehaviour, IPointerClickHandler
         this.itemName = itemName;
         this.itemDescription = itemDescription;
 
+        //Update Player Stats
+        for (int i = 0; i <equipmentSOLibrary.equipmentSO.Length; i++ )
+        {
+            if (equipmentSOLibrary.equipmentSO[i].itemName == this.itemName)
+                equipmentSOLibrary.equipmentSO[i].EquipItem();
+        }
+
         slotInUse = true;
     }
 
@@ -95,5 +104,13 @@ public class EquippedSlot : MonoBehaviour, IPointerClickHandler
         this.itemSprite = emptySprite;
         slotImage.sprite = this.emptySprite;
         slotName.enabled = true;
+        slotInUse = false;
+
+        //Update Player Stats
+        for (int i = 0; i < equipmentSOLibrary.equipmentSO.Length; i++)
+        {
+            if (equipmentSOLibrary.equipmentSO[i].itemName == this.itemName)
+                equipmentSOLibrary.equipmentSO[i].UnEquipItem();
+        }
     }
 }
