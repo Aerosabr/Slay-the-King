@@ -132,6 +132,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         newItem.itemName = itemName;
         newItem.sprite = itemSprite;
         newItem.itemDescription = itemDescription;
+        newItem.itemType = this.itemType;
 
         //Create and modify the SR
         SpriteRenderer sr = itemToDrop.AddComponent<SpriteRenderer>();

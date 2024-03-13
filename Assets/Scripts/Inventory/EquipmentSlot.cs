@@ -57,15 +57,22 @@ public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (thisItemSelected)
+        if (eventData.button == PointerEventData.InputButton.Left)
         {
-            EquipGear();
+            if (thisItemSelected)
+            {
+                EquipGear();
+            }
+            else
+            {
+                inventoryManager.DeselectAllSlots();
+                selectedShader.SetActive(true);
+                thisItemSelected = true;
+            }
         }
-        else
+        if (eventData.button == PointerEventData.InputButton.Right)
         {
-            inventoryManager.DeselectAllSlots();
-            selectedShader.SetActive(true);
-            thisItemSelected = true;
+            OnRightClick();
         }
     }
 
@@ -124,6 +131,7 @@ public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
         newItem.itemName = itemName;
         newItem.sprite = itemSprite;
         newItem.itemDescription = itemDescription;
+        newItem.itemType = this.itemType;
 
         //Create and modify the SR
         SpriteRenderer sr = itemToDrop.AddComponent<SpriteRenderer>();
