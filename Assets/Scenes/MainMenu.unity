@@ -304,8 +304,10 @@ MonoBehaviour:
   animator: {fileID: 6428630}
   walkSpeed: 1
   idleTime: 1
-  direction: {x: 0, y: 0}
+  mouseDirection: {x: 0, y: 0}
+  keyboardDirection: {x: 0, y: 0}
   idleDirection: {x: 0, y: -2}
+  isShooting: 0
 --- !u!61 &6428627
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -662,8 +664,10 @@ MonoBehaviour:
   animator: {fileID: 25501671}
   walkSpeed: 1
   idleTime: 1
-  direction: {x: 0, y: 0}
+  mouseDirection: {x: 0, y: 0}
+  keyboardDirection: {x: 0, y: 0}
   idleDirection: {x: 0, y: -2}
+  isShooting: 0
 --- !u!61 &25501669
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -833,8 +837,10 @@ MonoBehaviour:
   animator: {fileID: 46031167}
   walkSpeed: 1
   idleTime: 1
-  direction: {x: 0, y: 0}
+  mouseDirection: {x: 0, y: 0}
+  keyboardDirection: {x: 0, y: 0}
   idleDirection: {x: 0, y: -2}
+  isShooting: 0
 --- !u!61 &46031165
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1084,8 +1090,10 @@ MonoBehaviour:
   animator: {fileID: 94755623}
   walkSpeed: 1
   idleTime: 1
-  direction: {x: 0, y: 0}
+  mouseDirection: {x: 0, y: 0}
+  keyboardDirection: {x: 0, y: 0}
   idleDirection: {x: 0, y: -2}
+  isShooting: 0
 --- !u!61 &94755621
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1330,8 +1338,10 @@ MonoBehaviour:
   animator: {fileID: 133326908}
   walkSpeed: 1
   idleTime: 1
-  direction: {x: 0, y: 0}
+  mouseDirection: {x: 0, y: 0}
+  keyboardDirection: {x: 0, y: 0}
   idleDirection: {x: 0, y: -2}
+  isShooting: 0
 --- !u!61 &133326906
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1924,8 +1934,10 @@ MonoBehaviour:
   animator: {fileID: 208517462}
   walkSpeed: 1
   idleTime: 1
-  direction: {x: 0, y: 0}
+  mouseDirection: {x: 0, y: 0}
+  keyboardDirection: {x: 0, y: 0}
   idleDirection: {x: 0, y: -2}
+  isShooting: 0
 --- !u!61 &208517460
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2335,8 +2347,10 @@ MonoBehaviour:
   animator: {fileID: 253178309}
   walkSpeed: 1
   idleTime: 1
-  direction: {x: 0, y: 0}
+  mouseDirection: {x: 0, y: 0}
+  keyboardDirection: {x: 0, y: 0}
   idleDirection: {x: 0, y: -2}
+  isShooting: 0
 --- !u!61 &253178307
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2905,8 +2919,10 @@ MonoBehaviour:
   animator: {fileID: 296059717}
   walkSpeed: 1
   idleTime: 1
-  direction: {x: 0, y: 0}
+  mouseDirection: {x: 0, y: 0}
+  keyboardDirection: {x: 0, y: 0}
   idleDirection: {x: 0, y: -2}
+  isShooting: 0
 --- !u!61 &296059715
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3157,8 +3173,10 @@ MonoBehaviour:
   animator: {fileID: 301534962}
   walkSpeed: 1
   idleTime: 1
-  direction: {x: 0, y: 0}
+  mouseDirection: {x: 0, y: 0}
+  keyboardDirection: {x: 0, y: 0}
   idleDirection: {x: 0, y: -2}
+  isShooting: 0
 --- !u!61 &301534960
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3763,8 +3781,10 @@ MonoBehaviour:
   animator: {fileID: 384459999}
   walkSpeed: 1
   idleTime: 1
-  direction: {x: 0, y: 0}
+  mouseDirection: {x: 0, y: 0}
+  keyboardDirection: {x: 0, y: 0}
   idleDirection: {x: 0, y: -2}
+  isShooting: 0
 --- !u!61 &384459997
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4262,8 +4282,10 @@ MonoBehaviour:
   animator: {fileID: 443269617}
   walkSpeed: 1
   idleTime: 1
-  direction: {x: 0, y: 0}
+  mouseDirection: {x: 0, y: 0}
+  keyboardDirection: {x: 0, y: 0}
   idleDirection: {x: 0, y: -2}
+  isShooting: 0
 --- !u!61 &443269615
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4358,7 +4380,7 @@ SpriteRenderer:
   m_Size: {x: 9.6, y: 5.4}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!95 &443269617
@@ -4433,8 +4455,10 @@ MonoBehaviour:
   animator: {fileID: 450136686}
   walkSpeed: 1
   idleTime: 1
-  direction: {x: 0, y: 0}
+  mouseDirection: {x: 0, y: 0}
+  keyboardDirection: {x: 0, y: 0}
   idleDirection: {x: 0, y: -2}
+  isShooting: 0
 --- !u!61 &450136684
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4845,8 +4869,10 @@ MonoBehaviour:
   animator: {fileID: 524328301}
   walkSpeed: 1
   idleTime: 1
-  direction: {x: 0, y: 0}
+  mouseDirection: {x: 0, y: 0}
+  keyboardDirection: {x: 0, y: 0}
   idleDirection: {x: 0, y: -2}
+  isShooting: 0
 --- !u!61 &524328299
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5726,8 +5752,10 @@ MonoBehaviour:
   animator: {fileID: 648988300}
   walkSpeed: 1
   idleTime: 1
-  direction: {x: 0, y: 0}
+  mouseDirection: {x: 0, y: 0}
+  keyboardDirection: {x: 0, y: 0}
   idleDirection: {x: 0, y: -2}
+  isShooting: 0
 --- !u!61 &648988297
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5924,8 +5952,10 @@ MonoBehaviour:
   animator: {fileID: 658120506}
   walkSpeed: 1
   idleTime: 1
-  direction: {x: 0, y: 0}
+  mouseDirection: {x: 0, y: 0}
+  keyboardDirection: {x: 0, y: 0}
   idleDirection: {x: 0, y: -2}
+  isShooting: 0
 --- !u!61 &658120504
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6182,8 +6212,10 @@ MonoBehaviour:
   animator: {fileID: 662016499}
   walkSpeed: 1
   idleTime: 1
-  direction: {x: 0, y: 0}
+  mouseDirection: {x: 0, y: 0}
+  keyboardDirection: {x: 0, y: 0}
   idleDirection: {x: 0, y: -2}
+  isShooting: 0
 --- !u!61 &662016496
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6726,8 +6758,10 @@ MonoBehaviour:
   animator: {fileID: 703537321}
   walkSpeed: 1
   idleTime: 1
-  direction: {x: 0, y: 0}
+  mouseDirection: {x: 0, y: 0}
+  keyboardDirection: {x: 0, y: 0}
   idleDirection: {x: 0, y: -2}
+  isShooting: 0
 --- !u!61 &703537319
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -7845,8 +7879,10 @@ MonoBehaviour:
   animator: {fileID: 857565242}
   walkSpeed: 1
   idleTime: 1
-  direction: {x: 0, y: 0}
+  mouseDirection: {x: 0, y: 0}
+  keyboardDirection: {x: 0, y: 0}
   idleDirection: {x: 0, y: -2}
+  isShooting: 0
 --- !u!61 &857565240
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -8136,8 +8172,10 @@ MonoBehaviour:
   animator: {fileID: 902457787}
   walkSpeed: 1
   idleTime: 1
-  direction: {x: 0, y: 0}
+  mouseDirection: {x: 0, y: 0}
+  keyboardDirection: {x: 0, y: 0}
   idleDirection: {x: 0, y: -2}
+  isShooting: 0
 --- !u!61 &902457785
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -8307,8 +8345,10 @@ MonoBehaviour:
   animator: {fileID: 911502945}
   walkSpeed: 1
   idleTime: 1
-  direction: {x: 0, y: 0}
+  mouseDirection: {x: 0, y: 0}
+  keyboardDirection: {x: 0, y: 0}
   idleDirection: {x: 0, y: -2}
+  isShooting: 0
 --- !u!61 &911502943
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -9034,8 +9074,10 @@ MonoBehaviour:
   animator: {fileID: 1060916661}
   walkSpeed: 1
   idleTime: 1
-  direction: {x: 0, y: 0}
+  mouseDirection: {x: 0, y: 0}
+  keyboardDirection: {x: 0, y: 0}
   idleDirection: {x: 0, y: -2}
+  isShooting: 0
 --- !u!61 &1060916658
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -9456,8 +9498,10 @@ MonoBehaviour:
   animator: {fileID: 1091926894}
   walkSpeed: 1
   idleTime: 1
-  direction: {x: 0, y: 0}
+  mouseDirection: {x: 0, y: 0}
+  keyboardDirection: {x: 0, y: 0}
   idleDirection: {x: 0, y: -2}
+  isShooting: 0
 --- !u!61 &1091926892
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -9781,8 +9825,10 @@ MonoBehaviour:
   animator: {fileID: 1141667777}
   walkSpeed: 1
   idleTime: 1
-  direction: {x: 0, y: 0}
+  mouseDirection: {x: 0, y: 0}
+  keyboardDirection: {x: 0, y: 0}
   idleDirection: {x: 0, y: -2}
+  isShooting: 0
 --- !u!61 &1141667775
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -9952,8 +9998,10 @@ MonoBehaviour:
   animator: {fileID: 1145658867}
   walkSpeed: 1
   idleTime: 1
-  direction: {x: 0, y: 0}
+  mouseDirection: {x: 0, y: 0}
+  keyboardDirection: {x: 0, y: 0}
   idleDirection: {x: 0, y: -2}
+  isShooting: 0
 --- !u!61 &1145658865
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -10048,7 +10096,7 @@ SpriteRenderer:
   m_Size: {x: 9.6, y: 5.4}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!95 &1145658867
@@ -10281,8 +10329,10 @@ MonoBehaviour:
   animator: {fileID: 1184327184}
   walkSpeed: 1
   idleTime: 1
-  direction: {x: 0, y: 0}
+  mouseDirection: {x: 0, y: 0}
+  keyboardDirection: {x: 0, y: 0}
   idleDirection: {x: 0, y: -2}
+  isShooting: 0
 --- !u!61 &1184327182
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -10566,8 +10616,10 @@ MonoBehaviour:
   animator: {fileID: 1210393822}
   walkSpeed: 1
   idleTime: 1
-  direction: {x: 0, y: 0}
+  mouseDirection: {x: 0, y: 0}
+  keyboardDirection: {x: 0, y: 0}
   idleDirection: {x: 0, y: -2}
+  isShooting: 0
 --- !u!61 &1210393820
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -11244,8 +11296,10 @@ MonoBehaviour:
   animator: {fileID: 1387863961}
   walkSpeed: 1
   idleTime: 1
-  direction: {x: 0, y: 0}
+  mouseDirection: {x: 0, y: 0}
+  keyboardDirection: {x: 0, y: 0}
   idleDirection: {x: 0, y: -2}
+  isShooting: 0
 --- !u!61 &1387863959
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -11340,7 +11394,7 @@ SpriteRenderer:
   m_Size: {x: 9.6, y: 5.4}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!95 &1387863961
@@ -11807,8 +11861,10 @@ MonoBehaviour:
   animator: {fileID: 1467770765}
   walkSpeed: 1
   idleTime: 1
-  direction: {x: 0, y: 0}
+  mouseDirection: {x: 0, y: 0}
+  keyboardDirection: {x: 0, y: 0}
   idleDirection: {x: 0, y: -2}
+  isShooting: 0
 --- !u!61 &1467770763
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -11903,7 +11959,7 @@ SpriteRenderer:
   m_Size: {x: 9.6, y: 5.4}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!95 &1467770765
@@ -13599,7 +13655,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Carriage
+  m_Text: Aerosabr
 --- !u!222 &1673339793
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -13659,8 +13715,10 @@ MonoBehaviour:
   animator: {fileID: 1711494501}
   walkSpeed: 1
   idleTime: 1
-  direction: {x: 0, y: 0}
+  mouseDirection: {x: 0, y: 0}
+  keyboardDirection: {x: 0, y: 0}
   idleDirection: {x: 0, y: -2}
+  isShooting: 0
 --- !u!61 &1711494499
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -14104,8 +14162,10 @@ MonoBehaviour:
   animator: {fileID: 1757811617}
   walkSpeed: 1
   idleTime: 1
-  direction: {x: 0, y: 0}
+  mouseDirection: {x: 0, y: 0}
+  keyboardDirection: {x: 0, y: 0}
   idleDirection: {x: 0, y: -2}
+  isShooting: 0
 --- !u!61 &1757811615
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -14275,8 +14335,10 @@ MonoBehaviour:
   animator: {fileID: 1820268543}
   walkSpeed: 1
   idleTime: 1
-  direction: {x: 0, y: 0}
+  mouseDirection: {x: 0, y: 0}
+  keyboardDirection: {x: 0, y: 0}
   idleDirection: {x: 0, y: -2}
+  isShooting: 0
 --- !u!61 &1820268541
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -15162,8 +15224,10 @@ MonoBehaviour:
   animator: {fileID: 2001698731}
   walkSpeed: 1
   idleTime: 1
-  direction: {x: 0, y: 0}
+  mouseDirection: {x: 0, y: 0}
+  keyboardDirection: {x: 0, y: 0}
   idleDirection: {x: 0, y: -2}
+  isShooting: 0
 --- !u!61 &2001698729
 BoxCollider2D:
   m_ObjectHideFlags: 0

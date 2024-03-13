@@ -20,7 +20,7 @@ namespace Cainos.PixelArtTopDown_Basic
 
         private void Update()
         {
-            if(Input.GetMouseButtonDown(0) && !isShooting)
+            if(Input.GetMouseButtonDown(1) && !isShooting)
             {
                 body.velocity = new Vector2(0,0);
                 isShooting = true;

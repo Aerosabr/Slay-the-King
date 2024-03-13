@@ -1032,6 +1032,7 @@ MonoBehaviour:
   idleTime: 1
   direction: {x: 0, y: 0}
   idleDirection: {x: 0, y: 0}
+  isShooting: 0
 --- !u!50 &182377142
 Rigidbody2D:
   serializedVersion: 4
@@ -1235,8 +1236,10 @@ MonoBehaviour:
   animator: {fileID: 182377147}
   walkSpeed: 2
   idleTime: 1
-  direction: {x: 0, y: 0}
+  mouseDirection: {x: 0, y: 0}
+  keyboardDirection: {x: 0, y: 0}
   idleDirection: {x: 0, y: 0}
+  isShooting: 0
 --- !u!1 &195774969
 GameObject:
   m_ObjectHideFlags: 0
@@ -7361,8 +7364,10 @@ MonoBehaviour:
   animator: {fileID: 489588970}
   walkSpeed: 2
   idleTime: 1
-  direction: {x: 0, y: 0}
+  mouseDirection: {x: 0, y: 0}
+  keyboardDirection: {x: 0, y: 0}
   idleDirection: {x: 0, y: 0}
+  isShooting: 0
 --- !u!61 &489588968
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -7726,8 +7731,10 @@ MonoBehaviour:
   animator: {fileID: 524681734}
   walkSpeed: 2
   idleTime: 1
-  direction: {x: 0, y: 0}
+  mouseDirection: {x: 0, y: 0}
+  keyboardDirection: {x: 0, y: 0}
   idleDirection: {x: 0, y: 0}
+  isShooting: 0
 --- !u!1 &556672192
 GameObject:
   m_ObjectHideFlags: 0
@@ -7868,6 +7875,7 @@ MonoBehaviour:
   idleTime: 1
   direction: {x: 0, y: 0}
   idleDirection: {x: 0, y: 0}
+  isShooting: 0
 --- !u!50 &566216875
 Rigidbody2D:
   serializedVersion: 4
@@ -8013,8 +8021,10 @@ MonoBehaviour:
   animator: {fileID: 601749714}
   walkSpeed: 2
   idleTime: 1
-  direction: {x: 0, y: 0}
+  mouseDirection: {x: 0, y: 0}
+  keyboardDirection: {x: 0, y: 0}
   idleDirection: {x: 0, y: 0}
+  isShooting: 0
 --- !u!61 &601749712
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -8647,7 +8657,7 @@ Animator:
   m_GameObject: {fileID: 655732436}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: caac2bca99302304c8963dc11b802d13, type: 2}
+  m_Controller: {fileID: 9100000, guid: c738820d7e268cc41897d8cd71f88fe5, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -8674,8 +8684,10 @@ MonoBehaviour:
   animator: {fileID: 655732442}
   walkSpeed: 2
   idleTime: 1
-  direction: {x: 0, y: 0}
+  mouseDirection: {x: 0, y: 0}
+  keyboardDirection: {x: 0, y: 0}
   idleDirection: {x: 0, y: 0}
+  isShooting: 0
 --- !u!1 &685437794
 GameObject:
   m_ObjectHideFlags: 0
@@ -10405,8 +10417,10 @@ MonoBehaviour:
   animator: {fileID: 1087502080}
   walkSpeed: 2
   idleTime: 1
-  direction: {x: 0, y: 0}
+  mouseDirection: {x: 0, y: 0}
+  keyboardDirection: {x: 0, y: 0}
   idleDirection: {x: 0, y: 0}
+  isShooting: 0
 --- !u!61 &1087502078
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -10493,7 +10507,7 @@ SpriteRenderer:
   m_SortingLayerID: -526565187
   m_SortingLayer: 2
   m_SortingOrder: 3
-  m_Sprite: {fileID: 21300000, guid: 1718fec08378a7f42a1e638d725c3a0f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0d62d8d0295e7464cb6d374769fbab66, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -16584,8 +16598,10 @@ MonoBehaviour:
   animator: {fileID: 1555709757}
   walkSpeed: 2
   idleTime: 1
-  direction: {x: 0, y: 0}
+  mouseDirection: {x: 0, y: 0}
+  keyboardDirection: {x: 0, y: 0}
   idleDirection: {x: 0, y: 0}
+  isShooting: 0
 --- !u!1 &1563632484
 GameObject:
   m_ObjectHideFlags: 0
@@ -18653,8 +18669,10 @@ MonoBehaviour:
   animator: {fileID: 2029842078}
   walkSpeed: 2
   idleTime: 1
-  direction: {x: 0, y: 0}
+  mouseDirection: {x: 0, y: 0}
+  keyboardDirection: {x: 0, y: 0}
   idleDirection: {x: 0, y: 0}
+  isShooting: 0
 --- !u!61 &2029842076
 BoxCollider2D:
   m_ObjectHideFlags: 0
