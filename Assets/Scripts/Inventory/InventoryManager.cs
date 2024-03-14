@@ -5,31 +5,52 @@ using UnityEngine;
 public class InventoryManager : MonoBehaviour
 {
     public GameObject InventoryMenu;
-    private bool menuActivated;
+    public GameObject EquipmentMenu;
     public ItemSlot[] itemSlot;
+    public EquipmentSlot[] equipmentSlot;
+    public EquippedSlot[] equippedSlot;
 
     public ItemSO[] itemSOs;
 
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Inventory") && menuActivated)
+        if (Input.GetButtonDown("InventoryMenu"))
+            Inventory();
+        if (Input.GetButtonDown("EquipmentMenu"))
+            Equipment();
+    }
+
+    void Inventory()
+    {
+        if (InventoryMenu.activeSelf)
         {
             InventoryMenu.SetActive(false);
-            menuActivated = false;
-            Debug.Log("Inventory toggled: " + menuActivated);
+            EquipmentMenu.SetActive(false);
         }
-        else if (Input.GetButtonDown("Inventory") && !menuActivated)
+        else
         {
             InventoryMenu.SetActive(true);
-            menuActivated = true;
-            Debug.Log("Inventory toggled: " + menuActivated);
+            EquipmentMenu.SetActive(false);
+        }
+    }
+
+    void Equipment()
+    {
+        if (EquipmentMenu.activeSelf)
+        {
+            InventoryMenu.SetActive(false);
+            EquipmentMenu.SetActive(false);
+        }
+        else
+        {
+            InventoryMenu.SetActive(false);
+            EquipmentMenu.SetActive(true);
         }
     }
 
@@ -46,20 +67,39 @@ public class InventoryManager : MonoBehaviour
         return false;
     }
 
-    public int AddItem(string itemName, int quantity, Sprite itemSprite, string itemDescription)
+    public int AddItem(string itemName, int quantity, Sprite itemSprite, string itemDescription, ItemType itemType)
     {
-        for (int i = 0; i < itemSlot.Length; i++)
+        if(itemType == ItemType.consumable || itemType == ItemType.collectible)
         {
-            if (itemSlot[i].isFull == false && itemSlot[i].itemName == itemName || itemSlot[i].quantity == 0)
+            for (int i = 0; i < itemSlot.Length; i++)
             {
-                int leftOverItems = itemSlot[i].AddItem(itemName, quantity, itemSprite, itemDescription);
-                if (leftOverItems > 0)
-                    leftOverItems = AddItem(itemName, leftOverItems, itemSprite, itemDescription);
+                if (itemSlot[i].isFull == false && itemSlot[i].itemName == itemName || itemSlot[i].quantity == 0)
+                {
+                    int leftOverItems = itemSlot[i].AddItem(itemName, quantity, itemSprite, itemDescription, itemType);
+                    if (leftOverItems > 0)
+                        leftOverItems = AddItem(itemName, leftOverItems, itemSprite, itemDescription, itemType);
 
-                return leftOverItems;
+                    return leftOverItems;
+                }
             }
+            return quantity;
         }
-        return quantity;
+        else
+        {
+            for (int i = 0; i < equipmentSlot.Length; i++)
+            {
+                if (equipmentSlot[i].isFull == false && equipmentSlot[i].itemName == itemName || equipmentSlot[i].quantity == 0)
+                {
+                    int leftOverItems = equipmentSlot[i].AddItem(itemName, quantity, itemSprite, itemDescription, itemType);
+                    if (leftOverItems > 0)
+                        leftOverItems = AddItem(itemName, leftOverItems, itemSprite, itemDescription, itemType);
+
+                    return leftOverItems;
+                }
+            }
+            return quantity;
+        }
+
     }
 
     public void DeselectAllSlots()
@@ -69,5 +109,29 @@ public class InventoryManager : MonoBehaviour
             itemSlot[i].selectedShader.SetActive(false);
             itemSlot[i].thisItemSelected = false;
         }
+
+        for (int i = 0; i < equipmentSlot.Length; i++)
+        {
+            equipmentSlot[i].selectedShader.SetActive(false);
+            equipmentSlot[i].thisItemSelected = false;
+        }
+
+        for (int i = 0; i < equippedSlot.Length; i++)
+        {
+            equippedSlot[i].selectedShader.SetActive(false);
+            equippedSlot[i].thisItemSelected = false;
+        }
     }
 }
+
+public enum ItemType
+{
+    consumable,
+    collectible,
+    helmet,
+    chest,
+    legs,
+    weapon,
+    gloves,
+    boots,
+};
