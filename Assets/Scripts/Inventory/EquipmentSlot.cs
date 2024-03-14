@@ -30,10 +30,12 @@ public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
     public bool thisItemSelected;
 
     private InventoryManager inventoryManager;
+    private EquipmentSOLibrary equipmentSOLibrary;
 
     private void Start()
     {
         inventoryManager = GameObject.Find("InventoryCanvas").GetComponent<InventoryManager>();
+        equipmentSOLibrary = GameObject.Find("InventoryCanvas").GetComponent<EquipmentSOLibrary>();
     }
 
     public int AddItem(string itemName, int quantity, Sprite itemSprite, string itemDescription, ItemType itemType)
@@ -59,6 +61,7 @@ public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
     {
         if (eventData.button == PointerEventData.InputButton.Left)
         {
+            /*
             if (thisItemSelected)
             {
                 EquipGear();
@@ -69,6 +72,8 @@ public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
                 selectedShader.SetActive(true);
                 thisItemSelected = true;
             }
+            */
+            OnLeftClick();
         }
         if (eventData.button == PointerEventData.InputButton.Right)
         {
@@ -96,20 +101,38 @@ public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
 
     public void OnLeftClick()
     {
-        if (thisItemSelected)
+        if (isFull)
         {
-            Debug.Log($"Using item: {itemName}");
-            bool usable = inventoryManager.UseItem(itemName);
-            if (usable)
+            if (thisItemSelected)
             {
-                this.quantity -= 1;
-                if (this.quantity <= 0)
-                    EmptySlot();
+                /*
+                Debug.Log($"Using item: {itemName}");
+                bool usable = inventoryManager.UseItem(itemName);
+                if (usable)
+                {
+                    this.quantity -= 1;
+                    if (this.quantity <= 0)
+                        EmptySlot();
+                }
+                */
+                EquipGear();
+            }
+
+            else
+            {
+                inventoryManager.DeselectAllSlots();
+                selectedShader.SetActive(true);
+                thisItemSelected = true;
+                for (int i = 0; i < equipmentSOLibrary.equipmentSO.Length; i++)
+                {
+                    if (equipmentSOLibrary.equipmentSO[i].itemName == this.itemName)
+                        equipmentSOLibrary.equipmentSO[i].PreviewEquipment();
+                }
             }
         }
-
         else
         {
+            GameObject.Find("StatManager").GetComponent<PlayerStats>().TurnOffPreviewStats();
             inventoryManager.DeselectAllSlots();
             selectedShader.SetActive(true);
             thisItemSelected = true;

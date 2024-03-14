@@ -63,6 +63,12 @@ public class EquippedSlot : MonoBehaviour, IPointerClickHandler
             inventoryManager.DeselectAllSlots();
             selectedShader.SetActive(true);
             thisItemSelected = true;
+
+            for (int i = 0; i < this.equipmentSOLibrary.equipmentSO.Length; i++)
+            {
+                if (equipmentSOLibrary.equipmentSO[i].itemName == this.itemName)
+                    equipmentSOLibrary.equipmentSO[i].PreviewEquipment();
+            }
         }
     }
 
@@ -112,5 +118,7 @@ public class EquippedSlot : MonoBehaviour, IPointerClickHandler
             if (equipmentSOLibrary.equipmentSO[i].itemName == this.itemName)
                 equipmentSOLibrary.equipmentSO[i].UnEquipItem();
         }
+
+        GameObject.Find("StatManager").GetComponent<PlayerStats>().TurnOffPreviewStats();
     }
 }

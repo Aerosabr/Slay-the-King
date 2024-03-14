@@ -7,6 +7,13 @@ public class EquipmentSO : ScriptableObject
 {
     public string itemName;
     public int strength, wisdom, armor, resistance, dexterity, luck;
+    [SerializeField]
+    private Sprite itemSprite;
+
+    public void PreviewEquipment()
+    {
+        GameObject.Find("StatManager").GetComponent<PlayerStats>().PreviewEquipmentStats(strength, wisdom, armor, resistance, dexterity, luck, itemSprite);
+    }
     
     public void EquipItem()
     {
