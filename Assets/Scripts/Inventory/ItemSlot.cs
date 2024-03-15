@@ -15,6 +15,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     public bool isFull;
     public string itemDescription;
     public Sprite emptySprite;
+    public ItemType itemType;
 
     [SerializeField]
     private int maxNumberOfItems;
@@ -41,12 +42,13 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         inventoryManager = GameObject.Find("InventoryCanvas").GetComponent<InventoryManager>();
     }
 
-    public int AddItem(string itemName, int quantity, Sprite itemSprite, string itemDescription)
+    public int AddItem(string itemName, int quantity, Sprite itemSprite, string itemDescription, ItemType itemType)
     {
         //Check if slot is already full
         if (isFull)
             return quantity;
 
+        this.itemType = itemType;
         this.itemName = itemName;
         this.itemSprite = itemSprite;
         this.itemDescription = itemDescription;
@@ -130,6 +132,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         newItem.itemName = itemName;
         newItem.sprite = itemSprite;
         newItem.itemDescription = itemDescription;
+        newItem.itemType = this.itemType;
 
         //Create and modify the SR
         SpriteRenderer sr = itemToDrop.AddComponent<SpriteRenderer>();
