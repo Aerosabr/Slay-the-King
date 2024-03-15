@@ -9,102 +9,47 @@ namespace Cainos.PixelArtTopDown_Basic
 
         public Rigidbody2D body;
         public SpriteRenderer spriteRenderer;
+       public Animator animator;
 
-        public List<Sprite> nSprites;
-        public List<Sprite> neSprites;
-        public List<Sprite> eSprites;
-        public List<Sprite> seSprites;
-        public List<Sprite> sSprites;
-
-        public List<Sprite> swSprites;
-        public List<Sprite> wSprites;
-        public List<Sprite> nwSprites;
         public float walkSpeed;
-        public float frameRate;
         public float idleTime;
         public Vector2 direction;
+        public Vector2 idleDirection;
 
-        private void Start()
-        {
-        }
-
+        public bool isShooting = false;
 
         private void Update()
         {
-            direction = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")).normalized;
-
-            body.velocity = direction * walkSpeed;
-
-            HandleSpriteFlip();
-
-            List<Sprite> directionSprites = GetSpriteDirection();
-            
-            if(directionSprites != null)
+            if(Input.GetMouseButtonDown(1) && !isShooting)
             {
-                float playTime = Time.time - idleTime;
-                int totalFrames = (int)(playTime*frameRate);
-                int frame = totalFrames % directionSprites.Count;
-                spriteRenderer.sprite = directionSprites[frame];
+                body.velocity = new Vector2(0,0);
+                isShooting = true;
+                StartCoroutine(Shoot());
             }
-            else
+            if(!isShooting)
             {
+                direction = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")).normalized;
+                body.velocity = direction * walkSpeed;
 
+                // HandleSpriteFlip();
+                UpdateChildPositions();
             }
         }
-
-        public void HandleSpriteFlip()
+        private IEnumerator Shoot()
         {
-            if(!spriteRenderer.flipX && direction.x < 0 )
-            {
-                spriteRenderer.flipX = true;
-            }
-            else if(spriteRenderer.flipX && direction.x > 0)
-            {
-                spriteRenderer.flipX = false;
-            }
+            yield return new WaitForSeconds(1.1f);
+            isShooting = false;
         }
-
-        public List<Sprite> GetSpriteDirection()
+        private void UpdateChildPositions()
         {
-            List<Sprite> selectedSprites = null;
-            if(direction.y > 0)
+            // Iterate through all child objects
+            for (int i = 0; i < transform.childCount; i++)
             {
-                if(Mathf.Abs(direction.x) > 0)
-                {
-                    selectedSprites = neSprites;
-                }
-                else if(Mathf.Abs(direction.x) == 0)
-                {
-                    selectedSprites = nSprites;
-                }
-                else if(Mathf.Abs(direction.x) < 0)
-                {
-                    selectedSprites = nwSprites;
-                }
+                Transform child = transform.GetChild(i);
+
+                // Update child position to match the main body
+                child.position = transform.position;
             }
-            else if(direction.y < 0)
-            {
-                if(Mathf.Abs(direction.x) > 0)
-                {
-                    selectedSprites = seSprites;
-                }
-                else if(Mathf.Abs(direction.x) == 0)
-                {
-                    selectedSprites = sSprites;
-                }
-                else if(Mathf.Abs(direction.x) < 0)
-                {
-                    selectedSprites = swSprites;
-                }
-            }
-            else
-            {
-                if(Mathf.Abs(direction.x) > 0)
-                {
-                    selectedSprites = eSprites;
-                }
-            }
-            return selectedSprites;
         }
     }
 }
