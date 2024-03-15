@@ -41,8 +41,6 @@ public class DoorQueueManager : MonoBehaviour
 
             if (elapsedTime >= timerDuration)
             {
-                // Timer has reached its duration
-                Debug.Log("Timer has elapsed!");
 
                 // Optionally, perform actions when the timer reaches its duration
                 // ...
