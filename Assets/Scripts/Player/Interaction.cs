@@ -24,6 +24,8 @@ public class Interaction : MonoBehaviour
 
         if (collider != null && collider.CompareTag("Door"))
         {
+            // Player is on a door
+            Debug.Log("Player is on a door!");
             collider.GetComponent<Door>().QueuePlayer(this);
             door = collider.GetComponent<Door>();
         }
@@ -42,6 +44,8 @@ public class Interaction : MonoBehaviour
         }
         else
         {
+            // Player is off any door
+            Debug.Log("Player is off any door!");
             Prompt.gameObject.SetActive(false);
             if(door != null)
             {
