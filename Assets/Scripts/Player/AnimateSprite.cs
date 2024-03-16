@@ -4,26 +4,26 @@ using UnityEngine;
 
 public class AnimateSprite : MonoBehaviour
 {
-    //public SpriteRenderer spriteRenderer;
-    public float idleTime;
-    public Vector2 idleDirection;
+    public SpriteRenderer spriteRenderer;
     public Animator animator;
     public float walkSpeed;
+    public float idleTime;
     public Vector2 mouseDirection;
     public Vector2 keyboardDirection;
+    public Vector2 idleDirection;
 
-    public bool isAttacking = false;
+    public bool isShooting = false;
 
     private void Update()
     {
         // Calculate the direction from the character to the mouse cursor
 
-        if(Input.GetMouseButtonDown(1) && !isAttacking)
+        if(Input.GetMouseButtonDown(1) && !isShooting)
         {
-            isAttacking = true;
+            isShooting = true;
             StartCoroutine(Shoot());
         }
-        if(!isAttacking)
+        if(!isShooting)
         {
             Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             mouseDirection = (mousePosition - transform.position).normalized;
@@ -35,15 +35,15 @@ public class AnimateSprite : MonoBehaviour
         // HandleSpriteFlip();
     }
 
+
     private IEnumerator Shoot()
     {
         //Shoot!
         animator.SetFloat("attackSpeed", 1);
         PlayAnimation("Shoot");
         yield return new WaitForSeconds(1.1f);
-        isAttacking = false;
+        isShooting = false;
     }
-
     private void UpdateAnimatorParameters()
     {
         animator.SetFloat("speed", walkSpeed);
@@ -62,7 +62,7 @@ public class AnimateSprite : MonoBehaviour
 
     public void PlayAnimation(string Name)
     {
-        float angle = Mathf.Atan2(keyboardDirection.y, keyboardDirection.x) * Mathf.Rad2Deg;
+        float angle = Mathf.Atan2(mouseDirection.y, mouseDirection.x) * Mathf.Rad2Deg;
         if (angle > -11.25f && angle <= 11.25f)
         {
             animator.Play(Name + "E");
