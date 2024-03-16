@@ -1212,7 +1212,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: 646bd14d6057428478d555f10bd8a8af, type: 3}
+  m_Actions: {fileID: 0}
   m_NotificationBehavior: 0
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
@@ -1227,7 +1227,7 @@ MonoBehaviour:
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: Player
+  m_DefaultActionMap: 
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!114 &182377151
@@ -1243,12 +1243,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rigidbody: {fileID: 0}
-  _speed: 3
+  _speed: 0
   _movementInput: {x: 0, y: 0}
   _smoothedMovementInput: {x: 0, y: 0}
   _movementInputSmoothVelocity: {x: 0, y: 0}
   Sprites: []
-  walkSpeed: 2
+  walkSpeed: 0
   mouseDirection: {x: 0, y: 0}
   keyboardDirection: {x: 0, y: 0}
   idleDirection: {x: 0, y: 0}
@@ -1257,7 +1257,7 @@ MonoBehaviour:
   isAttacking: 0
   interactableLayer:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 0
   Movable: 1
 --- !u!1 &195774969
 GameObject:
