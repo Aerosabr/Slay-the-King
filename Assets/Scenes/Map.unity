@@ -1003,9 +1003,9 @@ GameObject:
   - component: {fileID: 182377143}
   - component: {fileID: 182377142}
   - component: {fileID: 182377145}
-  - component: {fileID: 182377141}
-  - component: {fileID: 182377148}
   - component: {fileID: 182377146}
+  - component: {fileID: 182377150}
+  - component: {fileID: 182377151}
   m_Layer: 8
   m_Name: Character
   m_TagString: Untagged
@@ -1013,26 +1013,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &182377141
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 182377140}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: abd146093740c5d43b5909c7913f3109, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  body: {fileID: 182377142}
-  spriteRenderer: {fileID: 182377143}
-  animator: {fileID: 182377147}
-  walkSpeed: 2
-  idleTime: 1
-  direction: {x: 0, y: 0}
-  idleDirection: {x: 0, y: 0}
-  isShooting: 0
 --- !u!50 &182377142
 Rigidbody2D:
   serializedVersion: 4
@@ -1220,7 +1200,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &182377148
+--- !u!114 &182377150
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1229,17 +1209,56 @@ MonoBehaviour:
   m_GameObject: {fileID: 182377140}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e2e1bc6baa1f1d46a4b7d9725177d6e, type: 3}
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spriteRenderer: {fileID: 182377143}
-  animator: {fileID: 182377147}
+  m_Actions: {fileID: -944628639613478452, guid: 646bd14d6057428478d555f10bd8a8af, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
+--- !u!114 &182377151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 182377140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bfba5002341d614aa4340fbab984aef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rigidbody: {fileID: 0}
+  _speed: 3
+  _movementInput: {x: 0, y: 0}
+  _smoothedMovementInput: {x: 0, y: 0}
+  _movementInputSmoothVelocity: {x: 0, y: 0}
+  Sprites: []
   walkSpeed: 2
-  idleTime: 1
   mouseDirection: {x: 0, y: 0}
   keyboardDirection: {x: 0, y: 0}
   idleDirection: {x: 0, y: 0}
-  isShooting: 0
+  isMoving: 0
+  isSprinting: 0
+  isAttacking: 0
+  interactableLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  Movable: 1
 --- !u!1 &195774969
 GameObject:
   m_ObjectHideFlags: 0
@@ -7325,7 +7344,6 @@ GameObject:
   - component: {fileID: 489588970}
   - component: {fileID: 489588969}
   - component: {fileID: 489588968}
-  - component: {fileID: 489588967}
   m_Layer: 8
   m_Name: Hand
   m_TagString: Untagged
@@ -7348,26 +7366,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 182377144}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &489588967
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 489588965}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e2e1bc6baa1f1d46a4b7d9725177d6e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spriteRenderer: {fileID: 489588969}
-  animator: {fileID: 489588970}
-  walkSpeed: 2
-  idleTime: 1
-  mouseDirection: {x: 0, y: 0}
-  keyboardDirection: {x: 0, y: 0}
-  idleDirection: {x: 0, y: 0}
-  isShooting: 0
 --- !u!61 &489588968
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -7574,7 +7572,6 @@ GameObject:
   - component: {fileID: 524681734}
   - component: {fileID: 524681733}
   - component: {fileID: 524681730}
-  - component: {fileID: 524681735}
   m_Layer: 8
   m_Name: Head
   m_TagString: Untagged
@@ -7715,26 +7712,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &524681735
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 524681728}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e2e1bc6baa1f1d46a4b7d9725177d6e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spriteRenderer: {fileID: 524681733}
-  animator: {fileID: 524681734}
-  walkSpeed: 2
-  idleTime: 1
-  mouseDirection: {x: 0, y: 0}
-  keyboardDirection: {x: 0, y: 0}
-  idleDirection: {x: 0, y: 0}
-  isShooting: 0
 --- !u!1 &556672192
 GameObject:
   m_ObjectHideFlags: 0
@@ -7782,7 +7759,6 @@ GameObject:
   - component: {fileID: 601749714}
   - component: {fileID: 601749713}
   - component: {fileID: 601749712}
-  - component: {fileID: 601749711}
   m_Layer: 8
   m_Name: Pant
   m_TagString: Untagged
@@ -7805,26 +7781,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 182377144}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &601749711
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 601749709}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e2e1bc6baa1f1d46a4b7d9725177d6e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spriteRenderer: {fileID: 601749713}
-  animator: {fileID: 601749714}
-  walkSpeed: 2
-  idleTime: 1
-  mouseDirection: {x: 0, y: 0}
-  keyboardDirection: {x: 0, y: 0}
-  idleDirection: {x: 0, y: 0}
-  isShooting: 0
 --- !u!61 &601749712
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -8327,7 +8283,6 @@ GameObject:
   - component: {fileID: 655732442}
   - component: {fileID: 655732441}
   - component: {fileID: 655732438}
-  - component: {fileID: 655732443}
   m_Layer: 8
   m_Name: Hair
   m_TagString: Untagged
@@ -8468,26 +8423,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &655732443
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 655732436}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e2e1bc6baa1f1d46a4b7d9725177d6e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spriteRenderer: {fileID: 655732441}
-  animator: {fileID: 655732442}
-  walkSpeed: 2
-  idleTime: 1
-  mouseDirection: {x: 0, y: 0}
-  keyboardDirection: {x: 0, y: 0}
-  idleDirection: {x: 0, y: 0}
-  isShooting: 0
 --- !u!1 &685437794
 GameObject:
   m_ObjectHideFlags: 0
@@ -10178,7 +10113,6 @@ GameObject:
   - component: {fileID: 1087502080}
   - component: {fileID: 1087502079}
   - component: {fileID: 1087502078}
-  - component: {fileID: 1087502077}
   m_Layer: 8
   m_Name: Weapon
   m_TagString: Untagged
@@ -10201,26 +10135,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 182377144}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1087502077
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1087502075}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e2e1bc6baa1f1d46a4b7d9725177d6e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spriteRenderer: {fileID: 1087502079}
-  animator: {fileID: 1087502080}
-  walkSpeed: 2
-  idleTime: 1
-  mouseDirection: {x: 0, y: 0}
-  keyboardDirection: {x: 0, y: 0}
-  idleDirection: {x: 0, y: 0}
-  isShooting: 0
 --- !u!61 &1087502078
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -16241,7 +16155,6 @@ GameObject:
   - component: {fileID: 1555709757}
   - component: {fileID: 1555709756}
   - component: {fileID: 1555709753}
-  - component: {fileID: 1555709758}
   m_Layer: 8
   m_Name: Shirt
   m_TagString: Untagged
@@ -16382,26 +16295,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1555709758
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1555709751}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e2e1bc6baa1f1d46a4b7d9725177d6e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spriteRenderer: {fileID: 1555709756}
-  animator: {fileID: 1555709757}
-  walkSpeed: 2
-  idleTime: 1
-  mouseDirection: {x: 0, y: 0}
-  keyboardDirection: {x: 0, y: 0}
-  idleDirection: {x: 0, y: 0}
-  isShooting: 0
 --- !u!1 &1563632484
 GameObject:
   m_ObjectHideFlags: 0
@@ -18430,7 +18323,6 @@ GameObject:
   - component: {fileID: 2029842078}
   - component: {fileID: 2029842077}
   - component: {fileID: 2029842076}
-  - component: {fileID: 2029842075}
   m_Layer: 8
   m_Name: Boot
   m_TagString: Untagged
@@ -18453,26 +18345,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 182377144}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2029842075
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2029842073}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e2e1bc6baa1f1d46a4b7d9725177d6e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spriteRenderer: {fileID: 2029842077}
-  animator: {fileID: 2029842078}
-  walkSpeed: 2
-  idleTime: 1
-  mouseDirection: {x: 0, y: 0}
-  keyboardDirection: {x: 0, y: 0}
-  idleDirection: {x: 0, y: 0}
-  isShooting: 0
 --- !u!61 &2029842076
 BoxCollider2D:
   m_ObjectHideFlags: 0
