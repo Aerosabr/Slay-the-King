@@ -15,9 +15,8 @@ public class PlayerSpriteController : MonoBehaviour
     //Sprite Animations
     public List<Animator> Sprites = new List<Animator>();
     public float walkSpeed;
-    public Vector2 mouseDirection;
     public Vector2 keyboardDirection;
-    public Vector2 idleDirection;
+    public Vector2 currentDirection;
 
     public bool isMoving;
     public bool isSprinting;
@@ -28,7 +27,6 @@ public class PlayerSpriteController : MonoBehaviour
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
-
     }
 
     private void Start()
@@ -36,7 +34,6 @@ public class PlayerSpriteController : MonoBehaviour
         Sprites.Add(gameObject.GetComponent<Animator>());
         for (int i = 0; i < 7; i++)
             Sprites.Add(gameObject.transform.GetChild(i).GetComponent<Animator>());
-
     }
 
     void FixedUpdate()
@@ -50,32 +47,14 @@ public class PlayerSpriteController : MonoBehaviour
         }
     }
 
-    //Player Attack
-    public void OnAttack()
+    public void Attack(string animation, float spriteSpeed)
     {
-        if (!isAttacking)
-        {
-            isAttacking = true;
-            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            mouseDirection = (mousePosition - transform.position).normalized;
-            keyboardDirection = mouseDirection;
-            idleDirection = keyboardDirection;
-            StartCoroutine(Attack());
-        }
-    }
-    
-    private IEnumerator Attack()
-    {
-        //Shoot!
         foreach (Animator sprite in Sprites)
-            sprite.SetFloat("attackSpeed", 2);
-
+            sprite.SetFloat("attackSpeed", spriteSpeed);
         _rigidbody.velocity = Vector2.zero;
-        PlayAnimation("Shoot");
-        yield return new WaitForSeconds(.5f);
-        isAttacking = false;
+        PlayAnimation(animation);
     }
-    
+
     //Detecting when player is sprinting
     public void OnSprintStart()
     {
@@ -120,22 +99,18 @@ public class PlayerSpriteController : MonoBehaviour
         foreach (Animator sprite in Sprites)
             sprite.SetFloat("speed", walkSpeed);
 
-
         if (isMoving)
         {
             PlayAnimation("Run");
-            idleDirection = keyboardDirection;
+            currentDirection = keyboardDirection;
         }
         else if (!isMoving)
-        {
-            keyboardDirection = idleDirection;
             PlayAnimation("Idle");
-        }
     }
 
     public void PlayAnimation(string Name)
     {
-        float angle = Mathf.Atan2(keyboardDirection.y, keyboardDirection.x) * Mathf.Rad2Deg;
+        float angle = Mathf.Atan2(currentDirection.y, currentDirection.x) * Mathf.Rad2Deg;
         switch (angle)
         {
             case float _ when angle > -11.25f && angle <= 11.25f:
