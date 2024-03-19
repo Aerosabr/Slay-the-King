@@ -5,36 +5,44 @@ using UnityEngine;
 public abstract class Class : ScriptableObject
 {
     //Main class that all character classes derive from
-    public string Name; //Class Name
-    public string Description; //Class description
+    public string Name; 
+    public string Description; 
     public Sprite ClassIcon;
-    public Sprite PassiveIcon; 
-    public Sprite AttackIcon;
-    public Sprite BlockIcon;
-    public Sprite AbilityIcon;
-    public Sprite UltimateIcon;
+    public abstract Class createClass(Class classObject);
 
-    public bool passiveActive; //Passive active state
-    public int UltimateCD; //Ultimate Cooldown
-
-    public virtual void ReduceCooldown()
-    {
-        if (UltimateCD > 0)
-            UltimateCD--;
-    }
-
+    //Passive
+    public Sprite PassiveIcon;
+    public float PassiveCD;
+    public bool passiveActive; 
     public abstract void Passive();
     public abstract List<string> PassiveDescription();
 
+    //Basic Attack
+    public Sprite AttackIcon;
+    public float AttackCD;
+    public bool attackActive;
     public abstract void Attack();
     public abstract List<string> AttackDescription();
 
-    public abstract void Block();
-    public abstract List<string> BlockDescription();
+    //Ability 1
+    public Sprite Ability1Icon;
+    public float Ability1CD;
+    public bool ability1Active;
+    public abstract void Ability1();
+    public abstract List<string> Ability1Description();
 
-    public abstract void Ability();
-    public abstract List<string> AbilityDescription();
+    //Ability 2
+    public Sprite Ability2Icon;
+    public float Ability2CD;
+    public bool ability2Active;
+    public abstract void Ability2();
+    public abstract List<string> Ability2Description();
 
+    //Ultimate
+    public Sprite UltimateIcon;
+    public float UltimateCD;
+    public bool ultimateActive;
     public abstract void Ultimate();
     public abstract List<string> UltimateDescription();
+    
 }
