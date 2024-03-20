@@ -7,8 +7,9 @@ using System.Linq;
 
 public class AnimationBuilder : MonoBehaviour
 {
-    public string parentFolder = "Assets/Resources/PlayerSprites/Hair/Hair2"; // Parent folder containing subfolders with sprites
-    public string animationsFolder = "Assets/Animations/Player/Hair2"; // Folder to save animation clips
+    public string parentFolder = "Assets/Resources/PlayerSprites/Hand/Weapon/BaseSword"; // Parent folder containing subfolders with sprites
+    public string combineFolder = "PlayerSprites/Hand/Weapon/BaseSword";
+    public string animationsFolder = "Assets/Animations/Player/Weapon/BaseSword"; // Folder to save animation clips
 
     void Awake()
     {
@@ -19,17 +20,19 @@ public class AnimationBuilder : MonoBehaviour
             // Get the name of the subdirectory (folder)
             string folderName = Path.GetFileName(subDirectory);
             string[] subDirections = Directory.GetDirectories(subDirectory);
-                
-            foreach (string subDirection in subDirections)
+            if(folderName == "DSlash")
             {
-                Debug.Log(subDirection);
-                string directionName = Path.GetFileName(subDirection);
-                directionName = char.ToUpper(directionName[0]) + directionName.Substring(1);
+                foreach (string subDirection in subDirections)
+                {
+                    Debug.Log(subDirection);
+                    string directionName = Path.GetFileName(subDirection);
+                    directionName = char.ToUpper(directionName[0]) + directionName.Substring(1);
 
-                // Load all sprites from the specified folder path using Resources.LoadAll
-                Sprite[] sprites = Resources.LoadAll<Sprite>(Path.Combine("PlayerSprites/Hair/Hair2", folderName, directionName));
-                CreateAnimationClip(folderName+directionName, sprites, subDirection);
+                    // Load all sprites from the specified folder path using Resources.LoadAll
+                    Sprite[] sprites = Resources.LoadAll<Sprite>(Path.Combine("PlayerSprites/Hand/Weapon/BaseSword", folderName, directionName));
+                    CreateAnimationClip(folderName+directionName, sprites, subDirection);
 
+                }
             }
         }
     }
@@ -59,7 +62,6 @@ public class AnimationBuilder : MonoBehaviour
         AnimationUtility.SetObjectReferenceCurve(animationClip, curveBinding, keyframes);
 
         // Save animation clip as asset
-        string animationsFolder = "Assets/Animations/Player/Hair2"; // Modify this path according to your project structure
         string animationClipPath = Path.Combine(animationsFolder, folderName + ".anim");
         AssetDatabase.CreateAsset(animationClip, animationClipPath);
         AssetDatabase.SaveAssets();
