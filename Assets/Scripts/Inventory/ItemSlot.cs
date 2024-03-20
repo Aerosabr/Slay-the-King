@@ -89,17 +89,28 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     {
         if (thisItemSelected)
         {
-            Debug.Log($"Using item: {itemName}");
-            bool usable = inventoryManager.UseItem(itemName);
-            if (usable)
+            if (string.IsNullOrEmpty(itemName) || quantity <= 0)
             {
-                this.quantity -= 1;
-                quantityText.text = this.quantity.ToString();
-                if (this.quantity <= 0)
-                    EmptySlot();
+                inventoryManager.DeselectAllSlots();
+                selectedShader.SetActive(false);
+                thisItemSelected = false;
+                ItemDescriptionNameText.text = "";
+                ItemDescriptionText.text = "";
+                itemDescriptionImage.sprite = emptySprite;
+            }
+            else
+            {
+                Debug.Log($"Using item: {itemName}");
+                bool usable = inventoryManager.UseItem(itemName);
+                if (usable)
+                {
+                    this.quantity -= 1;
+                    quantityText.text = this.quantity.ToString();
+                    if (this.quantity <= 0)
+                        EmptySlot();
+                }
             }
         }
-
         else
         {
             inventoryManager.DeselectAllSlots();
@@ -107,25 +118,47 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
             thisItemSelected = true;
             ItemDescriptionNameText.text = itemName;
             ItemDescriptionText.text = itemDescription;
-            itemDescriptionImage.sprite = itemSprite;
-            if (itemDescriptionImage.sprite == null)
-                itemDescriptionImage.sprite = emptySprite;
+            itemDescriptionImage.sprite = itemSprite ?? emptySprite;
         }
     }
+
 
     private void EmptySlot()
     {
         quantityText.enabled = false;
+        quantityText.text = "";
+
         itemImage.sprite = emptySprite;
 
         ItemDescriptionNameText.text = "";
         ItemDescriptionText.text = "";
         itemDescriptionImage.sprite = emptySprite;
+
+        itemName = "";
+        itemDescription = "";
+        itemSprite = null;
+        quantity = 0;
+        isFull = false;
+
+
+        if (selectedShader != null)
+        {
+            selectedShader.SetActive(false);
+        }
+        thisItemSelected = false;
     }
+
 
     public void OnRightClick()
     {
-        //create a new item
+        // Check if the inventory slot is empty before dropping items.
+        if (this.quantity <= 0 || string.IsNullOrEmpty(itemName))
+        {
+            // Slot is empty, so do nothing and return early.
+            return;
+        }
+
+        // Create a new item
         GameObject itemToDrop = new GameObject(itemName);
         Item newItem = itemToDrop.AddComponent<Item>();
         newItem.quantity = 1;
@@ -134,23 +167,24 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         newItem.itemDescription = itemDescription;
         newItem.itemType = this.itemType;
 
-        //Create and modify the SR
+        // Create and modify the SpriteRenderer
         SpriteRenderer sr = itemToDrop.AddComponent<SpriteRenderer>();
         sr.sprite = itemSprite;
         sr.sortingOrder = 5;
         sr.sortingLayerName = "Environment";
 
-        //Add a collider
+        // Add a collider
         itemToDrop.AddComponent<BoxCollider2D>();
 
-        //Set the location
-        itemToDrop.transform.position = GameObject.FindWithTag("Player").transform.position + new Vector3(2.0f,0,0.0f);
+        // Set the location
+        itemToDrop.transform.position = GameObject.FindWithTag("Player").transform.position + new Vector3(2.0f, 0, 0.0f);
         itemToDrop.transform.localScale = new Vector3(.5f, .5f, .5f);
 
-        //Subtract the item
+        // Subtract the item
         this.quantity -= 1;
         quantityText.text = this.quantity.ToString();
         if (this.quantity <= 0)
             EmptySlot();
     }
+
 }
