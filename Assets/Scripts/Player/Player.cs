@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour, Entity
 {
@@ -22,13 +23,19 @@ public class Player : MonoBehaviour, Entity
     public int Armor;
     public int Resistance;
     public int Dexterity;
-    
+
+    //Ability Cooldowns
+    public float AttackCD;
+    public float Ability1CD;
+    public float Ability2CD;
+    public float UltimateCD;
+
     public Player(int health)
     {
         Health = health;
     }
 
-    public void Attack()
+    public void OnAttack(InputValue inputValue)
     {
 
     }
