@@ -61,18 +61,6 @@ public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
     {
         if (eventData.button == PointerEventData.InputButton.Left)
         {
-            /*
-            if (thisItemSelected)
-            {
-                EquipGear();
-            }
-            else
-            {
-                inventoryManager.DeselectAllSlots();
-                selectedShader.SetActive(true);
-                thisItemSelected = true;
-            }
-            */
             OnLeftClick();
         }
         if (eventData.button == PointerEventData.InputButton.Right)
@@ -105,19 +93,8 @@ public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
         {
             if (thisItemSelected)
             {
-                /*
-                Debug.Log($"Using item: {itemName}");
-                bool usable = inventoryManager.UseItem(itemName);
-                if (usable)
-                {
-                    this.quantity -= 1;
-                    if (this.quantity <= 0)
-                        EmptySlot();
-                }
-                */
                 EquipGear();
             }
-
             else
             {
                 inventoryManager.DeselectAllSlots();
@@ -132,22 +109,54 @@ public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
         }
         else
         {
-            GameObject.Find("StatManager").GetComponent<PlayerStats>().TurnOffPreviewStats();
-            inventoryManager.DeselectAllSlots();
-            selectedShader.SetActive(true);
-            thisItemSelected = true;
+            if (thisItemSelected)
+            {
+                GameObject.Find("StatManager").GetComponent<PlayerStats>().TurnOffPreviewStats();
+                inventoryManager.DeselectAllSlots();
+                selectedShader.SetActive(false);
+                thisItemSelected = false;
+            }
+            else
+            {
+                GameObject.Find("StatManager").GetComponent<PlayerStats>().TurnOffPreviewStats();
+                inventoryManager.DeselectAllSlots();
+                selectedShader.SetActive(true);
+                thisItemSelected = true;
+            }
         }
     }
+
+
 
     private void EmptySlot()
     {
         itemImage.sprite = emptySprite;
+
         isFull = false;
+
+        itemName = "";
+        itemDescription = "";
+        itemSprite = null;
+        quantity = 0;
+
+        if (selectedShader != null)
+        {
+            selectedShader.SetActive(false);
+        }
+        thisItemSelected = false;
+
     }
+
 
     public void OnRightClick()
     {
-        //create a new item
+        if (this.quantity <= 0 || string.IsNullOrEmpty(itemName))
+        {
+            // If the slot is empty, exit the method early without dropping an item.
+            return;
+        }
+
+        // Create a new item
         GameObject itemToDrop = new GameObject(itemName);
         Item newItem = itemToDrop.AddComponent<Item>();
         newItem.quantity = 1;
@@ -156,22 +165,23 @@ public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
         newItem.itemDescription = itemDescription;
         newItem.itemType = this.itemType;
 
-        //Create and modify the SR
+        // Create and modify the SpriteRenderer
         SpriteRenderer sr = itemToDrop.AddComponent<SpriteRenderer>();
         sr.sprite = itemSprite;
         sr.sortingOrder = 5;
         sr.sortingLayerName = "Environment";
 
-        //Add a collider
+        // Add a collider
         itemToDrop.AddComponent<BoxCollider2D>();
 
-        //Set the location
+        // Set the location
         itemToDrop.transform.position = GameObject.FindWithTag("Player").transform.position + new Vector3(2.0f, 0, 0.0f);
         itemToDrop.transform.localScale = new Vector3(.5f, .5f, .5f);
 
-        //Subtract the item
+        // Subtract the item
         this.quantity -= 1;
         if (this.quantity <= 0)
             EmptySlot();
     }
+
 }
