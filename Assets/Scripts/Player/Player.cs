@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Player : MonoBehaviour, Entity
+public class Player : MonoBehaviour
 {
     //Class that represents each individual player's stats and inventory
     //Equipment
@@ -14,7 +14,7 @@ public class Player : MonoBehaviour, Entity
     public Weapon Weapon;
 
     //Player Class
-    public Class Class;
+    public string Class;
 
     //Stats
     public int Health;
@@ -33,11 +33,6 @@ public class Player : MonoBehaviour, Entity
     public Player(int health)
     {
         Health = health;
-    }
-
-    public void OnAttack(InputValue inputValue)
-    {
-
     }
 
     public void Damaged(int damage) 
