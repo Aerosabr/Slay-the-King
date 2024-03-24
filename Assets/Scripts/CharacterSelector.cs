@@ -12,9 +12,10 @@ public class CharacterSelector : MonoBehaviour
     public int slot;
 
     public Text characterNameText;
+
     void Start()
     {
-        //PlayerManager.instance.Players[slot].Class = characterName[counter];
+        characterNameText.text = characterName[counter];
     }
 
     public void nextName()
