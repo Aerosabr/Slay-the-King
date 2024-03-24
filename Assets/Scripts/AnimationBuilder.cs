@@ -8,19 +8,19 @@ using System.Linq;
 public class AnimationBuilder : MonoBehaviour
 {
     public string combineFolder;
-    public string animationsFolder; // Folder to save animation clips
 
     void Awake()
     {
         // Get all subdirectories (folders) within the parent folder
-        string[] subDirectories = Directory.GetDirectories("Assets/Resources/" + combineFolder);
+        string[] subDirectories = Directory.GetDirectories("Assets/Resources/PlayerSprites/" + combineFolder);
         foreach (string subDirectory in subDirectories)
         {
             // Get the name of the subdirectory (folder)
             string folderName = Path.GetFileName(subDirectory);
             string[] subDirections = Directory.GetDirectories(subDirectory);
-            // if(folderName == "CastCircle")
-            // {
+            // || folderName == "Block" || folderName == "DSlash" || folderName == "HandCast"
+            if(folderName == "Stab")
+            {
                 foreach (string subDirection in subDirections)
                 {
                     Debug.Log(subDirection);
@@ -28,11 +28,11 @@ public class AnimationBuilder : MonoBehaviour
                     directionName = char.ToUpper(directionName[0]) + directionName.Substring(1);
 
                     // Load all sprites from the specified folder path using Resources.LoadAll
-                    Sprite[] sprites = Resources.LoadAll<Sprite>(Path.Combine(combineFolder, folderName, directionName));
+                    Sprite[] sprites = Resources.LoadAll<Sprite>(Path.Combine("PlayerSprites/" + combineFolder, folderName, directionName));
                     CreateAnimationClip(folderName+directionName, sprites, subDirection);
 
                 }
-            // }
+            }
         }
     }
     private void CreateAnimationClip(string folderName, Sprite[] sprites, string parentDirectory)
@@ -61,7 +61,7 @@ public class AnimationBuilder : MonoBehaviour
         AnimationUtility.SetObjectReferenceCurve(animationClip, curveBinding, keyframes);
 
         // Save animation clip as asset
-        string animationClipPath = Path.Combine(animationsFolder, folderName + ".anim");
+        string animationClipPath = Path.Combine("Assets/Animations/Player/" + combineFolder, folderName + ".anim");
         AssetDatabase.CreateAsset(animationClip, animationClipPath);
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
