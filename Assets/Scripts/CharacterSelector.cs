@@ -14,29 +14,25 @@ public class CharacterSelector : MonoBehaviour
     public Text characterNameText;
     void Start()
     {
-        PlayerManager.instance.Players[slot].Class = characterName[counter];
+        //PlayerManager.instance.Players[slot].Class = characterName[counter];
     }
 
     public void nextName()
     {
         counter += 1;
-        if(counter == characterName.Count)
-        {
+        if (counter == characterName.Count)
             counter = 0;
-        }
-        characterNameText.text  = characterName[counter];
-        PlayerManager.instance.Players[slot].Class = characterName[counter];
+        characterNameText.text = characterName[counter];
+        PlayerManager.instance.ChangePlayerClass(slot, characterName[counter]);
     }
 
     public void prevName()
     {
         counter -= 1;
         if(counter < 0)
-        {
             counter = characterName.Count - 1;
-        }
-        characterNameText.text  = characterName[counter];
-        PlayerManager.instance.Players[slot].Class = characterName[counter];
+        characterNameText.text = characterName[counter];
+        PlayerManager.instance.ChangePlayerClass(slot, characterName[counter]);
     }
 
 }
