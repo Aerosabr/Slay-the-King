@@ -8,9 +8,8 @@ using UnityEngine.SceneManagement;
 public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager instance;
-    public List<Player> Players = new List<Player>();
-
-    public List<CharacterSelector> slots = new List<CharacterSelector>();
+    public List<GameObject> Players = new List<GameObject>();
+    public int NumPlayers = 0;
 
     void Awake()
     {
@@ -24,41 +23,39 @@ public class PlayerManager : MonoBehaviour
     }
 
     
-    public void AddPlayer()
+    public void AddPlayer(int slot)
     {
-        if (Players.Count == 4)
+        if (NumPlayers == 4)
             return;
-        List<Vector3> positions = new List<Vector3> { new Vector3(-6, 1, 0), new Vector3(-2, 1, 0), new Vector3(2.2f, 1, 0), new Vector3(6.2f, 1, 0) };
-        Player player = new Player(Random.Range(1, 100));
-        GameObject temp = Instantiate(Resources.Load<GameObject>("Prefabs/Classes/Mage"), transform);
-        temp.gameObject.transform.position = positions[Players.Count];
-        temp.gameObject.transform.localScale = new Vector3(0.75f, 0.75f, 0);
-        temp.SetActive(true);
-        Players.Add(temp.GetComponent<Player>());
 
-        temp.name = "Player" + Players.Count;
+        GameObject temp = Instantiate(Resources.Load<GameObject>("Prefabs/Classes/Berserker"), transform.GetChild(slot - 1));
+        Transform position = GameObject.Find("CharacterSlotPositions").transform.GetChild(slot - 1).transform;
+        temp.transform.position = position.transform.position;
+        temp.transform.localScale = position.transform.localScale;
+        temp.name = "Player" + slot;
+
+        NumPlayers++;
+    }
+
+    public void ChangePlayerClass(int slot, string Class)
+    {
+        Destroy(transform.GetChild(slot).GetChild(0).gameObject);
+        GameObject temp = Instantiate(Resources.Load<GameObject>("Prefabs/Classes/" + Class), transform.GetChild(slot));
+        Transform position = GameObject.Find("CharacterSlotPositions").transform.GetChild(slot).transform;
+        temp.transform.position = position.transform.position;
+        temp.transform.localScale = position.transform.localScale;
+        temp.name = "Player" + (slot + 1);
+        temp.SetActive(true);
     }
 
     public void RemovePlayer(int slot)
     {
-        Players.RemoveAt(slot);
-        Destroy(transform.GetChild(slot));
+        Destroy(transform.GetChild(slot).GetChild(0).gameObject);
     }
 
     public void StartGame()
     {
-        for (int i = 0; i < Players.Count; ++i)
-        {
-            GameObject temp = transform.GetChild(i).gameObject;
-            GameObject temp2 = Resources.Load<GameObject>("Prefabs/Classes/" + temp.GetComponent<Player>().Class);
-
-            for (int j = 0; j < 7; j++)
-            {
-                Destroy(temp.transform.GetChild(j).gameObject);
-                temp2.transform.GetChild(j).gameObject.transform.SetParent(temp.transform);
-            }
-
-        }
+        
     }
 
 }
