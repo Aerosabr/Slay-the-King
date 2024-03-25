@@ -18,6 +18,6 @@ public class EnemySpawner : MonoBehaviour
     public void SpawnEnemy(GameObject Enemy)
     {
         Instantiate(Enemy, transform.position, Quaternion.identity);
-        StartCoroutine(Spawning(Random.Range(2f, 3f)));
+        StartCoroutine(Spawning(Random.Range(50f, 50f)));
     }
 }
