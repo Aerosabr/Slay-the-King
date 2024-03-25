@@ -17,7 +17,8 @@ public class Player : MonoBehaviour
     public string Class;
 
     //Stats
-    public int Health;
+    public int maxHealth;
+    public int currentHealth;
     public int Strength;
     public int MagicalPower;
     public int Armor;
@@ -30,13 +31,21 @@ public class Player : MonoBehaviour
     public float Ability2CD;
     public float UltimateCD;
 
+    public GameObject HealthBar;
+
+    private void Awake()
+    {
+        currentHealth = maxHealth;
+    }
+
     public Player(int health)
     {
-        Health = health;
+        maxHealth = health;
     }
 
     public void Damaged(int damage) 
-    { 
-    
+    {
+        currentHealth -= damage;
+        GameObject.Find("PlayerHealth").GetComponent<RectTransform>().sizeDelta = new Vector2(((float)currentHealth / (float)maxHealth) * 280, 70);
     }
 }

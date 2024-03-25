@@ -32,11 +32,27 @@ public class FlyingEye : MonoBehaviour
             anim.SetTrigger("Death");
             Destroy(rb);
             Destroy(GetComponent<BoxCollider2D>());
-            Destroy(gameObject, 2f);
+            StartCoroutine(Death(2f));
         }
         else
             anim.SetTrigger("Damaged");
             
         DamagePopup.Create(rb.transform.position, Mathf.Abs(amount), false);
+    }
+
+    public IEnumerator Death(float time)
+    {
+        yield return new WaitForSeconds(time);
+        Destroy(gameObject);
+        Instantiate(Resources.Load<GameObject>("Prefabs/Gold"), transform.position, Quaternion.identity);
+    }
+
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log(collision.gameObject.name);
+        if (collision.gameObject.tag == "Player")
+        {
+            collision.gameObject.SendMessage("Damaged", 1);
+        }
     }
 }
