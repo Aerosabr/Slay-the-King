@@ -24,7 +24,7 @@ public class Ranger : MonoBehaviour
 
     public void Awake()
     {
-        arrowPrefab = Resources.Load<GameObject>("Prefabs/Arrow");
+        arrowPrefab = Resources.Load<GameObject>("Prefabs/Arrows");
         Cooldowns.Add(GameObject.Find("AttackCooldown"));
         Cooldowns.Add(GameObject.Find("Ability1Cooldown"));
         Cooldowns.Add(GameObject.Find("Ability2Cooldown"));
@@ -72,7 +72,7 @@ public class Ranger : MonoBehaviour
         arrowLife = 3f;
         GameObject arrow = Instantiate(arrowPrefab, player.transform.position, player.transform.rotation);
         Rigidbody2D rigidbody = arrow.GetComponent<Rigidbody2D>();
-        arrow.transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(PSC.currentDirection.y, PSC.currentDirection.x) * Mathf.Rad2Deg - 90);
+        arrow.transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(PSC.currentDirection.y, PSC.currentDirection.x) * Mathf.Rad2Deg - 90 + 270);
 
         rigidbody.velocity = arrowSpeed * MapPoint(PSC.currentDirection);
         Debug.Log(MapPoint(PSC.currentDirection));
