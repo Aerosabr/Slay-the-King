@@ -335,8 +335,8 @@ GameObject:
   - component: {fileID: 7416770549493486569}
   - component: {fileID: 7052436640326971855}
   - component: {fileID: 4650336832950693717}
-  - component: {fileID: 2196111131595440249}
   - component: {fileID: 4936479482418114669}
+  - component: {fileID: -5582100057703232256}
   m_Layer: 8
   m_Name: Mage
   m_TagString: Player
@@ -354,7 +354,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.11, y: -0.54, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalScale: {x: 0.25, y: 0.25, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3751550605724056529}
@@ -604,31 +604,6 @@ MonoBehaviour:
   health: 0
   maxHealth: 100
   healthText: {fileID: 0}
---- !u!114 &2196111131595440249
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4108932030455476068}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c7f640eca7c7a94db71f67d5c97346e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  arrowPrefab: {fileID: 2289812481986572697, guid: 98a7d47de0e8d7b40a3a4a98e7f9aa1f, type: 3}
-  arrowSpeed: 10
-  arrowLife: 3
-  Cooldowns: []
-  baseAttackCD: 0.1
-  AttackCD: 0
-  baseAbility1CD: 2
-  Ability1CD: 0
-  baseAbility2CD: 3
-  Ability2CD: 0
-  baseUltimateCD: 5
-  UltimateCD: 0
-  circleRadius: 1
 --- !u!114 &4936479482418114669
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -657,6 +632,31 @@ MonoBehaviour:
   Ability1CD: 0
   Ability2CD: 0
   UltimateCD: 0
+--- !u!114 &-5582100057703232256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4108932030455476068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ecbbe853a3b86c4e8abb72eb0b68557, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Cooldowns: []
+  fireballSpeed: 5
+  fireballLife: 3
+  fireballPrefab: {fileID: 2289812481986572697, guid: 0021adf6fde99234490d9d89bc34181a, type: 3}
+  baseAttackCD: 0.1
+  AttackCD: 0
+  baseAbility1CD: 2
+  Ability1CD: 0
+  baseAbility2CD: 3
+  Ability2CD: 0
+  baseUltimateCD: 5
+  UltimateCD: 0
+  circleRadius: 1
 --- !u!1 &4825107136397456269
 GameObject:
   m_ObjectHideFlags: 0
