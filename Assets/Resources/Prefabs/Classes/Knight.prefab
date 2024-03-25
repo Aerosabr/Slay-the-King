@@ -212,6 +212,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1215135425459900710
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6734269685193787446}
+  m_Layer: 8
+  m_Name: AttackHitbox
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6734269685193787446
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1215135425459900710}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4131598486205357731}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1427271875834980521
 GameObject:
   m_ObjectHideFlags: 0
@@ -759,8 +790,8 @@ GameObject:
   - component: {fileID: 1187593509520710217}
   - component: {fileID: 1809860929739837702}
   - component: {fileID: 8881795972552130450}
-  - component: {fileID: 7010474127051116637}
   - component: {fileID: 4110442240673962924}
+  - component: {fileID: -934969531661685396}
   m_Layer: 8
   m_Name: Knight
   m_TagString: Player
@@ -778,7 +809,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.11, y: -0.54, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalScale: {x: 0.25, y: 0.25, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1073174392677066919}
@@ -788,6 +819,7 @@ Transform:
   - {fileID: 6627828970122880912}
   - {fileID: 7175514555810070512}
   - {fileID: 547403168288879130}
+  - {fileID: 6734269685193787446}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &695430417977645667
@@ -1028,31 +1060,6 @@ MonoBehaviour:
   health: 0
   maxHealth: 100
   healthText: {fileID: 0}
---- !u!114 &7010474127051116637
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6386565715982804052}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c7f640eca7c7a94db71f67d5c97346e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  arrowPrefab: {fileID: 2289812481986572697, guid: 98a7d47de0e8d7b40a3a4a98e7f9aa1f, type: 3}
-  arrowSpeed: 10
-  arrowLife: 3
-  Cooldowns: []
-  baseAttackCD: 0.1
-  AttackCD: 0
-  baseAbility1CD: 2
-  Ability1CD: 0
-  baseAbility2CD: 3
-  Ability2CD: 0
-  baseUltimateCD: 5
-  UltimateCD: 0
-  circleRadius: 1
 --- !u!114 &4110442240673962924
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1081,3 +1088,30 @@ MonoBehaviour:
   Ability1CD: 0
   Ability2CD: 0
   UltimateCD: 0
+--- !u!114 &-934969531661685396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6386565715982804052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7d59a5c8cb69404a9878adb46e9ca73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Cooldowns: []
+  attackHitBoxPos: {fileID: 6734269685193787446}
+  attackRadius: 0.2
+  Damageable:
+    serializedVersion: 2
+    m_Bits: 128
+  baseAttackCD: 0.1
+  AttackCD: 0
+  baseAbility1CD: 2
+  Ability1CD: 0
+  baseAbility2CD: 3
+  Ability2CD: 0
+  baseUltimateCD: 5
+  UltimateCD: 0
+  circleRadius: 1.5

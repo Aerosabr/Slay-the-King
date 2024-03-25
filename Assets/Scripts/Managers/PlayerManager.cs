@@ -51,6 +51,7 @@ public class PlayerManager : MonoBehaviour
     public void RemovePlayer(int slot)
     {
         Destroy(transform.GetChild(slot).GetChild(0).gameObject);
+        NumPlayers--;
     }
 
     public void StartGame()
