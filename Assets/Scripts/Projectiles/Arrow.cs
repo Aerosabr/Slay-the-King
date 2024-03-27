@@ -5,6 +5,7 @@ using UnityEngine;
 public class Arrow : MonoBehaviour
 {
     public float life = 3f;
+    public float rotationSpeed = 15f;
 
     void Awake()
     {
@@ -14,7 +15,10 @@ public class Arrow : MonoBehaviour
 
     private void Update()
     {
-        
+        Quaternion newRotation = Quaternion.Euler(rotationSpeed * Time.deltaTime, 0, 0) * transform.rotation;
+
+        // Apply the new rotation to the object
+        transform.rotation = newRotation;
     }
 
     public void OnCollisionEnter2D(Collision2D collision)
