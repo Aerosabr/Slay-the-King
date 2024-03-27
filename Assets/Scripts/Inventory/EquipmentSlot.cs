@@ -24,7 +24,7 @@ public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
 
     //EQUIPMENT SLOT
     [SerializeField]
-    private EquippedSlot helmetSlot, chestSlot, legsSlot, weaponSlot, glovesSlot, bootsSlot;
+    private EquippedSlot helmetSlot, chestSlot, legSlot, weaponSlot, amuletSlot, ringSlot;
 
     public GameObject selectedShader;
     public bool thisItemSelected;
@@ -75,14 +75,14 @@ public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
             helmetSlot.EquipGear(itemSprite, itemName, itemDescription);
         if (itemType == ItemType.chest)
             chestSlot.EquipGear(itemSprite, itemName, itemDescription);
-        if (itemType == ItemType.legs)
-            legsSlot.EquipGear(itemSprite, itemName, itemDescription);
+        if (itemType == ItemType.leg)
+            legSlot.EquipGear(itemSprite, itemName, itemDescription);
         if (itemType == ItemType.weapon)
             weaponSlot.EquipGear(itemSprite, itemName, itemDescription);
-        if (itemType == ItemType.gloves)
-            glovesSlot.EquipGear(itemSprite, itemName, itemDescription);
-        if (itemType == ItemType.boots)
-            bootsSlot.EquipGear(itemSprite, itemName, itemDescription);
+        if (itemType == ItemType.amulet)
+            amuletSlot.EquipGear(itemSprite, itemName, itemDescription);
+        if (itemType == ItemType.ring)
+            ringSlot.EquipGear(itemSprite, itemName, itemDescription);
 
         EmptySlot();
     }

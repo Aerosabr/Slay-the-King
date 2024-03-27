@@ -130,8 +130,8 @@ public enum ItemType
     collectible,
     helmet,
     chest,
-    legs,
+    leg,
     weapon,
-    gloves,
-    boots,
+    amulet,
+    ring,
 };

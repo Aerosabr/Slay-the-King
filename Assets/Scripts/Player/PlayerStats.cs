@@ -7,13 +7,13 @@ using UnityEngine.UI;
 
 public class PlayerStats : MonoBehaviour
 {
-    public int strength, wisdom, armor, resistance, dexterity, luck;
+    public int health, attack, defense, dexterity, cooldown_reduction, attack_speed, luck;
 
     [SerializeField]
-    private TMP_Text strengthText, wisdomText, armorText, resistanceText, dexterityText, luckText;
+    private TMP_Text healthText, attackText, defenseText, dexterityText, cooldown_reductionText, attack_speedText, luckText;
 
     [SerializeField]
-    private TMP_Text strengthPreText, wisdomPreText, armorPreText, resistancePreText, dexterityPreText, luckPreText;
+    private TMP_Text healthPreText, attackPreText, defensePreText, dexterityPreText, cooldown_reductionPreText, attack_speedPreText, luckPreText;
 
     [SerializeField]
     private Image previewImage;
@@ -32,21 +32,23 @@ public class PlayerStats : MonoBehaviour
 
     public void UpdateEquipmentStats()
     {
-        strengthText.text = strength.ToString();
-        wisdomText.text = wisdom.ToString();
-        armorText.text = armor.ToString();
-        resistanceText.text = resistance.ToString();
+        healthText.text = health.ToString();
+        attackText.text = attack.ToString();
+        defenseText.text = defense.ToString();
         dexterityText.text = dexterity.ToString();
+        cooldown_reductionText.text = cooldown_reduction.ToString();
+        attack_speedText.text = attack_speed.ToString();
         luckText.text = luck.ToString();
     }
 
-    public void PreviewEquipmentStats(int strength, int wisdom, int armor, int resistance, int dexterity, int luck, Sprite itemSprite)
+    public void PreviewEquipmentStats(int health, int attack, int defense, int dexterity, int cooldown_reduction, int attack_speed, int luck, Sprite itemSprite)
     {
-        strengthPreText.text = strength.ToString();
-        wisdomPreText.text = wisdom.ToString();
-        armorPreText.text = armor.ToString();
-        resistancePreText.text = resistance.ToString();
+        healthPreText.text = health.ToString();
+        attackPreText.text = attack.ToString();
+        defensePreText.text = defense.ToString();
         dexterityPreText.text = dexterity.ToString();
+        cooldown_reductionPreText.text = cooldown_reduction.ToString();
+        attack_speedPreText.text = attack_speed.ToString();
         luckPreText.text = luck.ToString();
 
         previewImage.sprite = itemSprite;
