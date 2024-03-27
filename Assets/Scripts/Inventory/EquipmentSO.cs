@@ -6,24 +6,25 @@ using UnityEngine;
 public class EquipmentSO : ScriptableObject
 {
     public string itemName;
-    public int strength, wisdom, armor, resistance, dexterity, luck;
+    public int health, attack, defense, dexterity, cooldown_reduction, attack_speed, luck;
     [SerializeField]
     private Sprite itemSprite;
 
     public void PreviewEquipment()
     {
-        GameObject.Find("StatManager").GetComponent<PlayerStats>().PreviewEquipmentStats(strength, wisdom, armor, resistance, dexterity, luck, itemSprite);
+        GameObject.Find("StatManager").GetComponent<PlayerStats>().PreviewEquipmentStats(health, attack, defense, dexterity, cooldown_reduction, attack_speed, luck, itemSprite);
     }
     
     public void EquipItem()
     {
         //Update Stats
         PlayerStats playerstats = GameObject.Find("StatManager").GetComponent<PlayerStats>();
-        playerstats.strength += strength;
-        playerstats.wisdom += wisdom;
-        playerstats.armor += armor;
-        playerstats.resistance += resistance;
+        playerstats.health += health;
+        playerstats.attack += attack;
+        playerstats.defense += defense;
         playerstats.dexterity += dexterity;
+        playerstats.cooldown_reduction += cooldown_reduction;
+        playerstats.attack_speed += attack_speed;
         playerstats.luck += luck;
 
         playerstats.UpdateEquipmentStats();
@@ -33,11 +34,12 @@ public class EquipmentSO : ScriptableObject
     {
         //Update Stats
         PlayerStats playerstats = GameObject.Find("StatManager").GetComponent<PlayerStats>();
-        playerstats.strength -= strength;
-        playerstats.wisdom -= wisdom;
-        playerstats.armor -= armor;
-        playerstats.resistance -= resistance;
+        playerstats.health -= health;
+        playerstats.attack -= attack;
+        playerstats.defense -= defense;
         playerstats.dexterity -= dexterity;
+        playerstats.cooldown_reduction -= cooldown_reduction;
+        playerstats.attack_speed -= attack_speed;
         playerstats.luck -= luck;
 
         playerstats.UpdateEquipmentStats();
