@@ -9,6 +9,8 @@ public class FlyingEye : MonoBehaviour
     public Animator anim;
     public Rigidbody2D rb;
     public float speed = 1.0f;
+    public bool isAttacking;
+    public bool isMovable = true;
 
     void Start()
     {
@@ -20,7 +22,7 @@ public class FlyingEye : MonoBehaviour
     void Update()
     {
         float step = speed * Time.deltaTime;
-        if (currentHealth > 0)
+        if (currentHealth > 0 && isMovable)
             transform.position = Vector2.MoveTowards(transform.position, GameObject.Find("Player1").transform.GetChild(0).transform.position, step);
     }
 
@@ -49,10 +51,30 @@ public class FlyingEye : MonoBehaviour
 
     public void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log(collision.gameObject.name);
         if (collision.gameObject.tag == "Player")
+            isMovable = false;   
+    }
+
+    public void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+            isMovable = true;
+    }
+
+    public void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Player" && !isAttacking)
         {
-            collision.gameObject.SendMessage("Damaged", 1);
+            StartCoroutine(Attack(collision));
         }
+    }
+
+    public IEnumerator Attack(Collision2D collision)
+    {
+        isAttacking = true;
+        anim.SetTrigger("Attack");
+        yield return new WaitForSeconds(.75f);
+        collision.gameObject.SendMessage("Damaged", 1);
+        isAttacking = false;
     }
 }

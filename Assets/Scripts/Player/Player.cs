@@ -32,9 +32,11 @@ public class Player : MonoBehaviour
     public float UltimateCD;
 
     public GameObject HealthBar;
+    public Rigidbody2D rb;
 
     private void Awake()
     {
+        rb = GetComponent<Rigidbody2D>();
         currentHealth = maxHealth;
     }
 
@@ -47,5 +49,6 @@ public class Player : MonoBehaviour
     {
         currentHealth -= damage;
         GameObject.Find("PlayerHealth").GetComponent<RectTransform>().sizeDelta = new Vector2(((float)currentHealth / (float)maxHealth) * 280, 70);
+        DamagePopup.Create(rb.transform.position, damage, false);
     }
 }
