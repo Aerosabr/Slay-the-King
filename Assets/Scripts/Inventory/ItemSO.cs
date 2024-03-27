@@ -41,10 +41,12 @@ public class ItemSO : ScriptableObject
     public enum AttributeToChange
     {
         none,
-        strength,
-        magic,
-        armor,
-        resistance,
+        health,
+        attack,
+        defense,
         dexterity,
+        cooldown_reduction,
+        attack_speed,
+        luck,
     };
 }
