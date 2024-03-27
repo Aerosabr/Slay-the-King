@@ -21,6 +21,8 @@ public class Berserker : MonoBehaviour
     public float baseUltimateCD = 5f;
     public float UltimateCD = 0;
 
+    public float dashDistance;
+
     public void Awake()
     {
         Cooldowns.Add(GameObject.Find("AttackCooldown"));
@@ -32,6 +34,21 @@ public class Berserker : MonoBehaviour
         Player.Ability1CD = baseAbility1CD;
         Player.Ability2CD = baseAbility2CD;
         Player.UltimateCD = baseUltimateCD;
+    }
+
+    public void OnDash()
+    {
+        PlayerSpriteController PSC = gameObject.GetComponent<PlayerSpriteController>();
+
+        PSC._rigidbody.velocity = new Vector2(PSC.currentDirection.x * dashDistance, PSC.currentDirection.y * dashDistance);
+        StartCoroutine(Dashing(PSC));
+    }
+
+    public IEnumerator Dashing(PlayerSpriteController PSC)
+    {
+        PSC.Movable = false;
+        yield return new WaitForSeconds(0.25f);
+        PSC.Movable = true;
     }
 
     public void OnDrawGizmos()

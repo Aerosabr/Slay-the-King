@@ -38,7 +38,7 @@ public class PlayerSpriteController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!isAttacking)
+        if (!isAttacking && Movable)
         {
             _smoothedMovementInput = Vector2.SmoothDamp(_smoothedMovementInput, _movementInput, ref _movementInputSmoothVelocity, 0.1f);
             _rigidbody.velocity = _smoothedMovementInput * _speed;
@@ -71,8 +71,6 @@ public class PlayerSpriteController : MonoBehaviour
     //Player Movement 
     public void OnMovement(InputValue inputValue)
     {
-        if (!Movable)
-            return;
         _movementInput = inputValue.Get<Vector2>();
 
         if (_movementInput.x != 0 || _movementInput.y != 0)

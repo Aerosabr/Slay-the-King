@@ -4,6 +4,14 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
+    public Transform spawnArea;
+    public float spawnRadius;
+
+    public void OnDrawGizmos()
+    {
+        Gizmos.DrawWireCube(spawnArea.position, new Vector3(spawnRadius, spawnRadius));
+    }
+
     private void Awake()
     {
         SpawnEnemy(Resources.Load<GameObject>("Prefabs/FlyingEye"));
@@ -17,7 +25,9 @@ public class EnemySpawner : MonoBehaviour
 
     public void SpawnEnemy(GameObject Enemy)
     {
-        Instantiate(Enemy, transform.position, Quaternion.identity);
-        StartCoroutine(Spawning(Random.Range(50f, 50f)));
+        Vector3 SpawnArea = new Vector3(Random.Range(-spawnRadius / 2, spawnRadius / 2), Random.Range(-spawnRadius / 2, spawnRadius / 2));
+        Instantiate(Enemy, SpawnArea, Quaternion.identity);
+        StartCoroutine(Spawning(Random.Range(2f, 3f)));
     }
 }
+ 
