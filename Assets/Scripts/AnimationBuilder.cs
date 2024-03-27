@@ -19,7 +19,7 @@ public class AnimationBuilder : MonoBehaviour
             string folderName = Path.GetFileName(subDirectory);
             string[] subDirections = Directory.GetDirectories(subDirectory);
             // || folderName == "Block" || folderName == "DSlash" || folderName == "HandCast"
-            if(folderName == "Stab")
+            if(folderName == "HSlash")
             {
                 foreach (string subDirection in subDirections)
                 {
@@ -50,7 +50,7 @@ public class AnimationBuilder : MonoBehaviour
         ObjectReferenceKeyframe[] keyframes = new ObjectReferenceKeyframe[sprites.Length];
         // Add keyframes every 5 seconds
         float duration = 5f /60f;
-        int numKeyframes = 10; // Adjust the number of keyframes as needed
+        int numKeyframes = 30; // Adjust the number of keyframes as needed
         for (int i = 0; i < numKeyframes; i++)
         {
             ObjectReferenceKeyframe keyframe = new ObjectReferenceKeyframe();

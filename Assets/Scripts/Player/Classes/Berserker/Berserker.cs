@@ -63,11 +63,11 @@ public class Berserker : MonoBehaviour
 
     private IEnumerator AttackCast(PlayerSpriteController PSC)
     {
-        PSC.Attack("HSlash", 2);
+        PSC.Attack("HSlash", 2f);
         Cooldowns[0].SetActive(true);
         AttackCD = baseAttackCD;
         Attack(PSC);
-        yield return new WaitForSeconds(.5f);
+        yield return new WaitForSeconds(0.5f);
         
         PSC.isAttacking = false;
     }
