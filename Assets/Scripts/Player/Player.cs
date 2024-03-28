@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -37,6 +38,7 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        HealthBar = GameObject.Find("PlayerHealth").transform.GetChild(0).gameObject;
         currentHealth = maxHealth;
     }
 
@@ -48,7 +50,7 @@ public class Player : MonoBehaviour
     public void Damaged(int damage) 
     {
         currentHealth -= damage;
-        GameObject.Find("PlayerHealth").GetComponent<RectTransform>().sizeDelta = new Vector2(((float)currentHealth / (float)maxHealth) * 280, 70);
+        HealthBar.GetComponent<Slider>().value = (float)currentHealth / (float)maxHealth;
         DamagePopup.Create(rb.transform.position, damage, false);
     }
 }
