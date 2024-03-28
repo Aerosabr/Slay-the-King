@@ -40,14 +40,14 @@ public class Mage : MonoBehaviour
     public void OnDash()
     {
         PlayerSpriteController PSC = gameObject.GetComponent<PlayerSpriteController>();
-
+        PSC._rigidbody.velocity = new Vector2(PSC.currentDirection.x * teleportDistance, PSC.currentDirection.y * teleportDistance);
         StartCoroutine(Dashing(PSC));
     }
 
     public IEnumerator Dashing(PlayerSpriteController PSC)
     {
         PSC.Movable = false;
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(0.025f);
         PSC.Movable = true;
     }
 
