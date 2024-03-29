@@ -6,10 +6,11 @@ public class Arrow : MonoBehaviour
 {
     public float life = 3f;
     public float rotationSpeed = 15f;
+    public float damage = 5f;
+    public bool destroyOnCollision = true;
 
     void Awake()
     {
-        life = GameObject.Find("Player1").transform.GetChild(0).GetComponent<Ranger>().arrowLife;
         Destroy(gameObject, life);
     }
 
@@ -21,22 +22,26 @@ public class Arrow : MonoBehaviour
         transform.rotation = newRotation;
     }
 
-    public void OnCollisionEnter2D(Collision2D collision)
+    public void OnTriggerEnter2D(Collider2D collision)
     {
+        Debug.Log("Entered collision");
         if (collision.gameObject.tag == "Enemy")
         {
             if(collision.transform.position.x - gameObject.transform.position.x >= 0)
-                collision.gameObject.SendMessage("Damaged", 5);
+                collision.gameObject.SendMessage("Damaged", damage);
             else
-                collision.gameObject.SendMessage("Damaged", -5);
-            Destroy(gameObject);
+                collision.gameObject.SendMessage("Damaged", -damage);
         }
-        else if (collision.gameObject.tag == "Wall")
-            Destroy(gameObject);
-        /*
-         * if (collision.gameObject.tag == "Enemy")
-            Destroy(collision.gameObject);
-         */
 
+        if (destroyOnCollision)
+            Destroy(gameObject);
+    }
+
+    public void EditArrow(float Life, float Damage, bool destroy)
+    {
+        life = Life;
+        damage = Damage;
+        destroyOnCollision = destroy;
+        Destroy(gameObject, life);
     }
 }
