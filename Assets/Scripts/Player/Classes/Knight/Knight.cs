@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Knight : MonoBehaviour
 {
+    public PlayerSpriteController PSC;
     public List<GameObject> Cooldowns = new List<GameObject>();
     public Transform attackHitBoxPos;
     public float attackRadius;
@@ -21,34 +22,53 @@ public class Knight : MonoBehaviour
     public float baseUltimateCD = 5f;
     public float UltimateCD = 0;
 
+    public float baseMovementCD = 5f;
+    public float MovementCD = 0;
+
     public float dashDistance;
 
     public void Awake()
     {
+        PSC = gameObject.GetComponent<PlayerSpriteController>();
         Cooldowns.Add(GameObject.Find("AttackCooldown"));
         Cooldowns.Add(GameObject.Find("Ability1Cooldown"));
         Cooldowns.Add(GameObject.Find("Ability2Cooldown"));
         Cooldowns.Add(GameObject.Find("UltimateCooldown"));
-        Player Player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        Cooldowns.Add(GameObject.Find("MovementCooldown"));
+        Player Player = GameObject.Find("Player1").transform.GetChild(0).GetComponent<Player>();
         Player.AttackCD = baseAttackCD;
         Player.Ability1CD = baseAbility1CD;
         Player.Ability2CD = baseAbility2CD;
         Player.UltimateCD = baseUltimateCD;
+        Player.MovementCD = baseMovementCD;
     }
 
     public void OnDash()
     {
-        PlayerSpriteController PSC = gameObject.GetComponent<PlayerSpriteController>();
-
-        PSC._rigidbody.velocity = new Vector2(PSC.currentDirection.x * dashDistance, PSC.currentDirection.y * dashDistance);
-        StartCoroutine(Dashing(PSC));
+        if (!PSC.isAttacking && MovementCD == 0)
+        {
+            PSC._rigidbody.velocity = new Vector2(PSC.currentDirection.x * dashDistance, PSC.currentDirection.y * dashDistance);
+            StartCoroutine(Dashing());
+        }
     }
 
-    public IEnumerator Dashing(PlayerSpriteController PSC)
+    public IEnumerator Dashing()
     {
         PSC.Movable = false;
         yield return new WaitForSeconds(0.25f);
+        Cooldowns[4].SetActive(true);
+        MovementCD = baseMovementCD;
         PSC.Movable = true;
+    }
+
+    public float GetMovementCooldown()
+    {
+        return baseMovementCD;
+    }
+
+    public void ResetMovementCooldown()
+    {
+        MovementCD = 0;
     }
 
     public void OnDrawGizmos()
@@ -69,27 +89,25 @@ public class Knight : MonoBehaviour
     //Player Attack
     public void OnAttack()
     {
-        PlayerSpriteController PSC = gameObject.GetComponent<PlayerSpriteController>();
-        if (!PSC.isAttacking && AttackCD == 0)
+        if (!PSC.isAttacking && AttackCD == 0 && PSC.Movable)
         {
             PSC.isAttacking = true;
             PSC.currentDirection = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position).normalized;
-            StartCoroutine(AttackCast(PSC));
+            StartCoroutine(AttackCast());
         }
     }
 
-    private IEnumerator AttackCast(PlayerSpriteController PSC)
+    private IEnumerator AttackCast()
     {
         PSC.Attack("DSlash", 2);
         Cooldowns[0].SetActive(true);
         AttackCD = baseAttackCD;
-        Attack(PSC);
+        Attack();
         yield return new WaitForSeconds(.5f);
-
         PSC.isAttacking = false;
     }
 
-    public void Attack(PlayerSpriteController PSC)
+    public void Attack()
     {
         attackHitBoxPos.localPosition = MapPoint(PSC.currentDirection);
         Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, attackRadius, Damageable);
@@ -113,16 +131,15 @@ public class Knight : MonoBehaviour
     //Player Ability1
     public void OnAbility1()
     {
-        PlayerSpriteController PSC = gameObject.GetComponent<PlayerSpriteController>();
-        if (!PSC.isAttacking && Ability1CD == 0)
+        if (!PSC.isAttacking && Ability1CD == 0 && PSC.Movable)
         {
             PSC.isAttacking = true;
             PSC.currentDirection = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position).normalized;
-            StartCoroutine(Ability1Cast(PSC));
+            StartCoroutine(Ability1Cast());
         }
     }
 
-    private IEnumerator Ability1Cast(PlayerSpriteController PSC)
+    private IEnumerator Ability1Cast()
     {
         yield return new WaitForSeconds(.5f);
         Cooldowns[1].SetActive(true);
@@ -130,7 +147,7 @@ public class Knight : MonoBehaviour
         PSC.isAttacking = false;
     }
 
-    public void Ability1(PlayerSpriteController PSC)
+    public void Ability1()
     {
 
     }
@@ -148,16 +165,15 @@ public class Knight : MonoBehaviour
     //Player Ability2
     public void OnAbility2()
     {
-        PlayerSpriteController PSC = gameObject.GetComponent<PlayerSpriteController>();
-        if (!PSC.isAttacking && Ability2CD == 0)
+        if (!PSC.isAttacking && Ability2CD == 0 && PSC.Movable)
         {
             PSC.isAttacking = true;
             PSC.currentDirection = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position).normalized;
-            StartCoroutine(Ability2Cast(PSC));
+            StartCoroutine(Ability2Cast());
         }
     }
 
-    private IEnumerator Ability2Cast(PlayerSpriteController PSC)
+    private IEnumerator Ability2Cast()
     {
         yield return null;
         Cooldowns[2].SetActive(true);
@@ -165,7 +181,7 @@ public class Knight : MonoBehaviour
         PSC.isAttacking = false;
     }
 
-    public void Ability2(PlayerSpriteController PSC)
+    public void Ability2()
     {
 
     }
@@ -183,16 +199,15 @@ public class Knight : MonoBehaviour
     //Player Ultimate
     public void OnUltimate()
     {
-        PlayerSpriteController PSC = gameObject.GetComponent<PlayerSpriteController>();
-        if (!PSC.isAttacking && UltimateCD == 0)
+        if (!PSC.isAttacking && UltimateCD == 0 && PSC.Movable)
         {
             PSC.isAttacking = true;
             PSC.currentDirection = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position).normalized;
-            StartCoroutine(Ability1Cast(PSC));
+            StartCoroutine(UltimateCast());
         }
     }
 
-    private IEnumerator UltimateCast(PlayerSpriteController PSC, Vector3 mousePosition)
+    private IEnumerator UltimateCast()
     {
         yield return new WaitForSeconds(.5f);
         Cooldowns[3].SetActive(true);
@@ -200,7 +215,7 @@ public class Knight : MonoBehaviour
         PSC.isAttacking = false;
     }
 
-    public IEnumerator Ultimate(Vector3 mousePosition)
+    public IEnumerator Ultimate()
     {
         yield return null;
     }
