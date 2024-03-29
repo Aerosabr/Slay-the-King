@@ -510,7 +510,7 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1664
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -530,7 +530,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0039550066, y: -0.26608053}
+  m_Offset: {x: -0.17856836, y: -1.0450629}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -541,7 +541,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.23139358, y: 0.10783893}
+  m_Size: {x: 0.7920008, y: 1.6658037}
   m_EdgeRadius: 0
 --- !u!114 &4014616787072648911
 MonoBehaviour:
@@ -665,6 +665,7 @@ MonoBehaviour:
   Ability1CD: 0
   Ability2CD: 0
   UltimateCD: 0
+  MovementCD: 0
   HealthBar: {fileID: 0}
   rb: {fileID: 0}
 --- !u!114 &6738647429576173690
@@ -679,6 +680,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9eeb3fe168e24c43832c6a3e2e3955e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PSC: {fileID: 0}
   Cooldowns: []
   attackHitBoxPos: {fileID: 8476776548482316053}
   attackRadius: 0.5
@@ -693,6 +695,8 @@ MonoBehaviour:
   Ability2CD: 0
   baseUltimateCD: 5
   UltimateCD: 0
+  baseMovementCD: 5
+  MovementCD: 0
   dashDistance: 15
   circleRadius: 3
 --- !u!1 &4851323625704797809

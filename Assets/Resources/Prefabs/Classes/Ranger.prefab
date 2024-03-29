@@ -229,8 +229,8 @@ GameObject:
   - component: {fileID: 6444715711099903472}
   - component: {fileID: 6879315684367711015}
   - component: {fileID: 7529008805156781052}
-  - component: {fileID: 3505914315114372302}
   - component: {fileID: 2189566781041449161}
+  - component: {fileID: 3505914315114372302}
   m_Layer: 8
   m_Name: Ranger
   m_TagString: Player
@@ -372,7 +372,7 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1664
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -392,7 +392,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0039550066, y: -0.26608053}
+  m_Offset: {x: -0.18156719, y: -1.0242145}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -403,7 +403,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.23139358, y: 0.10783893}
+  m_Size: {x: 0.7811279, y: 1.6241069}
   m_EdgeRadius: 0
 --- !u!114 &2772794348965877994
 MonoBehaviour:
@@ -498,32 +498,6 @@ MonoBehaviour:
   health: 0
   maxHealth: 100
   healthText: {fileID: 0}
---- !u!114 &3505914315114372302
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3124167441968315881}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c7f640eca7c7a94db71f67d5c97346e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  arrowPrefab: {fileID: 2289812481986572697, guid: 98a7d47de0e8d7b40a3a4a98e7f9aa1f, type: 3}
-  arrowSpeed: 10
-  arrowLife: 3
-  Cooldowns: []
-  baseAttackCD: 0.1
-  AttackCD: 0
-  baseAbility1CD: 2
-  Ability1CD: 0
-  baseAbility2CD: 3
-  Ability2CD: 0
-  baseUltimateCD: 5
-  UltimateCD: 0
-  dashDistance: 15
-  circleRadius: 1
 --- !u!114 &2189566781041449161
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -553,8 +527,38 @@ MonoBehaviour:
   Ability1CD: 0
   Ability2CD: 0
   UltimateCD: 0
+  MovementCD: 0
   HealthBar: {fileID: 0}
   rb: {fileID: 0}
+--- !u!114 &3505914315114372302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3124167441968315881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c7f640eca7c7a94db71f67d5c97346e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PSC: {fileID: 0}
+  arrowPrefab: {fileID: 2289812481986572697, guid: 98a7d47de0e8d7b40a3a4a98e7f9aa1f, type: 3}
+  arrowSpeed: 10
+  arrowLife: 3
+  Cooldowns: []
+  baseAttackCD: 0.1
+  AttackCD: 0
+  baseAbility1CD: 2
+  Ability1CD: 0
+  baseAbility2CD: 3
+  Ability2CD: 0
+  baseUltimateCD: 5
+  UltimateCD: 0
+  baseMovementCD: 5
+  MovementCD: 0
+  dashDistance: 15
+  circleRadius: 1
 --- !u!1 &3686407503289053530
 GameObject:
   m_ObjectHideFlags: 0
