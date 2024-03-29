@@ -9,7 +9,7 @@ public class Arrow : MonoBehaviour
 
     void Awake()
     {
-        life = GameObject.FindGameObjectWithTag("Player").GetComponent<Ranger>().arrowLife;
+        life = GameObject.Find("Player1").transform.GetChild(0).GetComponent<Ranger>().arrowLife;
         Destroy(gameObject, life);
     }
 

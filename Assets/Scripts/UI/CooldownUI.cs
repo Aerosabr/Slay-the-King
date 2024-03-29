@@ -20,16 +20,19 @@ public class CooldownUI : MonoBehaviour
         switch (Action)
         {
             case "AttackCooldown":
-                baseCD = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().AttackCD;
+                baseCD = GameObject.Find("Player1").transform.GetChild(0).GetComponent<Player>().AttackCD;
                 break;
             case "Ability1Cooldown":
-                baseCD = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().Ability1CD;
+                baseCD = GameObject.Find("Player1").transform.GetChild(0).GetComponent<Player>().Ability1CD;
                 break;
             case "Ability2Cooldown":
-                baseCD = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().Ability2CD;
+                baseCD = GameObject.Find("Player1").transform.GetChild(0).GetComponent<Player>().Ability2CD;
                 break;
             case "UltimateCooldown":
-                baseCD = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().UltimateCD;
+                baseCD = GameObject.Find("Player1").transform.GetChild(0).GetComponent<Player>().UltimateCD;
+                break;
+            case "MovementCooldown":
+                baseCD = GameObject.Find("Player1").transform.GetChild(0).GetComponent<Player>().MovementCD;
                 break;
         }
         remainingTime = baseCD;
@@ -47,7 +50,7 @@ public class CooldownUI : MonoBehaviour
         if (remainingTime < 0)
         {
             gameObject.SetActive(false);
-            GameObject.FindGameObjectWithTag("Player").SendMessage("Reset" + Action);
+            GameObject.Find("Player1").transform.GetChild(0).gameObject.SendMessage("Reset" + Action);
         }
     }
 }
