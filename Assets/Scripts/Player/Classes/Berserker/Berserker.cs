@@ -47,11 +47,48 @@ public class Berserker : MonoBehaviour
     public IEnumerator Dashing(PlayerSpriteController PSC)
     {
         PSC.Movable = false;
+        StartCoroutine(DashEffect(PSC));
         yield return new WaitForSeconds(0.25f);
         PSC.Movable = true;
     }
 
-    public void OnDrawGizmos()
+    public IEnumerator DashEffect(PlayerSpriteController PSC)
+    {
+        while(!PSC.Movable)
+        {
+            foreach(Animator sprite in PSC.Sprites)
+            {
+                GameObject character = new GameObject("Character");
+
+                SpriteRenderer originalSpriteRenderer = sprite.GetComponent<SpriteRenderer>();
+
+                // Add a new SpriteRenderer component to the new GameObject
+                SpriteRenderer characterSpriteRenderer = character.AddComponent<SpriteRenderer>();
+
+                // Copy properties from the original SpriteRenderer to the new one
+                characterSpriteRenderer.sprite = originalSpriteRenderer.sprite;
+                Color newColor = originalSpriteRenderer.color;
+                newColor.a = 155f / 255f; // Set alpha value to approximately 0.6078
+                characterSpriteRenderer.color = newColor;
+                characterSpriteRenderer.flipX = originalSpriteRenderer.flipX;
+                characterSpriteRenderer.flipY = originalSpriteRenderer.flipY;
+                characterSpriteRenderer.material = originalSpriteRenderer.material;
+                characterSpriteRenderer.sortingLayerID = originalSpriteRenderer.sortingLayerID;
+                characterSpriteRenderer.sortingOrder = originalSpriteRenderer.sortingOrder;
+
+                characterSpriteRenderer.sprite = sprite.transform.GetComponent<SpriteRenderer>().sprite;
+                character.AddComponent<Ghost>();
+                // Set the position and rotation of the new GameObject
+                character.transform.position = sprite.transform.position;
+                character.transform.rotation = sprite.transform.rotation;
+                character.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
+                
+            }
+            yield return null;
+        }
+    }
+
+    public void OnDrawGizmos() 
     {
         Gizmos.DrawWireSphere(attackHitBoxPos.position, attackRadius);
     }
