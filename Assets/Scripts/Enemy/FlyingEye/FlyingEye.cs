@@ -28,6 +28,7 @@ public class FlyingEye : MonoBehaviour
 
     public void Damaged(int amount)
     {
+        Debug.Log("Damaged");
         currentHealth -= Mathf.Abs(amount);
         if (currentHealth <= 0)
         {

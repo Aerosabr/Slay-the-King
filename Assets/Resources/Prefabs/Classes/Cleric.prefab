@@ -690,7 +690,7 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1664
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -710,7 +710,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0039550066, y: -0.26608053}
+  m_Offset: {x: -0.15427923, y: -1.0325259}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -721,7 +721,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.23139358, y: 0.10783893}
+  m_Size: {x: 0.8247709, y: 1.6407297}
   m_EdgeRadius: 0
 --- !u!114 &1058631749226556018
 MonoBehaviour:
@@ -845,6 +845,7 @@ MonoBehaviour:
   Ability1CD: 0
   Ability2CD: 0
   UltimateCD: 0
+  MovementCD: 0
   HealthBar: {fileID: 0}
   rb: {fileID: 0}
 --- !u!114 &1620055355724925145
@@ -859,6 +860,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2747059ddea7502498bd95e07f940e3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PSC: {fileID: 0}
   Cooldowns: []
   fireballSpeed: 5
   fireballLife: 3
@@ -871,6 +873,8 @@ MonoBehaviour:
   Ability2CD: 0
   baseUltimateCD: 5
   UltimateCD: 0
+  baseMovementCD: 5
+  MovementCD: 0
   teleportDistance: 150
   circleRadius: 1
 --- !u!1 &8399789386500333002

@@ -11,9 +11,6 @@ public class EquippedSlot : MonoBehaviour, IPointerClickHandler
     [SerializeField]
     private Image slotImage;
 
-    [SerializeField]
-    private TMP_Text slotName;
-
     //SLOT DATA
     [SerializeField]
     private ItemType itemType = new ItemType();
@@ -100,7 +97,6 @@ public class EquippedSlot : MonoBehaviour, IPointerClickHandler
         //Update Image
         this.itemSprite = itemSprite;
         slotImage.sprite = this.itemSprite;
-        slotName.enabled = false;
 
         //Update Data
         this.itemName = itemName;
@@ -114,6 +110,7 @@ public class EquippedSlot : MonoBehaviour, IPointerClickHandler
         }
 
         slotInUse = true;
+
     }
 
     public void UnEquipGear()
@@ -127,7 +124,6 @@ public class EquippedSlot : MonoBehaviour, IPointerClickHandler
         inventoryManager.AddItem(itemName, 1, itemSprite, itemDescription, itemType);
 
         slotImage.sprite = emptySprite;
-        slotName.enabled = true;
         slotInUse = false;
 
 

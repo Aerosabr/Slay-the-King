@@ -31,6 +31,7 @@ public class Player : MonoBehaviour
     public float Ability1CD;
     public float Ability2CD;
     public float UltimateCD;
+    public float MovementCD;
 
     public GameObject HealthBar;
     public Rigidbody2D rb;
