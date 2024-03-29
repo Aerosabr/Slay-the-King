@@ -183,5 +183,4 @@ public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
         if (this.quantity <= 0)
             EmptySlot();
     }
-
 }
