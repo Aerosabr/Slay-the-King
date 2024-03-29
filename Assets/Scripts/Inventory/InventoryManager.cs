@@ -22,8 +22,7 @@ public class InventoryManager : MonoBehaviour
     {
         if (Input.GetButtonDown("InventoryMenu"))
             Inventory();
-        if (Input.GetButtonDown("EquipmentMenu"))
-            Equipment();
+
     }
 
     void Inventory()
@@ -31,28 +30,13 @@ public class InventoryManager : MonoBehaviour
         if (InventoryMenu.activeSelf)
         {
             InventoryMenu.SetActive(false);
-            EquipmentMenu.SetActive(false);
         }
         else
         {
             InventoryMenu.SetActive(true);
-            EquipmentMenu.SetActive(false);
         }
     }
 
-    void Equipment()
-    {
-        if (EquipmentMenu.activeSelf)
-        {
-            InventoryMenu.SetActive(false);
-            EquipmentMenu.SetActive(false);
-        }
-        else
-        {
-            InventoryMenu.SetActive(false);
-            EquipmentMenu.SetActive(true);
-        }
-    }
 
     public bool UseItem(string itemName)
     {
