@@ -12,6 +12,9 @@ public class Ranger : MonoBehaviour
     public List<GameObject> Cooldowns = new List<GameObject>();
     public Transform dashEffect;
 
+    public int passiveCounter = 0;
+    public int damageMultiplier = 1;
+
     public float baseAttackCD = 0.1f;
     public float AttackCD = 0;
 
@@ -46,6 +49,20 @@ public class Ranger : MonoBehaviour
         Player.MovementCD = baseMovementCD;
     }
 
+    public void Update()
+    {
+        if (passiveCounter == 5)
+        {
+            damageMultiplier = 2;
+            passiveCounter = 0;
+        }
+        
+        if (passiveCounter == 1)
+            damageMultiplier = 1;
+
+    }
+
+    //Movement ability
     public void OnDash()
     {
         if (!PSC.isAttacking && MovementCD == 0)
@@ -113,6 +130,7 @@ public class Ranger : MonoBehaviour
         MovementCD = 0;
     }
 
+    //Arrow direction
     public float circleRadius = 1f; // Radius of the circle
 
     public Vector2 MapPoint(Vector2 point)
@@ -121,7 +139,7 @@ public class Ranger : MonoBehaviour
         return new Vector2(Mathf.Cos(angle) * circleRadius, Mathf.Sin(angle) * circleRadius);
     }
 
-    //Player Attack
+    //Basic Attack
     public void OnAttack()
     {
         if (!PSC.isAttacking && AttackCD == 0 && PSC.Movable)
@@ -134,6 +152,7 @@ public class Ranger : MonoBehaviour
 
     private IEnumerator AttackCast()
     {
+        passiveCounter++;
         PSC.Attack("Shoot", 2);
         yield return new WaitForSeconds(.5f);
         Cooldowns[0].SetActive(true);
@@ -145,12 +164,10 @@ public class Ranger : MonoBehaviour
     public void Attack()
     {
         GameObject player = GameObject.Find("Player1").transform.GetChild(0).gameObject;
-        arrowLife = 3f;
         GameObject arrow = Instantiate(arrowPrefab, player.transform.position, player.transform.rotation);
-        Rigidbody2D rigidbody = arrow.GetComponent<Rigidbody2D>();
         arrow.transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(PSC.currentDirection.y, PSC.currentDirection.x) * Mathf.Rad2Deg + 180);
-
-        rigidbody.velocity = arrowSpeed * MapPoint(PSC.currentDirection);
+        arrow.GetComponent<Arrow>().EditArrow(3f, 5f * damageMultiplier, true);
+        arrow.GetComponent<Rigidbody2D>().velocity = arrowSpeed * MapPoint(PSC.currentDirection);
     }
 
     public float GetAttackCooldown()
@@ -176,6 +193,10 @@ public class Ranger : MonoBehaviour
 
     private IEnumerator Ability1Cast()
     {
+        passiveCounter++;
+        PSC._rigidbody.velocity = new Vector2(-PSC.currentDirection.x * dashDistance * 4, -PSC.currentDirection.y * dashDistance * 4);
+        yield return new WaitForSeconds(.1f);
+        PSC._rigidbody.velocity = Vector2.zero;
         PSC.Attack("Shoot", 2);
         yield return new WaitForSeconds(.5f);
         Cooldowns[1].SetActive(true);
@@ -188,14 +209,14 @@ public class Ranger : MonoBehaviour
     {
         GameObject player = GameObject.Find("Player1").transform.GetChild(0).gameObject;
 
-        for (int i = -1; i < 2; i++)
+        for (int i = -2; i < 3; i++)
         {
             arrowLife = 3f;
             GameObject arrow = Instantiate(arrowPrefab, player.transform.position, player.transform.rotation);
-            arrow.transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(PSC.currentDirection.y, PSC.currentDirection.x) * Mathf.Rad2Deg - (-i * 20 - 180));
-            float currentAngleRadians = ((Mathf.Atan2(PSC.currentDirection.y, PSC.currentDirection.x) * Mathf.Rad2Deg) + 20 * i) * Mathf.Deg2Rad;
+            arrow.transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(PSC.currentDirection.y, PSC.currentDirection.x) * Mathf.Rad2Deg - (-i * 10 - 180));
+            float currentAngleRadians = ((Mathf.Atan2(PSC.currentDirection.y, PSC.currentDirection.x) * Mathf.Rad2Deg) + 10 * i) * Mathf.Deg2Rad;
             Vector2 currentVector = new Vector2(Mathf.Cos(currentAngleRadians), Mathf.Sin(currentAngleRadians)) * PSC.currentDirection.magnitude;
-
+            arrow.GetComponent<Arrow>().EditArrow(3f, 10f * damageMultiplier, true);
             arrow.GetComponent<Rigidbody2D>().velocity = arrowSpeed * MapPoint(currentVector);
   
         }
@@ -224,12 +245,10 @@ public class Ranger : MonoBehaviour
 
     private IEnumerator Ability2Cast()
     {
-        for (int i = 0; i < 5; i++)
-        {
-            PSC.Attack("Shoot", 16);
-            yield return new WaitForSeconds(.2f);
-            Ability2();
-        }
+        passiveCounter++;
+        PSC.Attack("Shoot", 16);
+        yield return new WaitForSeconds(.2f);
+        Ability2();
         Cooldowns[2].SetActive(true);
         Ability2CD = baseAbility2CD; 
         PSC.isAttacking = false;
@@ -240,9 +259,10 @@ public class Ranger : MonoBehaviour
         GameObject player = GameObject.Find("Player1").transform.GetChild(0).gameObject;
         arrowLife = 3f;
         GameObject arrow = Instantiate(arrowPrefab, player.transform.position, player.transform.rotation);
-        Rigidbody2D rigidbody = arrow.GetComponent<Rigidbody2D>();
         arrow.transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(PSC.currentDirection.y, PSC.currentDirection.x) * Mathf.Rad2Deg + 180);
-        rigidbody.velocity = arrowSpeed * MapPoint(PSC.currentDirection);
+        arrow.GetComponent<Rigidbody2D>().velocity = arrowSpeed * MapPoint(PSC.currentDirection);
+        arrow.GetComponent<Arrow>().EditArrow(3f, 10f * damageMultiplier, false);
+        arrow.transform.localScale = new Vector3(.14f, .2f, .2f);
     }
 
     public float GetAbility2Cooldown()
@@ -262,7 +282,7 @@ public class Ranger : MonoBehaviour
         {
             Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             mousePosition.z = 0;
-            mousePosition.y += 3;
+            mousePosition.y += 5;
             PSC.isAttacking = true;
             PSC.currentDirection = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position).normalized;
             StartCoroutine(UltimateCast(mousePosition));
@@ -271,6 +291,7 @@ public class Ranger : MonoBehaviour
 
     private IEnumerator UltimateCast(Vector3 mousePosition)
     {
+        passiveCounter++;
         PSC.Attack("Shoot", 2);
         yield return new WaitForSeconds(.5f);
         Cooldowns[3].SetActive(true);
@@ -282,14 +303,15 @@ public class Ranger : MonoBehaviour
     public IEnumerator Ultimate(Vector3 mousePosition)
     {
         Vector3 temp = mousePosition;
-        for (int i = 0; i < 20; i++)
+        
+        for (int i = 0; i < 40; i++)
         {
-            temp.x = mousePosition.x + Random.Range(-0.8f, 0.8f);
-            arrowLife = .3f;
+            temp.x = mousePosition.x + Random.Range(-1.6f, 1.6f);
             GameObject arrow = Instantiate(arrowPrefab, temp, Quaternion.identity);
+            arrow.GetComponent<Arrow>().EditArrow(0.6f, 10f * damageMultiplier, false);
             arrow.transform.rotation = Quaternion.Euler(0, 0, 90);
             arrow.GetComponent<Rigidbody2D>().velocity = arrowSpeed * Vector2.down;
-            yield return new WaitForSeconds(.1f);
+            yield return new WaitForSeconds(.05f);
         }
     }
 
