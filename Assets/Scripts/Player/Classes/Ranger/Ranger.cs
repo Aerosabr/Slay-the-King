@@ -10,6 +10,7 @@ public class Ranger : MonoBehaviour
     public float arrowSpeed = 10f;
     public float arrowLife = 3f;
     public List<GameObject> Cooldowns = new List<GameObject>();
+    public Transform dashEffect;
 
     public float baseAttackCD = 0.1f;
     public float AttackCD = 0;
@@ -57,12 +58,51 @@ public class Ranger : MonoBehaviour
     public IEnumerator Dashing()
     {
         PSC.Movable = false;
+        dashEffect.gameObject.SetActive(true);
+        StartCoroutine(DashEffect(PSC));
         yield return new WaitForSeconds(0.25f);
         Cooldowns[4].SetActive(true);
         MovementCD = baseMovementCD;
+        dashEffect.gameObject.SetActive(false);
         PSC.Movable = true;
     }
 
+    public IEnumerator DashEffect(PlayerSpriteController PSC)
+    {
+        while(!PSC.Movable)
+        {
+            foreach(Animator sprite in PSC.Sprites)
+            {
+                GameObject character = new GameObject("Character");
+
+                SpriteRenderer originalSpriteRenderer = sprite.GetComponent<SpriteRenderer>();
+
+                // Add a new SpriteRenderer component to the new GameObject
+                SpriteRenderer characterSpriteRenderer = character.AddComponent<SpriteRenderer>();
+
+                // Copy properties from the original SpriteRenderer to the new one
+                characterSpriteRenderer.sprite = originalSpriteRenderer.sprite;
+                Color newColor = originalSpriteRenderer.color;
+                newColor.a = 155f / 255f; // Set alpha value to approximately 0.6078
+                characterSpriteRenderer.color = newColor;
+                characterSpriteRenderer.flipX = originalSpriteRenderer.flipX;
+                characterSpriteRenderer.flipY = originalSpriteRenderer.flipY;
+                characterSpriteRenderer.material = originalSpriteRenderer.material;
+                characterSpriteRenderer.sortingLayerID = originalSpriteRenderer.sortingLayerID;
+                characterSpriteRenderer.sortingOrder = originalSpriteRenderer.sortingOrder;
+
+                characterSpriteRenderer.sprite = sprite.transform.GetComponent<SpriteRenderer>().sprite;
+                character.AddComponent<Ghost>();
+                // Set the position and rotation of the new GameObject
+                character.transform.position = sprite.transform.position;
+                character.transform.rotation = sprite.transform.rotation;
+                character.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
+                
+            }
+            yield return null;
+        }
+    }
+    
     public float GetMovementCooldown()
     {
         return baseMovementCD;

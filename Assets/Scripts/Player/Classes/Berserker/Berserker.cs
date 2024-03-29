@@ -6,6 +6,7 @@ public class Berserker : MonoBehaviour
 {
     public PlayerSpriteController PSC;
     public List<GameObject> Cooldowns = new List<GameObject>();
+    public Transform dashEffect;
     public Transform attackHitBoxPos;
     public float attackRadius;
     public LayerMask Damageable;
@@ -55,10 +56,12 @@ public class Berserker : MonoBehaviour
     public IEnumerator Dashing()
     {
         PSC.Movable = false;
+        dashEffect.gameObject.SetActive(true);
         StartCoroutine(DashEffect(PSC));
         yield return new WaitForSeconds(0.25f);
         Cooldowns[4].SetActive(true);
         MovementCD = baseMovementCD;
+        dashEffect.gameObject.SetActive(false);
         PSC.Movable = true;
     }
 
