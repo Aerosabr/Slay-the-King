@@ -66,10 +66,10 @@ public class Rock : MonoBehaviour
         {
             if (hitCollider.CompareTag("Player"))
             {
-                PlayerHealth playerHealth = hitCollider.GetComponent<PlayerHealth>();
+                Player playerHealth = hitCollider.GetComponent<Player>();
                 if (playerHealth != null)
                 {
-                    playerHealth.ChangeHealth(-5);
+                    playerHealth.Damaged(5);
                 }
             }
         }

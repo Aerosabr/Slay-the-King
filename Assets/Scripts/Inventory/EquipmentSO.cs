@@ -10,38 +10,45 @@ public class EquipmentSO : ScriptableObject
     [SerializeField]
     private Sprite itemSprite;
 
-    public void PreviewEquipment()
+    public void PreviewEquipment(Player player)
     {
-        GameObject.Find("StatManager").GetComponent<PlayerStats>().PreviewEquipmentStats(health, attack, defense, dexterity, cooldown_reduction, attack_speed, luck, itemSprite);
-    }
-    
-    public void EquipItem()
-    {
-        //Update Stats
-        PlayerStats playerstats = GameObject.Find("StatManager").GetComponent<PlayerStats>();
-        playerstats.health += health;
-        playerstats.attack += attack;
-        playerstats.defense += defense;
-        playerstats.dexterity += dexterity;
-        playerstats.cooldown_reduction += cooldown_reduction;
-        playerstats.attack_speed += attack_speed;
-        playerstats.luck += luck;
-
-        playerstats.UpdateEquipmentStats();
+        if (player != null)
+        {
+            player.PreviewEquipmentStats(health, attack, defense, dexterity, cooldown_reduction, attack_speed, luck, itemSprite);
+        }
     }
 
-    public void UnEquipItem()
+    public void EquipItem(Player player)
     {
-        //Update Stats
-        PlayerStats playerstats = GameObject.Find("StatManager").GetComponent<PlayerStats>();
-        playerstats.health -= health;
-        playerstats.attack -= attack;
-        playerstats.defense -= defense;
-        playerstats.dexterity -= dexterity;
-        playerstats.cooldown_reduction -= cooldown_reduction;
-        playerstats.attack_speed -= attack_speed;
-        playerstats.luck -= luck;
+        // Update Stats
+        if (player != null)
+        {
+            player.health += health;
+            player.attack += attack;
+            player.defense += defense;
+            player.dexterity += dexterity;
+            player.cooldown_reduction += cooldown_reduction;
+            player.attack_speed += attack_speed;
+            player.luck += luck;
 
-        playerstats.UpdateEquipmentStats();
+            player.UpdateEquipmentStats();
+        }
+    }
+
+    public void UnEquipItem(Player player)
+    {
+        // Update Stats
+        if (player != null)
+        {
+            player.health -= health;
+            player.attack -= attack;
+            player.defense -= defense;
+            player.dexterity -= dexterity;
+            player.cooldown_reduction -= cooldown_reduction;
+            player.attack_speed -= attack_speed;
+            player.luck -= luck;
+
+            player.UpdateEquipmentStats();
+        }
     }
 }

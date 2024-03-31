@@ -1,14 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using System;
 
 public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
 {
-    //ITEM DATA
+    // ITEM DATA
     public string itemName;
     public int quantity;
     public Sprite itemSprite;
@@ -17,12 +15,11 @@ public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
     public Sprite emptySprite;
     public ItemType itemType;
 
-    //ITEM SLOT
-
+    // ITEM SLOT
     [SerializeField]
     private Image itemImage;
 
-    //EQUIPMENT SLOT
+    // EQUIPMENT SLOT
     [SerializeField]
     private EquippedSlot helmetSlot, chestSlot, legSlot, weaponSlot, amuletSlot, ringSlot;
 
@@ -100,10 +97,12 @@ public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
                 inventoryManager.DeselectAllSlots();
                 selectedShader.SetActive(true);
                 thisItemSelected = true;
+
+                Player player = FindObjectOfType<Player>(); // Find the player in the scene
                 for (int i = 0; i < equipmentSOLibrary.equipmentSO.Length; i++)
                 {
                     if (equipmentSOLibrary.equipmentSO[i].itemName == this.itemName)
-                        equipmentSOLibrary.equipmentSO[i].PreviewEquipment();
+                        equipmentSOLibrary.equipmentSO[i].PreviewEquipment(player);
                 }
             }
         }
@@ -111,14 +110,14 @@ public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
         {
             if (thisItemSelected)
             {
-                GameObject.Find("StatManager").GetComponent<PlayerStats>().TurnOffPreviewStats();
+                TurnOffPreviewStats();
                 inventoryManager.DeselectAllSlots();
                 selectedShader.SetActive(false);
                 thisItemSelected = false;
             }
             else
             {
-                GameObject.Find("StatManager").GetComponent<PlayerStats>().TurnOffPreviewStats();
+                TurnOffPreviewStats();
                 inventoryManager.DeselectAllSlots();
                 selectedShader.SetActive(true);
                 thisItemSelected = true;
@@ -126,7 +125,14 @@ public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
         }
     }
 
-
+    private void TurnOffPreviewStats()
+    {
+        Player player = FindObjectOfType<Player>(); // Find the player in the scene
+        if (player != null)
+        {
+            player.TurnOffPreviewStats();
+        }
+    }
 
     private void EmptySlot()
     {

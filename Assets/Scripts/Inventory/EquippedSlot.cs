@@ -7,13 +7,13 @@ using UnityEngine.EventSystems;
 
 public class EquippedSlot : MonoBehaviour, IPointerClickHandler
 {
-    //SLOT APPEARANCE
+    // SLOT APPEARANCE
     [SerializeField]
     private Image slotImage;
 
-    //SLOT DATA
+    // SLOT DATA
     [SerializeField]
-    private ItemType itemType = new ItemType();
+    private ItemType itemType;
 
     private Sprite itemSprite;
     private string itemName;
@@ -22,30 +22,28 @@ public class EquippedSlot : MonoBehaviour, IPointerClickHandler
     private InventoryManager inventoryManager;
     private EquipmentSOLibrary equipmentSOLibrary;
 
+    // OTHER VARIABLES
+    private bool slotInUse;
+    [SerializeField]
+    public GameObject selectedShader;
+    [SerializeField]
+    public bool thisItemSelected;
+    [SerializeField]
+    private Sprite emptySprite;
+
     private void Start()
     {
         inventoryManager = GameObject.Find("InventoryCanvas").GetComponent<InventoryManager>();
         equipmentSOLibrary = GameObject.Find("InventoryCanvas").GetComponent<EquipmentSOLibrary>();
     }
 
-    //OTHER VARIABLES
-    private bool slotInUse;
-    [SerializeField]
-    public GameObject selectedShader;
-
-    [SerializeField]
-    public bool thisItemSelected;
-
-    [SerializeField]
-    private Sprite emptySprite;
-
     public void OnPointerClick(PointerEventData eventData)
     {
-        if(eventData.button == PointerEventData.InputButton.Left)
+        if (eventData.button == PointerEventData.InputButton.Left)
         {
             OnLeftClick();
         }
-        if (eventData.button == PointerEventData.InputButton.Right)
+        else if (eventData.button == PointerEventData.InputButton.Right)
         {
             OnRightClick();
         }
@@ -61,7 +59,6 @@ public class EquippedSlot : MonoBehaviour, IPointerClickHandler
             }
             else
             {
-
                 inventoryManager.DeselectAllSlots();
                 selectedShader.SetActive(false);
                 thisItemSelected = false;
@@ -69,19 +66,18 @@ public class EquippedSlot : MonoBehaviour, IPointerClickHandler
         }
         else
         {
-
             inventoryManager.DeselectAllSlots();
             selectedShader.SetActive(true);
             thisItemSelected = true;
 
+            Player player = FindObjectOfType<Player>(); // Find the player in the scene
             for (int i = 0; i < this.equipmentSOLibrary.equipmentSO.Length; i++)
             {
                 if (equipmentSOLibrary.equipmentSO[i].itemName == this.itemName)
-                    equipmentSOLibrary.equipmentSO[i].PreviewEquipment();
+                    equipmentSOLibrary.equipmentSO[i].PreviewEquipment(player);
             }
         }
     }
-
 
     void OnRightClick()
     {
@@ -90,27 +86,27 @@ public class EquippedSlot : MonoBehaviour, IPointerClickHandler
 
     public void EquipGear(Sprite itemSprite, string itemName, string itemDescription)
     {
-        //Check if item already there
+        // Check if item already there
         if (slotInUse)
             UnEquipGear();
 
-        //Update Image
+        // Update Image
         this.itemSprite = itemSprite;
         slotImage.sprite = this.itemSprite;
 
-        //Update Data
+        // Update Data
         this.itemName = itemName;
         this.itemDescription = itemDescription;
 
-        //Update Player Stats
-        for (int i = 0; i <equipmentSOLibrary.equipmentSO.Length; i++ )
+        // Update Player Stats
+        Player player = FindObjectOfType<Player>(); // Find the player in the scene
+        for (int i = 0; i < equipmentSOLibrary.equipmentSO.Length; i++)
         {
             if (equipmentSOLibrary.equipmentSO[i].itemName == this.itemName)
-                equipmentSOLibrary.equipmentSO[i].EquipItem();
+                equipmentSOLibrary.equipmentSO[i].EquipItem(player);
         }
 
         slotInUse = true;
-
     }
 
     public void UnEquipGear()
@@ -126,20 +122,21 @@ public class EquippedSlot : MonoBehaviour, IPointerClickHandler
         slotImage.sprite = emptySprite;
         slotInUse = false;
 
-
+        Player player = FindObjectOfType<Player>(); // Find the player in the scene
         for (int i = 0; i < equipmentSOLibrary.equipmentSO.Length; i++)
         {
             if (equipmentSOLibrary.equipmentSO[i].itemName == this.itemName)
             {
-                equipmentSOLibrary.equipmentSO[i].UnEquipItem();
+                equipmentSOLibrary.equipmentSO[i].UnEquipItem(player);
             }
         }
 
         itemName = "";
         itemDescription = "";
 
-        GameObject.Find("StatManager").GetComponent<PlayerStats>().TurnOffPreviewStats();
+        if (player != null)
+        {
+            player.TurnOffPreviewStats();
+        }
     }
-
-
 }
