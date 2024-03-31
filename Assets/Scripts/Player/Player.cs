@@ -94,6 +94,13 @@ public class Player : MonoBehaviour
         DamagePopup.Create(rb.transform.position, damage, false);
     }
 
+    public void Healed(int amount)
+    {
+        currentHealth += amount;
+        HealthBar.GetComponent<Slider>().value = (float)currentHealth / (float)maxHealth;
+        DamagePopup.Create(rb.transform.position, amount, false);
+    }
+
     public void UpdateEquipmentStats()
     {
         healthText.text = health.ToString();
