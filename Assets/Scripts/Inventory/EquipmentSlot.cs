@@ -29,6 +29,8 @@ public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
     public GameObject selectedShader;
     public bool thisItemSelected;
 
+    public Transform equipmentStatPanel; 
+
     private InventoryManager inventoryManager;
     private EquipmentSOLibrary equipmentSOLibrary;
 
@@ -103,7 +105,12 @@ public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
                 for (int i = 0; i < equipmentSOLibrary.equipmentSO.Length; i++)
                 {
                     if (equipmentSOLibrary.equipmentSO[i].itemName == this.itemName)
+                    {
+                        if(!equipmentStatPanel.gameObject.activeSelf)
+                            equipmentStatPanel.gameObject.SetActive(true);
+                        equipmentStatPanel.position = new Vector3(-380f, 0, 0) + transform.position;
                         equipmentSOLibrary.equipmentSO[i].PreviewEquipment();
+                    }
                 }
             }
         }
@@ -111,6 +118,8 @@ public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
         {
             if (thisItemSelected)
             {
+                if(equipmentStatPanel.gameObject.activeSelf)
+                    equipmentStatPanel.gameObject.SetActive(false);
                 GameObject.Find("StatManager").GetComponent<PlayerStats>().TurnOffPreviewStats();
                 inventoryManager.DeselectAllSlots();
                 selectedShader.SetActive(false);
@@ -118,6 +127,8 @@ public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
             }
             else
             {
+                if(equipmentStatPanel.gameObject.activeSelf)
+                    equipmentStatPanel.gameObject.SetActive(false);
                 GameObject.Find("StatManager").GetComponent<PlayerStats>().TurnOffPreviewStats();
                 inventoryManager.DeselectAllSlots();
                 selectedShader.SetActive(true);
@@ -153,6 +164,8 @@ public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
         if (this.quantity <= 0 || string.IsNullOrEmpty(itemName))
         {
             // If the slot is empty, exit the method early without dropping an item.
+            if(equipmentStatPanel.gameObject.activeSelf)
+                    equipmentStatPanel.gameObject.SetActive(false);
             return;
         }
 

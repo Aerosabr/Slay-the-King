@@ -28,6 +28,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     private Image itemImage;
 
     //ITEM DESCRIPTION SLOT
+    public Transform itemStatPanel;
     public Image itemDescriptionImage;
     public TMP_Text ItemDescriptionNameText;
     public TMP_Text ItemDescriptionText;
@@ -91,6 +92,8 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         {
             if (string.IsNullOrEmpty(itemName) || quantity <= 0)
             {
+                if(itemStatPanel.gameObject.activeSelf)
+                    itemStatPanel.gameObject.SetActive(false);
                 inventoryManager.DeselectAllSlots();
                 selectedShader.SetActive(false);
                 thisItemSelected = false;
@@ -101,6 +104,8 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
             else
             {
                 Debug.Log($"Using item: {itemName}");
+                if(!itemStatPanel.gameObject.activeSelf)
+                    itemStatPanel.gameObject.SetActive(true);
                 bool usable = inventoryManager.UseItem(itemName);
                 if (usable)
                 {
@@ -113,6 +118,9 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         }
         else
         {
+            if(!itemStatPanel.gameObject.activeSelf)
+                itemStatPanel.gameObject.SetActive(true);
+            itemStatPanel.position = new Vector3(-380f, 0, 0) + transform.position;
             inventoryManager.DeselectAllSlots();
             selectedShader.SetActive(true);
             thisItemSelected = true;
@@ -155,6 +163,8 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         if (this.quantity <= 0 || string.IsNullOrEmpty(itemName))
         {
             // Slot is empty, so do nothing and return early.
+            if(itemStatPanel.gameObject.activeSelf)
+                    itemStatPanel.gameObject.SetActive(false);
             return;
         }
 
