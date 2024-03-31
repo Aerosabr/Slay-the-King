@@ -17,19 +17,18 @@ public class ItemSO : ScriptableObject
         if (statToChange == StatToChange.health)
         {
             Debug.Log($"Healing with amount: {amountToChangeStat}");
-            PlayerHealth playerHealth = GameObject.FindObjectOfType<PlayerHealth>();
-            if (playerHealth.health == playerHealth.maxHealth)
+            Player playerHealth = GameObject.FindObjectOfType<Player>();
+            if (playerHealth.currentHealth == playerHealth.maxHealth)
             {
                 return false;
             }
             else
             {
-                playerHealth.ChangeHealth(amountToChangeStat);
+                playerHealth.Healed(amountToChangeStat);
                 return true;
             }
         }
         return false;
-
     }
 
     public enum StatToChange
