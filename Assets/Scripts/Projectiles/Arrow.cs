@@ -27,10 +27,10 @@ public class Arrow : MonoBehaviour
         Debug.Log("Entered collision");
         if (collision.gameObject.tag == "Enemy")
         {
-            if(collision.transform.position.x - gameObject.transform.position.x >= 0)
-                collision.gameObject.SendMessage("Damaged", damage);
+            if (collision.transform.position.x - gameObject.transform.position.x >= 0)
+                collision.gameObject.GetComponent<IDamageable>().Damaged((int)damage);
             else
-                collision.gameObject.SendMessage("Damaged", -damage);
+                collision.gameObject.GetComponent<IDamageable>().Damaged((int)-damage);
         }
 
         if (destroyOnCollision)

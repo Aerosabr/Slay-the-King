@@ -23,13 +23,13 @@ public class EquipmentSO : ScriptableObject
         // Update Stats
         if (player != null)
         {
-            player.health += health;
-            player.attack += attack;
-            player.defense += defense;
-            player.dexterity += dexterity;
-            player.cooldown_reduction += cooldown_reduction;
-            player.attack_speed += attack_speed;
-            player.luck += luck;
+            player.maxHealth += health;
+            player.baseAttack += attack;
+            player.baseDefense += defense;
+            player.baseDexterity += dexterity;
+            player.baseCDR += cooldown_reduction;
+            player.baseAttackSpeed += attack_speed;
+            player.baseLuck += luck;
 
             player.UpdateEquipmentStats();
         }
@@ -40,13 +40,13 @@ public class EquipmentSO : ScriptableObject
         // Update Stats
         if (player != null)
         {
-            player.health -= health;
-            player.attack -= attack;
-            player.defense -= defense;
-            player.dexterity -= dexterity;
-            player.cooldown_reduction -= cooldown_reduction;
-            player.attack_speed -= attack_speed;
-            player.luck -= luck;
+            player.baseMaxHealth -= health;
+            player.baseAttack -= attack;
+            player.baseDefense -= defense;
+            player.baseDexterity -= dexterity;
+            player.baseCDR -= cooldown_reduction;
+            player.baseAttackSpeed -= attack_speed;
+            player.baseLuck -= luck;
 
             player.UpdateEquipmentStats();
         }

@@ -46,7 +46,6 @@ public class DamagePopup : MonoBehaviour
 
     public static DamagePopup Create(Vector3 position, int damageAmount, bool isCrit)
     {
-        Transform temp;
         Transform damagePopupTransform = Instantiate(Resources.Load<GameObject>("Prefabs/PopupText").transform, position, Quaternion.identity);
         DamagePopup damagePopup = damagePopupTransform.GetComponent<DamagePopup>();
         damagePopup.Setup(damageAmount, isCrit);
