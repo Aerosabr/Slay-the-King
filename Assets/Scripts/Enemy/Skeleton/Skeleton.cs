@@ -1,13 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[CreateAssetMenu(fileName = "New Enemy", menuName = "Enemy/Skeleton")]
-public class Skeleton : Enemy, Entity
+
+public class Skeleton : Enemy
 {
-    public Skeleton()
+
+
+    public override int Damaged(int damage) 
     {
-
+        return 0;
     }
-
-    public void Damaged(int damage) { }
 }

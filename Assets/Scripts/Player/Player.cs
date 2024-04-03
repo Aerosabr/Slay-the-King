@@ -4,8 +4,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using System.Linq;
 
-public class Player : MonoBehaviour
+public class Player : Entity, IEffectable, IDamageable
 {
     //Class that represents each individual player's stats and inventory
     //Equipment
@@ -17,11 +18,6 @@ public class Player : MonoBehaviour
 
     //Player Class
     public string Class;
-
-    //Stats
-    public int maxHealth;
-    public int currentHealth;
-    public int health, attack, defense, dexterity, cooldown_reduction, attack_speed, luck;
 
     [SerializeField]
     private TMP_Text healthText, attackText, defenseText, dexterityText, cooldown_reductionText, attack_speedText, luckText;
@@ -57,12 +53,41 @@ public class Player : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         HealthBar = GameObject.Find("PlayerHealth").transform.GetChild(0).gameObject;
-        currentHealth = maxHealth;
+        
     }
 
-    public Player(int health)
+    void Update()
     {
-        maxHealth = health;
+        if (Buffs.Count > 0)
+            HandleBuff();
+    }
+
+    //IEffectable Components
+    public Dictionary<string, Buff> Buffs = new Dictionary<string, Buff>();
+
+    public void ApplyBuff(Buff buff)
+    {
+        if (Buffs.ContainsKey(buff.Source))
+            Buffs.Remove(buff.Source);
+        else
+            Buffs.Add(buff.Source, buff);
+        Buffs[buff.Source].ApplyEffect();
+    }
+
+    public void RemoveBuff(Buff buff)
+    {
+        buff.RemoveEffect();
+        Buffs.Remove(buff.Source);
+    }
+
+    public void HandleBuff()
+    {
+        List<string> keys = Buffs.Keys.ToList();
+        foreach (string key in keys)
+        {
+            if (Buffs[key].HandleEffect())
+                RemoveBuff(Buffs[key]);
+        }
     }
 
     public Player GetPlayerComponent()
@@ -87,22 +112,46 @@ public class Player : MonoBehaviour
         return null;
     }
 
-    public void Damaged(int damage) 
+    //IDamageable Components
+    public int Damaged(int amount) 
     {
-        currentHealth -= damage;
+        int damage = (Mathf.Abs(amount) - Defense > 0) ? Mathf.Abs(amount) - Defense : 1;
+
+        if (currentHealth - damage > 0)
+            currentHealth -= damage;
+        else
+        {
+            damage = currentHealth;
+            currentHealth = 0;
+        }
+
         HealthBar.GetComponent<Slider>().value = (float)currentHealth / (float)maxHealth;
         DamagePopup.Create(rb.transform.position, damage, false);
+        return damage;
     }
 
-    public void Healed(int amount)
+    public int Healed(int amount)
     {
-        currentHealth += amount;
+        int totalHealed;
+        if (currentHealth + amount > maxHealth)
+        {
+            totalHealed = maxHealth - currentHealth;
+            currentHealth = maxHealth;
+        }
+        else
+        {
+            totalHealed = amount;
+            currentHealth += amount;
+        }
+
         HealthBar.GetComponent<Slider>().value = (float)currentHealth / (float)maxHealth;
         DamagePopup.Create(rb.transform.position, amount, false);
+        return totalHealed;
     }
 
     public void UpdateEquipmentStats()
     {
+        /*
         healthText.text = health.ToString();
         attackText.text = attack.ToString();
         defenseText.text = defense.ToString();
@@ -110,6 +159,7 @@ public class Player : MonoBehaviour
         cooldown_reductionText.text = cooldown_reduction.ToString();
         attack_speedText.text = attack_speed.ToString();
         luckText.text = luck.ToString();
+        */
     }
 
     public void PreviewEquipmentStats(int health, int attack, int defense, int dexterity, int cooldown_reduction, int attack_speed, int luck, Sprite itemSprite)
