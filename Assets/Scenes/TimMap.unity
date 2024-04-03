@@ -7234,30 +7234,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1681659507f112b438d2a2d6d0e51655, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 5
-  attack: 5
-  defense: 5
-  dexterity: 5
-  cooldown_reduction: 4
-  attack_speed: 4
-  luck: 4
-  healthText: {fileID: 1530928032}
-  attackText: {fileID: 1625718445}
-  defenseText: {fileID: 623262510}
-  dexterityText: {fileID: 2038562998}
-  cooldown_reductionText: {fileID: 657408007}
-  attack_speedText: {fileID: 268991908}
-  luckText: {fileID: 586621815}
-  healthPreText: {fileID: 1175157597}
-  attackPreText: {fileID: 1476470122}
-  defensePreText: {fileID: 764427568}
-  dexterityPreText: {fileID: 1980376019}
-  cooldown_reductionPreText: {fileID: 1971509848}
-  attack_speedPreText: {fileID: 1483362721}
-  luckPreText: {fileID: 1642165486}
-  previewImage: {fileID: 1298073411}
-  selectedItemStats: {fileID: 1343451067}
-  selectedItemImage: {fileID: 1532858089}
 --- !u!4 &229374415
 Transform:
   m_ObjectHideFlags: 0
@@ -8104,9 +8080,109 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 111412687}
     m_Modifications:
+    - target: {fileID: 2189566781041449161, guid: 5dea60bbc084f0d4eb0d3f9cab1b5bfd, type: 3}
+      propertyPath: luck
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2189566781041449161, guid: 5dea60bbc084f0d4eb0d3f9cab1b5bfd, type: 3}
+      propertyPath: attack
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2189566781041449161, guid: 5dea60bbc084f0d4eb0d3f9cab1b5bfd, type: 3}
+      propertyPath: defense
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2189566781041449161, guid: 5dea60bbc084f0d4eb0d3f9cab1b5bfd, type: 3}
+      propertyPath: luckText
+      value: 
+      objectReference: {fileID: 586621815}
+    - target: {fileID: 2189566781041449161, guid: 5dea60bbc084f0d4eb0d3f9cab1b5bfd, type: 3}
+      propertyPath: dexterity
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2189566781041449161, guid: 5dea60bbc084f0d4eb0d3f9cab1b5bfd, type: 3}
+      propertyPath: attackText
+      value: 
+      objectReference: {fileID: 1625718445}
+    - target: {fileID: 2189566781041449161, guid: 5dea60bbc084f0d4eb0d3f9cab1b5bfd, type: 3}
+      propertyPath: healthText
+      value: 
+      objectReference: {fileID: 1530928032}
+    - target: {fileID: 2189566781041449161, guid: 5dea60bbc084f0d4eb0d3f9cab1b5bfd, type: 3}
+      propertyPath: defenseText
+      value: 
+      objectReference: {fileID: 623262510}
+    - target: {fileID: 2189566781041449161, guid: 5dea60bbc084f0d4eb0d3f9cab1b5bfd, type: 3}
+      propertyPath: luckPreText
+      value: 
+      objectReference: {fileID: 1642165486}
+    - target: {fileID: 2189566781041449161, guid: 5dea60bbc084f0d4eb0d3f9cab1b5bfd, type: 3}
+      propertyPath: attack_speed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2189566781041449161, guid: 5dea60bbc084f0d4eb0d3f9cab1b5bfd, type: 3}
+      propertyPath: previewImage
+      value: 
+      objectReference: {fileID: 54414970}
+    - target: {fileID: 2189566781041449161, guid: 5dea60bbc084f0d4eb0d3f9cab1b5bfd, type: 3}
+      propertyPath: attackPreText
+      value: 
+      objectReference: {fileID: 1476470122}
+    - target: {fileID: 2189566781041449161, guid: 5dea60bbc084f0d4eb0d3f9cab1b5bfd, type: 3}
+      propertyPath: currentHealth
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2189566781041449161, guid: 5dea60bbc084f0d4eb0d3f9cab1b5bfd, type: 3}
+      propertyPath: dexterityText
+      value: 
+      objectReference: {fileID: 2038562998}
+    - target: {fileID: 2189566781041449161, guid: 5dea60bbc084f0d4eb0d3f9cab1b5bfd, type: 3}
+      propertyPath: healthPreText
+      value: 
+      objectReference: {fileID: 1175157597}
+    - target: {fileID: 2189566781041449161, guid: 5dea60bbc084f0d4eb0d3f9cab1b5bfd, type: 3}
+      propertyPath: defensePreText
+      value: 
+      objectReference: {fileID: 764427568}
+    - target: {fileID: 2189566781041449161, guid: 5dea60bbc084f0d4eb0d3f9cab1b5bfd, type: 3}
+      propertyPath: attack_speedText
+      value: 
+      objectReference: {fileID: 268991908}
+    - target: {fileID: 2189566781041449161, guid: 5dea60bbc084f0d4eb0d3f9cab1b5bfd, type: 3}
+      propertyPath: dexterityPreText
+      value: 
+      objectReference: {fileID: 1980376019}
+    - target: {fileID: 2189566781041449161, guid: 5dea60bbc084f0d4eb0d3f9cab1b5bfd, type: 3}
+      propertyPath: selectedItemImage
+      value: 
+      objectReference: {fileID: 1532858089}
+    - target: {fileID: 2189566781041449161, guid: 5dea60bbc084f0d4eb0d3f9cab1b5bfd, type: 3}
+      propertyPath: selectedItemStats
+      value: 
+      objectReference: {fileID: 1343451067}
+    - target: {fileID: 2189566781041449161, guid: 5dea60bbc084f0d4eb0d3f9cab1b5bfd, type: 3}
+      propertyPath: cooldown_reduction
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2189566781041449161, guid: 5dea60bbc084f0d4eb0d3f9cab1b5bfd, type: 3}
+      propertyPath: attack_speedPreText
+      value: 
+      objectReference: {fileID: 1483362721}
+    - target: {fileID: 2189566781041449161, guid: 5dea60bbc084f0d4eb0d3f9cab1b5bfd, type: 3}
+      propertyPath: cooldown_reductionText
+      value: 
+      objectReference: {fileID: 657408007}
+    - target: {fileID: 2189566781041449161, guid: 5dea60bbc084f0d4eb0d3f9cab1b5bfd, type: 3}
+      propertyPath: cooldown_reductionPreText
+      value: 
+      objectReference: {fileID: 1971509848}
     - target: {fileID: 3124167441968315881, guid: 5dea60bbc084f0d4eb0d3f9cab1b5bfd, type: 3}
       propertyPath: m_Name
       value: Ranger
+      objectReference: {fileID: 0}
+    - target: {fileID: 3124167441968315881, guid: 5dea60bbc084f0d4eb0d3f9cab1b5bfd, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7666269971439804559, guid: 5dea60bbc084f0d4eb0d3f9cab1b5bfd, type: 3}
       propertyPath: m_LocalPosition.x
@@ -45262,7 +45338,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c1b1b5314b8e1a41bad8cfd894ff7c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: -1
 --- !u!61 &1584418008
 BoxCollider2D:
   m_ObjectHideFlags: 0
