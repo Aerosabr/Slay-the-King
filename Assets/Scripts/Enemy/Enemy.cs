@@ -2,14 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Enemy : ScriptableObject
+public abstract class Enemy : MonoBehaviour
 {
     public string Name;
-    public Sprite Sprite;
-    public int Health;
-    public int Strength;
-    public int MagicalPower;
-    public int Armor;
-    public int Resistance;
-    public int Dexterity;
+    public int maxHealth;
+    public int currentHealth;
+    public float damageAmp = 1f;
+    public abstract int Damaged(int amount);
+
 }

@@ -193,8 +193,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed567bfaf41277548837121753ef02b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
-  currentHealth: 10
+  baseMaxHealth: 100
+  maxHealth: 100
+  currentHealth: 100
+  baseAttack: 0
+  Attack: 0
+  baseDefense: 10
+  Defense: 10
+  baseDexterity: 0
+  Dexterity: 0
+  baseCDR: 0
+  CDR: 0
+  baseAttackSpeed: 0
+  attackSpeed: 0
+  baseLuck: 0
+  Luck: 0
+  baseMovementSpeed: 0
+  movementSpeed: 0
+  isStunned: 0
   anim: {fileID: 0}
   rb: {fileID: 0}
   speed: 1

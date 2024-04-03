@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Ranger : MonoBehaviour
+public class Bow : MonoBehaviour
 {
     public PlayerSpriteController PSC;
     public GameObject arrowPrefab;
@@ -14,8 +14,8 @@ public class Ranger : MonoBehaviour
     public int passiveCounter = 0;
     public int damageMultiplier = 1;
 
-    public float baseAttackCD = 0.1f;
-    public float AttackCD = 0;
+    public float baseAttackCD;
+    public float AttackCD;
 
     public float baseAbility1CD = 2f;
     public float Ability1CD = 0;
@@ -29,7 +29,7 @@ public class Ranger : MonoBehaviour
     public float baseMovementCD = 5f;
     public float MovementCD = 0;
 
-    public float dashDistance;
+    public float dashDistance = 15f;
 
     public void Awake()
     {
@@ -41,6 +41,8 @@ public class Ranger : MonoBehaviour
         Cooldowns.Add(GameObject.Find("UltimateCooldown"));
         Cooldowns.Add(GameObject.Find("MovementCooldown"));
         Player Player = GameObject.Find("Player1").transform.GetChild(0).GetComponent<Player>();
+        baseAttackCD = 1 / Player.attackSpeed;
+        AttackCD = baseAttackCD;
         Player.AttackCD = baseAttackCD;
         Player.Ability1CD = baseAbility1CD;
         Player.Ability2CD = baseAbility2CD;
