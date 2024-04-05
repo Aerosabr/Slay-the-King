@@ -75,8 +75,6 @@ public class Daggers : MonoBehaviour
         }  
     }
 
-    
-
     public void OnDash()
     {
         if (!PSC.isAttacking && MovementCD == 0)
@@ -112,10 +110,10 @@ public class Daggers : MonoBehaviour
     */
     public float circleRadius = 3f; // Radius of the circle
 
-    public Vector2 MapPoint(Vector2 point)
+    public Vector2 MapPoint(Vector2 point, float radius)
     {
         float angle = Mathf.Atan2(point.y, point.x);
-        Vector2 temp = new Vector2(Mathf.Cos(angle) * circleRadius, Mathf.Sin(angle) * circleRadius);
+        Vector2 temp = new Vector2(Mathf.Cos(angle) * radius, Mathf.Sin(angle) * radius);
         return temp;
     }
 
@@ -125,7 +123,7 @@ public class Daggers : MonoBehaviour
         if (!PSC.isAttacking && AttackCD == 0 && PSC.Movable)
         {
             PSC.isAttacking = true;
-            PSC.currentDirection = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position).normalized;
+            PSC.currentDirection = MapPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position, 1f);
             StartCoroutine(AttackCast());
         }
     }
@@ -142,7 +140,7 @@ public class Daggers : MonoBehaviour
 
     public void Attack()
     {
-        attackHitBoxPos.localPosition = MapPoint(PSC.currentDirection);
+        attackHitBoxPos.localPosition = MapPoint(PSC.currentDirection, 3f);
         Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, attackRadius, Damageable);
         foreach (Collider2D collider in detectedObjects)
         {
@@ -172,12 +170,12 @@ public class Daggers : MonoBehaviour
             PSC.isAttacking = true;
             if (ability1Hit)
             {
-                dashing = true;
-                PSC.currentDirection = MapPoint(dashEnemy.transform.position);
+                PSC.currentDirection = MapPoint(dashEnemy.transform.position - gameObject.transform.position, 1f);
                 PSC.PlayAnimation("Run");
+                dashing = true;
                 return;
             }
-            PSC.currentDirection = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position).normalized;
+            PSC.currentDirection = MapPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position, 1f);
             StartCoroutine(Ability1Cast());
         }
     }
@@ -198,7 +196,7 @@ public class Daggers : MonoBehaviour
         GameObject dagger = Instantiate(Resources.Load<GameObject>("Prefabs/Dagger"), player.transform.position, player.transform.rotation);
         dagger.transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(PSC.currentDirection.y, PSC.currentDirection.x) * Mathf.Rad2Deg - 90);
         dagger.GetComponent<Dagger>().EditDagger(2f, 11f, true);
-        dagger.GetComponent<Rigidbody2D>().velocity = 7f * MapPoint(PSC.currentDirection);
+        dagger.GetComponent<Rigidbody2D>().velocity = 7f * MapPoint(PSC.currentDirection, 3f);
     }
 
     public void Ability1TargetHit(GameObject enemy)
@@ -235,21 +233,22 @@ public class Daggers : MonoBehaviour
         if (!PSC.isAttacking && Ability2CD == 0 && PSC.Movable)
         {
             PSC.isAttacking = true;
-            PSC.currentDirection = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position).normalized;
+            PSC.currentDirection = MapPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position, 1f);
+            PSC.PlayAnimation("Run");
             StartCoroutine(Ability2Cast());
         }
     }
 
     private IEnumerator Ability2Cast()
     {
-        PSC._rigidbody.velocity = new Vector2(-PSC.currentDirection.x * dashDistance * 2, -PSC.currentDirection.y * dashDistance * 2);
+        PSC._rigidbody.velocity = new Vector2(-PSC.currentDirection.x * (dashDistance / 2), -PSC.currentDirection.y * (dashDistance / 2));
         for (int i = 0; i < 3; i++)
         {
             GameObject player = GameObject.Find("Player1").transform.GetChild(0).gameObject;
             GameObject dagger = Instantiate(Resources.Load<GameObject>("Prefabs/Dagger"), player.transform.position, player.transform.rotation);
             dagger.transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(PSC.currentDirection.y, PSC.currentDirection.x) * Mathf.Rad2Deg - 90);
             dagger.GetComponent<Dagger>().EditDagger(2f, 11f, false);
-            dagger.GetComponent<Rigidbody2D>().velocity = 7f * MapPoint(PSC.currentDirection);
+            dagger.GetComponent<Rigidbody2D>().velocity = 15f * MapPoint(PSC.currentDirection, 1f);
             yield return new WaitForSeconds(.1f);
         }
         PSC._rigidbody.velocity = Vector2.zero;
@@ -257,11 +256,6 @@ public class Daggers : MonoBehaviour
         Cooldowns[2].SetActive(true);
         Ability2CD = baseAbility2CD;
         PSC.isAttacking = false;
-    }
-
-    public void Ability2()
-    {
-
     }
 
     public float GetAbility2Cooldown()
@@ -292,7 +286,9 @@ public class Daggers : MonoBehaviour
     }
 
     private IEnumerator UltimateCast()
-    { 
+    {
+        PSC.currentDirection = MapPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position, 1f);
+        PSC.PlayAnimation("Run");
         PSC._rigidbody.velocity = new Vector2(PSC.currentDirection.x * dashDistance, PSC.currentDirection.y * dashDistance);
         yield return new WaitForSeconds(0.25f);
         Ability1CD = 0;
