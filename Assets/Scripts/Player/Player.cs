@@ -89,7 +89,7 @@ public class Player : Entity, IEffectable, IDamageable
                 RemoveBuff(Buffs[key]);
         }
     }
-
+    
     public Player GetPlayerComponent()
     {
         GameObject playerManager = GameObject.Find("PlayerManager");
@@ -151,15 +151,15 @@ public class Player : Entity, IEffectable, IDamageable
 
     public void UpdateEquipmentStats()
     {
-        /*
-        healthText.text = health.ToString();
-        attackText.text = attack.ToString();
-        defenseText.text = defense.ToString();
-        dexterityText.text = dexterity.ToString();
-        cooldown_reductionText.text = cooldown_reduction.ToString();
-        attack_speedText.text = attack_speed.ToString();
-        luckText.text = luck.ToString();
-        */
+       
+       healthText.text = health.ToString();
+       attackText.text = attack.ToString();
+       defenseText.text = defense.ToString();
+       dexterityText.text = dexterity.ToString();
+       cooldown_reductionText.text = cooldown_reduction.ToString();
+       attack_speedText.text = attack_speed.ToString();
+       luckText.text = luck.ToString();
+        
     }
 
     public void PreviewEquipmentStats(int health, int attack, int defense, int dexterity, int cooldown_reduction, int attack_speed, int luck, Sprite itemSprite)

@@ -26,7 +26,6 @@ public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
     public GameObject selectedShader;
     public bool thisItemSelected;
 
-    public Transform equipmentStatPanel; 
 
     private InventoryManager inventoryManager;
     private EquipmentSOLibrary equipmentSOLibrary;
