@@ -365,9 +365,7 @@ GameObject:
   - component: {fileID: 4014616787072648911}
   - component: {fileID: 547417484127015214}
   - component: {fileID: 3226898831386983243}
-  - component: {fileID: 3144090751267785306}
   - component: {fileID: 7173206055439459415}
-  - component: {fileID: 6738647429576173690}
   m_Layer: 8
   m_Name: Rogue
   m_TagString: Player
@@ -621,21 +619,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   Movable: 1
---- !u!114 &3144090751267785306
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4285538799939930106}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c26128ab61c16534392621379a0ace45, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 0
-  maxHealth: 100
-  healthText: {fileID: 0}
 --- !u!114 &7173206055439459415
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -648,19 +631,47 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a049d1a4df25a7143b911ce19cd5c703, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  baseMaxHealth: 100
+  maxHealth: 100
+  currentHealth: 100
+  baseAttack: 0
+  Attack: 0
+  baseDefense: 0
+  Defense: 0
+  baseDexterity: 0
+  Dexterity: 0
+  baseCDR: 0
+  CDR: 0
+  baseAttackSpeed: 1
+  attackSpeed: 1
+  baseLuck: 0
+  Luck: 0
+  baseMovementSpeed: 0
+  movementSpeed: 0
+  isStunned: 0
   Helmet: {fileID: 0}
   Chestplate: {fileID: 0}
   Leggings: {fileID: 0}
   Boots: {fileID: 0}
   Weapon: {fileID: 0}
   Class: 
-  maxHealth: 100
-  currentHealth: 0
-  Strength: 0
-  MagicalPower: 0
-  Armor: 0
-  Resistance: 0
-  Dexterity: 0
+  healthText: {fileID: 0}
+  attackText: {fileID: 0}
+  defenseText: {fileID: 0}
+  dexterityText: {fileID: 0}
+  cooldown_reductionText: {fileID: 0}
+  attack_speedText: {fileID: 0}
+  luckText: {fileID: 0}
+  healthPreText: {fileID: 0}
+  attackPreText: {fileID: 0}
+  defensePreText: {fileID: 0}
+  dexterityPreText: {fileID: 0}
+  cooldown_reductionPreText: {fileID: 0}
+  attack_speedPreText: {fileID: 0}
+  luckPreText: {fileID: 0}
+  previewImage: {fileID: 0}
+  selectedItemStats: {fileID: 0}
+  selectedItemImage: {fileID: 0}
   AttackCD: 0
   Ability1CD: 0
   Ability2CD: 0
@@ -668,37 +679,6 @@ MonoBehaviour:
   MovementCD: 0
   HealthBar: {fileID: 0}
   rb: {fileID: 0}
---- !u!114 &6738647429576173690
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4285538799939930106}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e9eeb3fe168e24c43832c6a3e2e3955e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PSC: {fileID: 0}
-  Cooldowns: []
-  attackHitBoxPos: {fileID: 8476776548482316053}
-  attackRadius: 0.5
-  Damageable:
-    serializedVersion: 2
-    m_Bits: 128
-  baseAttackCD: 0.1
-  AttackCD: 0
-  baseAbility1CD: 2
-  Ability1CD: 0
-  baseAbility2CD: 3
-  Ability2CD: 0
-  baseUltimateCD: 5
-  UltimateCD: 0
-  baseMovementCD: 5
-  MovementCD: 0
-  dashDistance: 15
-  circleRadius: 3
 --- !u!1 &4851323625704797809
 GameObject:
   m_ObjectHideFlags: 0
