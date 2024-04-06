@@ -13,9 +13,14 @@ public class EquippedSlot : MonoBehaviour, IPointerClickHandler
 
     // SLOT DATA
     [SerializeField]
-    public Item item;
+    private ItemType itemType;
+
+    private Sprite itemSprite;
+    private string itemName;
+    private string itemDescription;
 
     private InventoryManager inventoryManager;
+    private EquipmentSOLibrary equipmentSOLibrary;
 
     // OTHER VARIABLES
     private bool slotInUse;
@@ -29,6 +34,7 @@ public class EquippedSlot : MonoBehaviour, IPointerClickHandler
     private void Start()
     {
         inventoryManager = GameObject.Find("InventoryCanvas").GetComponent<InventoryManager>();
+        equipmentSOLibrary = GameObject.Find("InventoryCanvas").GetComponent<EquipmentSOLibrary>();
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -105,13 +111,13 @@ public class EquippedSlot : MonoBehaviour, IPointerClickHandler
 
     public void UnEquipGear()
     {
-        if (!slotInUse || string.IsNullOrEmpty(item.itemName))
+        if (!slotInUse || string.IsNullOrEmpty(itemName))
         {
             return;
         }
 
         inventoryManager.DeselectAllSlots();
-        inventoryManager.AddItem(item);
+        inventoryManager.AddItem(itemName, 1, itemSprite, itemDescription, itemType);
 
         slotImage.sprite = emptySprite;
         slotInUse = false;
@@ -119,7 +125,7 @@ public class EquippedSlot : MonoBehaviour, IPointerClickHandler
         Player player = FindObjectOfType<Player>(); // Find the player in the scene
         for (int i = 0; i < equipmentSOLibrary.equipmentSO.Length; i++)
         {
-            if (equipmentSOLibrary.equipmentSO[i].itemName == item.itemName)
+            if (equipmentSOLibrary.equipmentSO[i].itemName == this.itemName)
             {
                 equipmentSOLibrary.equipmentSO[i].UnEquipItem(player);
             }
