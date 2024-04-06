@@ -5,10 +5,9 @@ using UnityEngine;
 public class Scythe : MonoBehaviour
 {
     public PlayerSpriteController PSC;
-    public Player Player;
     public List<GameObject> Cooldowns = new List<GameObject>();
+    public Player Player;
     public Transform attackHitBoxPos;
-    public float attackRadius = 1f;
     public LayerMask Damageable;
 
     public bool AttackCD = true;
@@ -27,8 +26,9 @@ public class Scythe : MonoBehaviour
         Cooldowns.Add(GameObject.Find("Ability2Cooldown"));
         Cooldowns.Add(GameObject.Find("UltimateCooldown"));
         Cooldowns.Add(GameObject.Find("MovementCooldown"));
-        Player = GameObject.Find("Player1").transform.GetChild(0).GetComponent<Player>();
+        Player = gameObject.GetComponent<Player>();
         attackHitBoxPos = transform.Find("AttackHitbox");
+        Damageable = LayerMask.GetMask("Enemy");
     }
 
     public Vector2 MapPoint(Vector2 point, float radius)
@@ -94,7 +94,7 @@ public class Scythe : MonoBehaviour
     public void Attack()
     {
         attackHitBoxPos.localPosition = MapPoint(PSC.currentDirection, 3f);
-        Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, attackRadius, Damageable);
+        Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, 1f, Damageable);
         foreach (Collider2D collider in detectedObjects)
         {
             if (collider.transform.position.x - gameObject.transform.position.x >= 0)
@@ -133,7 +133,7 @@ public class Scythe : MonoBehaviour
         for (int i = 0; i < 2; i++)
         {
             PSC.Attack("Stab", 2);
-            Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, attackRadius + 0.5f, Damageable);
+            Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, 1.5f, Damageable);
             foreach (Collider2D collider in detectedObjects)
             {
                 if (collider.transform.position.x - gameObject.transform.position.x >= 0)

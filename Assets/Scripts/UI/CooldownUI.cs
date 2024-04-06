@@ -9,6 +9,7 @@ public class CooldownUI : MonoBehaviour
     public bool ready;
     public Text cooldown;
     public string Action;
+    public GameObject Player;
 
     private void Awake()
     {
@@ -26,7 +27,8 @@ public class CooldownUI : MonoBehaviour
             if (remainingTime <= 0)
             {
                 ready = false;
-                GameObject.Find("Player1").transform.GetChild(0).gameObject.SendMessage("Reset" + Action);
+                //GameObject.Find("Player1").transform.GetChild(0).gameObject.SendMessage("Reset" + Action);
+                Player.SendMessage("Reset" + Action);
                 gameObject.SetActive(false);
             }
         }

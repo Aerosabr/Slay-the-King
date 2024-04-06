@@ -21,7 +21,7 @@ public class ScytheDomain : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            collision.gameObject.GetComponent<IEffectable>().ApplyBuff(new ScytheDomainBuff(5, 50, .5f, 1f, "Scythe - Ultimate", collision.gameObject));
+            collision.gameObject.GetComponent<IEffectable>().ApplyBuff(new ScytheDomainBuff(5, 50, .5f, .5f, 1f, "Scythe - Ultimate", collision.gameObject));
         }
     }
 }

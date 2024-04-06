@@ -6,6 +6,8 @@ public class Daggers : MonoBehaviour
 {
     public PlayerSpriteController PSC;
     public List<GameObject> Cooldowns = new List<GameObject>();
+    public Player Player;
+    public GameObject daggerPrefab;
     public Transform attackHitBoxPos;
     public float attackRadius = 0.5f;
     public LayerMask Damageable;
@@ -16,20 +18,11 @@ public class Daggers : MonoBehaviour
     public IEnumerator ultimateCoroutine;
     public int ultimateCasts = 0;
 
-    public float baseAttackCD = 0.1f;
-    public float AttackCD = 0;
-
-    public float baseAbility1CD = 2f;
-    public float Ability1CD = 0;
-
-    public float baseAbility2CD = 3f;
-    public float Ability2CD = 0;
-
-    public float baseUltimateCD = 5f;
-    public float UltimateCD = 0;
-
-    public float baseMovementCD = 5f;
-    public float MovementCD = 0;
+    public bool AttackCD = true;
+    public bool Ability1CD = true;
+    public bool Ability2CD = true;
+    public bool UltimateCD = true;
+    public bool MovementCD = true;
 
     public float dashDistance = 15f;
 
@@ -41,44 +34,33 @@ public class Daggers : MonoBehaviour
         Cooldowns.Add(GameObject.Find("Ability2Cooldown"));
         Cooldowns.Add(GameObject.Find("UltimateCooldown"));
         Cooldowns.Add(GameObject.Find("MovementCooldown"));
-        Player Player = GameObject.Find("Player1").transform.GetChild(0).GetComponent<Player>();
+        Player = gameObject.GetComponent<Player>();
         attackHitBoxPos = transform.Find("AttackHitbox");
-        baseAttackCD = 1 / Player.attackSpeed;
-        AttackCD = baseAttackCD;
-        Player.AttackCD = baseAttackCD;
-        Player.Ability1CD = baseAbility1CD;
-        Player.Ability2CD = baseAbility2CD;
-        Player.UltimateCD = baseUltimateCD;
-        Player.MovementCD = baseMovementCD;
+        daggerPrefab = Resources.Load<GameObject>("Prefabs/Dagger");
+        Damageable = LayerMask.GetMask("Enemy");
     }
 
-    private void FixedUpdate()
+    private void Start()
     {
-        if (dashing)
+        foreach (GameObject i in Cooldowns)
         {
-            transform.position = Vector2.MoveTowards(transform.position, dashEnemy.transform.position, 10f * Time.deltaTime);
-            gameObject.GetComponent<BoxCollider2D>().enabled = false;
-            if (gameObject.transform.position == dashEnemy.transform.position)
-            {
-                dashing = false;
-                PSC.isAttacking = false;
-                Cooldowns[1].SetActive(true);
-                Ability1CD = baseAbility1CD;
-                ability1Hit = false;
-                StopCoroutine(ability1Coroutine);
-                gameObject.GetComponent<BoxCollider2D>().enabled = true;
-                if (dashEnemy.transform.position.x - gameObject.transform.position.x >= 0)
-                    dashEnemy.GetComponent<IDamageable>().Damaged(10);
-                else
-                    dashEnemy.GetComponent<IDamageable>().Damaged(-10);
-            }
-        }  
+            i.GetComponent<CooldownUI>().Player = gameObject;
+        }
     }
 
+    public Vector2 MapPoint(Vector2 point, float radius)
+    {
+        float angle = Mathf.Atan2(point.y, point.x);
+        Vector2 temp = new Vector2(Mathf.Cos(angle) * radius, Mathf.Sin(angle) * radius);
+        return temp;
+    }
+
+    #region Player Movement
     public void OnDash()
     {
-        if (!PSC.isAttacking && MovementCD == 0)
+        if (!PSC.isAttacking && MovementCD)
         {
+            MovementCD = false;
             PSC._rigidbody.velocity = new Vector2(PSC.currentDirection.x * dashDistance, PSC.currentDirection.y * dashDistance);
             StartCoroutine(Dashing());
         }
@@ -89,39 +71,27 @@ public class Daggers : MonoBehaviour
         PSC.Movable = false;
         yield return new WaitForSeconds(0.25f);
         Cooldowns[4].SetActive(true);
-        MovementCD = baseMovementCD;
+        Cooldowns[4].GetComponent<CooldownUI>().StartCooldown(5f);
         PSC.Movable = true;
     }
 
     public float GetMovementCooldown()
     {
-        return baseMovementCD;
+        return 5f;
     }
 
     public void ResetMovementCooldown()
     {
-        MovementCD = 0;
+        MovementCD = true;
     }
-    /*
-    public void OnDrawGizmos()
-    {
-        Gizmos.DrawWireSphere(attackHitBoxPos.position, attackRadius);
-    }
-    */
-    public float circleRadius = 3f; // Radius of the circle
+    #endregion
 
-    public Vector2 MapPoint(Vector2 point, float radius)
-    {
-        float angle = Mathf.Atan2(point.y, point.x);
-        Vector2 temp = new Vector2(Mathf.Cos(angle) * radius, Mathf.Sin(angle) * radius);
-        return temp;
-    }
-
-    //Player Attack
+    #region Player Attack
     public void OnAttack()
     {
-        if (!PSC.isAttacking && AttackCD == 0 && PSC.Movable)
+        if (!PSC.isAttacking && AttackCD && PSC.Movable)
         {
+            AttackCD = false;
             PSC.isAttacking = true;
             PSC.currentDirection = MapPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position, 1f);
             StartCoroutine(AttackCast());
@@ -132,7 +102,7 @@ public class Daggers : MonoBehaviour
     {
         PSC.Attack("Stab", 2);
         Cooldowns[0].SetActive(true);
-        AttackCD = baseAttackCD;
+        Cooldowns[0].GetComponent<CooldownUI>().StartCooldown(1 / Player.attackSpeed);
         Attack();
         yield return new WaitForSeconds(.5f);
         PSC.isAttacking = false;
@@ -145,28 +115,29 @@ public class Daggers : MonoBehaviour
         foreach (Collider2D collider in detectedObjects)
         {
             if (collider.transform.position.x - gameObject.transform.position.x >= 0)
-                collider.gameObject.GetComponent<IDamageable>().Damaged(10);
+                collider.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack);
             else
-                collider.gameObject.GetComponent<IDamageable>().Damaged(-10);
-
+                collider.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack);
         }
     }
 
     public float GetAttackCooldown()
     {
-        return baseAttackCD;
+        return 1 / Player.attackSpeed;
     }
 
     public void ResetAttackCooldown()
     {
-        AttackCD = 0;
+        AttackCD = true;
     }
+    #endregion
 
-    //Player Ability1
+    #region Player Ability1
     public void OnAbility1()
     {
-        if (!PSC.isAttacking && Ability1CD == 0 && PSC.Movable)
+        if (!PSC.isAttacking && Ability1CD && PSC.Movable)
         {
+            Ability1CD = false;
             PSC.isAttacking = true;
             if (ability1Hit)
             {
@@ -184,7 +155,7 @@ public class Daggers : MonoBehaviour
     {
         PSC.Attack("Stab", 2);
         Cooldowns[1].SetActive(true);
-        Ability1CD = baseAbility1CD;
+        Cooldowns[1].GetComponent<CooldownUI>().StartCooldown(3f * ((100 - Player.CDR) / 100));
         Ability1();
         yield return new WaitForSeconds(.5f);
         PSC.isAttacking = false;
@@ -192,10 +163,9 @@ public class Daggers : MonoBehaviour
 
     public void Ability1()
     {
-        GameObject player = GameObject.Find("Player1").transform.GetChild(0).gameObject;
-        GameObject dagger = Instantiate(Resources.Load<GameObject>("Prefabs/Dagger"), player.transform.position, player.transform.rotation);
+        GameObject dagger = Instantiate(daggerPrefab, Player.transform.position, Player.transform.rotation);
         dagger.transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(PSC.currentDirection.y, PSC.currentDirection.x) * Mathf.Rad2Deg - 90);
-        dagger.GetComponent<Dagger>().EditDagger(2f, 11f, true);
+        dagger.GetComponent<Dagger>().EditDagger(2f, Player.Attack, true, this);
         dagger.GetComponent<Rigidbody2D>().velocity = 7f * MapPoint(PSC.currentDirection, 3f);
     }
 
@@ -204,34 +174,60 @@ public class Daggers : MonoBehaviour
         ability1Hit = true;
         dashEnemy = enemy;
         Cooldowns[1].SetActive(false);
-        Ability1CD = 0;
+        Ability1CD = true;
         ability1Coroutine = Ability1DashTimer();
         StartCoroutine(ability1Coroutine);
+    }
+
+    private void FixedUpdate()
+    {
+        if (dashing)
+        {
+            transform.position = Vector2.MoveTowards(transform.position, dashEnemy.transform.position, 10f * Time.deltaTime);
+            gameObject.GetComponent<BoxCollider2D>().enabled = false;
+            if (gameObject.transform.position == dashEnemy.transform.position)
+            {
+                dashing = false;
+                PSC.isAttacking = false;
+                Cooldowns[1].SetActive(true);
+                Cooldowns[1].GetComponent<CooldownUI>().StartCooldown(3f * ((100 - Player.CDR) / 100));
+                ability1Hit = false;
+                StopCoroutine(ability1Coroutine);
+                gameObject.GetComponent<BoxCollider2D>().enabled = true;
+                if (dashEnemy.transform.position.x - gameObject.transform.position.x >= 0)
+                    dashEnemy.GetComponent<IDamageable>().Damaged(10);
+                else
+                    dashEnemy.GetComponent<IDamageable>().Damaged(-10);
+            }
+        }
     }
 
     public IEnumerator Ability1DashTimer()
     {
         yield return new WaitForSeconds(5f);
+        Ability1CD = false;
         Cooldowns[1].SetActive(true);
-        Ability1CD = baseAbility1CD;
+        Cooldowns[1].GetComponent<CooldownUI>().StartCooldown(3f * ((100 - Player.CDR) / 100));
         ability1Hit = false;
     }
 
     public float GetAbility1Cooldown()
     {
-        return baseAbility1CD;
+        return 3f * ((100 - Player.CDR) / 100);
     }
 
     public void ResetAbility1Cooldown()
     {
-        Ability1CD = 0;
+        Ability1CD = true;
     }
+    #endregion
 
-    //Player Ability2
+    #region Player Ability2
     public void OnAbility2()
     {
-        if (!PSC.isAttacking && Ability2CD == 0 && PSC.Movable)
+        if (!PSC.isAttacking && Ability2CD && PSC.Movable)
         {
+            Ability2CD = false;
             PSC.isAttacking = true;
             PSC.currentDirection = MapPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position, 1f);
             PSC.PlayAnimation("Run");
@@ -244,35 +240,36 @@ public class Daggers : MonoBehaviour
         PSC._rigidbody.velocity = new Vector2(-PSC.currentDirection.x * (dashDistance / 2), -PSC.currentDirection.y * (dashDistance / 2));
         for (int i = 0; i < 3; i++)
         {
-            GameObject player = GameObject.Find("Player1").transform.GetChild(0).gameObject;
-            GameObject dagger = Instantiate(Resources.Load<GameObject>("Prefabs/Dagger"), player.transform.position, player.transform.rotation);
+            GameObject dagger = Instantiate(daggerPrefab, Player.transform.position, Player.transform.rotation);
             dagger.transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(PSC.currentDirection.y, PSC.currentDirection.x) * Mathf.Rad2Deg - 90);
-            dagger.GetComponent<Dagger>().EditDagger(2f, 11f, false);
+            dagger.GetComponent<Dagger>().EditDagger(2f, Player.Attack, false, null);
             dagger.GetComponent<Rigidbody2D>().velocity = 15f * MapPoint(PSC.currentDirection, 1f);
             yield return new WaitForSeconds(.1f);
         }
         PSC._rigidbody.velocity = Vector2.zero;
         PSC.Attack("Stab", 2);
         Cooldowns[2].SetActive(true);
-        Ability2CD = baseAbility2CD;
+        Cooldowns[2].GetComponent<CooldownUI>().StartCooldown(3f * ((100 - Player.CDR) / 100));
         PSC.isAttacking = false;
     }
 
     public float GetAbility2Cooldown()
     {
-        return baseAbility2CD;
+        return 3f * ((100 - Player.CDR) / 100);
     }
 
     public void ResetAbility2Cooldown()
     {
-        Ability2CD = 0;
+        Ability2CD = true;
     }
+    #endregion
 
-    //Player Ultimate
+    #region Player Ultimate
     public void OnUltimate()
     {      
-        if (!PSC.isAttacking && UltimateCD == 0 && PSC.Movable)
+        if (!PSC.isAttacking && UltimateCD && PSC.Movable)
         {
+            UltimateCD = false;
             ultimateCasts++;
             if (ultimateCasts == 1)
             {
@@ -289,19 +286,21 @@ public class Daggers : MonoBehaviour
     {
         PSC.currentDirection = MapPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position, 1f);
         PSC.PlayAnimation("Run");
-        PSC._rigidbody.velocity = new Vector2(PSC.currentDirection.x * dashDistance, PSC.currentDirection.y * dashDistance);
-        yield return new WaitForSeconds(0.25f);
-        Ability1CD = 0;
-        Ability2CD = 0;
+        PSC._rigidbody.velocity = new Vector2(PSC.currentDirection.x * dashDistance * 1.5f, PSC.currentDirection.y * dashDistance * 1.5f);
+        yield return new WaitForSeconds(0.2f);
+        Ability1CD = true;
+        Ability2CD = true;
         Cooldowns[1].SetActive(false);
         Cooldowns[2].SetActive(false);
         if (ultimateCasts == 3)
         {
             Cooldowns[3].SetActive(true);
-            UltimateCD = baseUltimateCD;
+            Cooldowns[3].GetComponent<CooldownUI>().StartCooldown(10f * ((100 - Player.CDR) / 100));
             ultimateCasts = 0;
             StopCoroutine(ultimateCoroutine);
         }
+        else
+            UltimateCD = true;
         gameObject.GetComponent<BoxCollider2D>().isTrigger = false;
         PSC.Movable = true;
     }
@@ -310,7 +309,8 @@ public class Daggers : MonoBehaviour
     {
         yield return new WaitForSeconds(10f);
         Cooldowns[3].SetActive(true);
-        UltimateCD = baseUltimateCD;
+        Cooldowns[3].SetActive(true);
+        Cooldowns[3].GetComponent<CooldownUI>().StartCooldown(10f * ((100 - Player.CDR) / 100));
         ultimateCasts = 0;
     }
 
@@ -329,11 +329,12 @@ public class Daggers : MonoBehaviour
 
     public float GetUltimateCooldown()
     {
-        return baseUltimateCD;
+        return 10f * ((100 - Player.CDR) / 100);
     }
 
     public void ResetUltimateCooldown()
     {
-        UltimateCD = 0;
+        UltimateCD = true;
     }
+    #endregion
 }

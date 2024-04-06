@@ -8,6 +8,7 @@ public class Dagger : MonoBehaviour
     public float rotationSpeed = 15f;
     public float damage;
     public bool isDebuff = false;
+    public Daggers Player;
 
     void Awake()
     {
@@ -32,19 +33,19 @@ public class Dagger : MonoBehaviour
             if (isDebuff)
             {
                 //collision.gameObject.GetComponent<IEffectable>().ApplyBuff(new IncreaseDamageTaken(20, 10f, "Throwing Knife - Ability 1", collision.gameObject));
-                Daggers player = GameObject.Find("Player1").transform.GetChild(0).GetComponent<Daggers>();
-                player.Ability1TargetHit(collision.gameObject);
+                Player.Ability1TargetHit(collision.gameObject);
             }
         }
 
         Destroy(gameObject);
     }
 
-    public void EditDagger(float Life, float Damage, bool debuff)
+    public void EditDagger(float Life, float Damage, bool debuff, Daggers player)
     {
         life = Life;
         damage = Damage;
         isDebuff = debuff;
+        Player = player;
         Destroy(gameObject, life);
     }
 }
