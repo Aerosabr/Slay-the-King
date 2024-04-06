@@ -7,16 +7,11 @@ using UnityEngine.EventSystems;
 public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
 {
     // ITEM DATA
-    public string itemName;
-    public int quantity;
-    public Sprite itemSprite;
-    public bool isFull;
-    public string itemDescription;
-    public Sprite emptySprite;
-    public ItemType itemType;
-
-    // ITEM SLOT
-    [SerializeField]
+    public Item item;
+	public Sprite emptySprite;
+	public bool isFull;
+	// ITEM SLOT
+	[SerializeField]
     private Image itemImage;
 
     // EQUIPMENT SLOT
@@ -26,32 +21,24 @@ public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
     public GameObject selectedShader;
     public bool thisItemSelected;
 
+	public GameObject equipmentStatPanel;
 
-    private InventoryManager inventoryManager;
-    private EquipmentSOLibrary equipmentSOLibrary;
+	private InventoryManager inventoryManager;
 
     private void Start()
     {
         inventoryManager = GameObject.Find("InventoryCanvas").GetComponent<InventoryManager>();
-        equipmentSOLibrary = GameObject.Find("InventoryCanvas").GetComponent<EquipmentSOLibrary>();
     }
 
-    public int AddItem(string itemName, int quantity, Sprite itemSprite, string itemDescription, ItemType itemType)
+    public int AddItem(Item item)
     {
         //Check if slot is already full
         if (isFull)
-            return quantity;
+            return this.item.quantity;
 
-        this.itemType = itemType;
-        this.itemName = itemName;
-        this.itemSprite = itemSprite;
-        this.itemDescription = itemDescription;
-        this.quantity = 1;
-        isFull = true;
-
-        itemImage.sprite = itemSprite;
-
-
+		isFull = true;
+		this.item = item;
+        itemImage.sprite = item.sprite;
         return 0;
     }
 
@@ -106,7 +93,7 @@ public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
                     {
                         if(!equipmentStatPanel.gameObject.activeSelf)
                             equipmentStatPanel.gameObject.SetActive(true);
-                        equipmentStatPanel.position = new Vector3(-380f, 0, 0) + transform.position;
+                        equipmentStatPanel.transform.position = new Vector3(-380f, 0, 0) + transform.position;
                         equipmentSOLibrary.equipmentSO[i].PreviewEquipment(player);
                     }       
                 }
@@ -149,11 +136,7 @@ public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
         itemImage.sprite = emptySprite;
 
         isFull = false;
-
-        itemName = "";
-        itemDescription = "";
-        itemSprite = null;
-        quantity = 0;
+        item = null;
 
         if (selectedShader != null)
         {
@@ -166,7 +149,7 @@ public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
 
     public void OnRightClick()
     {
-        if (this.quantity <= 0 || string.IsNullOrEmpty(itemName))
+        if (item.quantity <= 0 || string.IsNullOrEmpty(item.itemName))
         {
             // If the slot is empty, exit the method early without dropping an item.
             if(equipmentStatPanel.gameObject.activeSelf)
@@ -175,17 +158,13 @@ public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
         }
 
         // Create a new item
-        GameObject itemToDrop = new GameObject(itemName);
+        GameObject itemToDrop = new GameObject(item.itemName);
         Item newItem = itemToDrop.AddComponent<Item>();
-        newItem.quantity = 1;
-        newItem.itemName = itemName;
-        newItem.sprite = itemSprite;
-        newItem.itemDescription = itemDescription;
-        newItem.itemType = this.itemType;
+        newItem = item;
 
-        // Create and modify the SpriteRenderer
-        SpriteRenderer sr = itemToDrop.AddComponent<SpriteRenderer>();
-        sr.sprite = itemSprite;
+		// Create and modify the SpriteRenderer
+		SpriteRenderer sr = itemToDrop.AddComponent<SpriteRenderer>();
+        sr.sprite = item.sprite;
         sr.sortingOrder = 5;
         sr.sortingLayerName = "Environment";
 
@@ -197,8 +176,8 @@ public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
         itemToDrop.transform.localScale = new Vector3(.5f, .5f, .5f);
 
         // Subtract the item
-        this.quantity -= 1;
-        if (this.quantity <= 0)
+        item.quantity -= 1;
+        if (item.quantity <= 0)
             EmptySlot();
     }
 }

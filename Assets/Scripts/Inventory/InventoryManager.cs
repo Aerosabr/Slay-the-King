@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 public class InventoryManager : MonoBehaviour
 {
@@ -13,18 +14,27 @@ public class InventoryManager : MonoBehaviour
 
     public ItemSO[] itemSOs;
 
-	//ITEM DESCRIPTION SLOT
-	public Transform itemStatPanel;
-	public Image itemDescriptionImage;
-	public TMP_Text ItemDescriptionNameText;
-	public TMP_Text ItemDescriptionText;
-
 	public Transform equipmentStatPanel;
 
 	public Player player;
 
-    // Start is called before the first frame update
-    void Start()
+	[SerializeField]
+	private TMP_Text healthText, attackText, defenseText, dexterityText, cooldown_reductionText, attack_speedText, luckText;
+
+	[SerializeField]
+	private TMP_Text healthPreText, attackPreText, defensePreText, dexterityPreText, cooldown_reductionPreText, attack_speedPreText, luckPreText;
+
+	[SerializeField]
+	private Image previewImage;
+
+	[SerializeField]
+	private GameObject selectedItemStats;
+
+	[SerializeField]
+	private GameObject selectedItemImage;
+
+	// Start is called before the first frame update
+	void Start()
     {
 
     }
@@ -62,22 +72,22 @@ public class InventoryManager : MonoBehaviour
         return false;
     }
 
-    public int AddItem(string itemName, int quantity, Sprite itemSprite, string itemDescription, ItemType itemType)
+    public int AddItem(Item item)
     {
-        if(itemType == ItemType.consumable || itemType == ItemType.collectible)
+        if(item.itemType == ItemType.consumable || item.itemType == ItemType.collectible)
         {
             for (int i = 0; i < itemSlot.Length; i++)
             {
-                if (itemSlot[i].isFull == false && itemSlot[i].itemName == itemName || itemSlot[i].quantity == 0)
+                if (itemSlot[i].isFull == false && itemSlot[i].item.itemName == item.itemName || itemSlot[i].item.quantity == 0)
                 {
-                    int leftOverItems = itemSlot[i].AddItem(itemName, quantity, itemSprite, itemDescription, itemType);
+                    int leftOverItems = itemSlot[i].AddItem(item);
                     if (leftOverItems > 0)
-                        leftOverItems = AddItem(itemName, leftOverItems, itemSprite, itemDescription, itemType);
+                        leftOverItems = AddItem(item);
 
                     return leftOverItems;
                 }
             }
-            return quantity;
+            return item.quantity;
         }
         else
         {
@@ -85,14 +95,14 @@ public class InventoryManager : MonoBehaviour
             {
                 if (equipmentSlot[i].isFull == false && equipmentSlot[i].itemName == itemName || equipmentSlot[i].quantity == 0)
                 {
-                    int leftOverItems = equipmentSlot[i].AddItem(itemName, quantity, itemSprite, itemDescription, itemType);
+                    int leftOverItems = equipmentSlot[i].AddItem(item);
                     if (leftOverItems > 0)
-                        leftOverItems = AddItem(itemName, leftOverItems, itemSprite, itemDescription, itemType);
+                        leftOverItems = AddItem(item);
 
                     return leftOverItems;
                 }
             }
-            return quantity;
+            return item.quantity;
         }
 
     }
@@ -118,42 +128,38 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    public void PreviewItem()
-    {
-		if (string.IsNullOrEmpty(itemName) || quantity <= 0)
-		{
-			if (itemStatPanel.gameObject.activeSelf)
-				itemStatPanel.gameObject.SetActive(false);
-			inventoryManager.DeselectAllSlots();
-			selectedShader.SetActive(false);
-			thisItemSelected = false;
-			ItemDescriptionNameText.text = "";
-			ItemDescriptionText.text = "";
-			itemDescriptionImage.sprite = emptySprite;
-		}
-		else
-		{
-			Debug.Log($"Using item: {itemName}");
-			if (!itemStatPanel.gameObject.activeSelf)
-				itemStatPanel.gameObject.SetActive(true);
-			bool usable = inventoryManager.UseItem(itemName);
-			if (usable)
-			{
-				this.quantity -= 1;
-				quantityText.text = this.quantity.ToString();
-				if (this.quantity <= 0)
-					EmptySlot();
-			}
-		}
-		if (!itemStatPanel.gameObject.activeSelf)
-			itemStatPanel.gameObject.SetActive(true);
-		itemStatPanel.position = new Vector3(-380f, 0, 0) + transform.position;
-		inventoryManager.DeselectAllSlots();
-		selectedShader.SetActive(true);
-		thisItemSelected = true;
-		ItemDescriptionNameText.text = itemName;
-		ItemDescriptionText.text = itemDescription;
-		itemDescriptionImage.sprite = itemSprite ?? emptySprite;
+	public void UpdateEquipmentStats(Item item)
+	{
+		Equipment equipment = (Equipment)item;
+		healthText.text = equipment.health.ToString();
+		attackText.text = equipment.attack.ToString();
+		defenseText.text = equipment.defense.ToString();
+		dexterityText.text = equipment.dexterity.ToString();
+		cooldown_reductionText.text = equipment.cooldown_reduction.ToString();
+		attack_speedText.text = equipment.attack_speed.ToString();
+		luckText.text = equipment.luck.ToString();
+	}
+
+	public void PreviewEquipmentStats(Item item)
+	{
+        Equipment equipment = (Equipment)item;
+		healthPreText.text = equipment.health.ToString();
+		attackPreText.text = equipment.attack.ToString();
+		defensePreText.text = equipment.defense.ToString();
+		dexterityPreText.text = equipment.dexterity.ToString();
+		cooldown_reductionPreText.text = equipment.cooldown_reduction.ToString();
+		attack_speedPreText.text = equipment.attack_speed.ToString();
+		luckPreText.text = equipment.luck.ToString();
+
+		previewImage.sprite = equipment.sprite;
+		selectedItemImage.SetActive(true);
+		selectedItemStats.SetActive(true);
+	}
+
+	public void TurnOffPreviewStats()
+	{
+		selectedItemImage.SetActive(false);
+		selectedItemStats.SetActive(false);
 	}
 }
 

@@ -9,15 +9,11 @@ using System;
 public class ItemSlot : MonoBehaviour, IPointerClickHandler
 {
     //ITEM DATA
-    public string itemName;
-    public int quantity;
-    public Sprite itemSprite;
-    public bool isFull;
-    public string itemDescription;
-    public Sprite emptySprite;
-    public ItemType itemType;
+    public Item item;
+	public Sprite emptySprite;
+	public bool isFull;
 
-    [SerializeField]
+	[SerializeField]
     private int maxNumberOfItems;
 
     //ITEM SLOT
@@ -30,41 +26,42 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
 
     public GameObject selectedShader;
     public bool thisItemSelected;
+	//ITEM DESCRIPTION SLOT
+	public Transform itemStatPanel;
+	public Image itemDescriptionImage;
+	public TMP_Text ItemDescriptionNameText;
+	public TMP_Text ItemDescriptionText;
 
-    private InventoryManager inventoryManager;
+	private InventoryManager inventoryManager;
 
     private void Start()
     {
         inventoryManager = GameObject.Find("InventoryCanvas").GetComponent<InventoryManager>();
     }
 
-    public int AddItem(string itemName, int quantity, Sprite itemSprite, string itemDescription, ItemType itemType)
+    public int AddItem(Item item)
     {
         //Check if slot is already full
         if (isFull)
-            return quantity;
+            return item.quantity;
 
-        this.itemType = itemType;
-        this.itemName = itemName;
-        this.itemSprite = itemSprite;
-        this.itemDescription = itemDescription;
-        this.quantity += quantity;
+        this.item = item;
 
-        itemImage.sprite = itemSprite;
+        itemImage.sprite = item.sprite;
 
-        if (this.quantity >= maxNumberOfItems)
+        if (item.quantity >= maxNumberOfItems)
         {
             quantityText.text = maxNumberOfItems.ToString();
             quantityText.enabled = true;
             isFull = true;
 
             //return leftovers
-            int extraItems = this.quantity - maxNumberOfItems;
-            this.quantity = maxNumberOfItems;
+            int extraItems = item.quantity - maxNumberOfItems;
+            this.item.quantity = maxNumberOfItems;
             return extraItems;
         }
         //Update quantity text
-        quantityText.text = this.quantity.ToString();
+        quantityText.text = this.item.quantity.ToString();
         quantityText.enabled = true;
         return 0;
     }
@@ -85,28 +82,24 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     {
         if (thisItemSelected)
         {
-            if (string.IsNullOrEmpty(itemName) || quantity <= 0)
+            if (string.IsNullOrEmpty(item.itemName) || item.quantity <= 0)
             {
                 if(itemStatPanel.gameObject.activeSelf)
                     itemStatPanel.gameObject.SetActive(false);
                 inventoryManager.DeselectAllSlots();
                 selectedShader.SetActive(false);
                 thisItemSelected = false;
-                ItemDescriptionNameText.text = "";
-                ItemDescriptionText.text = "";
-                itemDescriptionImage.sprite = emptySprite;
             }
             else
             {
-                Debug.Log($"Using item: {itemName}");
                 if(!itemStatPanel.gameObject.activeSelf)
                     itemStatPanel.gameObject.SetActive(true);
-                bool usable = inventoryManager.UseItem(itemName);
+                bool usable = inventoryManager.UseItem(item.itemName);
                 if (usable)
                 {
-                    this.quantity -= 1;
-                    quantityText.text = this.quantity.ToString();
-                    if (this.quantity <= 0)
+                    item.quantity -= 1;
+                    quantityText.text = item.quantity.ToString();
+                    if (item.quantity <= 0)
                         EmptySlot();
                 }
             }
@@ -115,13 +108,13 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         {
             if(!itemStatPanel.gameObject.activeSelf)
                 itemStatPanel.gameObject.SetActive(true);
-            itemStatPanel.position = new Vector3(-380f, 0, 0) + transform.position;
+            itemStatPanel.transform.position = new Vector3(-380f, 0, 0) + transform.position;
             inventoryManager.DeselectAllSlots();
             selectedShader.SetActive(true);
             thisItemSelected = true;
-            ItemDescriptionNameText.text = itemName;
-            ItemDescriptionText.text = itemDescription;
-            itemDescriptionImage.sprite = itemSprite ?? emptySprite;
+            ItemDescriptionNameText.text = item.itemName;
+            ItemDescriptionText.text = item.itemDescription;
+            itemDescriptionImage.sprite = item.sprite ?? emptySprite;
         }
     }
 
@@ -133,29 +126,21 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
 
         itemImage.sprite = emptySprite;
 
-        ItemDescriptionNameText.text = "";
-        ItemDescriptionText.text = "";
-        itemDescriptionImage.sprite = emptySprite;
+		isFull = false;
+		item = null;
 
-        itemName = "";
-        itemDescription = "";
-        itemSprite = null;
-        quantity = 0;
-        isFull = false;
-
-
-        if (selectedShader != null)
-        {
-            selectedShader.SetActive(false);
-        }
-        thisItemSelected = false;
-    }
+		if (selectedShader != null)
+		{
+			selectedShader.SetActive(false);
+		}
+		thisItemSelected = false;
+	}
 
 
     public void OnRightClick()
     {
         // Check if the inventory slot is empty before dropping items.
-        if (this.quantity <= 0 || string.IsNullOrEmpty(itemName))
+        if (this.item.quantity <= 0 || string.IsNullOrEmpty(item.itemName))
         {
             // Slot is empty, so do nothing and return early.
             if(itemStatPanel.gameObject.activeSelf)
@@ -164,17 +149,13 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         }
 
         // Create a new item
-        GameObject itemToDrop = new GameObject(itemName);
+        GameObject itemToDrop = new GameObject(item.itemName);
         Item newItem = itemToDrop.AddComponent<Item>();
-        newItem.quantity = 1;
-        newItem.itemName = itemName;
-        newItem.sprite = itemSprite;
-        newItem.itemDescription = itemDescription;
-        newItem.itemType = this.itemType;
+        newItem = item;
 
-        // Create and modify the SpriteRenderer
-        SpriteRenderer sr = itemToDrop.AddComponent<SpriteRenderer>();
-        sr.sprite = itemSprite;
+		// Create and modify the SpriteRenderer
+		SpriteRenderer sr = itemToDrop.AddComponent<SpriteRenderer>();
+        sr.sprite = item.sprite;
         sr.sortingOrder = 5;
         sr.sortingLayerName = "Environment";
 
@@ -186,9 +167,9 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         itemToDrop.transform.localScale = new Vector3(.5f, .5f, .5f);
 
         // Subtract the item
-        this.quantity -= 1;
-        quantityText.text = this.quantity.ToString();
-        if (this.quantity <= 0)
+        this.item.quantity -= 1;
+        quantityText.text = this.item.quantity.ToString();
+        if (this.item.quantity <= 0)
             EmptySlot();
     }
 
