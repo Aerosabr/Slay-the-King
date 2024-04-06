@@ -27,6 +27,11 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     [SerializeField]
     private Image itemImage;
 
+    //ITEM DESCRIPTION SLOT
+    public Transform itemStatPanel;
+    public Image itemDescriptionImage;
+    public TMP_Text ItemDescriptionNameText;
+    public TMP_Text ItemDescriptionText;
 
     public GameObject selectedShader;
     public bool thisItemSelected;
