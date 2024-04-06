@@ -320,6 +320,11 @@ public class Daggers : MonoBehaviour
         {
             collision.gameObject.GetComponent<IDamageable>().Damaged(10);
         }
+        else if (collision.gameObject.tag == "Environment")
+        {
+            gameObject.GetComponent<BoxCollider2D>().isTrigger = false;
+        }
+
     }
 
     public float GetUltimateCooldown()
