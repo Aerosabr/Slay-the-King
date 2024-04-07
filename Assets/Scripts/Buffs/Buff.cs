@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Buff : ScriptableObject
+public abstract class Buff 
 {
     public string Source;
     public float maxDuration;

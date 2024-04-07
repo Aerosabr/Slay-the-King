@@ -35,9 +35,9 @@ public class FlyingEye : Entity, IDamageable, IEffectable
     public void ApplyBuff(Buff buff)
     {
         if (Buffs.ContainsKey(buff.Source))
-            Buffs.Remove(buff.Source);
-        else
-            Buffs.Add(buff.Source, buff);
+            RemoveBuff(Buffs[buff.Source]);
+
+        Buffs.Add(buff.Source, buff);
         Buffs[buff.Source].ApplyEffect();
     }
 

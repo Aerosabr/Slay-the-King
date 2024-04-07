@@ -1,16 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
-public class Bow : MonoBehaviour
+public class Scythe : MonoBehaviour
 {
     public PlayerSpriteController PSC;
-    public GameObject arrowPrefab;
     public List<GameObject> Cooldowns = new List<GameObject>();
     public Player Player;
-    public float arrowSpeed = 10f;
-    public float arrowLife = 3f;
+    public Transform attackHitBoxPos;
+    public LayerMask Damageable;
 
     public bool AttackCD = true;
     public bool Ability1CD = true;
@@ -23,13 +21,14 @@ public class Bow : MonoBehaviour
     public void Awake()
     {
         PSC = GetComponent<PlayerSpriteController>();
-        arrowPrefab = Resources.Load<GameObject>("Prefabs/Arrows");
         Cooldowns.Add(GameObject.Find("AttackCooldown"));
         Cooldowns.Add(GameObject.Find("Ability1Cooldown"));
         Cooldowns.Add(GameObject.Find("Ability2Cooldown"));
         Cooldowns.Add(GameObject.Find("UltimateCooldown"));
         Cooldowns.Add(GameObject.Find("MovementCooldown"));
         Player = GetComponent<Player>();
+        attackHitBoxPos = transform.Find("AttackHitbox");
+        Damageable = LayerMask.GetMask("Enemy");
     }
 
     private void Start()
@@ -44,7 +43,8 @@ public class Bow : MonoBehaviour
     public Vector2 MapPoint(Vector2 point, float radius)
     {
         float angle = Mathf.Atan2(point.y, point.x);
-        return new Vector2(Mathf.Cos(angle) * radius, Mathf.Sin(angle) * radius);
+        Vector2 temp = new Vector2(Mathf.Cos(angle) * radius, Mathf.Sin(angle) * radius);
+        return temp;
     }
 
     #region Player Movement
@@ -83,8 +83,8 @@ public class Bow : MonoBehaviour
     {
         if (!PSC.isAttacking && AttackCD && PSC.Movable)
         {
-            AttackCD = false;
             PSC.isAttacking = true;
+            AttackCD = false;
             PSC.currentDirection = MapPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position, 1f);
             StartCoroutine(AttackCast());
         }
@@ -92,20 +92,25 @@ public class Bow : MonoBehaviour
 
     private IEnumerator AttackCast()
     {
-        PSC.Attack("Shoot", 2);
-        yield return new WaitForSeconds(.5f);
+        PSC.Attack("Stab", 2);
         Cooldowns[0].SetActive(true);
         Cooldowns[0].GetComponent<CooldownUI>().StartCooldown(1 / Player.attackSpeed);
         Attack();
+        yield return new WaitForSeconds(.5f);
         PSC.isAttacking = false;
     }
 
     public void Attack()
     {
-        GameObject arrow = Instantiate(arrowPrefab, Player.transform.position, Player.transform.rotation);
-        arrow.transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(PSC.currentDirection.y, PSC.currentDirection.x) * Mathf.Rad2Deg + 180);
-        arrow.GetComponent<Arrow>().EditArrow(3f, Player.Attack, true);
-        arrow.GetComponent<Rigidbody2D>().velocity = arrowSpeed * MapPoint(PSC.currentDirection, 1);
+        attackHitBoxPos.localPosition = MapPoint(PSC.currentDirection, 3f);
+        Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, 1f, Damageable);
+        foreach (Collider2D collider in detectedObjects)
+        {
+            if (collider.transform.position.x - transform.position.x >= 0)
+                collider.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack);
+            else
+                collider.gameObject.GetComponent<IDamageable>().Damaged(-Player.Attack);
+        }
     }
 
     public float GetAttackCooldown()
@@ -133,29 +138,24 @@ public class Bow : MonoBehaviour
 
     private IEnumerator Ability1Cast()
     {
-        PSC._rigidbody.velocity = new Vector2(-PSC.currentDirection.x * dashDistance, -PSC.currentDirection.y * dashDistance);
-        yield return new WaitForSeconds(.2f);
-        PSC._rigidbody.velocity = Vector2.zero;
-        PSC.Attack("Shoot", 2);
-        yield return new WaitForSeconds(.5f);
+        attackHitBoxPos.localPosition = MapPoint(PSC.currentDirection, 3f);
+        for (int i = 0; i < 2; i++)
+        {
+            PSC.Attack("Stab", 2);
+            Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, 1.5f, Damageable);
+            foreach (Collider2D collider in detectedObjects)
+            {
+                if (collider.transform.position.x - transform.position.x >= 0)
+                    collider.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack);
+                else
+                    collider.gameObject.GetComponent<IDamageable>().Damaged(-Player.Attack);
+            }
+            yield return new WaitForSeconds(.5f);
+        }
+        
         Cooldowns[1].SetActive(true);
         Cooldowns[1].GetComponent<CooldownUI>().StartCooldown(3f * ((100 - Player.CDR) / 100));
-        Ability1();
         PSC.isAttacking = false;
-    }
-
-    public void Ability1()
-    {
-        for (int i = -2; i < 3; i++)
-        {
-            arrowLife = 3f;
-            GameObject arrow = Instantiate(arrowPrefab, Player.transform.position, Player.transform.rotation);
-            arrow.transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(PSC.currentDirection.y, PSC.currentDirection.x) * Mathf.Rad2Deg - (-i * 10 - 180));
-            float currentAngleRadians = ((Mathf.Atan2(PSC.currentDirection.y, PSC.currentDirection.x) * Mathf.Rad2Deg) + 10 * i) * Mathf.Deg2Rad;
-            Vector2 currentVector = new Vector2(Mathf.Cos(currentAngleRadians), Mathf.Sin(currentAngleRadians)) * PSC.currentDirection.magnitude;
-            arrow.GetComponent<Arrow>().EditArrow(3f, Player.Attack, true);
-            arrow.GetComponent<Rigidbody2D>().velocity = arrowSpeed * MapPoint(currentVector, 1);
-        }
     }
 
     public float GetAbility1Cooldown()
@@ -176,34 +176,48 @@ public class Bow : MonoBehaviour
         {
             Ability2CD = false;
             PSC.isAttacking = true;
-            PSC.currentDirection = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position).normalized;
+            GetComponent<CapsuleCollider2D>().enabled = true;
+            GetComponent<CircleCollider2D>().enabled = true;
+            GetComponent<BoxCollider2D>().enabled = false;
             StartCoroutine(Ability2Cast());
         }
     }
 
     private IEnumerator Ability2Cast()
     {
-        PSC.Attack("Shoot", 16);
-        yield return new WaitForSeconds(.2f);
-        Ability2();
+        PSC.currentDirection = MapPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position, 1f);
+        PSC.PlayAnimation("Run");
+        PSC._rigidbody.velocity = new Vector2(PSC.currentDirection.x * dashDistance, PSC.currentDirection.y * dashDistance);
+        yield return new WaitForSeconds(.25f);       
         Cooldowns[2].SetActive(true);
         Cooldowns[2].GetComponent<CooldownUI>().StartCooldown(3f * ((100 - Player.CDR) / 100));
+        GetComponent<CapsuleCollider2D>().enabled = false;
+        GetComponent<CircleCollider2D>().enabled = false;
+        GetComponent<BoxCollider2D>().enabled = true;
         PSC.isAttacking = false;
     }
 
-    public void Ability2()
+    public void OnTriggerEnter2D(Collider2D collision)
     {
-        arrowLife = 3f;
-        GameObject arrow = Instantiate(arrowPrefab, Player.transform.position, Player.transform.rotation);
-        arrow.transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(PSC.currentDirection.y, PSC.currentDirection.x) * Mathf.Rad2Deg + 180);
-        arrow.GetComponent<Rigidbody2D>().velocity = arrowSpeed * MapPoint(PSC.currentDirection, 1);
-        arrow.GetComponent<Arrow>().EditArrow(3f, Player.Attack, false);
-        arrow.transform.localScale = new Vector3(.14f, .2f, .2f);
+        if (collision.gameObject.tag == "Enemy")
+        {
+            if (collision.transform.position.x - transform.position.x >= 0)
+                collision.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack);
+            else
+                collision.gameObject.GetComponent<IDamageable>().Damaged(-Player.Attack);
+        }
+        else if (collision.gameObject.tag == "Environment")
+        {
+            
+            GetComponent<CapsuleCollider2D>().enabled = false;
+            GetComponent<CircleCollider2D>().enabled = false;
+            GetComponent<BoxCollider2D>().enabled = true;
+        }
     }
 
     public float GetAbility2Cooldown()
     {
-        return 3f * ((100 - Player.CDR) / 100);
+        return 4f * ((100 - Player.CDR) / 100);
     }
 
     public void ResetAbility2Cooldown()
@@ -217,39 +231,31 @@ public class Bow : MonoBehaviour
     {
         if (!PSC.isAttacking && UltimateCD && PSC.Movable)
         {
-            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            mousePosition.z = 0;
-            mousePosition.y += 5;
-            UltimateCD = false;
             PSC.isAttacking = true;
-            PSC.currentDirection = MapPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position, 1f);
-            StartCoroutine(UltimateCast(mousePosition));
+            UltimateCD = false;
+            StartCoroutine(UltimateCast());
         }
     }
 
-    private IEnumerator UltimateCast(Vector3 mousePosition)
+    private IEnumerator UltimateCast()
     {
-        PSC.Attack("Shoot", 2);
-        yield return new WaitForSeconds(.5f);
-        Cooldowns[3].SetActive(true);
-        Cooldowns[3].GetComponent<CooldownUI>().StartCooldown(10f * ((100 - Player.CDR) / 100));
-        StartCoroutine(Ultimate(mousePosition));
-        PSC.isAttacking = false;
-    }
-
-    public IEnumerator Ultimate(Vector3 mousePosition)
-    {
-        Vector3 temp = mousePosition;
-        
-        for (int i = 0; i < 40; i++)
+        float cd = 10f * ((100 - Player.CDR) / 100);
+        PSC.Attack("Stab", 2);
+        attackHitBoxPos.localPosition = Player.transform.localPosition;
+        Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, 5f, Damageable);
+        foreach (Collider2D collider in detectedObjects)
         {
-            temp.x = mousePosition.x + Random.Range(-1.6f, 1.6f);
-            GameObject arrow = Instantiate(arrowPrefab, temp, Quaternion.identity);
-            arrow.GetComponent<Arrow>().EditArrow(0.6f, Player.Attack, false);
-            arrow.transform.rotation = Quaternion.Euler(0, 0, 90);
-            arrow.GetComponent<Rigidbody2D>().velocity = arrowSpeed * Vector2.down;
-            yield return new WaitForSeconds(.05f);
+            if (collider.transform.position.x - transform.position.x >= 0)
+                collider.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack);
+            else
+                collider.gameObject.GetComponent<IDamageable>().Damaged(-Player.Attack);
         }
+        Instantiate(Resources.Load<GameObject>("Prefabs/ScytheDomain"), transform.position, Quaternion.identity);
+        yield return new WaitForSeconds(.5f);
+        PSC.isAttacking = false;
+        yield return new WaitForSeconds(10f);
+        Cooldowns[3].SetActive(true);
+        Cooldowns[3].GetComponent<CooldownUI>().StartCooldown(cd);
     }
 
     public float GetUltimateCooldown()
