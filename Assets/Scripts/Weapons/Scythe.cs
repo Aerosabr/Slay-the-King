@@ -208,7 +208,7 @@ public class Scythe : MonoBehaviour
         }
         else if (collision.gameObject.tag == "Environment")
         {
-            PSC._rigidbody.velocity = Vector2.zero;
+            
             GetComponent<CapsuleCollider2D>().enabled = false;
             GetComponent<CircleCollider2D>().enabled = false;
             GetComponent<BoxCollider2D>().enabled = true;
