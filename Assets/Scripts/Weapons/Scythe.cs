@@ -20,15 +20,24 @@ public class Scythe : MonoBehaviour
 
     public void Awake()
     {
-        PSC = gameObject.GetComponent<PlayerSpriteController>();
+        PSC = GetComponent<PlayerSpriteController>();
         Cooldowns.Add(GameObject.Find("AttackCooldown"));
         Cooldowns.Add(GameObject.Find("Ability1Cooldown"));
         Cooldowns.Add(GameObject.Find("Ability2Cooldown"));
         Cooldowns.Add(GameObject.Find("UltimateCooldown"));
         Cooldowns.Add(GameObject.Find("MovementCooldown"));
-        Player = gameObject.GetComponent<Player>();
+        Player = GetComponent<Player>();
         attackHitBoxPos = transform.Find("AttackHitbox");
         Damageable = LayerMask.GetMask("Enemy");
+    }
+
+    private void Start()
+    {
+        foreach (GameObject i in Cooldowns)
+        {
+            i.GetComponent<CooldownUI>().Player = gameObject;
+            i.SetActive(false);
+        }
     }
 
     public Vector2 MapPoint(Vector2 point, float radius)
@@ -97,7 +106,7 @@ public class Scythe : MonoBehaviour
         Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, 1f, Damageable);
         foreach (Collider2D collider in detectedObjects)
         {
-            if (collider.transform.position.x - gameObject.transform.position.x >= 0)
+            if (collider.transform.position.x - transform.position.x >= 0)
                 collider.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack);
             else
                 collider.gameObject.GetComponent<IDamageable>().Damaged(-Player.Attack);
@@ -136,7 +145,7 @@ public class Scythe : MonoBehaviour
             Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, 1.5f, Damageable);
             foreach (Collider2D collider in detectedObjects)
             {
-                if (collider.transform.position.x - gameObject.transform.position.x >= 0)
+                if (collider.transform.position.x - transform.position.x >= 0)
                     collider.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack);
                 else
                     collider.gameObject.GetComponent<IDamageable>().Damaged(-Player.Attack);
@@ -167,7 +176,9 @@ public class Scythe : MonoBehaviour
         {
             Ability2CD = false;
             PSC.Movable = false;
-            gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
+            GetComponent<CapsuleCollider2D>().enabled = true;
+            GetComponent<CircleCollider2D>().enabled = true;
+            GetComponent<BoxCollider2D>().enabled = false;
             StartCoroutine(Ability2Cast());
         }
     }
@@ -180,7 +191,9 @@ public class Scythe : MonoBehaviour
         yield return new WaitForSeconds(.25f);       
         Cooldowns[2].SetActive(true);
         Cooldowns[2].GetComponent<CooldownUI>().StartCooldown(3f * ((100 - Player.CDR) / 100));
-        gameObject.GetComponent<BoxCollider2D>().isTrigger = false;
+        GetComponent<CapsuleCollider2D>().enabled = true;
+        GetComponent<CircleCollider2D>().enabled = true;
+        GetComponent<BoxCollider2D>().enabled = false;
         PSC.Movable = true;
     }
 
@@ -188,7 +201,7 @@ public class Scythe : MonoBehaviour
     {
         if (collision.gameObject.tag == "Enemy")
         {
-            if (collision.transform.position.x - gameObject.transform.position.x >= 0)
+            if (collision.transform.position.x - transform.position.x >= 0)
                 collision.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack);
             else
                 collision.gameObject.GetComponent<IDamageable>().Damaged(-Player.Attack);
@@ -196,10 +209,11 @@ public class Scythe : MonoBehaviour
         else if (collision.gameObject.tag == "Environment")
         {
             PSC._rigidbody.velocity = Vector2.zero;
-            gameObject.GetComponent<BoxCollider2D>().isTrigger = false;
+            GetComponent<CapsuleCollider2D>().enabled = true;
+            GetComponent<CircleCollider2D>().enabled = true;
+            GetComponent<BoxCollider2D>().enabled = false;
         }
     }
-
 
     public float GetAbility2Cooldown()
     {
@@ -231,7 +245,7 @@ public class Scythe : MonoBehaviour
         Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, 5f, Damageable);
         foreach (Collider2D collider in detectedObjects)
         {
-            if (collider.transform.position.x - gameObject.transform.position.x >= 0)
+            if (collider.transform.position.x - transform.position.x >= 0)
                 collider.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack);
             else
                 collider.gameObject.GetComponent<IDamageable>().Damaged(-Player.Attack);

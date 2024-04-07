@@ -45,6 +45,7 @@ public class Daggers : MonoBehaviour
         foreach (GameObject i in Cooldowns)
         {
             i.GetComponent<CooldownUI>().Player = gameObject;
+            i.SetActive(false);
         }
     }
 
@@ -277,7 +278,9 @@ public class Daggers : MonoBehaviour
                 StartCoroutine(ultimateCoroutine);
             }
             PSC.Movable = false;
-            gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
+            GetComponent<CapsuleCollider2D>().enabled = true;
+            GetComponent<CircleCollider2D>().enabled = true;
+            GetComponent<BoxCollider2D>().enabled = false;
             StartCoroutine(UltimateCast());
         }
     }
@@ -301,7 +304,9 @@ public class Daggers : MonoBehaviour
         }
         else
             UltimateCD = true;
-        gameObject.GetComponent<BoxCollider2D>().isTrigger = false;
+        GetComponent<CapsuleCollider2D>().enabled = false;
+        GetComponent<CircleCollider2D>().enabled = false;
+        GetComponent<BoxCollider2D>().enabled = true;
         PSC.Movable = true;
     }
 
@@ -322,9 +327,11 @@ public class Daggers : MonoBehaviour
         }
         else if (collision.gameObject.tag == "Environment")
         {
-            gameObject.GetComponent<BoxCollider2D>().isTrigger = false;
+            GetComponent<CapsuleCollider2D>().enabled = false;
+            GetComponent<CircleCollider2D>().enabled = false;
+            GetComponent<BoxCollider2D>().enabled = true;
+            PSC._rigidbody.velocity = Vector2.zero;
         }
-
     }
 
     public float GetUltimateCooldown()

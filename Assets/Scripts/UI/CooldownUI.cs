@@ -15,7 +15,6 @@ public class CooldownUI : MonoBehaviour
     {
         Action = gameObject.name;
         ready = false;
-        gameObject.SetActive(false);
     }
 
     public void Update()

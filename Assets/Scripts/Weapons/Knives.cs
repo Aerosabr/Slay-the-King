@@ -21,14 +21,23 @@ public class Knives : MonoBehaviour
 
     public void Awake()
     {
-        PSC = gameObject.GetComponent<PlayerSpriteController>();
-        knifePrefab = Resources.Load<GameObject>("Prefabs/Knife");
+        PSC = GetComponent<PlayerSpriteController>();
         Cooldowns.Add(GameObject.Find("AttackCooldown"));
         Cooldowns.Add(GameObject.Find("Ability1Cooldown"));
         Cooldowns.Add(GameObject.Find("Ability2Cooldown"));
         Cooldowns.Add(GameObject.Find("UltimateCooldown"));
         Cooldowns.Add(GameObject.Find("MovementCooldown"));
-        Player = gameObject.GetComponent<Player>();
+        Player = GetComponent<Player>();
+        knifePrefab = Resources.Load<GameObject>("Prefabs/Knife");
+    }
+
+    private void Start()
+    {
+        foreach (GameObject i in Cooldowns)
+        {
+            i.GetComponent<CooldownUI>().Player = gameObject;
+            i.SetActive(false);
+        }
     }
 
     public Vector2 MapPoint(Vector2 point, float radius)
@@ -141,7 +150,7 @@ public class Knives : MonoBehaviour
     {
         GameObject knife = Instantiate(knifePrefab, Player.transform.position, Player.transform.rotation);
         knife.transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(PSC.currentDirection.y, PSC.currentDirection.x) * Mathf.Rad2Deg - 90);
-        knife.GetComponent<Knife>().EditKnife(3f, 11f, false, true);
+        knife.GetComponent<Knife>().EditKnife(3f, Player.Attack, false, true);
         knife.GetComponent<Rigidbody2D>().velocity = knifeSpeed * MapPoint(PSC.currentDirection, 1);
     }
 
@@ -188,7 +197,7 @@ public class Knives : MonoBehaviour
             knifeLife = 3f;
             GameObject knife = Instantiate(knifePrefab, new Vector3(Player.transform.position.x + MapPointFromDegree(72 * i, 1).x, Player.transform.position.y + MapPointFromDegree(72 * i, 1).y), Player.transform.rotation);
             knife.transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(PSC.currentDirection.y, PSC.currentDirection.x) * Mathf.Rad2Deg - (-i * 10 + 90));
-            knife.GetComponent<Knife>().EditKnife(3f, 11f, true, false);
+            knife.GetComponent<Knife>().EditKnife(3f, Player.Attack, true, false);
         }
     }
 
@@ -232,7 +241,7 @@ public class Knives : MonoBehaviour
             {
                 GameObject knife = Instantiate(knifePrefab, new Vector3(Player.transform.position.x + MapPointFromDegree(72 * i, 1).x, Player.transform.position.y + MapPointFromDegree(72 * i, 1).y), Player.transform.rotation);
                 knife.transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(PSC.currentDirection.y, PSC.currentDirection.x) * Mathf.Rad2Deg - 90);
-                knife.GetComponent<Knife>().EditKnife(3f, 11f, false, false);
+                knife.GetComponent<Knife>().EditKnife(3f, Player.Attack, false, false);
                 knife.GetComponent<Rigidbody2D>().velocity = knifeSpeed * MapPoint(PSC.currentDirection, 1);
             }
             yield return new WaitForSeconds(.2f);

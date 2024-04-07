@@ -22,14 +22,23 @@ public class Bow : MonoBehaviour
 
     public void Awake()
     {
-        PSC = gameObject.GetComponent<PlayerSpriteController>();
+        PSC = GetComponent<PlayerSpriteController>();
         arrowPrefab = Resources.Load<GameObject>("Prefabs/Arrows");
         Cooldowns.Add(GameObject.Find("AttackCooldown"));
         Cooldowns.Add(GameObject.Find("Ability1Cooldown"));
         Cooldowns.Add(GameObject.Find("Ability2Cooldown"));
         Cooldowns.Add(GameObject.Find("UltimateCooldown"));
         Cooldowns.Add(GameObject.Find("MovementCooldown"));
-        Player = gameObject.GetComponent<Player>();
+        Player = GetComponent<Player>();
+    }
+
+    private void Start()
+    {
+        foreach (GameObject i in Cooldowns)
+        {
+            i.GetComponent<CooldownUI>().Player = gameObject;
+            i.SetActive(false);
+        }
     }
 
     public Vector2 MapPoint(Vector2 point, float radius)

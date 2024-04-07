@@ -362,6 +362,8 @@ GameObject:
   - component: {fileID: 8917661296187121591}
   - component: {fileID: 8980801069482653205}
   - component: {fileID: 9002333666055952584}
+  - component: {fileID: 546822269421421620}
+  - component: {fileID: 371971067550169427}
   - component: {fileID: 4014616787072648911}
   - component: {fileID: 547417484127015214}
   - component: {fileID: 3226898831386983243}
@@ -541,6 +543,76 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.7920008, y: 1.6658037}
   m_EdgeRadius: 0
+--- !u!58 &546822269421421620
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4285538799939930106}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 503
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.18331707, y: -0.9883144}
+  serializedVersion: 2
+  m_Radius: 0.9503555
+--- !u!70 &371971067550169427
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4285538799939930106}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 1399
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.18297529, y: -1.1365126}
+  m_Size: {x: 2.7708483, y: 2.8816173}
+  m_Direction: 0
 --- !u!114 &4014616787072648911
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -633,22 +705,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseMaxHealth: 100
+  healthMultiplier: 1
   maxHealth: 100
   currentHealth: 100
   baseAttack: 10
+  attackMultiplier: 1
   Attack: 10
   baseDefense: 0
+  defenseMultiplier: 1
   Defense: 0
   baseDexterity: 0
+  dexterityMultiplier: 1
   Dexterity: 0
-  baseCDR: 0
-  CDR: 0
   baseAttackSpeed: 1
+  asMultiplier: 1
   attackSpeed: 1
-  baseLuck: 0
-  Luck: 0
   baseMovementSpeed: 1
+  msMultiplier: 1
   movementSpeed: 1
+  CDR: 0
+  Luck: 0
   isStunned: 0
   Helmet: {fileID: 0}
   Chestplate: {fileID: 0}
