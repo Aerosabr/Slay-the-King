@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Item : MonoBehaviour
+public class ItemPlaceholder : MonoBehaviour
 {
     [SerializeField]
     public string itemName;
@@ -21,6 +21,8 @@ public class Item : MonoBehaviour
 
     public ItemType itemType;
 
+    public ItemSO itemSO;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -31,7 +33,7 @@ public class Item : MonoBehaviour
     {
         if(collision.gameObject.tag == "Player")
         {
-            int leftOverItems = inventoryManager.AddItem(itemName, quantity, sprite, itemDescription, itemType);
+            int leftOverItems = inventoryManager.AddItem(itemSO, itemName, quantity, sprite, itemDescription, itemType);
             if (leftOverItems <= 0)
                 Destroy(gameObject);
             else

@@ -117,7 +117,7 @@ public class EquippedSlot : MonoBehaviour, IPointerClickHandler
         }
 
         inventoryManager.DeselectAllSlots();
-        inventoryManager.AddItem(itemName, 1, itemSprite, itemDescription, itemType);
+        //inventoryManager.AddItem(itemName, 1, itemSprite, itemDescription, itemType);
 
         slotImage.sprite = emptySprite;
         slotInUse = false;

@@ -12,6 +12,8 @@ public class InventoryManager : MonoBehaviour
 
     public ItemSO[] itemSOs;
 
+    public Transform StatPanel;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -51,7 +53,7 @@ public class InventoryManager : MonoBehaviour
         return false;
     }
 
-    public int AddItem(string itemName, int quantity, Sprite itemSprite, string itemDescription, ItemType itemType)
+    public int AddItem(ItemSO item, string itemName, int quantity, Sprite itemSprite, string itemDescription, ItemType itemType)
     {
         if(itemType == ItemType.consumable || itemType == ItemType.collectible)
         {
@@ -59,9 +61,9 @@ public class InventoryManager : MonoBehaviour
             {
                 if (itemSlot[i].isFull == false && itemSlot[i].itemName == itemName || itemSlot[i].quantity == 0)
                 {
-                    int leftOverItems = itemSlot[i].AddItem(itemName, quantity, itemSprite, itemDescription, itemType);
+                    int leftOverItems = itemSlot[i].AddItem(item, itemName, quantity, itemSprite, itemDescription, itemType);
                     if (leftOverItems > 0)
-                        leftOverItems = AddItem(itemName, leftOverItems, itemSprite, itemDescription, itemType);
+                        leftOverItems = AddItem(item, itemName, leftOverItems, itemSprite, itemDescription, itemType);
 
                     return leftOverItems;
                 }
@@ -76,7 +78,7 @@ public class InventoryManager : MonoBehaviour
                 {
                     int leftOverItems = equipmentSlot[i].AddItem(itemName, quantity, itemSprite, itemDescription, itemType);
                     if (leftOverItems > 0)
-                        leftOverItems = AddItem(itemName, leftOverItems, itemSprite, itemDescription, itemType);
+                        leftOverItems = AddItem(item, itemName, leftOverItems, itemSprite, itemDescription, itemType);
 
                     return leftOverItems;
                 }
@@ -105,6 +107,11 @@ public class InventoryManager : MonoBehaviour
             equippedSlot[i].selectedShader.SetActive(false);
             equippedSlot[i].thisItemSelected = false;
         }
+    }
+
+    public void ViewOnPanel(Item item)
+    {
+
     }
 }
 

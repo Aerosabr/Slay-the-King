@@ -9,6 +9,7 @@ using System;
 public class ItemSlot : MonoBehaviour, IPointerClickHandler
 {
     //ITEM DATA
+    public ItemSO item;
     public string itemName;
     public int quantity;
     public Sprite itemSprite;
@@ -29,7 +30,6 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
 
     //ITEM DESCRIPTION SLOT
     public Transform itemStatPanel;
-    public Image itemDescriptionImage;
     public TMP_Text ItemDescriptionNameText;
     public TMP_Text ItemDescriptionText;
 
@@ -43,12 +43,12 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         inventoryManager = GameObject.Find("InventoryCanvas").GetComponent<InventoryManager>();
     }
 
-    public int AddItem(string itemName, int quantity, Sprite itemSprite, string itemDescription, ItemType itemType)
+    public int AddItem(ItemSO item, string itemName, int quantity, Sprite itemSprite, string itemDescription, ItemType itemType)
     {
         //Check if slot is already full
         if (isFull)
             return quantity;
-
+        this.item = item;
         this.itemType = itemType;
         this.itemName = itemName;
         this.itemSprite = itemSprite;
@@ -99,7 +99,6 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
                 thisItemSelected = false;
                 ItemDescriptionNameText.text = "";
                 ItemDescriptionText.text = "";
-                itemDescriptionImage.sprite = emptySprite;
             }
             else
             {
@@ -126,7 +125,6 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
             thisItemSelected = true;
             ItemDescriptionNameText.text = itemName;
             ItemDescriptionText.text = itemDescription;
-            itemDescriptionImage.sprite = itemSprite ?? emptySprite;
         }
     }
 
@@ -140,7 +138,6 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
 
         ItemDescriptionNameText.text = "";
         ItemDescriptionText.text = "";
-        itemDescriptionImage.sprite = emptySprite;
 
         itemName = "";
         itemDescription = "";
