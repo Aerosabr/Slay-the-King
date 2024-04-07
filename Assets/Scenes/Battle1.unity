@@ -2301,7 +2301,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3124167441968315881, guid: 5dea60bbc084f0d4eb0d3f9cab1b5bfd, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7666269971439804559, guid: 5dea60bbc084f0d4eb0d3f9cab1b5bfd, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2350,9 +2350,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 726844974}
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3124167441968315881, guid: 5dea60bbc084f0d4eb0d3f9cab1b5bfd, type: 3}
-      insertIndex: 5
-      addedObject: {fileID: 683326056}
     - targetCorrespondingSourceObject: {fileID: 3124167441968315881, guid: 5dea60bbc084f0d4eb0d3f9cab1b5bfd, type: 3}
       insertIndex: -1
       addedObject: {fileID: 683326046}
@@ -21878,41 +21875,6 @@ MonoBehaviour:
   UltimateCD: 1
   MovementCD: 1
   dashDistance: 15
---- !u!70 &683326056
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 683326035}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.1737442, y: -1.0811281}
-  m_Size: {x: 1.6077766, y: 2.3557339}
-  m_Direction: 0
 --- !u!1 &684243456
 GameObject:
   m_ObjectHideFlags: 0
@@ -41610,7 +41572,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4285538799939930106, guid: 2bec02271bf838c43a11ef4f6c924891, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4447431285568851490, guid: 2bec02271bf838c43a11ef4f6c924891, type: 3}
       propertyPath: m_LocalPosition.x
