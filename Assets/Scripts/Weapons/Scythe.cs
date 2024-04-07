@@ -53,6 +53,7 @@ public class Scythe : MonoBehaviour
         if (!PSC.isAttacking && MovementCD)
         {
             MovementCD = false;
+            PSC.Movable = false;
             PSC._rigidbody.velocity = new Vector2(PSC.currentDirection.x * dashDistance, PSC.currentDirection.y * dashDistance);
             StartCoroutine(Dashing());
         }
@@ -175,7 +176,7 @@ public class Scythe : MonoBehaviour
         if (!PSC.isAttacking && Ability2CD && PSC.Movable)
         {
             Ability2CD = false;
-            PSC.Movable = false;
+            PSC.isAttacking = true;
             GetComponent<CapsuleCollider2D>().enabled = true;
             GetComponent<CircleCollider2D>().enabled = true;
             GetComponent<BoxCollider2D>().enabled = false;
@@ -191,9 +192,9 @@ public class Scythe : MonoBehaviour
         yield return new WaitForSeconds(.25f);       
         Cooldowns[2].SetActive(true);
         Cooldowns[2].GetComponent<CooldownUI>().StartCooldown(3f * ((100 - Player.CDR) / 100));
-        GetComponent<CapsuleCollider2D>().enabled = true;
-        GetComponent<CircleCollider2D>().enabled = true;
-        GetComponent<BoxCollider2D>().enabled = false;
+        GetComponent<CapsuleCollider2D>().enabled = false;
+        GetComponent<CircleCollider2D>().enabled = false;
+        GetComponent<BoxCollider2D>().enabled = true;
         PSC.Movable = true;
     }
 
@@ -209,9 +210,9 @@ public class Scythe : MonoBehaviour
         else if (collision.gameObject.tag == "Environment")
         {
             PSC._rigidbody.velocity = Vector2.zero;
-            GetComponent<CapsuleCollider2D>().enabled = true;
-            GetComponent<CircleCollider2D>().enabled = true;
-            GetComponent<BoxCollider2D>().enabled = false;
+            GetComponent<CapsuleCollider2D>().enabled = false;
+            GetComponent<CircleCollider2D>().enabled = false;
+            GetComponent<BoxCollider2D>().enabled = true;
         }
     }
 
