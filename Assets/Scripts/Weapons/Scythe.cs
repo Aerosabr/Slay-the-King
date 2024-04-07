@@ -53,7 +53,6 @@ public class Scythe : MonoBehaviour
         if (!PSC.isAttacking && MovementCD)
         {
             MovementCD = false;
-            PSC.Movable = false;
             PSC._rigidbody.velocity = new Vector2(PSC.currentDirection.x * dashDistance, PSC.currentDirection.y * dashDistance);
             StartCoroutine(Dashing());
         }
@@ -195,7 +194,7 @@ public class Scythe : MonoBehaviour
         GetComponent<CapsuleCollider2D>().enabled = false;
         GetComponent<CircleCollider2D>().enabled = false;
         GetComponent<BoxCollider2D>().enabled = true;
-        PSC.Movable = true;
+        PSC.isAttacking = false;
     }
 
     public void OnTriggerEnter2D(Collider2D collision)
