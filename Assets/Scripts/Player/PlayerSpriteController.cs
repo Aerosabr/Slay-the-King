@@ -56,7 +56,7 @@ public class PlayerSpriteController : MonoBehaviour
         _rigidbody.velocity = Vector2.zero;
         PlayAnimation(animation);
     }
-
+    
     //Detecting when player is sprinting
     public void OnSprintStart()
     {

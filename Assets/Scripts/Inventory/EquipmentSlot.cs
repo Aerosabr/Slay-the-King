@@ -7,13 +7,10 @@ using UnityEngine.EventSystems;
 public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
 {
     // ITEM DATA
-    public string itemName;
+    public ItemSO item;
     public int quantity;
-    public Sprite itemSprite;
     public bool isFull;
-    public string itemDescription;
     public Sprite emptySprite;
-    public ItemType itemType;
 
     // ITEM SLOT
     [SerializeField]
@@ -26,29 +23,26 @@ public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
     public GameObject selectedShader;
     public bool thisItemSelected;
 
+    public Transform equipmentStatPanel; 
+
     private InventoryManager inventoryManager;
-    private EquipmentSOLibrary equipmentSOLibrary;
 
     private void Start()
     {
         inventoryManager = GameObject.Find("InventoryCanvas").GetComponent<InventoryManager>();
-        equipmentSOLibrary = GameObject.Find("InventoryCanvas").GetComponent<EquipmentSOLibrary>();
     }
 
-    public int AddItem(string itemName, int quantity, Sprite itemSprite, string itemDescription, ItemType itemType)
+    public int AddItem(ItemSO item, int quantity)
     {
         //Check if slot is already full
         if (isFull)
             return quantity;
 
-        this.itemType = itemType;
-        this.itemName = itemName;
-        this.itemSprite = itemSprite;
-        this.itemDescription = itemDescription;
+        this.item = item;
         this.quantity = 1;
         isFull = true;
 
-        itemImage.sprite = itemSprite;
+        itemImage.sprite = item.itemSprite;
 
 
         return 0;
@@ -68,18 +62,18 @@ public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
 
     private void EquipGear()
     {
-        if (itemType == ItemType.helmet)
-            helmetSlot.EquipGear(itemSprite, itemName, itemDescription);
-        if (itemType == ItemType.chest)
-            chestSlot.EquipGear(itemSprite, itemName, itemDescription);
-        if (itemType == ItemType.leg)
-            legSlot.EquipGear(itemSprite, itemName, itemDescription);
-        if (itemType == ItemType.weapon)
-            weaponSlot.EquipGear(itemSprite, itemName, itemDescription);
-        if (itemType == ItemType.amulet)
-            amuletSlot.EquipGear(itemSprite, itemName, itemDescription);
-        if (itemType == ItemType.ring)
-            ringSlot.EquipGear(itemSprite, itemName, itemDescription);
+        if (item.itemType == ItemType.helmet)
+            helmetSlot.EquipGear(item);
+        if (item.itemType == ItemType.chest)
+            chestSlot.EquipGear(item);
+        if (item.itemType == ItemType.leg)
+            legSlot.EquipGear(item);
+        if (item.itemType == ItemType.weapon)
+            weaponSlot.EquipGear(item);
+        if (item.itemType == ItemType.amulet)
+            amuletSlot.EquipGear(item);
+        if (item.itemType == ItemType.ring)
+            ringSlot.EquipGear(item);
 
         EmptySlot();
     }
@@ -91,58 +85,49 @@ public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
             if (thisItemSelected)
             {
                 EquipGear();
-            }
+				if (equipmentStatPanel.gameObject.activeSelf)
+					equipmentStatPanel.gameObject.SetActive(false);
+			}
             else
             {
                 inventoryManager.DeselectAllSlots();
                 selectedShader.SetActive(true);
                 thisItemSelected = true;
 
-                Player player = FindObjectOfType<Player>(); // Find the player in the scene
-                for (int i = 0; i < equipmentSOLibrary.equipmentSO.Length; i++)
-                {
-                    if (equipmentSOLibrary.equipmentSO[i].itemName == this.itemName)
-                        equipmentSOLibrary.equipmentSO[i].PreviewEquipment(player);
-                }
-            }
+				if (!equipmentStatPanel.gameObject.activeSelf)
+					equipmentStatPanel.gameObject.SetActive(true);
+				equipmentStatPanel.position = new Vector3(-320f, -25, 0) + transform.position;
+				EquipmentSO equipment = (EquipmentSO) item;
+				equipmentStatPanel.GetComponent<EquipmentStats>().SetEquipmentSlot(this);
+				equipmentStatPanel.GetComponent<EquipmentStats>().UpdateEquipmentStatPanel(equipment);
+			}
         }
         else
         {
             if (thisItemSelected)
             {
-                TurnOffPreviewStats();
+                if(equipmentStatPanel.gameObject.activeSelf)
+                    equipmentStatPanel.gameObject.SetActive(false);
                 inventoryManager.DeselectAllSlots();
                 selectedShader.SetActive(false);
                 thisItemSelected = false;
             }
             else
             {
-                TurnOffPreviewStats();
+                if(equipmentStatPanel.gameObject.activeSelf)
+                    equipmentStatPanel.gameObject.SetActive(false);
                 inventoryManager.DeselectAllSlots();
-                selectedShader.SetActive(true);
-                thisItemSelected = true;
             }
         }
     }
 
-    private void TurnOffPreviewStats()
-    {
-        Player player = FindObjectOfType<Player>(); // Find the player in the scene
-        if (player != null)
-        {
-            player.TurnOffPreviewStats();
-        }
-    }
 
-    private void EmptySlot()
+    public void EmptySlot()
     {
         itemImage.sprite = emptySprite;
 
         isFull = false;
-
-        itemName = "";
-        itemDescription = "";
-        itemSprite = null;
+        item = null;
         quantity = 0;
 
         if (selectedShader != null)
@@ -156,24 +141,23 @@ public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
 
     public void OnRightClick()
     {
-        if (this.quantity <= 0 || string.IsNullOrEmpty(itemName))
+        if (this.quantity <= 0 || string.IsNullOrEmpty(item.itemName))
         {
             // If the slot is empty, exit the method early without dropping an item.
+            if(equipmentStatPanel.gameObject.activeSelf)
+                    equipmentStatPanel.gameObject.SetActive(false);
             return;
         }
 
         // Create a new item
-        GameObject itemToDrop = new GameObject(itemName);
-        Item newItem = itemToDrop.AddComponent<Item>();
-        newItem.quantity = 1;
-        newItem.itemName = itemName;
-        newItem.sprite = itemSprite;
-        newItem.itemDescription = itemDescription;
-        newItem.itemType = this.itemType;
+        GameObject itemToDrop = new GameObject(item.itemName);
+		ItemPlaceholder newItem = itemToDrop.AddComponent<ItemPlaceholder>();
+		newItem.quantity = 1;
+        newItem.itemSO = item;
 
         // Create and modify the SpriteRenderer
         SpriteRenderer sr = itemToDrop.AddComponent<SpriteRenderer>();
-        sr.sprite = itemSprite;
+        sr.sprite = item.itemSprite;
         sr.sortingOrder = 5;
         sr.sortingLayerName = "Environment";
 

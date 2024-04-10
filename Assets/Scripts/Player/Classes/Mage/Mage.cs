@@ -6,7 +6,7 @@ public class Mage : MonoBehaviour
 {
     public PlayerSpriteController PSC;
     public List<GameObject> Cooldowns = new List<GameObject>();
-
+    
     public float fireballSpeed = 5f;
     public float fireballLife = 3.0f;
     public GameObject fireballPrefab;
@@ -26,6 +26,7 @@ public class Mage : MonoBehaviour
     public float baseMovementCD = 5f;
     public float MovementCD = 0;
 
+    public Transform teleportEffect;
     public float teleportDistance;
 
     public void Awake()
@@ -56,10 +57,17 @@ public class Mage : MonoBehaviour
     public IEnumerator Dashing()
     {
         PSC.Movable = false;
+        DashEffect();
         yield return new WaitForSeconds(0.025f);
         Cooldowns[4].SetActive(true);
         MovementCD = baseMovementCD;
         PSC.Movable = true;
+    }
+
+    public void DashEffect()
+    {
+        var Effect = Instantiate(teleportEffect.gameObject, transform.position - new Vector3(0,0.4f,0), transform.rotation);
+        Destroy(Effect, 2);
     }
 
     public float GetMovementCooldown()

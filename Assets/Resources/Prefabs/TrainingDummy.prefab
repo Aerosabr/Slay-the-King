@@ -75,7 +75,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -596950753
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 2098214133, guid: 952fd72161735f94eb8e2d84de39b816, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -149,22 +149,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseMaxHealth: 0
+  healthMultiplier: 1
   maxHealth: 9999
   currentHealth: 9999
   baseAttack: 0
+  attackMultiplier: 1
   Attack: 0
-  baseDefense: 10
-  Defense: 10
+  baseDefense: 5
+  defenseMultiplier: 1
+  Defense: 5
   baseDexterity: 0
+  dexterityMultiplier: 1
   Dexterity: 0
-  baseCDR: 0
-  CDR: 0
   baseAttackSpeed: 0
+  asMultiplier: 1
   attackSpeed: 0
-  baseLuck: 0
-  Luck: 0
   baseMovementSpeed: 0
+  msMultiplier: 1
   movementSpeed: 0
+  CDR: 0
+  Luck: 0
   isStunned: 0
   rb: {fileID: 0}
   anim: {fileID: 0}
