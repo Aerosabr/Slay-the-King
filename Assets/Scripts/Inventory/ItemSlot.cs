@@ -10,13 +10,9 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
 {
     //ITEM DATA
     public ItemSO item;
-    public string itemName;
     public int quantity;
-    public Sprite itemSprite;
     public bool isFull;
-    public string itemDescription;
     public Sprite emptySprite;
-    public ItemType itemType;
 
     [SerializeField]
     private int maxNumberOfItems;
@@ -28,10 +24,10 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     [SerializeField]
     private Image itemImage;
 
+	public EquippedConsumableSlot[] slots = new EquippedConsumableSlot[3];
+
     //ITEM DESCRIPTION SLOT
     public Transform itemStatPanel;
-    public TMP_Text ItemDescriptionNameText;
-    public TMP_Text ItemDescriptionText;
 
     public GameObject selectedShader;
     public bool thisItemSelected;
@@ -43,19 +39,15 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         inventoryManager = GameObject.Find("InventoryCanvas").GetComponent<InventoryManager>();
     }
 
-    public int AddItem(ItemSO item, string itemName, int quantity, Sprite itemSprite, string itemDescription, ItemType itemType)
+    public int AddItem(ItemSO item, int quantity)
     {
         //Check if slot is already full
         if (isFull)
             return quantity;
         this.item = item;
-        this.itemType = itemType;
-        this.itemName = itemName;
-        this.itemSprite = itemSprite;
-        this.itemDescription = itemDescription;
         this.quantity += quantity;
 
-        itemImage.sprite = itemSprite;
+        itemImage.sprite = item.itemSprite;
 
         if (this.quantity >= maxNumberOfItems)
         {
@@ -90,63 +82,43 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     {
         if (thisItemSelected)
         {
-            if (string.IsNullOrEmpty(itemName) || quantity <= 0)
-            {
-                if(itemStatPanel.gameObject.activeSelf)
-                    itemStatPanel.gameObject.SetActive(false);
-                inventoryManager.DeselectAllSlots();
-                selectedShader.SetActive(false);
-                thisItemSelected = false;
-                ItemDescriptionNameText.text = "";
-                ItemDescriptionText.text = "";
-            }
-            else
-            {
-                Debug.Log($"Using item: {itemName}");
-                if(!itemStatPanel.gameObject.activeSelf)
-                    itemStatPanel.gameObject.SetActive(true);
-                bool usable = inventoryManager.UseItem(itemName);
-                if (usable)
-                {
-                    this.quantity -= 1;
-                    quantityText.text = this.quantity.ToString();
-                    if (this.quantity <= 0)
-                        EmptySlot();
-                }
-            }
+            if (itemStatPanel.gameObject.activeSelf)
+                itemStatPanel.gameObject.SetActive(false);
+            inventoryManager.DeselectAllSlots();
+            selectedShader.SetActive(false);
+            thisItemSelected = false;
         }
         else
         {
-            if(!itemStatPanel.gameObject.activeSelf)
-                itemStatPanel.gameObject.SetActive(true);
-            itemStatPanel.position = new Vector3(-380f, 0, 0) + transform.position;
-            inventoryManager.DeselectAllSlots();
-            selectedShader.SetActive(true);
-            thisItemSelected = true;
-            ItemDescriptionNameText.text = itemName;
-            ItemDescriptionText.text = itemDescription;
+            if (item)
+            {
+                if (!itemStatPanel.gameObject.activeSelf)
+                    itemStatPanel.gameObject.SetActive(true);
+                itemStatPanel.position = new Vector3(-320f, -25, 0) + transform.position;
+                itemStatPanel.GetComponent<ItemStats>().UpdateItemView(item, this, null);
+                inventoryManager.DeselectAllSlots();
+                selectedShader.SetActive(true);
+                thisItemSelected = true;
+            }
+            
         }
     }
 
 
-    private void EmptySlot()
+    public void EmptySlot()
     {
-        quantityText.enabled = false;
+		quantityText.enabled = false;
         quantityText.text = "";
 
         itemImage.sprite = emptySprite;
 
-        ItemDescriptionNameText.text = "";
-        ItemDescriptionText.text = "";
-
-        itemName = "";
-        itemDescription = "";
-        itemSprite = null;
+        item = null;
         quantity = 0;
         isFull = false;
 
-
-        if (selectedShader != null)
+		if (itemStatPanel.gameObject.activeSelf)
+			itemStatPanel.gameObject.SetActive(false);
+		if (selectedShader != null)
         {
             selectedShader.SetActive(false);
         }
@@ -157,7 +129,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     public void OnRightClick()
     {
         // Check if the inventory slot is empty before dropping items.
-        if (this.quantity <= 0 || string.IsNullOrEmpty(itemName))
+        if (this.quantity <= 0 || string.IsNullOrEmpty(item.itemName))
         {
             // Slot is empty, so do nothing and return early.
             if(itemStatPanel.gameObject.activeSelf)
@@ -166,17 +138,13 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         }
 
         // Create a new item
-        GameObject itemToDrop = new GameObject(itemName);
-        Item newItem = itemToDrop.AddComponent<Item>();
+        GameObject itemToDrop = new GameObject(item.itemName);
+        ItemPlaceholder newItem = itemToDrop.AddComponent<ItemPlaceholder>();
         newItem.quantity = 1;
-        newItem.itemName = itemName;
-        newItem.sprite = itemSprite;
-        newItem.itemDescription = itemDescription;
-        newItem.itemType = this.itemType;
-
+        newItem.itemSO = item;
         // Create and modify the SpriteRenderer
         SpriteRenderer sr = itemToDrop.AddComponent<SpriteRenderer>();
-        sr.sprite = itemSprite;
+        sr.sprite = item.itemSprite;
         sr.sortingOrder = 5;
         sr.sortingLayerName = "Environment";
 
@@ -193,5 +161,65 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         if (this.quantity <= 0)
             EmptySlot();
     }
+
+    public bool CheckAvailableSlot()
+    {
+        bool found = false;
+		for (int i = 0; i < slots.Length; i++)
+		{
+			if (slots[i].item)
+			{
+                if (slots[i].item.itemName == this.item.itemName)
+                {
+                    found = true;
+                    if (slots[i].quantity != slots[i].maxCapacity)
+                    {
+                        EquipItem(slots[i]);
+                        return true;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+			}
+		}
+        if(!found)
+        {
+			for (int i = 0; i < slots.Length; i++)
+			{
+				if (!slots[i].item)
+				{
+					EquipItem(slots[i]);
+                    return true;
+				}
+			}
+		}
+		return false;
+    }
+
+    public void EquipItem(EquippedConsumableSlot selectedSlot)
+    {
+		if (!itemStatPanel.gameObject.activeSelf)
+			itemStatPanel.gameObject.SetActive(true);
+        this.quantity += selectedSlot.EquipConsumable(item);
+		quantityText.text = this.quantity.ToString();
+		if (this.quantity <= 0)
+			EmptySlot();
+	}
+
+    public void UseItem()
+    {
+		if (!itemStatPanel.gameObject.activeSelf)
+			itemStatPanel.gameObject.SetActive(true);
+		bool usable = item.UseItem(inventoryManager.player);
+		if (usable)
+		{
+			this.quantity -= 1;
+			quantityText.text = this.quantity.ToString();
+			if (this.quantity <= 0)
+				EmptySlot();
+		}
+	}
 
 }

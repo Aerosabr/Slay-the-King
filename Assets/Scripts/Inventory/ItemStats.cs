@@ -1,0 +1,72 @@
+using System.Collections;
+using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
+
+public class ItemStats : MonoBehaviour
+{
+	public GameObject statPanel;
+	public InventoryManager manager;
+	public ItemSlot slot;
+	public EquippedConsumableSlot consumeSlot;
+
+	public TMP_Text itemName;
+	public TMP_Text itemDescription;
+
+	public GameObject equipButton;
+	public GameObject unequipButton;
+	public GameObject useButton;
+
+	public void UpdateItemView(ItemSO item, ItemSlot slot, EquippedConsumableSlot consumeSlot)
+	{
+		if (!statPanel.activeSelf)
+			statPanel.SetActive(true);
+		if (item.itemType == ItemType.consumable)
+		{
+			if(slot != null)
+				equipButton.SetActive(true);
+			if(consumeSlot != null)
+				unequipButton.SetActive(true);
+			useButton.SetActive(true);
+		}
+		else
+		{
+			equipButton.SetActive(false);
+			unequipButton.SetActive(false);
+			useButton.SetActive(false);
+		}
+		this.slot = slot;
+		itemName.text = item.itemName;
+		itemDescription.text = item.itemDescription;
+	}
+
+	public void EquipButton()
+	{
+		if(slot != null)
+			slot.CheckAvailableSlot();
+	}
+	
+	public void UnEquipButton()
+	{
+		if (consumeSlot != null)
+			consumeSlot.UnEquipConsumable();
+	}
+	
+	public void ExitButton()
+	{
+		statPanel.SetActive(false);
+		if (slot != null)
+			slot.EmptySlot();
+		if (consumeSlot != null)
+			consumeSlot.selectedShader.SetActive(false);
+	}
+
+	public void UseButton()
+	{
+		if (slot != null)
+			slot.UseItem();
+		if (consumeSlot != null)
+			consumeSlot.UseConsumable();
+	}
+
+}

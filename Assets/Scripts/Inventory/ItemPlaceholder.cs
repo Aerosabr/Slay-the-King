@@ -1,39 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ItemPlaceholder : MonoBehaviour
 {
-    [SerializeField]
-    public string itemName;
+	private InventoryManager inventoryManager;
+	public ItemSO itemSO;
 
-    [SerializeField]
+	[SerializeField]
     public int quantity;
-
-    [SerializeField]
-    public Sprite sprite;
-
-    [TextArea]
-    [SerializeField]
-    public string itemDescription;
-
-    private InventoryManager inventoryManager;
-
-    public ItemType itemType;
-
-    public ItemSO itemSO;
 
     // Start is called before the first frame update
     void Start()
     {
         inventoryManager = GameObject.Find("InventoryCanvas").GetComponent<InventoryManager>();
+        transform.GetComponent<SpriteRenderer>().sprite = itemSO.itemSprite;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.tag == "Player")
         {
-            int leftOverItems = inventoryManager.AddItem(itemSO, itemName, quantity, sprite, itemDescription, itemType);
+            int leftOverItems = inventoryManager.AddItem(itemSO, quantity);
             if (leftOverItems <= 0)
                 Destroy(gameObject);
             else

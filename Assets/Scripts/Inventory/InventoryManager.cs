@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class InventoryManager : MonoBehaviour
 {
     public GameObject InventoryMenu;
-    public GameObject EquipmentMenu;
+    public Player player;
     public ItemSlot[] itemSlot;
     public EquipmentSlot[] equipmentSlot;
     public EquippedSlot[] equippedSlot;
@@ -13,11 +14,20 @@ public class InventoryManager : MonoBehaviour
     public ItemSO[] itemSOs;
 
     public Transform StatPanel;
+	public TMP_Text itemName;
+	public TMP_Text healthNum;
+	public TMP_Text attackNum;
+	public TMP_Text defenseNum;
+	public TMP_Text dexNum;
+	public TMP_Text cdrNum;
+	public TMP_Text attackspdNum;
+	public TMP_Text luckNum;
 
-    // Start is called before the first frame update
-    void Start()
+	// Start is called before the first frame update
+	void Start()
     {
-    }
+        UpdatePlayerStatPanel();
+	}
 
     // Update is called once per frame
     void Update()
@@ -39,31 +49,17 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-
-    public bool UseItem(string itemName)
+    public int AddItem(ItemSO item, int quantity)
     {
-        for (int i = 0; i < itemSOs.Length; i++)
-        {
-            if (itemSOs[i].itemName == itemName)
-            {
-                bool usable = itemSOs[i].UseItem();
-                return usable;
-            }
-        }
-        return false;
-    }
-
-    public int AddItem(ItemSO item, string itemName, int quantity, Sprite itemSprite, string itemDescription, ItemType itemType)
-    {
-        if(itemType == ItemType.consumable || itemType == ItemType.collectible)
+        if(item.itemType == ItemType.consumable || item.itemType == ItemType.collectible)
         {
             for (int i = 0; i < itemSlot.Length; i++)
             {
-                if (itemSlot[i].isFull == false && itemSlot[i].itemName == itemName || itemSlot[i].quantity == 0)
+                if (itemSlot[i].isFull == false && itemSlot[i].quantity == 0 || itemSlot[i].item.itemName == item.itemName)
                 {
-                    int leftOverItems = itemSlot[i].AddItem(item, itemName, quantity, itemSprite, itemDescription, itemType);
+                    int leftOverItems = itemSlot[i].AddItem(item, quantity);
                     if (leftOverItems > 0)
-                        leftOverItems = AddItem(item, itemName, leftOverItems, itemSprite, itemDescription, itemType);
+                        leftOverItems = AddItem(item, leftOverItems);
 
                     return leftOverItems;
                 }
@@ -74,11 +70,11 @@ public class InventoryManager : MonoBehaviour
         {
             for (int i = 0; i < equipmentSlot.Length; i++)
             {
-                if (equipmentSlot[i].isFull == false && equipmentSlot[i].itemName == itemName || equipmentSlot[i].quantity == 0)
+                if (equipmentSlot[i].isFull == false)
                 {
-                    int leftOverItems = equipmentSlot[i].AddItem(itemName, quantity, itemSprite, itemDescription, itemType);
+                    int leftOverItems = equipmentSlot[i].AddItem(item, quantity);
                     if (leftOverItems > 0)
-                        leftOverItems = AddItem(item, itemName, leftOverItems, itemSprite, itemDescription, itemType);
+                        leftOverItems = AddItem(item, leftOverItems);
 
                     return leftOverItems;
                 }
@@ -109,10 +105,22 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    public void ViewOnPanel(Item item)
+    public void AddStatsToPlayer(EquipmentSO equipment, int change)
     {
-
+        player.UpdateEquipmentStats(equipment, change);
+        UpdatePlayerStatPanel();
     }
+
+	public void UpdatePlayerStatPanel()
+	{
+		healthNum.text = player.baseMaxHealth.ToString();
+		attackNum.text = player.baseAttack.ToString();
+		defenseNum.text = player.baseDefense.ToString();
+		dexNum.text = player.baseDexterity.ToString();
+		cdrNum.text = player.baseCDR.ToString();
+		attackspdNum.text = player.baseAttackSpeed.ToString();
+		luckNum.text = player.baseLuck.ToString();
+	}
 }
 
 public enum ItemType

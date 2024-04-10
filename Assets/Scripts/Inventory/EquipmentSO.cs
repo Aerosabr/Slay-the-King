@@ -3,52 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu]
-public class EquipmentSO : ScriptableObject
+public class EquipmentSO : ItemSO
 {
-    public string itemName;
     public int health, attack, defense, dexterity, cooldown_reduction, attack_speed, luck;
-    [SerializeField]
-    private Sprite itemSprite;
+    public Animator animator;
 
-    public void PreviewEquipment(Player player)
+    public void EquipItem(InventoryManager manager)
     {
-        if (player != null)
-        {
-            player.PreviewEquipmentStats(health, attack, defense, dexterity, cooldown_reduction, attack_speed, luck, itemSprite);
-        }
+        manager.AddStatsToPlayer(this, +1);
     }
 
-    public void EquipItem(Player player)
+    public void UnEquipItem(InventoryManager manager)
     {
-        // Update Stats
-        if (player != null)
-        {
-            player.maxHealth += health;
-            player.baseAttack += attack;
-            player.baseDefense += defense;
-            player.baseDexterity += dexterity;
-            player.baseCDR += cooldown_reduction;
-            player.baseAttackSpeed += attack_speed;
-            player.baseLuck += luck;
-
-            player.UpdateEquipmentStats();
-        }
-    }
-
-    public void UnEquipItem(Player player)
-    {
-        // Update Stats
-        if (player != null)
-        {
-            player.baseMaxHealth -= health;
-            player.baseAttack -= attack;
-            player.baseDefense -= defense;
-            player.baseDexterity -= dexterity;
-            player.baseCDR -= cooldown_reduction;
-            player.baseAttackSpeed -= attack_speed;
-            player.baseLuck -= luck;
-
-            player.UpdateEquipmentStats();
-        }
-    }
+		// Update Stats
+		manager.AddStatsToPlayer(this, -1);
+	}
 }
