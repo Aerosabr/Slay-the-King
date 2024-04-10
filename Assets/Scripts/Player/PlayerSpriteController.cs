@@ -7,10 +7,10 @@ public class PlayerSpriteController : MonoBehaviour
 {
     //Sprite Movement
     public Rigidbody2D _rigidbody;
-    public float _speed; 
     public Vector2 _movementInput;
     public Vector2 _smoothedMovementInput;
     public Vector2 _movementInputSmoothVelocity;
+    public float sprintMultiplier = 1f;
 
     //Sprite Animations
     public List<Animator> Sprites = new List<Animator>();
@@ -18,6 +18,7 @@ public class PlayerSpriteController : MonoBehaviour
     public Vector2 keyboardDirection;
     public Vector2 currentDirection;
 
+    public Player player;
     public bool isMoving;
     public bool isSprinting;
     public bool isAttacking;
@@ -27,6 +28,7 @@ public class PlayerSpriteController : MonoBehaviour
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
+        player = GetComponent<Player>();
     }
 
     private void Start()
@@ -41,7 +43,7 @@ public class PlayerSpriteController : MonoBehaviour
         if (!isAttacking && Movable)
         {
             _smoothedMovementInput = Vector2.SmoothDamp(_smoothedMovementInput, _movementInput, ref _movementInputSmoothVelocity, 0.1f);
-            _rigidbody.velocity = _smoothedMovementInput * _speed;
+            _rigidbody.velocity = _smoothedMovementInput * player.movementSpeed * sprintMultiplier * 3;
             keyboardDirection = _movementInput;
             UpdateSpriteParameters();
         }
@@ -58,13 +60,13 @@ public class PlayerSpriteController : MonoBehaviour
     //Detecting when player is sprinting
     public void OnSprintStart()
     {
-        _speed *= 2;
+        sprintMultiplier = 2f;
         isSprinting = true;
     }
 
     public void OnSprintFinish()
     {
-        _speed /= 2;
+        sprintMultiplier = 1f;
         isSprinting = false;
     }
 
