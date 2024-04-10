@@ -10,21 +10,18 @@ public class EquippedSlot : MonoBehaviour, IPointerClickHandler
     // SLOT APPEARANCE
     [SerializeField]
     private Image slotImage;
+	[SerializeField]
+	private GameObject slotIcon;
 
     // SLOT DATA
-    [SerializeField]
-    private ItemType itemType;
-
-    private Sprite itemSprite;
-    private string itemName;
-    private string itemDescription;
+    public ItemSO item;
 
     private InventoryManager inventoryManager;
-    private EquipmentSOLibrary equipmentSOLibrary;
-
-    // OTHER VARIABLES
-    private bool slotInUse;
-    [SerializeField]
+	public Transform equipmentStatPanel;
+	// OTHER VARIABLES
+	public bool slotInUse;
+    public float xPanelPlacement = -320f;
+	[SerializeField]
     public GameObject selectedShader;
     [SerializeField]
     public bool thisItemSelected;
@@ -34,7 +31,6 @@ public class EquippedSlot : MonoBehaviour, IPointerClickHandler
     private void Start()
     {
         inventoryManager = GameObject.Find("InventoryCanvas").GetComponent<InventoryManager>();
-        equipmentSOLibrary = GameObject.Find("InventoryCanvas").GetComponent<EquipmentSOLibrary>();
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -49,14 +45,17 @@ public class EquippedSlot : MonoBehaviour, IPointerClickHandler
         }
     }
 
-    void OnLeftClick()
+    public void OnLeftClick()
     {
         if (thisItemSelected)
         {
             if (slotInUse)
             {
                 UnEquipGear();
-            }
+				if (equipmentStatPanel.gameObject.activeSelf)
+					equipmentStatPanel.gameObject.SetActive(false);
+                slotInUse = false;
+			}
             else
             {
                 inventoryManager.DeselectAllSlots();
@@ -66,77 +65,61 @@ public class EquippedSlot : MonoBehaviour, IPointerClickHandler
         }
         else
         {
-            inventoryManager.DeselectAllSlots();
-            selectedShader.SetActive(true);
-            thisItemSelected = true;
-
-            Player player = FindObjectOfType<Player>(); // Find the player in the scene
-            for (int i = 0; i < this.equipmentSOLibrary.equipmentSO.Length; i++)
+			inventoryManager.DeselectAllSlots();
+			if (slotInUse)
             {
-                if (equipmentSOLibrary.equipmentSO[i].itemName == this.itemName)
-                    equipmentSOLibrary.equipmentSO[i].PreviewEquipment(player);
+                selectedShader.SetActive(true);
+                thisItemSelected = true;
+                if (!equipmentStatPanel.gameObject.activeSelf)
+                    equipmentStatPanel.gameObject.SetActive(true);
+                equipmentStatPanel.position = new Vector3(xPanelPlacement, -25f, 0) + transform.position;
+                EquipmentSO equipment = (EquipmentSO)item;
+                equipmentStatPanel.GetComponent<EquipmentStats>().SetEquippedSlot(this);
+                equipmentStatPanel.GetComponent<EquipmentStats>().UpdateEquipmentStatPanel(equipment);
             }
-        }
+		}
     }
 
-    void OnRightClick()
+    public void OnRightClick()
     {
         UnEquipGear();
     }
 
-    public void EquipGear(Sprite itemSprite, string itemName, string itemDescription)
+    public void EquipGear(ItemSO item)
     {
         // Check if item already there
         if (slotInUse)
             UnEquipGear();
 
         // Update Image
-        this.itemSprite = itemSprite;
-        slotImage.sprite = this.itemSprite;
-
-        // Update Data
-        this.itemName = itemName;
-        this.itemDescription = itemDescription;
-
-        // Update Player Stats
-        Player player = FindObjectOfType<Player>(); // Find the player in the scene
-        for (int i = 0; i < equipmentSOLibrary.equipmentSO.Length; i++)
-        {
-            if (equipmentSOLibrary.equipmentSO[i].itemName == this.itemName)
-                equipmentSOLibrary.equipmentSO[i].EquipItem(player);
-        }
+        slotImage.sprite = item.itemSprite;
+		slotIcon.SetActive(false);
+		// Update Player Stats
+		this.item = item;
+        EquipmentSO equipment = (EquipmentSO)item;
+        equipment.EquipItem(inventoryManager);
 
         slotInUse = true;
     }
 
     public void UnEquipGear()
     {
-        if (!slotInUse || string.IsNullOrEmpty(itemName))
+        if (!slotInUse || string.IsNullOrEmpty(item.itemName))
         {
             return;
         }
 
         inventoryManager.DeselectAllSlots();
-        inventoryManager.AddItem(itemName, 1, itemSprite, itemDescription, itemType);
+        //inventoryManager.AddItem(itemName, 1, itemSprite, itemDescription, itemType);
 
         slotImage.sprite = emptySprite;
-        slotInUse = false;
+		slotIcon.SetActive(true);
+		slotInUse = false;
 
-        Player player = FindObjectOfType<Player>(); // Find the player in the scene
-        for (int i = 0; i < equipmentSOLibrary.equipmentSO.Length; i++)
-        {
-            if (equipmentSOLibrary.equipmentSO[i].itemName == this.itemName)
-            {
-                equipmentSOLibrary.equipmentSO[i].UnEquipItem(player);
-            }
-        }
+		EquipmentSO equipment = (EquipmentSO)item;
+		equipment.UnEquipItem(inventoryManager);
+        inventoryManager.AddItem(item, 1);
+        item = null;
 
-        itemName = "";
-        itemDescription = "";
-
-        if (player != null)
-        {
-            player.TurnOffPreviewStats();
-        }
-    }
+	}
 }

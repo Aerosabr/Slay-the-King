@@ -10,29 +10,14 @@ public class Player : Entity, IEffectable, IDamageable
 {
     //Class that represents each individual player's stats and inventory
     //Equipment
-    public Helmet Helmet;
+    /*public Helmet Helmet;
     public Chestplate Chestplate;
     public Leggings Leggings;
     public Boots Boots;
-    public Weapon Weapon;
+    public Weapon Weapon;*/
 
     //Player Class
     public string Class;
-
-    [SerializeField]
-    private TMP_Text healthText, attackText, defenseText, dexterityText, cooldown_reductionText, attack_speedText, luckText;
-
-    [SerializeField]
-    private TMP_Text healthPreText, attackPreText, defensePreText, dexterityPreText, cooldown_reductionPreText, attack_speedPreText, luckPreText;
-
-    [SerializeField]
-    private Image previewImage;
-
-    [SerializeField]
-    private GameObject selectedItemStats;
-
-    [SerializeField]
-    private GameObject selectedItemImage;
 
     //Ability Cooldowns
     public float AttackCD;
@@ -41,12 +26,15 @@ public class Player : Entity, IEffectable, IDamageable
     public float UltimateCD;
     public float MovementCD;
 
-    public GameObject HealthBar;
+	//ConsumableHotBar
+	public ActivateConsumables[] consumableSlot;
+
+	public GameObject HealthBar;
     public Rigidbody2D rb;
 
     void Start()
     {
-        UpdateEquipmentStats();
+
     }
 
     private void Awake()
@@ -149,37 +137,29 @@ public class Player : Entity, IEffectable, IDamageable
         return totalHealed;
     }
 
-    public void UpdateEquipmentStats()
+    public void UpdateEquipmentStats(EquipmentSO equipment, int change)
     {
-        /*
-        healthText.text = health.ToString();
-        attackText.text = attack.ToString();
-        defenseText.text = defense.ToString();
-        dexterityText.text = dexterity.ToString();
-        cooldown_reductionText.text = cooldown_reduction.ToString();
-        attack_speedText.text = attack_speed.ToString();
-        luckText.text = luck.ToString();
-        */
+        baseMaxHealth += equipment.health * change;
+        baseAttack += equipment.attack * change;
+        baseDefense += equipment.defense * change;
+        baseDexterity += equipment.dexterity * change;
+        CDR += equipment.cooldown_reduction * change;
+        baseAttackSpeed += equipment.attack_speed * change;
+        Luck += equipment.luck * change;
     }
 
-    public void PreviewEquipmentStats(int health, int attack, int defense, int dexterity, int cooldown_reduction, int attack_speed, int luck, Sprite itemSprite)
+    public void OnConsume1()
     {
-        healthPreText.text = health.ToString();
-        attackPreText.text = attack.ToString();
-        defensePreText.text = defense.ToString();
-        dexterityPreText.text = dexterity.ToString();
-        cooldown_reductionPreText.text = cooldown_reduction.ToString();
-        attack_speedPreText.text = attack_speed.ToString();
-        luckPreText.text = luck.ToString();
-
-        previewImage.sprite = itemSprite;
-        selectedItemImage.SetActive(true);
-        selectedItemStats.SetActive(true);
+        consumableSlot[0].Activate();
     }
 
-    public void TurnOffPreviewStats()
-    {
-        selectedItemImage.SetActive(false);
-        selectedItemStats.SetActive(false);
-    }
+	public void OnConsume2()
+	{
+		consumableSlot[1].Activate();
+	}
+
+	public void OnConsume3()
+	{
+		consumableSlot[2].Activate();
+	}
 }
