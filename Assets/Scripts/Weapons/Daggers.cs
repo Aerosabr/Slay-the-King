@@ -42,10 +42,11 @@ public class Daggers : MonoBehaviour
 
     private void Start()
     {
-        foreach (GameObject i in Cooldowns)
+        string[] icons = { "Daggers/Attack", "Daggers/Ability1", "Daggers/Ability2", "Daggers/Ultimate", "Movement" };
+        for (int i = 0; i < icons.Length; i++)
         {
-            i.GetComponent<CooldownUI>().Player = gameObject;
-            i.SetActive(false);
+            Cooldowns[i].GetComponent<CooldownUI>().InitiateCooldown(Resources.Load<Sprite>("Icons/" + icons[i]), gameObject);
+            Cooldowns[i].SetActive(false);
         }
     }
 

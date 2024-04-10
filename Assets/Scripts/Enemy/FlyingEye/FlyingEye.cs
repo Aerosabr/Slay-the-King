@@ -112,11 +112,11 @@ public class FlyingEye : Entity, IDamageable, IEffectable
     {
         if (collision.gameObject.tag == "Player" && !isAttacking)
         {
-            StartCoroutine(Attack(collision));
+            StartCoroutine(Attacking(collision));
         }
     }
 
-    public IEnumerator Attack(Collision2D collision)
+    public IEnumerator Attacking(Collision2D collision)
     {
         isAttacking = true;
         anim.SetTrigger("Attack");

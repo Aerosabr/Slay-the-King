@@ -10,6 +10,7 @@ public class CooldownUI : MonoBehaviour
     public Text cooldown;
     public string Action;
     public GameObject Player;
+    public Image skillIcon;
 
     private void Awake()
     {
@@ -37,5 +38,11 @@ public class CooldownUI : MonoBehaviour
     {
         remainingTime = time;
         ready = true;
+    }
+
+    public void InitiateCooldown(Sprite Icon, GameObject player)
+    {
+        skillIcon.sprite = Icon;
+        Player = player;
     }
 }
