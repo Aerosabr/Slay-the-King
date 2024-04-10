@@ -26,7 +26,10 @@ public class Player : Entity, IEffectable, IDamageable
     public float UltimateCD;
     public float MovementCD;
 
-    public GameObject HealthBar;
+	//ConsumableHotBar
+	public ActivateConsumables[] consumableSlot;
+
+	public GameObject HealthBar;
     public Rigidbody2D rb;
 
     void Start()
@@ -140,9 +143,23 @@ public class Player : Entity, IEffectable, IDamageable
         baseAttack += equipment.attack * change;
         baseDefense += equipment.defense * change;
         baseDexterity += equipment.dexterity * change;
-        baseCDR += equipment.cooldown_reduction * change;
+        CDR += equipment.cooldown_reduction * change;
         baseAttackSpeed += equipment.attack_speed * change;
-        baseLuck += equipment.luck * change;
+        Luck += equipment.luck * change;
     }
 
+    public void OnConsume1()
+    {
+        consumableSlot[0].Activate();
+    }
+
+	public void OnConsume2()
+	{
+		consumableSlot[1].Activate();
+	}
+
+	public void OnConsume3()
+	{
+		consumableSlot[2].Activate();
+	}
 }

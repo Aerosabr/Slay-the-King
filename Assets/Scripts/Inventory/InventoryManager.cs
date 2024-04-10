@@ -117,9 +117,9 @@ public class InventoryManager : MonoBehaviour
 		attackNum.text = player.baseAttack.ToString();
 		defenseNum.text = player.baseDefense.ToString();
 		dexNum.text = player.baseDexterity.ToString();
-		cdrNum.text = player.baseCDR.ToString();
+		cdrNum.text = player.CDR.ToString();
 		attackspdNum.text = player.baseAttackSpeed.ToString();
-		luckNum.text = player.baseLuck.ToString();
+		luckNum.text = player.Luck.ToString();
 	}
 }
 

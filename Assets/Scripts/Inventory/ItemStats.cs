@@ -23,10 +23,16 @@ public class ItemStats : MonoBehaviour
 			statPanel.SetActive(true);
 		if (item.itemType == ItemType.consumable)
 		{
-			if(slot != null)
+			if (slot != null)
+			{
 				equipButton.SetActive(true);
-			if(consumeSlot != null)
+				unequipButton.SetActive(false);
+			}
+			if (consumeSlot != null)
+			{
 				unequipButton.SetActive(true);
+				equipButton.SetActive(false);
+			}
 			useButton.SetActive(true);
 		}
 		else
@@ -36,6 +42,7 @@ public class ItemStats : MonoBehaviour
 			useButton.SetActive(false);
 		}
 		this.slot = slot;
+		this.consumeSlot = consumeSlot;
 		itemName.text = item.itemName;
 		itemDescription.text = item.itemDescription;
 	}
@@ -56,9 +63,15 @@ public class ItemStats : MonoBehaviour
 	{
 		statPanel.SetActive(false);
 		if (slot != null)
-			slot.EmptySlot();
+		{
+			slot.selectedShader.SetActive(false);
+			slot.thisItemSelected = false;
+		}
 		if (consumeSlot != null)
+		{
 			consumeSlot.selectedShader.SetActive(false);
+			consumeSlot.thisItemSelected = false;
+		}
 	}
 
 	public void UseButton()

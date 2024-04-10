@@ -20,7 +20,8 @@ public class EquippedSlot : MonoBehaviour, IPointerClickHandler
 	public Transform equipmentStatPanel;
 	// OTHER VARIABLES
 	public bool slotInUse;
-    [SerializeField]
+    public float xPanelPlacement = -320f;
+	[SerializeField]
     public GameObject selectedShader;
     [SerializeField]
     public bool thisItemSelected;
@@ -71,7 +72,7 @@ public class EquippedSlot : MonoBehaviour, IPointerClickHandler
                 thisItemSelected = true;
                 if (!equipmentStatPanel.gameObject.activeSelf)
                     equipmentStatPanel.gameObject.SetActive(true);
-                equipmentStatPanel.position = new Vector3(-320f, -25, 0) + transform.position;
+                equipmentStatPanel.position = new Vector3(xPanelPlacement, -25f, 0) + transform.position;
                 EquipmentSO equipment = (EquipmentSO)item;
                 equipmentStatPanel.GetComponent<EquipmentStats>().SetEquippedSlot(this);
                 equipmentStatPanel.GetComponent<EquipmentStats>().UpdateEquipmentStatPanel(equipment);

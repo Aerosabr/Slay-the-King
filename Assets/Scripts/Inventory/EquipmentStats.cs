@@ -59,6 +59,16 @@ public class EquipmentStats : MonoBehaviour
     public void ExitButton()
     {
         statPanel.SetActive(false);
-        equipmentSlot.EmptySlot();
+        if (equipmentSlot)
+        {
+            equipmentSlot.selectedShader.SetActive(false);
+            equipmentSlot.thisItemSelected = false;
+
+		}
+        if (equippedSlot)
+        {
+            equippedSlot.selectedShader.SetActive(false);
+            equippedSlot.thisItemSelected = false;
+        }
     }
 }

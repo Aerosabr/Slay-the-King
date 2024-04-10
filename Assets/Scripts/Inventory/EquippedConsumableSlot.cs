@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
 
-public class EquippedConsumableSlot : MonoBehaviour
+public class EquippedConsumableSlot : MonoBehaviour, IPointerClickHandler
 {
 	// SLOT APPEARANCE
 	[SerializeField]
@@ -61,7 +61,6 @@ public class EquippedConsumableSlot : MonoBehaviour
 		}
 		else
 		{
-			inventoryManager.DeselectAllSlots();
 			if (slotInUse)
 			{
 				selectedShader.SetActive(true);
@@ -71,17 +70,18 @@ public class EquippedConsumableSlot : MonoBehaviour
 				itemStatPanel.position = new Vector3(-320f, -25, 0) + transform.position;
 				itemStatPanel.GetComponent<ItemStats>().UpdateItemView(item, null, this);
 			}
+			inventoryManager.DeselectAllSlots();
 		}
 	}
 
 	public void UseConsumable()
 	{
-		if (!itemStatPanel.gameObject.activeSelf)
-			itemStatPanel.gameObject.SetActive(true);
 		bool usable = item.UseItem(inventoryManager.player);
 		if (usable)
 		{
 			this.quantity -= 1;
+			quantityText.text = this.quantity.ToString();
+			quantityText.enabled = true;
 			ActiveButton.UpdateConsumableHotbar(item, this);
 			if (this.quantity == 0)
 			{
@@ -89,6 +89,8 @@ public class EquippedConsumableSlot : MonoBehaviour
 					itemStatPanel.gameObject.SetActive(false);
 				quantityText.enabled = false;
 				slotImage.sprite = emptySprite;
+				selectedShader.SetActive(false);
+				slotIcon.SetActive(true);
 				item = null;
 				slotInUse = false;
 			}
@@ -130,6 +132,9 @@ public class EquippedConsumableSlot : MonoBehaviour
 		this.quantity -= 1;
 		ActiveButton.UpdateConsumableHotbar(item, this);
 		quantityText.text = this.quantity.ToString();
+		inventoryManager.DeselectAllSlots();
+		isFull = false;
+		inventoryManager.AddItem(item, 1);
 		if (this.quantity == 0)
 		{
 			if (itemStatPanel.gameObject.activeSelf)
@@ -137,12 +142,10 @@ public class EquippedConsumableSlot : MonoBehaviour
 			quantityText.enabled = false;
 			slotImage.sprite = emptySprite;
 			slotIcon.SetActive(true);
+			selectedShader.SetActive(false);
 			item = null;
 			slotInUse = false;
 		}
-		inventoryManager.DeselectAllSlots();
-		isFull = false;
-		inventoryManager.AddItem(item, 1);
 
 	}
 }
