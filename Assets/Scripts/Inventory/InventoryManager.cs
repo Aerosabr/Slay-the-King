@@ -26,6 +26,7 @@ public class InventoryManager : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
     {
+        player = GameObject.Find("PlayerManager").transform.GetChild(0).GetChild(0).GetComponent<Player>();
         UpdatePlayerStatPanel();
 	}
 
@@ -113,12 +114,12 @@ public class InventoryManager : MonoBehaviour
 
 	public void UpdatePlayerStatPanel()
 	{
-		healthNum.text = player.baseMaxHealth.ToString();
-		attackNum.text = player.baseAttack.ToString();
-		defenseNum.text = player.baseDefense.ToString();
-		dexNum.text = player.baseDexterity.ToString();
+		healthNum.text = player.maxHealth.ToString();
+		attackNum.text = player.Attack.ToString();
+		defenseNum.text = player.Defense.ToString();
+		dexNum.text = player.Dexterity.ToString();
 		cdrNum.text = player.CDR.ToString();
-		attackspdNum.text = player.baseAttackSpeed.ToString();
+		attackspdNum.text = player.attackSpeed.ToString();
 		luckNum.text = player.Luck.ToString();
 	}
 }

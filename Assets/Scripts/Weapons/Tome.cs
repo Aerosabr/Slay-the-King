@@ -8,6 +8,11 @@ public class Tome : MonoBehaviour
     public List<GameObject> Cooldowns = new List<GameObject>();
     public Player Player;
     public GameObject Sunwave;
+    public GameObject Holylight;
+    public GameObject Lasertarget;
+    public GameObject Laserbeam;
+    public Collider2D Collider;
+    public Vector3 laserEnd;
 
     public bool AttackCD = true;
     public bool Ability1CD = true;
@@ -15,7 +20,7 @@ public class Tome : MonoBehaviour
     public bool UltimateCD = true;
     public bool MovementCD = true;
 
-    public float dashDistance = 15f;
+    public float dashDistance = 150f;
 
     public void Awake()
     {
@@ -27,6 +32,9 @@ public class Tome : MonoBehaviour
         Cooldowns.Add(GameObject.Find("MovementCooldown"));
         Player = GetComponent<Player>();
         Sunwave = Resources.Load<GameObject>("Prefabs/Sunwave");
+        Holylight = Resources.Load<GameObject>("Prefabs/HolyLight");
+        Lasertarget = Resources.Load<GameObject>("Prefabs/LaserTarget");
+        Laserbeam = Resources.Load<GameObject>("Prefabs/LaserBeam");
     }
 
     private void Start()
@@ -59,6 +67,9 @@ public class Tome : MonoBehaviour
         if (!PSC.isAttacking && MovementCD)
         {
             MovementCD = false;
+            GetComponent<CapsuleCollider2D>().enabled = true;
+            GetComponent<CircleCollider2D>().enabled = true;
+            GetComponent<BoxCollider2D>().enabled = false;
             PSC._rigidbody.velocity = new Vector2(PSC.currentDirection.x * dashDistance, PSC.currentDirection.y * dashDistance);
             StartCoroutine(Dashing());
         }
@@ -67,10 +78,23 @@ public class Tome : MonoBehaviour
     public IEnumerator Dashing()
     {
         PSC.Movable = false;
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(0.025f);
+        GetComponent<CapsuleCollider2D>().enabled = false;
+        GetComponent<CircleCollider2D>().enabled = false;
+        GetComponent<BoxCollider2D>().enabled = true;
         Cooldowns[4].SetActive(true);
         Cooldowns[4].GetComponent<CooldownUI>().StartCooldown(5f);
         PSC.Movable = true;
+    }
+
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Environment")
+        {
+            GetComponent<CapsuleCollider2D>().enabled = false;
+            GetComponent<CircleCollider2D>().enabled = false;
+            GetComponent<BoxCollider2D>().enabled = true;
+        }
     }
 
     public float GetMovementCooldown()
@@ -89,26 +113,40 @@ public class Tome : MonoBehaviour
     {
         if (!PSC.isAttacking && AttackCD && PSC.Movable)
         {
+            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             AttackCD = false;
             PSC.isAttacking = true;
             PSC.currentDirection = MapPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position, 1f);
-            StartCoroutine(AttackCast());
+            StartCoroutine(AttackCast(mousePosition));
         }
     }
 
-    private IEnumerator AttackCast()
+    private IEnumerator AttackCast(Vector3 mousePosition)
     {
+        Collider = null;
         PSC.Attack("HandCast", 2);
-        yield return new WaitForSeconds(.5f);
+        laserEnd = mousePosition;
+        GameObject laser = Instantiate(Lasertarget, Player.transform.position, Player.transform.rotation);
+        laser.transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(PSC.currentDirection.y, PSC.currentDirection.x) * Mathf.Rad2Deg + 180);
+        laser.GetComponent<LaserTarget>().EditTarget(this, mousePosition);
+        
+        yield return new WaitForSeconds(1f);
+        LineRenderer lineRenderer = Instantiate(Laserbeam, transform.position, Quaternion.identity).GetComponent<LineRenderer>();
+        lineRenderer.positionCount = 2;
+        lineRenderer.useWorldSpace = true;
+        lineRenderer.SetPosition(0, transform.position); 
+        lineRenderer.SetPosition(1, laserEnd); 
+        if (Collider != null)
+        {
+            if (Collider.transform.position.x - transform.position.x >= 0)
+                Collider.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack);
+            else
+                Collider.gameObject.GetComponent<IDamageable>().Damaged(-Player.Attack);
+        }
+        Destroy(lineRenderer.gameObject, .5f);
         Cooldowns[0].SetActive(true);
         Cooldowns[0].GetComponent<CooldownUI>().StartCooldown(1 / Player.attackSpeed);
-        Attack();
         PSC.isAttacking = false;
-    }
-
-    public void Attack()
-    {
-
     }
 
     public float GetAttackCooldown()
@@ -127,26 +165,24 @@ public class Tome : MonoBehaviour
     {
         if (!PSC.isAttacking && Ability1CD && PSC.Movable)
         {
+            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Ability1CD = false;
             PSC.isAttacking = true;
             PSC.currentDirection = MapPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position, 1f);
-            StartCoroutine(Ability1Cast());
+            StartCoroutine(Ability1Cast(mousePosition));
         }
     }
 
-    private IEnumerator Ability1Cast()
+    private IEnumerator Ability1Cast(Vector3 mousePosition)
     {
-        PSC.Attack("Shoot", 2);
+        mousePosition.z = 0;
+        PSC.Attack("HandCast", 2);
+        GameObject Light = Instantiate(Holylight, mousePosition, Quaternion.identity);
+        Light.GetComponent<HolyLight>().EditHolyLight(Player.Attack);
         yield return new WaitForSeconds(.5f);
         Cooldowns[1].SetActive(true);
         Cooldowns[1].GetComponent<CooldownUI>().StartCooldown(3f * ((100 - Player.CDR) / 100));
-        Ability1();
         PSC.isAttacking = false;
-    }
-
-    public void Ability1()
-    {
-
     }
 
     public float GetAbility1Cooldown()
@@ -218,8 +254,9 @@ public class Tome : MonoBehaviour
 
     private IEnumerator UltimateCast(Vector3 mousePosition)
     {
-        PSC.Attack("Shoot", 2);
+        PSC.Attack("HandCast", 2);
         yield return new WaitForSeconds(.5f);
+        GetComponent<IEffectable>().ApplyBuff(new TomesBlessing(50, 50, 50, 5f, "Tome - Ultimate", gameObject));
         Cooldowns[3].SetActive(true);
         Cooldowns[3].GetComponent<CooldownUI>().StartCooldown(10f * ((100 - Player.CDR) / 100));
         StartCoroutine(Ultimate(mousePosition));
