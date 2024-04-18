@@ -10,7 +10,14 @@ public class FlyingEye : Entity, IDamageable, IEffectable
     public float speed = 1.0f;
     public bool isAttacking;
     public bool isMovable = true;
+    public int Cost;
+    public GameObject player;
 
+    void Awake()
+    {
+        player = GameObject.Find("PlayerManager").transform.GetChild(0).transform.GetChild(0).gameObject;
+    }
+    
     void Start()
     {
         currentHealth = maxHealth;
@@ -22,7 +29,7 @@ public class FlyingEye : Entity, IDamageable, IEffectable
     {
         float step = speed * Time.deltaTime;
         if (currentHealth > 0 && isMovable)
-            transform.position = Vector2.MoveTowards(transform.position, GameObject.Find("Player1").transform.GetChild(0).transform.position, step);
+            transform.position = Vector2.MoveTowards(transform.position, player.transform.position, step);
 
         if (Buffs.Count > 0)
             HandleBuff();
@@ -60,6 +67,7 @@ public class FlyingEye : Entity, IDamageable, IEffectable
     //IDamageable Components
     public int Damaged(int amount)
     {
+        amount = Mathf.Abs(amount);
         int damage = (amount - Defense > 0) ? amount - Defense : 1;
 
         if (currentHealth - damage > 0)
@@ -94,6 +102,7 @@ public class FlyingEye : Entity, IDamageable, IEffectable
         yield return new WaitForSeconds(time);
         Destroy(gameObject);
         Instantiate(Resources.Load<GameObject>("Prefabs/Gold"), transform.position, Quaternion.identity);
+        EnemySpawner.instance.enemiesKilled++;
     }
 
     public void OnCollisionEnter2D(Collision2D collision)
@@ -121,7 +130,7 @@ public class FlyingEye : Entity, IDamageable, IEffectable
         isAttacking = true;
         anim.SetTrigger("Attack");
         yield return new WaitForSeconds(.75f);
-        collision.gameObject.SendMessage("Damaged", 1);
+        collision.gameObject.GetComponent<IDamageable>().Damaged(Attack);
         isAttacking = false;
     }
 }
