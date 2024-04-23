@@ -133,10 +133,10 @@ public class Bow : MonoBehaviour
 
     private IEnumerator Ability1Cast()
     {
-        PSC._rigidbody.velocity = new Vector2(-PSC.currentDirection.x * dashDistance, -PSC.currentDirection.y * dashDistance);
+		PSC.Attack("DashBackShoot", 1);
+		PSC._rigidbody.velocity = new Vector2(-PSC.currentDirection.x * dashDistance, -PSC.currentDirection.y * dashDistance);
         yield return new WaitForSeconds(.2f);
         PSC._rigidbody.velocity = Vector2.zero;
-        PSC.Attack("Shoot", 2);
         yield return new WaitForSeconds(.5f);
         Cooldowns[1].SetActive(true);
         Cooldowns[1].GetComponent<CooldownUI>().StartCooldown(3f * ((100 - Player.CDR) / 100));
@@ -183,8 +183,8 @@ public class Bow : MonoBehaviour
 
     private IEnumerator Ability2Cast()
     {
-        PSC.Attack("Shoot", 16);
-        yield return new WaitForSeconds(.2f);
+        PSC.Attack("ChargeArrow", 1);
+        yield return new WaitForSeconds(1f);
         Ability2();
         Cooldowns[2].SetActive(true);
         Cooldowns[2].GetComponent<CooldownUI>().StartCooldown(3f * ((100 - Player.CDR) / 100));
@@ -229,8 +229,8 @@ public class Bow : MonoBehaviour
 
     private IEnumerator UltimateCast(Vector3 mousePosition)
     {
-        PSC.Attack("Shoot", 2);
-        yield return new WaitForSeconds(.5f);
+        PSC.Attack("ShootUp", 1);
+        yield return new WaitForSeconds(1f);
         Cooldowns[3].SetActive(true);
         Cooldowns[3].GetComponent<CooldownUI>().StartCooldown(10f * ((100 - Player.CDR) / 100));
         StartCoroutine(Ultimate(mousePosition));

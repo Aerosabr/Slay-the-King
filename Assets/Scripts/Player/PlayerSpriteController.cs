@@ -101,7 +101,10 @@ public class PlayerSpriteController : MonoBehaviour
 
         if (isMoving)
         {
-            PlayAnimation("Run");
+            if(player.Class == "Ranger")
+				PlayAnimation("ArcherRun");
+			else
+                PlayAnimation("Run");
             currentDirection = keyboardDirection;
         }
         else if (!isMoving)
