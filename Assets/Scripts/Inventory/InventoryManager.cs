@@ -6,7 +6,7 @@ using TMPro;
 public class InventoryManager : MonoBehaviour
 {
     public GameObject InventoryMenu;
-    public Player player;
+	public Player player;
     public ItemSlot[] itemSlot;
     public EquipmentSlot[] equipmentSlot;
     public EquippedSlot[] equippedSlot;
@@ -26,7 +26,8 @@ public class InventoryManager : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
     {
-        UpdatePlayerStatPanel();
+        player = GameObject.Find("PlayerManager").transform.GetChild(0).GetChild(0).GetComponent<Player>();
+		UpdatePlayerStatPanel();
 	}
 
     // Update is called once per frame

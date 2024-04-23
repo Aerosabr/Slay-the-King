@@ -104,7 +104,7 @@ public class EquippedSlot : MonoBehaviour, IPointerClickHandler
 
     public void UnEquipGear()
     {
-        if (!slotInUse || string.IsNullOrEmpty(item.itemName))
+        if (!slotInUse || string.IsNullOrEmpty(item.itemName) || item.itemType == ItemType.weapon)
         {
             return;
         }
