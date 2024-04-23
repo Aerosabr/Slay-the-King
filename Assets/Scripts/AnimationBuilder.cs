@@ -4,38 +4,45 @@ using UnityEngine;
 using UnityEditor;
 using System.IO;
 using System.Linq;
+using System;
+using System.Net.NetworkInformation;
 
 public class AnimationBuilder : MonoBehaviour
 {
-    public string combineFolder;
+	public string[] combineFolders; // Example array of folder names
+    public string[] folderNamesToCompare;
 
-    void Awake()
+	void Awake()
     {
         // Get all subdirectories (folders) within the parent folder
-        string[] subDirectories = Directory.GetDirectories("Assets/Resources/PlayerSprites/" + combineFolder);
-        foreach (string subDirectory in subDirectories)
+        
+        foreach (string combineFolder in combineFolders)
         {
-            // Get the name of the subdirectory (folder)
-            string folderName = Path.GetFileName(subDirectory);
-            string[] subDirections = Directory.GetDirectories(subDirectory);
-            // || folderName == "Block" || folderName == "DSlash" || folderName == "HandCast"
-            if(folderName == "HSlash")
+			string[] subDirectories = Directory.GetDirectories("Assets/Resources/PlayerSprites/" + combineFolder);
+			foreach (string subDirectory in subDirectories)
             {
-                foreach (string subDirection in subDirections)
+                // Get the name of the subdirectory (folder)
+                string folderName = Path.GetFileName(subDirectory);
+                string[] subDirections = Directory.GetDirectories(subDirectory);
+                // || folderName == "Block" || folderName == "DSlash" || folderName == "HandCast"
+                if (Array.Exists(folderNamesToCompare, name => name == folderName))
                 {
-                    Debug.Log(subDirection);
-                    string directionName = Path.GetFileName(subDirection);
-                    directionName = char.ToUpper(directionName[0]) + directionName.Substring(1);
+                    foreach (string subDirection in subDirections)
+                    {
+                        Debug.Log(subDirection);
+                        string directionName = Path.GetFileName(subDirection);
+                        directionName = char.ToUpper(directionName[0]) + directionName.Substring(1);
 
-                    // Load all sprites from the specified folder path using Resources.LoadAll
-                    Sprite[] sprites = Resources.LoadAll<Sprite>(Path.Combine("PlayerSprites/" + combineFolder, folderName, directionName));
-                    CreateAnimationClip(folderName+directionName, sprites, subDirection);
+                        // Load all sprites from the specified folder path using Resources.LoadAll
+                        Sprite[] sprites = Resources.LoadAll<Sprite>(Path.Combine("PlayerSprites/" + combineFolder, folderName, directionName));
+                        CreateAnimationClip(folderName + directionName, sprites, subDirection, combineFolder);
 
+                    }
                 }
             }
         }
     }
-    private void CreateAnimationClip(string folderName, Sprite[] sprites, string parentDirectory)
+    private void CreateAnimationClip(string folderName, Sprite[] sprites, string parentDirectory, string combineFolder)
     {
         // Create a new animation clip
         AnimationClip animationClip = new AnimationClip();
@@ -50,7 +57,7 @@ public class AnimationBuilder : MonoBehaviour
         ObjectReferenceKeyframe[] keyframes = new ObjectReferenceKeyframe[sprites.Length];
         // Add keyframes every 5 seconds
         float duration = 5f /60f;
-        int numKeyframes = 30; // Adjust the number of keyframes as needed
+        int numKeyframes = 10; // Adjust the number of keyframes as needed
         for (int i = 0; i < numKeyframes; i++)
         {
             ObjectReferenceKeyframe keyframe = new ObjectReferenceKeyframe();

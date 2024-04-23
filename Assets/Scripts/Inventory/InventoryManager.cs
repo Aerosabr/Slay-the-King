@@ -6,7 +6,7 @@ using TMPro;
 public class InventoryManager : MonoBehaviour
 {
     public GameObject InventoryMenu;
-    public Player player;
+	public Player player;
     public ItemSlot[] itemSlot;
     public EquipmentSlot[] equipmentSlot;
     public EquippedSlot[] equippedSlot;
@@ -27,7 +27,7 @@ public class InventoryManager : MonoBehaviour
 	void Start()
     {
         player = GameObject.Find("PlayerManager").transform.GetChild(0).GetChild(0).GetComponent<Player>();
-        UpdatePlayerStatPanel();
+		UpdatePlayerStatPanel();
 	}
 
     // Update is called once per frame
@@ -114,12 +114,12 @@ public class InventoryManager : MonoBehaviour
 
 	public void UpdatePlayerStatPanel()
 	{
-		healthNum.text = player.maxHealth.ToString();
-		attackNum.text = player.Attack.ToString();
-		defenseNum.text = player.Defense.ToString();
-		dexNum.text = player.Dexterity.ToString();
+		healthNum.text = player.baseMaxHealth.ToString();
+		attackNum.text = player.baseAttack.ToString();
+		defenseNum.text = player.baseDefense.ToString();
+		dexNum.text = player.baseDexterity.ToString();
 		cdrNum.text = player.CDR.ToString();
-		attackspdNum.text = player.attackSpeed.ToString();
+		attackspdNum.text = player.baseAttackSpeed.ToString();
 		luckNum.text = player.Luck.ToString();
 	}
 }
