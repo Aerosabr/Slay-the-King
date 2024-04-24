@@ -576,6 +576,7 @@ Transform:
   - {fileID: 5545125501642308228}
   - {fileID: 1484577543446579979}
   - {fileID: 483336013081692972}
+  - {fileID: 3450955493034365023}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &3393702449732804614
@@ -906,34 +907,13 @@ MonoBehaviour:
   CDR: 0
   Luck: 0
   isStunned: 0
-  Helmet: {fileID: 0}
-  Chestplate: {fileID: 0}
-  Leggings: {fileID: 0}
-  Boots: {fileID: 0}
-  Weapon: {fileID: 0}
   Class: 
-  healthText: {fileID: 0}
-  attackText: {fileID: 0}
-  defenseText: {fileID: 0}
-  dexterityText: {fileID: 0}
-  cooldown_reductionText: {fileID: 0}
-  attack_speedText: {fileID: 0}
-  luckText: {fileID: 0}
-  healthPreText: {fileID: 0}
-  attackPreText: {fileID: 0}
-  defensePreText: {fileID: 0}
-  dexterityPreText: {fileID: 0}
-  cooldown_reductionPreText: {fileID: 0}
-  attack_speedPreText: {fileID: 0}
-  luckPreText: {fileID: 0}
-  previewImage: {fileID: 0}
-  selectedItemStats: {fileID: 0}
-  selectedItemImage: {fileID: 0}
   AttackCD: 0
   Ability1CD: 0
   Ability2CD: 0
   UltimateCD: 0
   MovementCD: 0
+  consumableSlot: []
   HealthBar: {fileID: 0}
   rb: {fileID: 0}
 --- !u!1 &8399789386500333002
@@ -1042,6 +1022,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &8980652619891506080
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3450955493034365023}
+  m_Layer: 8
+  m_Name: AttackHitbox
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3450955493034365023
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8980652619891506080}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 744139680764804672}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9025086720816725097
 GameObject:
   m_ObjectHideFlags: 0
