@@ -34,6 +34,12 @@ public class EquipmentStats : MonoBehaviour
 		equipButton.SetActive(false);
 		unequipButton.SetActive(true);
 	}
+
+    public void disableButton()
+    {
+		equipButton.SetActive(false);
+		unequipButton.SetActive(false);
+	}
     public void UpdateEquipmentStatPanel(EquipmentSO item)
     {
         itemName.text = item.itemName;
