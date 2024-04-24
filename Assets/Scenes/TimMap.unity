@@ -2249,9 +2249,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1478181911}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 160.5, y: -20}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 300, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &64762650
@@ -3273,46 +3273,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 103512650}
     m_Modifications:
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: legSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: legsSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: ringSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: bootsSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: chestSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: amuletSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: glovesSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: helmetSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: weaponSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: thisItemSelected
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2398147815720260098, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_Layer
       value: 5
@@ -3335,7 +3295,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMin.x
@@ -3343,15 +3303,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 125
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 125
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3383,11 +3343,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 82.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -232.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -3440,6 +3400,46 @@ PrefabInstance:
     - target: {fileID: 8752606054624400353, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_Layer
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: legSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: legsSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: ringSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: bootsSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: chestSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: amuletSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: glovesSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: helmetSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: weaponSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: thisItemSelected
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3515,7 +3515,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: -312.5}
-  m_SizeDelta: {x: 600, y: 1045}
+  m_SizeDelta: {x: 600, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &103512651
 MonoBehaviour:
@@ -4606,46 +4606,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 103512650}
     m_Modifications:
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: legSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: legsSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: ringSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: bootsSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: chestSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: amuletSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: glovesSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: helmetSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: weaponSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: thisItemSelected
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2398147815720260098, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_Layer
       value: 5
@@ -4668,7 +4628,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMin.x
@@ -4676,15 +4636,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 125
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 125
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4716,11 +4676,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 227.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -522.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -4774,6 +4734,46 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: legSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: legsSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: ringSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: bootsSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: chestSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: amuletSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: glovesSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: helmetSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: weaponSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: thisItemSelected
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4818,9 +4818,9 @@ RectTransform:
   - {fileID: 657408006}
   m_Father: {fileID: 1478181911}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 160.5, y: -234.70001}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 275, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &131567379
@@ -4968,9 +4968,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 312592750}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 87.5, y: -25}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 175, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &134227325
@@ -6775,9 +6775,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 424471788}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 87.5, y: -25}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 175, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &201263199
@@ -8549,9 +8549,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 424471788}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 225, y: -25}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &268991908
@@ -9122,46 +9122,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 103512650}
     m_Modifications:
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: legSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: legsSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: ringSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: bootsSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: chestSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: amuletSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: glovesSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: helmetSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: weaponSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: thisItemSelected
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2398147815720260098, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_Layer
       value: 5
@@ -9184,7 +9144,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMin.x
@@ -9192,15 +9152,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 125
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 125
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_LocalPosition.x
@@ -9232,11 +9192,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 372.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -522.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -9289,6 +9249,46 @@ PrefabInstance:
     - target: {fileID: 8752606054624400353, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_Layer
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: legSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: legsSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: ringSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: bootsSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: chestSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: amuletSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: glovesSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: helmetSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: weaponSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: thisItemSelected
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9440,9 +9440,9 @@ RectTransform:
   - {fileID: 1530928031}
   m_Father: {fileID: 1478181911}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 160.5, y: -70.94}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 275, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &312592751
@@ -9592,46 +9592,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 103512650}
     m_Modifications:
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: legSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: legsSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: ringSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: bootsSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: chestSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: amuletSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: glovesSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: helmetSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: weaponSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: thisItemSelected
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2398147815720260098, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_Layer
       value: 5
@@ -9654,7 +9614,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMin.x
@@ -9662,15 +9622,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 125
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 125
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_LocalPosition.x
@@ -9702,11 +9662,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 517.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -87.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -9759,6 +9719,46 @@ PrefabInstance:
     - target: {fileID: 8752606054624400353, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_Layer
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: legSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: legsSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: ringSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: bootsSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: chestSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: amuletSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: glovesSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: helmetSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: weaponSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: thisItemSelected
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -15925,9 +15925,9 @@ RectTransform:
   - {fileID: 268991907}
   m_Father: {fileID: 1478181911}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 160.5, y: -275.64}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 275, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &424471789
@@ -17290,9 +17290,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1552702006}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 87.5, y: -25}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 175, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &465648671
@@ -18425,9 +18425,9 @@ RectTransform:
   - {fileID: 2038562997}
   m_Father: {fileID: 1478181911}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 160.5, y: -193.76001}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 275, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &515014894
@@ -20252,9 +20252,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1552702006}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 225, y: -25}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &586621815
@@ -21124,9 +21124,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 515014893}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 87.5, y: -25}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 175, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &619731179
@@ -21373,9 +21373,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1784227565}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 225, y: -25}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &623262510
@@ -21483,46 +21483,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 103512650}
     m_Modifications:
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: legSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: legsSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: ringSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: bootsSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: chestSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: amuletSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: glovesSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: helmetSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: weaponSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: thisItemSelected
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2398147815720260098, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_Layer
       value: 5
@@ -21545,7 +21505,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMin.x
@@ -21553,15 +21513,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 125
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 125
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_LocalPosition.x
@@ -21593,11 +21553,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 517.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -232.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -21650,6 +21610,46 @@ PrefabInstance:
     - target: {fileID: 8752606054624400353, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_Layer
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: legSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: legsSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: ringSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: bootsSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: chestSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: amuletSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: glovesSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: helmetSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: weaponSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: thisItemSelected
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -24262,46 +24262,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 103512650}
     m_Modifications:
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: legSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: legsSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: ringSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: bootsSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: chestSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: amuletSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: glovesSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: helmetSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: weaponSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: thisItemSelected
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2398147815720260098, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_Layer
       value: 5
@@ -24324,7 +24284,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMin.x
@@ -24332,15 +24292,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 125
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 125
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_LocalPosition.x
@@ -24372,11 +24332,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 517.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -522.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -24429,6 +24389,46 @@ PrefabInstance:
     - target: {fileID: 8752606054624400353, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_Layer
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: legSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: legsSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: ringSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: bootsSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: chestSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: amuletSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: glovesSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: helmetSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: weaponSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: thisItemSelected
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -26966,46 +26966,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 103512650}
     m_Modifications:
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: legSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: legsSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: ringSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: bootsSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: chestSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: amuletSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: glovesSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: helmetSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: weaponSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: thisItemSelected
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2398147815720260098, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_Layer
       value: 5
@@ -27028,7 +26988,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMin.x
@@ -27036,15 +26996,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 125
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 125
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_LocalPosition.x
@@ -27076,11 +27036,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 82.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -377.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -27133,6 +27093,46 @@ PrefabInstance:
     - target: {fileID: 8752606054624400353, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_Layer
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: legSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: legsSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: ringSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: bootsSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: chestSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: amuletSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: glovesSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: helmetSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: weaponSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: thisItemSelected
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -30202,46 +30202,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 103512650}
     m_Modifications:
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: legSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: legsSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: ringSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: bootsSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: chestSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: amuletSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: glovesSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: helmetSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: weaponSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: thisItemSelected
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2398147815720260098, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_Layer
       value: 5
@@ -30264,7 +30224,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMin.x
@@ -30272,15 +30232,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 125
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 125
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_LocalPosition.x
@@ -30312,11 +30272,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 372.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -232.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -30369,6 +30329,46 @@ PrefabInstance:
     - target: {fileID: 8752606054624400353, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_Layer
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: legSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: legsSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: ringSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: bootsSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: chestSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: amuletSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: glovesSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: helmetSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: weaponSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: thisItemSelected
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -30957,46 +30957,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 103512650}
     m_Modifications:
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: legSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: legsSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: ringSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: bootsSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: chestSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: amuletSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: glovesSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: helmetSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: weaponSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: thisItemSelected
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2398147815720260098, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_Layer
       value: 5
@@ -31019,7 +30979,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMin.x
@@ -31027,15 +30987,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 125
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 125
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_LocalPosition.x
@@ -31067,11 +31027,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 517.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -377.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -31124,6 +31084,46 @@ PrefabInstance:
     - target: {fileID: 8752606054624400353, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_Layer
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: legSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: legsSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: ringSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: bootsSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: chestSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: amuletSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: glovesSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: helmetSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: weaponSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: thisItemSelected
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -34248,46 +34248,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 103512650}
     m_Modifications:
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: legSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: legsSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: ringSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: bootsSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: chestSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: amuletSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: glovesSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: helmetSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: weaponSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: thisItemSelected
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2398147815720260098, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_Layer
       value: 5
@@ -34310,7 +34270,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMin.x
@@ -34318,15 +34278,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 125
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 125
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_LocalPosition.x
@@ -34358,11 +34318,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 517.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -812.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -34415,6 +34375,46 @@ PrefabInstance:
     - target: {fileID: 8752606054624400353, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_Layer
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: legSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: legsSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: ringSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: bootsSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: chestSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: amuletSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: glovesSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: helmetSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: weaponSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: thisItemSelected
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -34790,46 +34790,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 103512650}
     m_Modifications:
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: legSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: legsSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: ringSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: bootsSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: chestSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: amuletSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: glovesSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: helmetSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: weaponSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: thisItemSelected
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2398147815720260098, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_Layer
       value: 5
@@ -34852,7 +34812,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMin.x
@@ -34860,15 +34820,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 125
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 125
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_LocalPosition.x
@@ -34900,11 +34860,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 372.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -667.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -34957,6 +34917,46 @@ PrefabInstance:
     - target: {fileID: 8752606054624400353, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_Layer
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: legSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: legsSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: ringSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: bootsSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: chestSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: amuletSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: glovesSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: helmetSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: weaponSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: thisItemSelected
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -35157,46 +35157,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 103512650}
     m_Modifications:
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: legSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: legsSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: ringSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: bootsSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: chestSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: amuletSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: glovesSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: helmetSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: weaponSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: thisItemSelected
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2398147815720260098, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_Layer
       value: 5
@@ -35219,7 +35179,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMin.x
@@ -35227,15 +35187,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 125
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 125
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_LocalPosition.x
@@ -35267,11 +35227,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 82.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -812.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -35324,6 +35284,46 @@ PrefabInstance:
     - target: {fileID: 8752606054624400353, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_Layer
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: legSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: legsSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: ringSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: bootsSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: chestSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: amuletSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: glovesSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: helmetSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: weaponSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: thisItemSelected
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -36757,9 +36757,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1784227565}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 87.5, y: -25}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 175, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1279789214
@@ -37604,46 +37604,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 103512650}
     m_Modifications:
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: legSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: legsSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: ringSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: bootsSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: chestSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: amuletSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: glovesSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: helmetSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: weaponSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: thisItemSelected
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2398147815720260098, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_Layer
       value: 5
@@ -37666,7 +37626,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMin.x
@@ -37674,15 +37634,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 125
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 125
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_LocalPosition.x
@@ -37714,11 +37674,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 82.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -522.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -37772,35 +37732,6 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 5
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
---- !u!224 &1298537086 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
-  m_PrefabInstance: {fileID: 1298537085}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1298537087 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6006915698302864961, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
-  m_PrefabInstance: {fileID: 1298537085}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e83a2798ec79c3248aa6406453b1cd7f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!1001 &1299273938
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 103512650}
-    m_Modifications:
     - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
       propertyPath: legSlot
       value: 
@@ -37841,6 +37772,35 @@ PrefabInstance:
       propertyPath: thisItemSelected
       value: 0
       objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
+--- !u!224 &1298537086 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
+  m_PrefabInstance: {fileID: 1298537085}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1298537087 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6006915698302864961, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
+  m_PrefabInstance: {fileID: 1298537085}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e83a2798ec79c3248aa6406453b1cd7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1001 &1299273938
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 103512650}
+    m_Modifications:
     - target: {fileID: 2398147815720260098, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_Layer
       value: 5
@@ -37863,7 +37823,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMin.x
@@ -37871,15 +37831,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 125
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 125
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_LocalPosition.x
@@ -37911,11 +37871,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 227.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -377.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -37968,6 +37928,46 @@ PrefabInstance:
     - target: {fileID: 8752606054624400353, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_Layer
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: legSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: legsSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: ringSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: bootsSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: chestSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: amuletSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: glovesSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: helmetSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: weaponSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: thisItemSelected
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -40868,46 +40868,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 103512650}
     m_Modifications:
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: legSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: legsSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: ringSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: bootsSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: chestSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: amuletSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: glovesSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: helmetSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: weaponSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: thisItemSelected
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2398147815720260098, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_Layer
       value: 5
@@ -40930,7 +40890,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMin.x
@@ -40938,15 +40898,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 125
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 125
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_LocalPosition.x
@@ -40978,11 +40938,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 372.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -87.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -41035,6 +40995,46 @@ PrefabInstance:
     - target: {fileID: 8752606054624400353, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_Layer
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: legSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: legsSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: ringSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: bootsSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: chestSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: amuletSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: glovesSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: helmetSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: weaponSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: thisItemSelected
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -42516,46 +42516,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 103512650}
     m_Modifications:
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: legSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: legsSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: ringSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: bootsSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: chestSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: amuletSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: glovesSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: helmetSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: weaponSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: thisItemSelected
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2398147815720260098, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_Layer
       value: 5
@@ -42578,7 +42538,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMin.x
@@ -42586,15 +42546,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 125
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 125
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_LocalPosition.x
@@ -42626,11 +42586,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 227.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -87.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -42683,6 +42643,46 @@ PrefabInstance:
     - target: {fileID: 8752606054624400353, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_Layer
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: legSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: legsSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: ringSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: bootsSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: chestSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: amuletSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: glovesSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: helmetSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: weaponSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: thisItemSelected
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -45270,46 +45270,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 103512650}
     m_Modifications:
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: legSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: legsSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: ringSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: bootsSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: chestSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: amuletSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: glovesSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: helmetSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: weaponSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: thisItemSelected
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2398147815720260098, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_Layer
       value: 5
@@ -45332,7 +45292,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMin.x
@@ -45340,15 +45300,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 125
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 125
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_LocalPosition.x
@@ -45380,11 +45340,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 227.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -957.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -45437,6 +45397,46 @@ PrefabInstance:
     - target: {fileID: 8752606054624400353, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_Layer
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: legSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: legsSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: ringSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: bootsSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: chestSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: amuletSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: glovesSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: helmetSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: weaponSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: thisItemSelected
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -45491,9 +45491,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 312592750}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 225, y: -25}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1530928032
@@ -46121,9 +46121,9 @@ RectTransform:
   - {fileID: 586621814}
   m_Father: {fileID: 1478181911}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 160.5, y: -316.58002}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 275, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1552702007
@@ -48163,9 +48163,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 2022517798}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 225, y: -25}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1625718445
@@ -48273,46 +48273,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 103512650}
     m_Modifications:
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: legSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: legsSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: ringSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: bootsSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: chestSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: amuletSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: glovesSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: helmetSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: weaponSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: thisItemSelected
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2398147815720260098, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_Layer
       value: 5
@@ -48335,7 +48295,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMin.x
@@ -48343,15 +48303,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 125
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 125
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_LocalPosition.x
@@ -48383,11 +48343,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 82.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -667.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -48441,35 +48401,6 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 5
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
---- !u!224 &1629846526 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
-  m_PrefabInstance: {fileID: 1629846525}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1629846527 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6006915698302864961, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
-  m_PrefabInstance: {fileID: 1629846525}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e83a2798ec79c3248aa6406453b1cd7f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!1001 &1630439165
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 103512650}
-    m_Modifications:
     - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
       propertyPath: legSlot
       value: 
@@ -48510,6 +48441,35 @@ PrefabInstance:
       propertyPath: thisItemSelected
       value: 0
       objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
+--- !u!224 &1629846526 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
+  m_PrefabInstance: {fileID: 1629846525}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1629846527 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6006915698302864961, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
+  m_PrefabInstance: {fileID: 1629846525}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e83a2798ec79c3248aa6406453b1cd7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1001 &1630439165
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 103512650}
+    m_Modifications:
     - target: {fileID: 2398147815720260098, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_Layer
       value: 5
@@ -48532,7 +48492,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMin.x
@@ -48540,15 +48500,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 125
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 125
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_LocalPosition.x
@@ -48580,11 +48540,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 227.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -667.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -48637,6 +48597,46 @@ PrefabInstance:
     - target: {fileID: 8752606054624400353, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_Layer
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: legSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: legsSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: ringSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: bootsSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: chestSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: amuletSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: glovesSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: helmetSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: weaponSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: thisItemSelected
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -51452,46 +51452,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 103512650}
     m_Modifications:
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: legSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: legsSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: ringSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: bootsSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: chestSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: amuletSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: glovesSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: helmetSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: weaponSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: thisItemSelected
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2398147815720260098, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_Layer
       value: 5
@@ -51514,7 +51474,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMin.x
@@ -51522,15 +51482,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 125
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 125
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_LocalPosition.x
@@ -51562,11 +51522,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 517.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -957.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -51619,6 +51579,46 @@ PrefabInstance:
     - target: {fileID: 8752606054624400353, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_Layer
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: legSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: legsSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: ringSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: bootsSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: chestSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: amuletSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: glovesSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: helmetSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: weaponSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: thisItemSelected
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -52642,46 +52642,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 103512650}
     m_Modifications:
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: legSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: legsSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: ringSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: bootsSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: chestSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: amuletSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: glovesSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: helmetSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: weaponSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: thisItemSelected
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2398147815720260098, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_Layer
       value: 5
@@ -52704,7 +52664,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMin.x
@@ -52712,15 +52672,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 125
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 125
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_LocalPosition.x
@@ -52752,11 +52712,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 82.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -957.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -52809,6 +52769,46 @@ PrefabInstance:
     - target: {fileID: 8752606054624400353, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_Layer
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: legSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: legsSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: ringSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: bootsSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: chestSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: amuletSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: glovesSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: helmetSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: weaponSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: thisItemSelected
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -52914,46 +52914,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 103512650}
     m_Modifications:
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: legSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: legsSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: ringSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: bootsSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: chestSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: amuletSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: glovesSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: helmetSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: weaponSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: thisItemSelected
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2398147815720260098, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_Layer
       value: 5
@@ -52976,7 +52936,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMin.x
@@ -52984,15 +52944,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 125
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 125
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_LocalPosition.x
@@ -53024,11 +52984,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 372.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -957.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -53081,6 +53041,46 @@ PrefabInstance:
     - target: {fileID: 8752606054624400353, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_Layer
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: legSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: legsSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: ringSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: bootsSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: chestSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: amuletSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: glovesSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: helmetSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: weaponSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: thisItemSelected
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -53521,46 +53521,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 103512650}
     m_Modifications:
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: legSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: legsSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: ringSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: bootsSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: chestSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: amuletSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: glovesSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: helmetSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: weaponSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: thisItemSelected
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2398147815720260098, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_Layer
       value: 5
@@ -53583,7 +53543,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMin.x
@@ -53591,15 +53551,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 125
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 125
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_LocalPosition.x
@@ -53631,11 +53591,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 517.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -667.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -53688,6 +53648,46 @@ PrefabInstance:
     - target: {fileID: 8752606054624400353, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_Layer
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: legSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: legsSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: ringSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: bootsSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: chestSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: amuletSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: glovesSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: helmetSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: weaponSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: thisItemSelected
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -53858,9 +53858,9 @@ RectTransform:
   - {fileID: 623262509}
   m_Father: {fileID: 1478181911}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 160.5, y: -152.82}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 275, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1784227566
@@ -54068,7 +54068,8 @@ MonoBehaviour:
   - {fileID: 1150519837}
   - {fileID: 2018041753}
   itemSOs:
-  - {fileID: 11400000, guid: 73b799d90f7e5a944b19422ab1412e28, type: 2}
+  - {fileID: 11400000, guid: efccdf198530481498b0e87d9bc260ec, type: 2}
+  - {fileID: 11400000, guid: c17ecd14e0efa344eb1bf953e53835f6, type: 2}
   StatPanel: {fileID: 771067449}
   itemName: {fileID: 0}
   healthNum: {fileID: 1530928032}
@@ -55296,46 +55297,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 103512650}
     m_Modifications:
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: legSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: legsSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: ringSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: bootsSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: chestSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: amuletSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: glovesSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: helmetSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: weaponSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: thisItemSelected
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2398147815720260098, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_Layer
       value: 5
@@ -55358,7 +55319,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMin.x
@@ -55366,15 +55327,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 125
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 125
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_LocalPosition.x
@@ -55406,11 +55367,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 372.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -812.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -55463,6 +55424,46 @@ PrefabInstance:
     - target: {fileID: 8752606054624400353, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_Layer
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: legSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: legsSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: ringSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: bootsSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: chestSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: amuletSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: glovesSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: helmetSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: weaponSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: thisItemSelected
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -57295,46 +57296,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 103512650}
     m_Modifications:
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: legSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: legsSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: ringSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: bootsSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: chestSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: amuletSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: glovesSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: helmetSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: weaponSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: thisItemSelected
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2398147815720260098, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_Layer
       value: 5
@@ -57357,7 +57318,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMin.x
@@ -57365,15 +57326,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 125
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 125
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_LocalPosition.x
@@ -57405,11 +57366,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 82.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -87.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -57462,6 +57423,46 @@ PrefabInstance:
     - target: {fileID: 8752606054624400353, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_Layer
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: legSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: legsSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: ringSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: bootsSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: chestSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: amuletSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: glovesSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: helmetSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: weaponSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: thisItemSelected
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -58133,46 +58134,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 103512650}
     m_Modifications:
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: legSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: legsSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: ringSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: bootsSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: chestSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: amuletSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: glovesSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: helmetSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: weaponSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: thisItemSelected
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2398147815720260098, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_Layer
       value: 5
@@ -58195,7 +58156,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMin.x
@@ -58203,15 +58164,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 125
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 125
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_LocalPosition.x
@@ -58243,11 +58204,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 227.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -812.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -58300,6 +58261,46 @@ PrefabInstance:
     - target: {fileID: 8752606054624400353, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_Layer
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: legSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: legsSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: ringSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: bootsSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: chestSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: amuletSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: glovesSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: helmetSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: weaponSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: thisItemSelected
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -60396,9 +60397,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 2022517798}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 87.5, y: -25}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 175, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1955452610
@@ -62692,9 +62693,9 @@ RectTransform:
   - {fileID: 1625718444}
   m_Father: {fileID: 1478181911}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 160.5, y: -111.880005}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 275, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2022517799
@@ -62989,9 +62990,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 515014893}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 225, y: -25}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2038562998
@@ -63099,46 +63100,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 103512650}
     m_Modifications:
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: legSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: legsSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: ringSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: bootsSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: chestSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: amuletSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: glovesSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: helmetSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: weaponSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: thisItemSelected
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2398147815720260098, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_Layer
       value: 5
@@ -63161,7 +63122,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMin.x
@@ -63169,15 +63130,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 125
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 125
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_LocalPosition.x
@@ -63209,11 +63170,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 372.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -377.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -63266,6 +63227,46 @@ PrefabInstance:
     - target: {fileID: 8752606054624400353, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_Layer
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: legSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: legsSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: ringSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: bootsSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: chestSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: amuletSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: glovesSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: helmetSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: weaponSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: thisItemSelected
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -65363,7 +65364,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2124022073
 RectTransform:
   m_ObjectHideFlags: 0
@@ -65895,46 +65896,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 103512650}
     m_Modifications:
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: legSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: legsSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: ringSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: bootsSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: chestSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: amuletSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: glovesSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: helmetSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: weaponSlot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
-      propertyPath: thisItemSelected
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2398147815720260098, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_Layer
       value: 5
@@ -65957,7 +65918,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMin.x
@@ -65965,15 +65926,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 125
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 125
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_LocalPosition.x
@@ -66005,11 +65966,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 227.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -232.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4956866789844850940, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -66062,6 +66023,46 @@ PrefabInstance:
     - target: {fileID: 8752606054624400353, guid: 659214ee5a0ea414999561cd279db0aa, type: 3}
       propertyPath: m_Layer
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: legSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: legsSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: ringSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: bootsSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: chestSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: amuletSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: glovesSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: helmetSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: weaponSlot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696918878753778068, guid: b462b714f422a4c4db066f5a236134e1, type: 3}
+      propertyPath: thisItemSelected
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
