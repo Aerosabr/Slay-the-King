@@ -2,17 +2,35 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IncreaseAttack : MonoBehaviour
+public class IncreaseAttack : Buff
 {
-    // Start is called before the first frame update
-    void Start()
+    public int flatAttackIncrease;
+    public float percentAttackIncrease;
+
+    public IncreaseAttack(int floatAtk, float percentAtk, float duration, string source, GameObject entity)
     {
-        
+        flatAttackIncrease = floatAtk;
+        percentAttackIncrease = percentAtk;
+        maxDuration = duration;
+        Source = source;
+        Entity = entity;
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void ApplyEffect()
     {
-        
+        Entity.GetComponent<Entity>().changeAttack(flatAttackIncrease, percentAttackIncrease);
+    }
+
+    public override void RemoveEffect()
+    {
+        Entity.GetComponent<Entity>().changeAttack(-flatAttackIncrease, -percentAttackIncrease);
+    }
+
+    public override bool HandleEffect()
+    {
+        activeDuration += Time.deltaTime;
+        if (activeDuration >= maxDuration)
+            return true;
+        return false;
     }
 }

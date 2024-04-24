@@ -139,12 +139,12 @@ public class Player : Entity, IEffectable, IDamageable
 
     public void UpdateEquipmentStats(EquipmentSO equipment, int change)
     {
-        baseMaxHealth += equipment.health * change;
-        baseAttack += equipment.attack * change;
-        baseDefense += equipment.defense * change;
-        baseDexterity += equipment.dexterity * change;
+        changeHealth(equipment.health * change, 0);
+        changeAttack(equipment.attack * change, 0);
+        changeDefense(equipment.defense * change, 0);
+        changeDexterity(equipment.dexterity * change, 0);
+        changeAttackSpeed(equipment.attack_speed * change, 0);
         CDR += equipment.cooldown_reduction * change;
-        baseAttackSpeed += equipment.attack_speed * change;
         Luck += equipment.luck * change;
     }
 

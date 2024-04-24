@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class Bow : MonoBehaviour
 {
@@ -34,10 +33,11 @@ public class Bow : MonoBehaviour
 
     private void Start()
     {
-        foreach (GameObject i in Cooldowns)
+        string[] icons = { "Bow/Attack", "Bow/Ability1", "Bow/Ability2", "Bow/Ultimate", "Movement" };
+        for (int i = 0; i < icons.Length; i++)
         {
-            i.GetComponent<CooldownUI>().Player = gameObject;
-            i.SetActive(false);
+            Cooldowns[i].GetComponent<CooldownUI>().InitiateCooldown(Resources.Load<Sprite>("Icons/" + icons[i]), gameObject);
+            Cooldowns[i].SetActive(false);
         }
     }
 

@@ -74,7 +74,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -596950753
-  m_SortingLayer: 5
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 99bbc83bebbd36849b732a06e55ad60e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -171,6 +171,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 721852b6b4436284aaf4b821dd5cc49c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  baseMaxHealth: 10
+  healthMultiplier: 1
   maxHealth: 10
   currentHealth: 10
+  baseAttack: 0
+  attackMultiplier: 1
+  Attack: 0
+  baseDefense: 0
+  defenseMultiplier: 1
+  Defense: 0
+  baseDexterity: 0
+  dexterityMultiplier: 1
+  Dexterity: 0
+  baseAttackSpeed: 0
+  asMultiplier: 1
+  attackSpeed: 0
+  baseMovementSpeed: 0
+  msMultiplier: 1
+  movementSpeed: 0
+  CDR: 0
+  Luck: 0
+  isStunned: 0
   rb: {fileID: 0}
+  goldPrefab: {fileID: 3178657999110848731, guid: da5e2d08617cc2f4fb5bef389897010a, type: 3}
+  explosionRadius: 15

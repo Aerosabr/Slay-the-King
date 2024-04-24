@@ -1,10 +1,8 @@
 using System.Collections;
 using UnityEngine;
 
-public class Rock : MonoBehaviour
+public class Rock : Entity, IDamageable
 {
-    public float maxHealth;
-    public float currentHealth;
     public Rigidbody2D rb;
 
     public GameObject goldPrefab;
@@ -30,17 +28,29 @@ public class Rock : MonoBehaviour
         }
     }
 
-    public void Damaged(float amount)
+    //IDamageable Components
+    public int Damaged(int amount)
     {
-        if (isExploded) return;
+        int damage = (Mathf.Abs(amount) - Defense > 0) ? Mathf.Abs(amount) - Defense : 1;
 
-        currentHealth -= Mathf.Abs(amount);
-        DamagePopup.Create(rb.transform.position, (int)Mathf.Abs(amount), false);
+        if (currentHealth - damage > 0)
+            currentHealth -= damage;
+        else
+        {
+            damage = currentHealth;
+            currentHealth = 0;
+        }
 
         if (currentHealth <= 0)
-        {
             Die();
-        }
+
+        DamagePopup.Create(rb.transform.position, (int)Mathf.Abs(damage), false);
+        return damage;
+    }
+
+    public int Healed(int amount)
+    {
+        return 0;
     }
 
     private void Die()
