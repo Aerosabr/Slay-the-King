@@ -10,6 +10,7 @@ public class PlayerManager : MonoBehaviour
     public static PlayerManager instance;
     public List<GameObject> Players = new List<GameObject>();
     public int NumPlayers = 0;
+    public string player1Weapon = "Bow";
 
     void Awake()
     {

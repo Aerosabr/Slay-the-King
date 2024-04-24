@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using static UnityEditor.Progress;
 
 public class InventoryManager : MonoBehaviour
 {
@@ -28,6 +29,8 @@ public class InventoryManager : MonoBehaviour
     {
         player = GameObject.Find("PlayerManager").transform.GetChild(0).GetChild(0).GetComponent<Player>();
 		UpdatePlayerStatPanel();
+		equipCurrentWeapon();
+        InventoryMenu.SetActive(false);
 	}
 
     // Update is called once per frame
@@ -38,7 +41,18 @@ public class InventoryManager : MonoBehaviour
 
     }
 
-    void Inventory()
+    public void equipCurrentWeapon()
+    {
+        foreach(var weapon in itemSOs)
+        {
+            if(weapon.itemName == GameObject.Find("PlayerManager").GetComponent<PlayerManager>().player1Weapon)
+            {
+                equippedSlot[3].EquipGear(weapon);
+			}
+        }
+    }
+
+	void Inventory()
     {
         if (InventoryMenu.activeSelf)
         {
