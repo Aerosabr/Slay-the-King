@@ -51,10 +51,19 @@ public class EquippedSlot : MonoBehaviour, IPointerClickHandler
         {
             if (slotInUse)
             {
-                UnEquipGear();
-				if (equipmentStatPanel.gameObject.activeSelf)
-					equipmentStatPanel.gameObject.SetActive(false);
-                slotInUse = false;
+
+                if (item.itemType != ItemType.weapon)
+                {
+                    UnEquipGear();
+                    slotInUse = false;
+                }
+                if (equipmentStatPanel.gameObject.activeSelf)
+                {
+                    equipmentStatPanel.gameObject.SetActive(false);
+                    inventoryManager.DeselectAllSlots();
+                    selectedShader.SetActive(false);
+                    thisItemSelected = false;
+                }
 			}
             else
             {
@@ -71,12 +80,16 @@ public class EquippedSlot : MonoBehaviour, IPointerClickHandler
                 selectedShader.SetActive(true);
                 thisItemSelected = true;
                 if (!equipmentStatPanel.gameObject.activeSelf)
-                    equipmentStatPanel.gameObject.SetActive(true);
-                equipmentStatPanel.position = new Vector3(xPanelPlacement, -25f, 0) + transform.position;
+                {
+					equipmentStatPanel.gameObject.SetActive(true);
+				}
+				equipmentStatPanel.position = new Vector3(xPanelPlacement, -25f, 0) + transform.position;
                 EquipmentSO equipment = (EquipmentSO)item;
                 equipmentStatPanel.GetComponent<EquipmentStats>().SetEquippedSlot(this);
                 equipmentStatPanel.GetComponent<EquipmentStats>().UpdateEquipmentStatPanel(equipment);
-            }
+				if (item.itemType == ItemType.weapon)
+					equipmentStatPanel.GetComponent<EquipmentStats>().disableButton();
+			}
 		}
     }
 
@@ -104,7 +117,7 @@ public class EquippedSlot : MonoBehaviour, IPointerClickHandler
 
     public void UnEquipGear()
     {
-        if (!slotInUse || string.IsNullOrEmpty(item.itemName) || item.itemType == ItemType.weapon)
+        if (!slotInUse || string.IsNullOrEmpty(item.itemName))
         {
             return;
         }
