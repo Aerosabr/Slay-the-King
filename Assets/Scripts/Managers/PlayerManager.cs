@@ -11,6 +11,7 @@ public class PlayerManager : MonoBehaviour
     public List<GameObject> Players = new List<GameObject>();
     public int NumPlayers = 0;
     public string player1Weapon = "Bow";
+    public List<GameObject> Cooldowns = new List<GameObject>();
 
     void Awake()
     {
@@ -21,6 +22,12 @@ public class PlayerManager : MonoBehaviour
         }
         else
             Destroy(gameObject);
+
+        Cooldowns.Add(GameObject.Find("AttackCooldown"));
+        Cooldowns.Add(GameObject.Find("Ability1Cooldown"));
+        Cooldowns.Add(GameObject.Find("Ability2Cooldown"));
+        Cooldowns.Add(GameObject.Find("UltimateCooldown"));
+        Cooldowns.Add(GameObject.Find("MovementCooldown"));
     }
 
     

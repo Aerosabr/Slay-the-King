@@ -21,11 +21,7 @@ public class Scythe : MonoBehaviour
     public void Awake()
     {
         PSC = GetComponent<PlayerSpriteController>();
-        Cooldowns.Add(GameObject.Find("AttackCooldown"));
-        Cooldowns.Add(GameObject.Find("Ability1Cooldown"));
-        Cooldowns.Add(GameObject.Find("Ability2Cooldown"));
-        Cooldowns.Add(GameObject.Find("UltimateCooldown"));
-        Cooldowns.Add(GameObject.Find("MovementCooldown"));
+        Cooldowns = PlayerManager.instance.Cooldowns;
         Player = GetComponent<Player>();
         attackHitBoxPos = transform.Find("AttackHitbox");
         Damageable = LayerMask.GetMask("Enemy");

@@ -25,11 +25,7 @@ public class Tome : MonoBehaviour
     public void Awake()
     {
         PSC = GetComponent<PlayerSpriteController>();
-        Cooldowns.Add(GameObject.Find("AttackCooldown"));
-        Cooldowns.Add(GameObject.Find("Ability1Cooldown"));
-        Cooldowns.Add(GameObject.Find("Ability2Cooldown"));
-        Cooldowns.Add(GameObject.Find("UltimateCooldown"));
-        Cooldowns.Add(GameObject.Find("MovementCooldown"));
+        Cooldowns = PlayerManager.instance.Cooldowns;
         Player = GetComponent<Player>();
         Sunwave = Resources.Load<GameObject>("Prefabs/Sunwave");
         Holylight = Resources.Load<GameObject>("Prefabs/HolyLight");
@@ -39,18 +35,10 @@ public class Tome : MonoBehaviour
 
     private void Start()
     {
-        /*
         string[] icons = { "Tome/Attack", "Tome/Ability1", "Tome/Ability2", "Tome/Ultimate", "Movement" };
         for (int i = 0; i < icons.Length; i++)
         {
             Cooldowns[i].GetComponent<CooldownUI>().InitiateCooldown(Resources.Load<Sprite>("Icons/" + icons[i]), gameObject);
-            Cooldowns[i].SetActive(false);
-        }
-        */
-        string[] icons = { "Tome/Attack", "Tome/Ability1", "Tome/Ability2", "Tome/Ultimate", "Movement" };
-        for (int i = 0; i < icons.Length; i++)
-        {
-            Cooldowns[i].GetComponent<CooldownUI>().InitiateCooldown(Resources.Load<Sprite>("Icons/Movement"), gameObject);
             Cooldowns[i].SetActive(false);
         }
     }

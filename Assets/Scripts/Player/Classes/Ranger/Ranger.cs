@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Cleric : Class
+public class Ranger : Class
 {
     public override bool checkEquippable(string weapon)
     {
@@ -15,29 +15,29 @@ public class Cleric : Class
 
         if (!item)
         {
-            if (weapon == "Tome")
-                gameObject.AddComponent<Tome>();
-            else if (weapon == "MaceShield")
-                gameObject.AddComponent<MaceShield>();
+            if (weapon == "Bow")
+                gameObject.AddComponent<Bow>();
+            else if (weapon == "Knives")
+                gameObject.AddComponent<Knives>();
         }
         else if (weapon != item.weaponType)
         {
             switch (item.weaponType)
             {
-                case "Tome":
-                    Destroy(GetComponent<Tome>());
+                case "Bow":
+                    Destroy(GetComponent<Bow>());
                     break;
-                case "MaceShield":
-                    Destroy(GetComponent<MaceShield>());
+                case "Knives":
+                    Destroy(GetComponent<Knives>());
                     break;
                 default:
                     break;
             }
 
-            if (weapon == "Tome")
-                gameObject.AddComponent<Tome>();
-            else if (weapon == "MaceShield")
-                gameObject.AddComponent<MaceShield>();
-        }
+            if (weapon == "Bow")
+                gameObject.AddComponent<Bow>();
+            else if (weapon == "Knives")
+                gameObject.AddComponent<Knives>();
+        } 
     }
 }
