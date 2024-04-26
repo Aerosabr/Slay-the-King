@@ -7,7 +7,9 @@ public class ItemSO : ScriptableObject
 {
     public string itemName;
 	public Sprite itemSprite;
-	public ItemType itemType;
+    public string weaponType;
+    public ItemType itemType;
+    
 	[TextArea]
 	[SerializeField]
 	public string itemDescription;

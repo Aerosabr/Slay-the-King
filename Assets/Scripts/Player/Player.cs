@@ -162,4 +162,5 @@ public class Player : Entity, IEffectable, IDamageable
 	{
 		consumableSlot[2].Activate();
 	}
+
 }
