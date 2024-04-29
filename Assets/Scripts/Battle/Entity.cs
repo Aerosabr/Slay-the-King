@@ -11,6 +11,8 @@ public class Entity : MonoBehaviour
     public int maxHealth;
     public int currentHealth;
 
+    public int Shield;
+
     public int baseAttack;
     public float attackMultiplier = 1.0f;
     public int Attack;
@@ -35,6 +37,8 @@ public class Entity : MonoBehaviour
     public int Luck;
 
     public bool isStunned;
+    public bool isMovable = true;
+    public bool ccImmune;
 
     public void changeHealth(int flat, float percentage)
     {

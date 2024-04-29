@@ -9,7 +9,6 @@ public class FlyingEye : Entity, IDamageable, IEffectable
     public Rigidbody2D rb;
     public float speed = 1.0f;
     public bool isAttacking;
-    public bool isMovable = true;
     public int Cost;
     public GameObject player;
 
@@ -27,13 +26,15 @@ public class FlyingEye : Entity, IDamageable, IEffectable
 
     void Update()
     {
-        float step = speed * Time.deltaTime;
-        if (currentHealth > 0 && isMovable)
-            transform.position = Vector2.MoveTowards(transform.position, player.transform.position, step);
+        if (!isStunned)
+        {
+            float step = speed * Time.deltaTime;
+            if (currentHealth > 0 && isMovable)
+                transform.position = Vector2.MoveTowards(transform.position, player.transform.position, step);
+        }
 
         if (Buffs.Count > 0)
             HandleBuff();
-
     }
 
     //IEffectable Components
