@@ -102,7 +102,7 @@ public class Daggers : MonoBehaviour
 
     private IEnumerator AttackCast()
     {
-        PSC.Attack("Stab", 2);
+        PSC.Attack("HSlash", 2);
         Cooldowns[0].SetActive(true);
         Cooldowns[0].GetComponent<CooldownUI>().StartCooldown(1 / Player.attackSpeed);
         Attack();
