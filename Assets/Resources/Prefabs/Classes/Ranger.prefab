@@ -362,6 +362,8 @@ GameObject:
   - component: {fileID: 8402529583034535261}
   - component: {fileID: 1538780711296960277}
   - component: {fileID: 6837593864924166912}
+  - component: {fileID: -7823954156212732468}
+  - component: {fileID: 2044747059690546949}
   - component: {fileID: 6804822083027541462}
   - component: {fileID: 8365102897698823354}
   - component: {fileID: 4903750786598982561}
@@ -542,6 +544,76 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.7811279, y: 1.6241069}
   m_EdgeRadius: 0
+--- !u!58 &-7823954156212732468
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4734589513611126506}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 503
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.18331707, y: -0.9883144}
+  serializedVersion: 2
+  m_Radius: 0.9503555
+--- !u!70 &2044747059690546949
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4734589513611126506}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 1399
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.18297529, y: -1.1365126}
+  m_Size: {x: 2.7708483, y: 2.8816173}
+  m_Direction: 0
 --- !u!114 &6804822083027541462
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -637,6 +709,7 @@ MonoBehaviour:
   healthMultiplier: 1
   maxHealth: 100
   currentHealth: 100
+  Shield: 0
   baseAttack: 10
   attackMultiplier: 1
   Attack: 10
@@ -655,6 +728,8 @@ MonoBehaviour:
   CDR: 0
   Luck: 0
   isStunned: 0
+  isMovable: 1
+  ccImmune: 0
   Class: Ranger
   AttackCD: 0
   Ability1CD: 0

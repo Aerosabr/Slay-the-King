@@ -114,10 +114,10 @@ public class MaceShield : MonoBehaviour
     public IEnumerator KnockCoroutine(Rigidbody2D enemy)
     {
         Vector2 force = (enemy.transform.position - transform.position).normalized * thrust;
-        enemy.GetComponent<FlyingEye>().isMovable = false;
+        enemy.GetComponent<Entity>().isMovable = false;
         enemy.velocity = force;
         yield return new WaitForSeconds(.3f);
-        enemy.GetComponent<FlyingEye>().isMovable = true;
+        enemy.GetComponent<Entity>().isMovable = true;
         enemy.velocity = new Vector2();
     }
 
@@ -147,20 +147,18 @@ public class MaceShield : MonoBehaviour
     private IEnumerator Ability1Cast()
     {
         attackHitBoxPos.localPosition = MapPoint(PSC.currentDirection, 3f);
-        for (int i = 0; i < 2; i++)
+        PSC.Attack("Stab", 2);
+        yield return new WaitForSeconds(.1f);
+        Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, 1.5f, Damageable);
+        foreach (Collider2D collider in detectedObjects)
         {
-            PSC.Attack("Stab", 2);
-            Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, 1.5f, Damageable);
-            foreach (Collider2D collider in detectedObjects)
-            {
-                if (collider.transform.position.x - transform.position.x >= 0)
-                    collider.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack);
-                else
-                    collider.gameObject.GetComponent<IDamageable>().Damaged(-Player.Attack);
-            }
-            yield return new WaitForSeconds(.5f);
+            if (collider.transform.position.x - transform.position.x >= 0)
+                collider.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack);
+            else
+                collider.gameObject.GetComponent<IDamageable>().Damaged(-Player.Attack);
+            collider.gameObject.GetComponent<IEffectable>().ApplyBuff(new MaceStun(3f, "Mace & Shield - Ability1", collider.gameObject));
         }
-
+        
         Cooldowns[1].SetActive(true);
         Cooldowns[1].GetComponent<CooldownUI>().StartCooldown(3f * ((100 - Player.CDR) / 100));
         PSC.isAttacking = false;
@@ -184,43 +182,20 @@ public class MaceShield : MonoBehaviour
         {
             Ability2CD = false;
             PSC.isAttacking = true;
-            GetComponent<CapsuleCollider2D>().enabled = true;
-            GetComponent<CircleCollider2D>().enabled = true;
-            GetComponent<BoxCollider2D>().enabled = false;
+            
             StartCoroutine(Ability2Cast());
         }
     }
 
     private IEnumerator Ability2Cast()
     {
-        PSC.currentDirection = MapPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position, 1f);
-        PSC.PlayAnimation("Run");
-        PSC._rigidbody.velocity = new Vector2(PSC.currentDirection.x * dashDistance, PSC.currentDirection.y * dashDistance);
-        yield return new WaitForSeconds(.25f);
+        PSC.PlayAnimation("Stab");
+        Instantiate(Resources.Load<GameObject>("Prefabs/ProjectileDome"), transform.position, Quaternion.identity);
+        yield return new WaitForSeconds(.5f);
+        PSC.isAttacking = false;
+        yield return new WaitForSeconds(10f);
         Cooldowns[2].SetActive(true);
         Cooldowns[2].GetComponent<CooldownUI>().StartCooldown(3f * ((100 - Player.CDR) / 100));
-        GetComponent<CapsuleCollider2D>().enabled = false;
-        GetComponent<CircleCollider2D>().enabled = false;
-        GetComponent<BoxCollider2D>().enabled = true;
-        PSC.isAttacking = false;
-    }
-
-    public void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Enemy")
-        {
-            if (collision.transform.position.x - transform.position.x >= 0)
-                collision.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack);
-            else
-                collision.gameObject.GetComponent<IDamageable>().Damaged(-Player.Attack);
-        }
-        else if (collision.gameObject.tag == "Environment")
-        {
-
-            GetComponent<CapsuleCollider2D>().enabled = false;
-            GetComponent<CircleCollider2D>().enabled = false;
-            GetComponent<BoxCollider2D>().enabled = true;
-        }
     }
 
     public float GetAbility2Cooldown()
@@ -249,19 +224,9 @@ public class MaceShield : MonoBehaviour
     {
         float cd = 10f * ((100 - Player.CDR) / 100);
         PSC.Attack("Stab", 2);
-        attackHitBoxPos.localPosition = Player.transform.localPosition;
-        Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, 5f, Damageable);
-        foreach (Collider2D collider in detectedObjects)
-        {
-            if (collider.transform.position.x - transform.position.x >= 0)
-                collider.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack);
-            else
-                collider.gameObject.GetComponent<IDamageable>().Damaged(-Player.Attack);
-        }
-        Instantiate(Resources.Load<GameObject>("Prefabs/ScytheDomain"), transform.position, Quaternion.identity);
-        yield return new WaitForSeconds(.5f);
+        yield return new WaitForSeconds(.25f);
+        gameObject.GetComponent<IEffectable>().ApplyBuff(new MaceUltimate(gameObject.GetComponent<Entity>().maxHealth / 2, 25f, "Mace - Ultimate", gameObject));
         PSC.isAttacking = false;
-        yield return new WaitForSeconds(10f);
         Cooldowns[3].SetActive(true);
         Cooldowns[3].GetComponent<CooldownUI>().StartCooldown(cd);
     }

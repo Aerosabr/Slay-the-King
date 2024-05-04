@@ -103,15 +103,36 @@ public class Player : Entity, IEffectable, IDamageable
     //IDamageable Components
     public int Damaged(int amount) 
     {
-        int damage = (Mathf.Abs(amount) - Defense > 0) ? Mathf.Abs(amount) - Defense : 1;
-
-        if (currentHealth - damage > 0)
-            currentHealth -= damage;
-        else
+        int damage = 0; 
+        if (Shield > 0)
         {
-            damage = currentHealth;
-            currentHealth = 0;
+            if (Shield >= amount)
+            {
+                damage += amount;
+                Shield -= amount;
+                amount = 0;
+            }
+            else
+            {
+                damage += amount - Shield;
+                amount -= Shield;
+                Shield = 0;
+            }
         }
+
+        if (amount > 0)
+        {
+            damage += (Mathf.Abs(amount) - Defense > 0) ? Mathf.Abs(amount) - Defense : 1;
+
+            if (currentHealth - damage > 0)
+                currentHealth -= damage;
+            else
+            {
+                damage = currentHealth;
+                currentHealth = 0;
+            }
+        }
+        
 
         HealthBar.GetComponent<Slider>().value = (float)currentHealth / (float)maxHealth;
         DamagePopup.Create(rb.transform.position, damage, false);
