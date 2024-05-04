@@ -29,11 +29,7 @@ public class Daggers : MonoBehaviour
     public void Awake()
     {
         PSC = gameObject.GetComponent<PlayerSpriteController>();
-        Cooldowns.Add(GameObject.Find("AttackCooldown"));
-        Cooldowns.Add(GameObject.Find("Ability1Cooldown"));
-        Cooldowns.Add(GameObject.Find("Ability2Cooldown"));
-        Cooldowns.Add(GameObject.Find("UltimateCooldown"));
-        Cooldowns.Add(GameObject.Find("MovementCooldown"));
+        Cooldowns = PlayerManager.instance.Cooldowns;
         Player = gameObject.GetComponent<Player>();
         attackHitBoxPos = transform.Find("AttackHitbox");
         daggerPrefab = Resources.Load<GameObject>("Prefabs/Dagger");

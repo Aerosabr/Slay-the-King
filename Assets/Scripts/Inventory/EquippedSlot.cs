@@ -100,6 +100,9 @@ public class EquippedSlot : MonoBehaviour, IPointerClickHandler
 
     public void EquipGear(ItemSO item)
     {
+        if (item.itemType == ItemType.weapon)
+            GameObject.Find("PlayerManager").transform.GetChild(0).transform.GetChild(0).GetComponent<Class>().changeWeapon(item.weaponType);
+
         // Check if item already there
         if (slotInUse)
             UnEquipGear();
