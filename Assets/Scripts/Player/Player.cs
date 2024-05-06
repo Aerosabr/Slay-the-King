@@ -103,7 +103,8 @@ public class Player : Entity, IEffectable, IDamageable
     //IDamageable Components
     public int Damaged(int amount) 
     {
-        int damage = 0; 
+        int damage = 0;
+        amount = Mathf.Abs(amount);
         if (Shield > 0)
         {
             if (Shield >= amount)

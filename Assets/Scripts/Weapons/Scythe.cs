@@ -15,7 +15,7 @@ public class Scythe : MonoBehaviour
     public bool Ability2CD = true;
     public bool UltimateCD = true;
     public bool MovementCD = true;
-
+    public bool dashing;
     public float dashDistance = 15f;
 
     public void Awake()
@@ -173,6 +173,7 @@ public class Scythe : MonoBehaviour
         {
             Ability2CD = false;
             PSC.isAttacking = true;
+            dashing = true;
             GetComponent<CapsuleCollider2D>().enabled = true;
             GetComponent<CircleCollider2D>().enabled = true;
             GetComponent<BoxCollider2D>().enabled = false;
@@ -188,6 +189,7 @@ public class Scythe : MonoBehaviour
         yield return new WaitForSeconds(.25f);       
         Cooldowns[2].SetActive(true);
         Cooldowns[2].GetComponent<CooldownUI>().StartCooldown(3f * ((100 - Player.CDR) / 100));
+        dashing = false;
         GetComponent<CapsuleCollider2D>().enabled = false;
         GetComponent<CircleCollider2D>().enabled = false;
         GetComponent<BoxCollider2D>().enabled = true;
@@ -196,19 +198,22 @@ public class Scythe : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Enemy")
+        if (dashing)
         {
-            if (collision.transform.position.x - transform.position.x >= 0)
-                collision.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack);
-            else
-                collision.gameObject.GetComponent<IDamageable>().Damaged(-Player.Attack);
-        }
-        else if (collision.gameObject.tag == "Environment")
-        {
-            
-            GetComponent<CapsuleCollider2D>().enabled = false;
-            GetComponent<CircleCollider2D>().enabled = false;
-            GetComponent<BoxCollider2D>().enabled = true;
+            if (collision.gameObject.tag == "Enemy")
+            {
+                if (collision.transform.position.x - transform.position.x >= 0)
+                    collision.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack);
+                else
+                    collision.gameObject.GetComponent<IDamageable>().Damaged(-Player.Attack);
+            }
+            else if (collision.gameObject.tag == "Environment")
+            {
+                dashing = false;
+                GetComponent<CapsuleCollider2D>().enabled = false;
+                GetComponent<CircleCollider2D>().enabled = false;
+                GetComponent<BoxCollider2D>().enabled = true;
+            }
         }
     }
 
