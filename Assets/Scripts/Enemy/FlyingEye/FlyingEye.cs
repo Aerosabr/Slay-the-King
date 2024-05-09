@@ -11,17 +11,15 @@ public class FlyingEye : Entity, IDamageable, IEffectable
     public bool isAttacking;
     public int Cost;
     public GameObject player;
+    public EnemySpriteController ESC;
 
     void Awake()
     {
         player = GameObject.Find("PlayerManager").transform.GetChild(0).transform.GetChild(0).gameObject;
-    }
-    
-    void Start()
-    {
         currentHealth = maxHealth;
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
+        ESC = GetComponent<EnemySpriteController>();
     }
 
     void Update()
@@ -30,7 +28,12 @@ public class FlyingEye : Entity, IDamageable, IEffectable
         {
             float step = speed * Time.deltaTime;
             if (currentHealth > 0 && isMovable)
+            {
                 transform.position = Vector2.MoveTowards(transform.position, player.transform.position, step);
+                Debug.Log(Vector2.SignedAngle(transform.position, player.transform.position));
+                
+
+            }
         }
 
         if (Buffs.Count > 0)
