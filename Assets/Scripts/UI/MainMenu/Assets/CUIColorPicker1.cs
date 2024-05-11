@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -89,6 +90,7 @@ public class CUIColorPicker1 : MonoBehaviour
 			var resultColor = hueColors[Mathf.Clamp((int)Hue, 0, 5)];
 			var resImg = result.GetComponent<Image>();
 			resImg.color = resultColor;
+			character.ApplySkinColor(resImg.color);
 			if (_color != resultColor)
 			{
 				if (_onValueChange != null)
