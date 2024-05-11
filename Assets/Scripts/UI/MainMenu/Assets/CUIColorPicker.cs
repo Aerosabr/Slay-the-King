@@ -5,7 +5,8 @@ using UnityEngine.UI;
 public class CUIColorPicker : MonoBehaviour
 {
     public Color Color { get { return _color; } set { Setup( value ); } }
-    public void SetOnValueChangeCallback( Action<Color> onValueChange )
+	public CharacterCustomization character;
+	public void SetOnValueChangeCallback( Action<Color> onValueChange )
     {
         _onValueChange = onValueChange;
     }

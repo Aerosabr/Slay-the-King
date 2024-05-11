@@ -60,7 +60,7 @@ public class AnimationBuilder : MonoBehaviour
         ObjectReferenceKeyframe[] keyframes = new ObjectReferenceKeyframe[sprites.Length];
         // Add keyframes every 5 seconds
         float duration = 5f /60f;
-        int numKeyframes = 10; // Adjust the number of keyframes as needed
+        int numKeyframes = 20; // Adjust the number of keyframes as needed
         for (int i = 0; i < numKeyframes; i++)
         {
             ObjectReferenceKeyframe keyframe = new ObjectReferenceKeyframe();
