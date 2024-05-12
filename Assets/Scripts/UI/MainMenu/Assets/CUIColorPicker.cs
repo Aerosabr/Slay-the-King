@@ -92,7 +92,7 @@ public class CUIColorPicker : MonoBehaviour
             satvalTex.Apply();
         };
         var satvalSz = GetWidgetSize( satvalGO );
-        float Hue, Saturation, Value;
+        float Hue, Saturation = 0, Value = 0;
         RGBToHSV( inputColor, out Hue, out Saturation, out Value );
         Action applyHue = () => {
             var i0 = Mathf.Clamp( ( int )Hue, 0, 5 );

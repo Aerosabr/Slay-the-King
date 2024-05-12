@@ -83,7 +83,7 @@ public class CUIColorPicker1 : MonoBehaviour
 		hueGO.GetComponent<Image>().sprite = Sprite.Create(hueTex, new Rect(0, 0, 1, 6), new Vector2(0.5f, 0.5f));
 		var hueSz = GetWidgetSize(hueGO);
 
-		float Hue;
+		float Hue = 0.5f;
 		RGBToHSV(inputColor, out Hue, out _, out _); // Ignore saturation and value
 
 		Action applyHue = () => {
