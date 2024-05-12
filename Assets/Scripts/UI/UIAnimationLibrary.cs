@@ -12,10 +12,14 @@ public class UIAnimationLibrary : MonoBehaviour
 
     [Tooltip("Higher the number, the slower it is")]
     public float speed = 0.2f;
+    public bool startOff = false;
 
     public void Start()
     {
-
+        if(startOff)
+        {
+            transform.gameObject.SetActive(false);
+        }
     }
     public void RollPanelDownWrapper(bool Open)
     {
