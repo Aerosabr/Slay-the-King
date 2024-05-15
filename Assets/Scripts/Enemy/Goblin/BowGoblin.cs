@@ -44,6 +44,8 @@ public class BowGoblin : Entity, IDamageable, IEffectable
                 Attacking();
             }
         }
+        else if (isStunned)
+            ESC.PlayAnimation("Idle");
 
         if (Buffs.Count > 0)
             HandleBuff();
@@ -162,7 +164,7 @@ public class BowGoblin : Entity, IDamageable, IEffectable
         ProcessDirection(player.transform.position);
         GameObject arrow = Instantiate(arrowPrefab, transform.position, transform.rotation);
         arrow.transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(ESC.currentDir.y, ESC.currentDir.x) * Mathf.Rad2Deg + 180);
-        arrow.GetComponent<Arrow>().EditArrow(3f, Attack, true);
+        arrow.GetComponent<GoblinArrow>().EditArrow(3f, Attack, true);
         arrow.GetComponent<Rigidbody2D>().velocity = 10f * ESC.currentDir;
         yield return new WaitForSeconds(.1f);
         ESC.PlayAnimation("Idle");

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Arrow : MonoBehaviour
+public class GoblinArrow : MonoBehaviour
 {
     public float life = 3f;
     public float rotationSpeed = 15f;
@@ -24,7 +24,7 @@ public class Arrow : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Enemy")
+        if (collision.gameObject.tag == "Player")
         {
             if (collision.transform.position.x - gameObject.transform.position.x >= 0)
                 collision.gameObject.GetComponent<IDamageable>().Damaged((int)damage);

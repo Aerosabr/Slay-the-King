@@ -12,8 +12,11 @@ public class HolyLight : MonoBehaviour
         
         foreach (Collider2D collider in detectedObjects)
         {
-            collider.gameObject.GetComponent<IDamageable>().Damaged(damage);
-            collider.gameObject.GetComponent<IEffectable>().ApplyBuff(new IncreaseAttack(0, -.25f, 5f, "Tome - Ability1", collider.gameObject));
+            if (collider.gameObject.tag == "Enemy")
+            {
+                collider.gameObject.GetComponent<IDamageable>().Damaged(damage);
+                collider.gameObject.GetComponent<IEffectable>().ApplyBuff(new IncreaseAttack(0, -.25f, 5f, "Tome - Ability1", collider.gameObject));
+            }
         }
     }
 

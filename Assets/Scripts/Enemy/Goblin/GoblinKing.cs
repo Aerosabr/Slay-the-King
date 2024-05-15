@@ -15,6 +15,7 @@ public class GoblinKing : Entity, IDamageable, IEffectable
     public LayerMask Damageable;
     public GameObject TargetCircle;
     public GameObject Wave;
+    public GameObject childCollider;
     public int A3Counter = 0;
     public bool Charging;
     //Cooldowns
@@ -34,16 +35,18 @@ public class GoblinKing : Entity, IDamageable, IEffectable
         Damageable = LayerMask.GetMask("Player");
         TargetCircle = Resources.Load<GameObject>("Prefabs/Hitboxes/TargetCircle");
         Wave = Resources.Load<GameObject>("Prefabs/Projectiles/GoblinWave");
-        A1 = 100f;
-        A1CD = 100f;
-        A2 = 100f;
-        A2CD = 100f;
-        A3 = 100f;
-        A3CD = 100f;
-        A4 = 2f;
-        A4CD = 2f;
-        A5 = 100f;
-        A5CD = 100f;
+        childCollider = transform.GetChild(1).gameObject;
+        A1CD = 8f;
+        A2CD = 12f;
+        A3CD = 15f;
+        A4CD = 18f;
+        A5CD = 20f;
+
+        A1 = A1CD;
+        A2 = A2CD;
+        A3 = A3CD;
+        A4 = A4CD;
+        A5 = A5CD;
     }
 
     void Update()
@@ -59,6 +62,8 @@ public class GoblinKing : Entity, IDamageable, IEffectable
                 ESC.PlayAnimation("Run");
             }
         }
+        else if (isStunned)
+            ESC.PlayAnimation("Idle");
 
         if (Buffs.Count > 0)
             HandleBuff();     
@@ -92,7 +97,12 @@ public class GoblinKing : Entity, IDamageable, IEffectable
     {
         float dist = Vector2.Distance(transform.position, player.transform.position);
 
-        if (A4 <= 0 && dist > 4 && dist < 8)
+        if (A5 <= 0 && dist > 7)
+        {
+            StartCoroutine(Ability5Cast());
+            return true;
+        }
+        else if (A4 <= 0 && dist > 4 && dist < 8)
         {
             Ability4Cast();
             return true;
@@ -117,35 +127,6 @@ public class GoblinKing : Entity, IDamageable, IEffectable
             BasicAttackCast();
             return true;
         }
-        /*
-        if (A5 <= 0 && dist > 7)
-        {
-            return true;
-        }
-        else if (A4 <= 0 && dist > 5.5 && dist < 8)
-        {
-            return true;
-        }
-        else if (A3 <= 0 && dist < 3.5)
-        {
-            return true;
-        }
-        else if (A2 <= 0 && dist < 4)
-        {
-            Ability2Cast();
-            return true;
-        }
-        else if (A1 <= 0)
-        {
-            Ability1Cast();
-            return true;
-        }
-        else if (dist < 3)
-        {
-            BasicAttackCast();
-            return true;
-        }
-        */
         return false;
     }
 
@@ -191,19 +172,16 @@ public class GoblinKing : Entity, IDamageable, IEffectable
             damage = currentHealth;
             currentHealth = 0;
         }
+        DamagePopup.Create(rb.transform.position, Mathf.Abs(damage), false);
 
         if (currentHealth <= 0)
         {
             ESC.PlayAnimation("Death");
             Destroy(rb);
             Destroy(GetComponent<BoxCollider2D>());
-            Destroy(GetComponent<CircleCollider2D>());
             StartCoroutine(Death(2f));
         }
-        else
-            //anim.SetTrigger("Damaged");
 
-            DamagePopup.Create(rb.transform.position, Mathf.Abs(damage), false);
         return damage;
     }
 
@@ -230,7 +208,7 @@ public class GoblinKing : Entity, IDamageable, IEffectable
         float angle = Mathf.Atan2(player.transform.position.y - (transform.position.y - 1.4f), player.transform.position.x - (transform.position.x - .16f));
         attackHitBoxPos.localPosition = new Vector2((Mathf.Cos(angle)) - .16f, (Mathf.Sin(angle)) - 1f);
         GameObject tc = Instantiate(TargetCircle, attackHitBoxPos.position, Quaternion.identity);
-        tc.GetComponent<TargetCircle>().InitiateTarget(2f, .25f);
+        tc.GetComponent<TargetCircle>().InitiateTarget(2f, .3f);
     }
 
     public IEnumerator BasicAttack()
@@ -280,7 +258,7 @@ public class GoblinKing : Entity, IDamageable, IEffectable
         ESC.PlayAnimation("SurroundSlam");
         attackHitBoxPos.position = new Vector2(transform.position.x - .16f, transform.position.y - 1.4f);
         GameObject tc = Instantiate(TargetCircle, attackHitBoxPos.position, Quaternion.identity);
-        tc.GetComponent<TargetCircle>().InitiateTarget(3f, .25f);
+        tc.GetComponent<TargetCircle>().InitiateTarget(3f, .9f);
     }
 
     public IEnumerator Ability2()
@@ -292,8 +270,8 @@ public class GoblinKing : Entity, IDamageable, IEffectable
                 collider.gameObject.GetComponent<IDamageable>().Damaged(Attack);
             else
                 collider.gameObject.GetComponent<IDamageable>().Damaged(-Attack);
-
-            StartCoroutine(KnockCoroutine(collider.GetComponent<Rigidbody2D>()));
+            if (collider.gameObject.GetComponent<Entity>().currentHealth > 0)
+                StartCoroutine(KnockCoroutine(collider.GetComponent<Rigidbody2D>()));
         }
         yield return new WaitForSeconds(.25f);
         ESC.PlayAnimation("Idle");
@@ -325,6 +303,7 @@ public class GoblinKing : Entity, IDamageable, IEffectable
         isMovable = false;
         ESC.PlayAnimation("InitialSpam");
         yield return new WaitForSeconds(1.5f);
+        ProcessDirection(player.transform.position);
         ESC.PlayAnimation("SpamSlam");
         float angle = Mathf.Atan2(player.transform.position.y - (transform.position.y - 1.4f), player.transform.position.x - (transform.position.x - .16f));
         attackHitBoxPos.localPosition = new Vector2((Mathf.Cos(angle)) - .16f, (Mathf.Sin(angle)) - 1f);
@@ -363,7 +342,6 @@ public class GoblinKing : Entity, IDamageable, IEffectable
         ProcessDirection(player.transform.position);
         isMovable = false;
         Charging = true;
-        GetComponent<CircleCollider2D>().enabled = true;
         ESC.PlayAnimation("Charge");
         float angle = Mathf.Atan2(player.transform.position.y - (transform.position.y - 1.4f), player.transform.position.x - (transform.position.x - .16f));
         GetComponent<Rigidbody2D>().velocity = new Vector2((Mathf.Cos(angle)) * 10, (Mathf.Sin(angle)) * 10);
@@ -375,7 +353,6 @@ public class GoblinKing : Entity, IDamageable, IEffectable
         {
             yield return new WaitForSeconds(.05f);
             Charging = false;
-            GetComponent<CircleCollider2D>().enabled = false;
             ESC.PlayAnimation("Idle");
             GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             yield return new WaitForSeconds(.5f);
@@ -384,32 +361,58 @@ public class GoblinKing : Entity, IDamageable, IEffectable
         A4 = A4CD;
     }
 
-    public void OnTriggerEnter2D(Collider2D collision)
+    public void EnemyCharged(Collision2D collision)
     {
-        if (Charging)
-        {
-            if (collision.gameObject.tag == "Player")
-            {
-                if (collision.transform.position.x - transform.position.x >= 0)
-                    collision.gameObject.GetComponent<IDamageable>().Damaged(Attack);
-                else
-                    collision.gameObject.GetComponent<IDamageable>().Damaged(-Attack);
-                StartCoroutine(KnockCoroutine(collision.GetComponent<Rigidbody2D>()));
-            }
-        }
-        
+        if (collision.transform.position.x - transform.position.x >= 0)
+            collision.gameObject.GetComponent<IDamageable>().Damaged(Attack);
+        else
+            collision.gameObject.GetComponent<IDamageable>().Damaged(-Attack);
+        StartCoroutine(KnockCoroutine(collision.gameObject.GetComponent<Rigidbody2D>()));
     }
     #endregion
 
     #region Ability 5
-    public void Ability5Cast()
+    public IEnumerator Ability5Cast()
     {
-
+        ProcessDirection(player.transform.position);
+        isMovable = false;
+        ESC.PlayAnimation("Jump");
+        yield return new WaitForSeconds(1.5f);
+        GetComponent<SpriteRenderer>().enabled = false;
+        GetComponent<BoxCollider2D>().enabled = false;
+        GetComponent<Rigidbody2D>().simulated = false;
+        childCollider.SetActive(false);
+        yield return new WaitForSeconds(1.2f);
+        GameObject tc = Instantiate(TargetCircle, player.transform.position, Quaternion.identity);
+        attackHitBoxPos.localPosition = new Vector2(-0.08f, -.7f);
+        tc.GetComponent<TargetCircle>().InitiateTarget(4f, .8f);
+        transform.position = new Vector2(player.transform.position.x + 0.16f, player.transform.position.y + 1.4f);
+        yield return new WaitForSeconds(.8f);
+        GetComponent<SpriteRenderer>().enabled = true;
+        ESC.PlayAnimation("LandSlam");
     }
 
     public IEnumerator Ability5()
     {
-        yield return new WaitForSeconds(1f);
+        childCollider.SetActive(true);
+        GetComponent<BoxCollider2D>().enabled = true;
+        GetComponent<Rigidbody2D>().simulated = true;
+        
+        Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, 4f, Damageable);
+        foreach (Collider2D collider in detectedObjects)
+        {
+            Debug.Log(collider.name);
+            if (collider.transform.position.x - transform.position.x >= 0)
+                collider.gameObject.GetComponent<IDamageable>().Damaged(Attack);
+            else
+                collider.gameObject.GetComponent<IDamageable>().Damaged(-Attack);
+        }
+        
+        yield return new WaitForSeconds(.5f);
+        ESC.PlayAnimation("Idle");
+        yield return new WaitForSeconds(.5f);
+        isMovable = true;
+        A5 = A5CD;
     }
     #endregion
 }

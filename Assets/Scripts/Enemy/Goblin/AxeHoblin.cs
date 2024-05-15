@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-
-public class SwordGoblin : Entity, IDamageable, IEffectable
+public class AxeHoblin : Entity, IDamageable, IEffectable
 {
     public Rigidbody2D rb;
     public float speed = 1.0f;
@@ -11,8 +10,12 @@ public class SwordGoblin : Entity, IDamageable, IEffectable
     public GameObject player;
     public EnemySpriteController ESC;
     public Transform attackHitBoxPos;
-    public bool Attackable;
     public LayerMask Damageable;
+    public GameObject TargetCircle;
+
+    //Cooldowns
+    public float Ability, AbilityCD; //
+
 
     void Awake()
     {
@@ -22,24 +25,24 @@ public class SwordGoblin : Entity, IDamageable, IEffectable
         ESC = GetComponent<EnemySpriteController>();
         attackHitBoxPos = transform.Find("AttackHitbox");
         Damageable = LayerMask.GetMask("Player");
+        TargetCircle = Resources.Load<GameObject>("Prefabs/Hitboxes/TargetCircle");
+        AbilityCD = 8f;
+
+        Ability = AbilityCD;
     }
 
     void Update()
     {
-        if (!isStunned && currentHealth > 0)
+        if (Ability > 0)
+            Ability -= Time.deltaTime;
+
+        if (!isStunned && currentHealth > 0 && isMovable)
         {
-            if (currentHealth > 0 && isMovable)
+            if (!CheckAttacks())
             {
                 transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
                 ProcessDirection(player.transform.position);
-                ESC.isMoving = true;
-                ESC.isAttacking = false;
                 ESC.PlayAnimation("Run");
-            }
-            else if (Attackable && !ESC.isAttacking)
-            {
-                ESC.isMoving = false;
-                Attacking();
             }
         }
         else if (isStunned)
@@ -51,8 +54,25 @@ public class SwordGoblin : Entity, IDamageable, IEffectable
 
     public void ProcessDirection(Vector2 target)
     {
-        float angle = Mathf.Atan2(target.y - transform.position.y, target.x - transform.position.x);
+        float angle = Mathf.Atan2(target.y - (transform.position.y - 1.05f), target.x - (transform.position.x - .13f));
         ESC.currentDir = new Vector2(Mathf.Cos(angle) * 1f, Mathf.Sin(angle) * 1f);
+    }
+
+    public bool CheckAttacks()
+    {
+        float dist = Vector2.Distance(transform.position, player.transform.position);
+
+        if (Ability <= 0 && dist < 4)
+        {
+            AbilityCast();
+            return true;
+        }
+        else if (dist < 1.5f)
+        {
+            BasicAttackCast();
+            return true;
+        }
+        return false;
     }
 
     #region IEffectable Components
@@ -97,19 +117,16 @@ public class SwordGoblin : Entity, IDamageable, IEffectable
             damage = currentHealth;
             currentHealth = 0;
         }
-        
+        DamagePopup.Create(rb.transform.position, Mathf.Abs(damage), false);
+
         if (currentHealth <= 0)
         {
             ESC.PlayAnimation("Death");
             Destroy(rb);
             Destroy(GetComponent<BoxCollider2D>());
-            Destroy(GetComponent<CircleCollider2D>());
             StartCoroutine(Death(2f));
         }
-        else
-            //anim.SetTrigger("Damaged");
-        
-        DamagePopup.Create(rb.transform.position, Mathf.Abs(damage), false);
+
         return damage;
     }
 
@@ -117,7 +134,6 @@ public class SwordGoblin : Entity, IDamageable, IEffectable
     {
         return 0;
     }
-    #endregion
 
     public IEnumerator Death(float time)
     {
@@ -126,36 +142,23 @@ public class SwordGoblin : Entity, IDamageable, IEffectable
         Instantiate(Resources.Load<GameObject>("Prefabs/Gold"), transform.position, Quaternion.identity);
         //EnemySpawner.instance.enemiesKilled++;
     }
+    #endregion
 
-    public void OnTriggerEnter2D(Collider2D collision)
+    #region Basic Attack
+    public void BasicAttackCast()
     {
-        if (collision.gameObject.tag == "Player")
-        {
-            isMovable = false;
-            Attackable = true;
-        }
-    }
-
-    public void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Player")
-        {
-            isMovable = true;
-            Attackable = false;
-        }
-    }
-
-    public void Attacking()
-    {
-        ESC.isAttacking = true;
-        ESC.PlayAnimation("DSlash");
+        ProcessDirection(player.transform.position);
+        isMovable = false;
+        ESC.PlayAnimation("Slash");
+        float angle = Mathf.Atan2(player.transform.position.y - (transform.position.y - 1.05f), player.transform.position.x - (transform.position.x - .13f));
+        attackHitBoxPos.localPosition = new Vector2((Mathf.Cos(angle) - .13f) * 2, (Mathf.Sin(angle) - 1.05f) * 2);
+        GameObject tc = Instantiate(TargetCircle, attackHitBoxPos.position, Quaternion.identity);
+        tc.GetComponent<TargetCircle>().InitiateTarget(1f, .3f);
     }
 
     public IEnumerator BasicAttack()
     {
-        float angle = Mathf.Atan2(player.transform.position.y - transform.position.y, player.transform.position.x - transform.position.x);
-        attackHitBoxPos.localPosition = new Vector2(Mathf.Cos(angle) * 3f, Mathf.Sin(angle) * 3f);
-        Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, 2f, Damageable);
+        Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, 1f, Damageable);
         foreach (Collider2D collider in detectedObjects)
         {
             if (collider.transform.position.x - transform.position.x >= 0)
@@ -166,6 +169,38 @@ public class SwordGoblin : Entity, IDamageable, IEffectable
         yield return new WaitForSeconds(.15f);
         ESC.PlayAnimation("Idle");
         yield return new WaitForSeconds(.5f);
-        ESC.isAttacking = false;
+        isMovable = true;
     }
+    #endregion
+
+    #region Ability 1
+    public void AbilityCast()
+    {
+        ProcessDirection(player.transform.position);
+        isMovable = false;
+        ESC.PlayAnimation("Spin");
+        attackHitBoxPos.position = new Vector2(transform.position.x - .13f, transform.position.y - 1.05f);
+        GameObject tc = Instantiate(TargetCircle, attackHitBoxPos.position, Quaternion.identity);
+        tc.GetComponent<TargetCircle>().InitiateTarget(2f, .5f);
+    }
+
+    public IEnumerator AbilityActivate()
+    {
+        Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, 2f, Damageable);
+        foreach (Collider2D collider in detectedObjects)
+        {
+            if (collider.transform.position.x - transform.position.x >= 0)
+                collider.gameObject.GetComponent<IDamageable>().Damaged(Attack);
+            else
+                collider.gameObject.GetComponent<IDamageable>().Damaged(-Attack);
+
+            
+        }
+        yield return new WaitForSeconds(.1f);
+        ESC.PlayAnimation("Idle");
+        yield return new WaitForSeconds(.5f);
+        isMovable = true;
+        Ability = AbilityCD;
+    }
+    #endregion
 }

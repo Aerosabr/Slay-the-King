@@ -41,6 +41,8 @@ public class BombGoblin : Entity, IDamageable, IEffectable
                 Attacking();
             }
         }
+        else if (isStunned)
+            ESC.PlayAnimation("Idle");
 
         if (Buffs.Count > 0)
             HandleBuff();

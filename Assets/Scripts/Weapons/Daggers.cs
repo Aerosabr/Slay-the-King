@@ -112,10 +112,13 @@ public class Daggers : MonoBehaviour
         Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, attackRadius, Damageable);
         foreach (Collider2D collider in detectedObjects)
         {
-            if (collider.transform.position.x - gameObject.transform.position.x >= 0)
-                collider.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack);
-            else
-                collider.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack);
+            if (collider.gameObject.tag == "Enemy")
+            {
+                if (collider.transform.position.x - gameObject.transform.position.x >= 0)
+                    collider.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack);
+                else
+                    collider.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack);
+            }
         }
     }
 
