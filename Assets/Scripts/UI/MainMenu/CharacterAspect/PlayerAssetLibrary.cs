@@ -11,7 +11,8 @@ public class PlayerAssetLibrary : ScriptableObject
 	public Animator glove;
 	public Animator weapon1;
 	public Animator weapon2;
-
+	public bool weapon1twoHanded;
+	public bool weapon2twoHanded;
 	public Sprite weapon1Icon;
 	public Sprite weapon2Icon;
 

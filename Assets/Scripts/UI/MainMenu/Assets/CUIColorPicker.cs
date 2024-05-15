@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -52,7 +53,7 @@ public class CUIColorPicker : MonoBehaviour
         return transform.Find( name ).gameObject;
     }
 
-    private void Setup( Color inputColor )
+	private void Setup( Color inputColor )
     {
         var satvalGO = GO( "SaturationValue" );
         var satvalKnob = GO( "SaturationValue/Knob" );
@@ -91,7 +92,7 @@ public class CUIColorPicker : MonoBehaviour
             satvalTex.Apply();
         };
         var satvalSz = GetWidgetSize( satvalGO );
-        float Hue, Saturation, Value;
+        float Hue, Saturation = 0, Value = 0;
         RGBToHSV( inputColor, out Hue, out Saturation, out Value );
         Action applyHue = () => {
             var i0 = Mathf.Clamp( ( int )Hue, 0, 5 );
@@ -110,7 +111,8 @@ public class CUIColorPicker : MonoBehaviour
             var resultColor = c0 + c1 + c2 + c3;
             var resImg = result.GetComponent<Image>();
             resImg.color = resultColor;
-            if ( _color != resultColor ) {
+			character.ApplyHairColor(resImg.color);
+			if ( _color != resultColor ) {
                 if ( _onValueChange != null ) {
                     _onValueChange( resultColor );
                 }
