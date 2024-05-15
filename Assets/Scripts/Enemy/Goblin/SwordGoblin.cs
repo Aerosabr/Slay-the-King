@@ -103,7 +103,6 @@ public class SwordGoblin : Entity, IDamageable, IEffectable
             ESC.PlayAnimation("Death");
             Destroy(rb);
             Destroy(GetComponent<BoxCollider2D>());
-            Destroy(GetComponent<CircleCollider2D>());
             StartCoroutine(Death(2f));
         }
         else
