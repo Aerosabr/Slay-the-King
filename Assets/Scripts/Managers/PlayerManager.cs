@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager instance;
+    public GameObject camera;
     public List<GameObject> Players = new List<GameObject>();
     public int NumPlayers = 0;
     public string player1Weapon;
@@ -56,8 +57,11 @@ public class PlayerManager : MonoBehaviour
         {
             player1Weapon = CharacterCustomization.instance.WeaponName;
             GameObject temp = Instantiate(Resources.Load<GameObject>("Prefabs/Classes/" + CharacterCustomization.instance.className.text), transform.GetChild(0));
-
-            temp.SetActive(true);
+            temp.transform.GetComponent<SpriteRenderer>().color = CharacterCustomization.instance.skinColor;
+			temp.transform.GetChild(0).GetComponent<SpriteRenderer>().color = CharacterCustomization.instance.hairColor;
+			temp.transform.GetChild(1).GetComponent<SpriteRenderer>().color = CharacterCustomization.instance.skinColor;
+			temp.SetActive(true);
+            camera.SetActive(false);
         }
     }
 

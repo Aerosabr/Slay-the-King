@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Linq;
 using UnityEngine;
 
 public class Bow : MonoBehaviour
@@ -27,14 +28,24 @@ public class Bow : MonoBehaviour
         Player = GetComponent<Player>();
     }
 
+    private void Start()
+    {
+        string[] icons = { "Bow/Attack", "Bow/Ability1", "Bow/Ability2", "Bow/Ultimate", "Movement" };
+        for (int i = 0; i < icons.Length; i++)
+        {
+            Cooldowns[i].GetComponent<CooldownUI>().InitiateCooldown(Resources.Load<Sprite>("Icons/" + icons[i]), gameObject);
+            Cooldowns[i].SetActive(false);
+        }
+    }
+
     public Vector2 MapPoint(Vector2 point, float radius)
     {
         float angle = Mathf.Atan2(point.y, point.x);
         return new Vector2(Mathf.Cos(angle) * radius, Mathf.Sin(angle) * radius);
     }
 
-    #region Player Movement
-    public void OnDash()
+	#region Player Movement
+	public void OnDash()
     {
         if (!PSC.isAttacking && MovementCD)
         {
@@ -52,6 +63,11 @@ public class Bow : MonoBehaviour
         Cooldowns[4].GetComponent<CooldownUI>().StartCooldown(5f);
         PSC.Movable = true;
     }
+    public void GenerateGhost()
+    {
+        return;
+		//PSC.Sprites[5].GetChild(4).
+	}
 
     public float GetMovementCooldown()
     {
@@ -169,8 +185,118 @@ public class Bow : MonoBehaviour
 
     private IEnumerator Ability2Cast()
     {
+
         PSC.Attack("ChargeArrow", 1);
-        yield return new WaitForSeconds(1f);
+		ParticleSystem particleSystem = PSC.Sprites[5].transform.GetChild(0).GetComponent<ParticleSystem>();
+        if (particleSystem != null)
+        {
+            var main = particleSystem.main;
+            main.startRotation3D = true;
+
+            float angle = Mathf.Atan2(PSC.currentDirection.y, PSC.currentDirection.x) * Mathf.Rad2Deg;
+            switch (angle)
+            {
+                case float _ when angle > -11.25f && angle <= 11.25f:
+                    PSC.Sprites[5].transform.GetChild(1).transform.localPosition = new Vector3(0f, 0f, 0f);
+                    PSC.Sprites[5].transform.GetChild(0).transform.localPosition = new Vector3(0f, 0f, 0f);
+                    main.startRotationX = new ParticleSystem.MinMaxCurve(0f * Mathf.Deg2Rad);
+                    main.startRotationY = new ParticleSystem.MinMaxCurve(80f * Mathf.Deg2Rad);
+                    break;
+                case float _ when angle > 11.25f && angle <= 33.75f:
+					PSC.Sprites[5].transform.GetChild(1).transform.localPosition = new Vector3(-0.2f, 1f, 0f);
+					PSC.Sprites[5].transform.GetChild(0).transform.localPosition = new Vector3(0f, 1f, 0f);
+					main.startRotationX = new ParticleSystem.MinMaxCurve(135f * Mathf.Deg2Rad);
+					main.startRotationY = new ParticleSystem.MinMaxCurve(135f * Mathf.Deg2Rad);
+					break;
+                case float _ when angle > 33.75f && angle <= 56.25f:
+					PSC.Sprites[5].transform.GetChild(1).transform.localPosition = new Vector3(-0.2f, 1f, 0f);
+					PSC.Sprites[5].transform.GetChild(0).transform.localPosition = new Vector3(0f, 1f, 0f);
+                    main.startRotationX = new ParticleSystem.MinMaxCurve(135f * Mathf.Deg2Rad);
+                    main.startRotationY = new ParticleSystem.MinMaxCurve(135f * Mathf.Deg2Rad);
+                    break;
+                case float _ when angle > 56.25f && angle <= 78.75f:
+					PSC.Sprites[5].transform.GetChild(1).transform.localPosition = new Vector3(-0.2f, 1f, 0f);
+					PSC.Sprites[5].transform.GetChild(0).transform.localPosition = new Vector3(0f, 1f, 0f);
+					main.startRotationX = new ParticleSystem.MinMaxCurve(135f * Mathf.Deg2Rad);
+					main.startRotationY = new ParticleSystem.MinMaxCurve(135f * Mathf.Deg2Rad);
+					break;
+                case float _ when angle > 78.75f && angle <= 101.25f:
+					PSC.Sprites[5].transform.GetChild(1).transform.localPosition = new Vector3(-1f, 1f, 0f);
+					PSC.Sprites[5].transform.GetChild(0).transform.localPosition = new Vector3(-1f, 1f, 0f);
+                    main.startRotationX = new ParticleSystem.MinMaxCurve(80f * Mathf.Deg2Rad);
+                    main.startRotationY = new ParticleSystem.MinMaxCurve(0f * Mathf.Deg2Rad);
+                    break;
+                case float _ when angle > 101.25f && angle <= 123.75f:
+					PSC.Sprites[5].transform.GetChild(1).transform.localPosition = new Vector3(-2f, 1f, 0f);
+					PSC.Sprites[5].transform.GetChild(0).transform.localPosition = new Vector3(-2f, 1f, 0f);
+					main.startRotationX = new ParticleSystem.MinMaxCurve(45f * Mathf.Deg2Rad);
+					main.startRotationY = new ParticleSystem.MinMaxCurve(45f * Mathf.Deg2Rad);
+					break;
+                case float _ when angle > 123.75f && angle <= 146.25f:
+					PSC.Sprites[5].transform.GetChild(1).transform.localPosition = new Vector3(-2f, 1f, 0f);
+					PSC.Sprites[5].transform.GetChild(0).transform.localPosition = new Vector3(-2f, 1f, 0f);
+                    main.startRotationX = new ParticleSystem.MinMaxCurve(45f * Mathf.Deg2Rad);
+                    main.startRotationY = new ParticleSystem.MinMaxCurve(45f * Mathf.Deg2Rad);
+                    break;
+                case float _ when angle > 146.25f && angle <= 168.75f:
+					PSC.Sprites[5].transform.GetChild(1).transform.localPosition = new Vector3(-2f, 1f, 0f);
+					PSC.Sprites[5].transform.GetChild(0).transform.localPosition = new Vector3(-2f, 1f, 0f);
+					main.startRotationX = new ParticleSystem.MinMaxCurve(45f * Mathf.Deg2Rad);
+					main.startRotationY = new ParticleSystem.MinMaxCurve(45f * Mathf.Deg2Rad);
+					break;
+                case float _ when angle > 168.75f || angle <= -168.75f:
+					PSC.Sprites[5].transform.GetChild(1).transform.localPosition = new Vector3(-2.5f, 0f, 0f);
+					PSC.Sprites[5].transform.GetChild(0).transform.localPosition = new Vector3(-2f, 0f, 0f);
+                    main.startRotationX = new ParticleSystem.MinMaxCurve(0f * Mathf.Deg2Rad);
+                    main.startRotationY = new ParticleSystem.MinMaxCurve(80f * Mathf.Deg2Rad);
+                    break;
+                case float _ when angle > -168.75f && angle <= -146.25f:
+					PSC.Sprites[5].transform.GetChild(1).transform.localPosition = new Vector3(-2f, -0.5f, 0f);
+					PSC.Sprites[5].transform.GetChild(0).transform.localPosition = new Vector3(-2f, -0.5f, 0f);
+					main.startRotationX = new ParticleSystem.MinMaxCurve(135f * Mathf.Deg2Rad);
+					main.startRotationY = new ParticleSystem.MinMaxCurve(135f * Mathf.Deg2Rad);
+					break;
+                case float _ when angle > -146.25f && angle <= -123.75f:
+					PSC.Sprites[5].transform.GetChild(1).transform.localPosition = new Vector3(-2f, -0.5f, 0f);
+					PSC.Sprites[5].transform.GetChild(0).transform.localPosition = new Vector3(-2f, -0.5f, 0f);
+                    main.startRotationX = new ParticleSystem.MinMaxCurve(135f * Mathf.Deg2Rad);
+                    main.startRotationY = new ParticleSystem.MinMaxCurve(135f * Mathf.Deg2Rad);
+                    break;
+                case float _ when angle > -123.75f && angle <= -101.25f:
+					PSC.Sprites[5].transform.GetChild(1).transform.localPosition = new Vector3(-2f, -0.5f, 0f);
+					PSC.Sprites[5].transform.GetChild(0).transform.localPosition = new Vector3(-2f, -0.5f, 0f);
+					main.startRotationX = new ParticleSystem.MinMaxCurve(135f * Mathf.Deg2Rad);
+					main.startRotationY = new ParticleSystem.MinMaxCurve(135f * Mathf.Deg2Rad);
+					break;
+                case float _ when angle > -101.25f && angle <= -78.75f:
+					PSC.Sprites[5].transform.GetChild(1).transform.localPosition = new Vector3(-1.2f, -1f, 0f);
+					PSC.Sprites[5].transform.GetChild(0).transform.localPosition = new Vector3(-1f, -0.5f, 0f);
+                    main.startRotationX = new ParticleSystem.MinMaxCurve(80f * Mathf.Deg2Rad);
+                    main.startRotationY = new ParticleSystem.MinMaxCurve(0f * Mathf.Deg2Rad);
+                    break;
+                case float _ when angle > -78.75f && angle <= -56.25f:
+					PSC.Sprites[5].transform.GetChild(1).transform.localPosition = new Vector3(-0.2f, -0.5f, 0f);
+					PSC.Sprites[5].transform.GetChild(0).transform.localPosition = new Vector3(-0.5f, -0.5f, 0f);
+					main.startRotationX = new ParticleSystem.MinMaxCurve(45f * Mathf.Deg2Rad);
+					main.startRotationY = new ParticleSystem.MinMaxCurve(45f * Mathf.Deg2Rad);
+					break;
+                case float _ when angle > -56.25f && angle <= -33.75f:
+					PSC.Sprites[5].transform.GetChild(1).transform.localPosition = new Vector3(-0.2f, -0.5f, 0f);
+					PSC.Sprites[5].transform.GetChild(0).transform.localPosition = new Vector3(-0.5f, -0.5f, 0f);
+                    main.startRotationX = new ParticleSystem.MinMaxCurve(45f * Mathf.Deg2Rad);
+                    main.startRotationY = new ParticleSystem.MinMaxCurve(45f * Mathf.Deg2Rad);
+                    break;
+                case float _ when angle > -33.75f && angle <= -11.25f:
+					PSC.Sprites[5].transform.GetChild(1).transform.localPosition = new Vector3(-0.2f, -0.5f, 0f);
+					PSC.Sprites[5].transform.GetChild(0).transform.localPosition = new Vector3(-0.5f, -0.5f, 0f);
+					main.startRotationX = new ParticleSystem.MinMaxCurve(45f * Mathf.Deg2Rad);
+					main.startRotationY = new ParticleSystem.MinMaxCurve(45f * Mathf.Deg2Rad);
+					break;
+            }
+        }
+		PSC.Sprites[5].transform.GetChild(0).GetComponent<ParticleSystem>().Play();
+		PSC.Sprites[5].transform.GetChild(1).GetComponent<ParticleSystem>().Play();
+		yield return new WaitForSeconds(1f);
         Ability2();
         Cooldowns[2].SetActive(true);
         Cooldowns[2].GetComponent<CooldownUI>().StartCooldown(3f * ((100 - Player.CDR) / 100));
