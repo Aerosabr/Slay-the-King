@@ -27,16 +27,6 @@ public class MaceShield : MonoBehaviour
         Damageable = LayerMask.GetMask("Enemy");
     }
 
-    private void Start()
-    {
-        string[] icons = { "MaceShield/Attack", "MaceShield/Ability1", "MaceShield/Ability2", "MaceShield/Ultimate", "Movement" };
-        for (int i = 0; i < icons.Length; i++)
-        {
-            Cooldowns[i].GetComponent<CooldownUI>().InitiateCooldown(Resources.Load<Sprite>("Icons/" + icons[i]), gameObject);
-            Cooldowns[i].SetActive(false);
-        }
-    }
-
     public Vector2 MapPoint(Vector2 point, float radius)
     {
         float angle = Mathf.Atan2(point.y, point.x);
