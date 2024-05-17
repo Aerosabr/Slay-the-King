@@ -29,17 +29,6 @@ public class Greatsword : MonoBehaviour
         Slashwave = Resources.Load<GameObject>("Prefabs/Slashwave");
     }
 
-    private void Start()
-    {
-        //string[] icons = { "Greatsword/Attack", "Greatsword/Ability1", "Greatsword/Ability2", "Greatsword/Ultimate", "Movement" };
-        string[] icons = { "Movement", "Movement", "Movement", "Movement", "Movement" };
-        for (int i = 0; i < icons.Length; i++)
-        {
-            Cooldowns[i].GetComponent<CooldownUI>().InitiateCooldown(Resources.Load<Sprite>("Icons/" + icons[i]), gameObject);
-            Cooldowns[i].SetActive(false);
-        }
-    }
-
     public Vector2 MapPoint(Vector2 point, float radius)
     {
         float angle = Mathf.Atan2(point.y, point.x);
@@ -106,10 +95,13 @@ public class Greatsword : MonoBehaviour
         Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, 1.5f, Damageable);
         foreach (Collider2D collider in detectedObjects)
         {
-            if (collider.transform.position.x - transform.position.x >= 0)
-                collider.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack);
-            else
-                collider.gameObject.GetComponent<IDamageable>().Damaged(-Player.Attack);
+            if (collider.gameObject.tag == "Enemy")
+            {
+                if (collider.transform.position.x - transform.position.x >= 0)
+                    collider.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack);
+                else
+                    collider.gameObject.GetComponent<IDamageable>().Damaged(-Player.Attack);
+            }
         }
     }
 
@@ -144,7 +136,7 @@ public class Greatsword : MonoBehaviour
         PSC._rigidbody.velocity = Vector2.zero;
         GameObject slashwave = Instantiate(Slashwave, Player.transform.position, Player.transform.rotation);
         slashwave.transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(PSC.currentDirection.y, PSC.currentDirection.x) * Mathf.Rad2Deg);
-        slashwave.GetComponent<Slashwave>().EditSlashwave(3f, Player.Attack, GetComponent<Greatsword>());
+        slashwave.GetComponent<Slashwave>().EditSlashwave(3f, Player.Attack);
         slashwave.GetComponent<Rigidbody2D>().velocity = 5f * MapPoint(PSC.currentDirection, 1);
         Cooldowns[1].SetActive(true);
         Cooldowns[1].GetComponent<CooldownUI>().StartCooldown(3f * ((100 - Player.CDR) / 100));
@@ -179,10 +171,13 @@ public class Greatsword : MonoBehaviour
         Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, 5f, Damageable);
         foreach (Collider2D collider in detectedObjects)
         {
-            if (collider.transform.position.x - transform.position.x >= 0)
-                collider.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack);
-            else
-                collider.gameObject.GetComponent<IDamageable>().Damaged(-Player.Attack);
+            if (collider.gameObject.tag == "Enemy")
+            {
+                if (collider.transform.position.x - transform.position.x >= 0)
+                    collider.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack);
+                else
+                    collider.gameObject.GetComponent<IDamageable>().Damaged(-Player.Attack);
+            }
         }
         yield return new WaitForSeconds(.25f);
         Cooldowns[2].SetActive(true);
@@ -222,11 +217,15 @@ public class Greatsword : MonoBehaviour
         Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, 5f, Damageable);
         foreach (Collider2D collider in detectedObjects)
         {
-            if (collider.transform.position.x - transform.position.x >= 0)
-                collider.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack);
-            else
-                collider.gameObject.GetComponent<IDamageable>().Damaged(-Player.Attack);
-            collider.gameObject.GetComponent<IEffectable>().ApplyBuff(new MaceStun(3f, "Greatsword - Ultimate", collider.gameObject));
+            if (collider.gameObject.tag == "Enemy")
+            {
+                if (collider.transform.position.x - transform.position.x >= 0)
+                    collider.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack);
+                else
+                    collider.gameObject.GetComponent<IDamageable>().Damaged(-Player.Attack);
+                if (collider.gameObject.GetComponent<Entity>().currentHealth > 0)
+                    collider.gameObject.GetComponent<IEffectable>().ApplyBuff(new MaceStun(3f, "Greatsword - Ultimate", collider.gameObject));
+            }
         }
         
         PSC.isAttacking = false;

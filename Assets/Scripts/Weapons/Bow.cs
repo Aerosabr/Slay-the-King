@@ -27,16 +27,6 @@ public class Bow : MonoBehaviour
         Player = GetComponent<Player>();
     }
 
-    private void Start()
-    {
-        string[] icons = { "Bow/Attack", "Bow/Ability1", "Bow/Ability2", "Bow/Ultimate", "Movement" };
-        for (int i = 0; i < icons.Length; i++)
-        {
-            Cooldowns[i].GetComponent<CooldownUI>().InitiateCooldown(Resources.Load<Sprite>("Icons/" + icons[i]), gameObject);
-            Cooldowns[i].SetActive(false);
-        }
-    }
-
     public Vector2 MapPoint(Vector2 point, float radius)
     {
         float angle = Mathf.Atan2(point.y, point.x);

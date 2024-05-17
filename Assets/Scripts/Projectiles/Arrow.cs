@@ -24,14 +24,16 @@ public class Arrow : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Entered collision");
-        if (collision.transform.position.x - gameObject.transform.position.x >= 0)
-            collision.gameObject.GetComponent<IDamageable>().Damaged((int)damage);
-        else
-            collision.gameObject.GetComponent<IDamageable>().Damaged((int)-damage);
+        if (collision.gameObject.tag == "Enemy")
+        {
+            if (collision.transform.position.x - gameObject.transform.position.x >= 0)
+                collision.gameObject.GetComponent<IDamageable>().Damaged((int)damage);
+            else
+                collision.gameObject.GetComponent<IDamageable>().Damaged((int)-damage);
 
-        if (destroyOnCollision)
-            Destroy(gameObject);
+            if (destroyOnCollision)
+                Destroy(gameObject);
+        }
     }
 
     public void EditArrow(float Life, float Damage, bool destroy)

@@ -40,11 +40,17 @@ public class PlayerSpriteController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!isAttacking && Movable)
+        if (!isAttacking && Movable && !player.isStunned)
         {
             _smoothedMovementInput = Vector2.SmoothDamp(_smoothedMovementInput, _movementInput, ref _movementInputSmoothVelocity, 0.1f);
             _rigidbody.velocity = _smoothedMovementInput * player.movementSpeed * sprintMultiplier * 3;
             keyboardDirection = _movementInput;
+            UpdateSpriteParameters();
+        }
+        else if (player.isStunned)
+        {
+            _rigidbody.velocity = Vector2.zero;
+            isMoving = false;
             UpdateSpriteParameters();
         }
     }

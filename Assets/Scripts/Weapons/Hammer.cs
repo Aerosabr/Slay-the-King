@@ -27,16 +27,6 @@ public class Hammer : MonoBehaviour
         Damageable = LayerMask.GetMask("Enemy");
     }
 
-    private void Start()
-    {
-        string[] icons = { "MaceShield/Attack", "MaceShield/Ability1", "MaceShield/Ability2", "MaceShield/Ultimate", "Movement" };
-        for (int i = 0; i < icons.Length; i++)
-        {
-            Cooldowns[i].GetComponent<CooldownUI>().InitiateCooldown(Resources.Load<Sprite>("Icons/" + icons[i]), gameObject);
-            Cooldowns[i].SetActive(false);
-        }
-    }
-
     public Vector2 MapPoint(Vector2 point, float radius)
     {
         float angle = Mathf.Atan2(point.y, point.x);
@@ -103,10 +93,13 @@ public class Hammer : MonoBehaviour
         Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, 1f, Damageable);
         foreach (Collider2D collider in detectedObjects)
         {
-            if (collider.transform.position.x - transform.position.x >= 0)
-                collider.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack);
-            else
-                collider.gameObject.GetComponent<IDamageable>().Damaged(-Player.Attack);
+            if (collider.gameObject.tag == "Enemy")
+            {
+                if (collider.transform.position.x - transform.position.x >= 0)
+                    collider.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack);
+                else
+                    collider.gameObject.GetComponent<IDamageable>().Damaged(-Player.Attack);
+            }
         }
     }
 
@@ -141,11 +134,15 @@ public class Hammer : MonoBehaviour
         Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, 2f, Damageable);
         foreach (Collider2D collider in detectedObjects)
         {
-            if (collider.transform.position.x - transform.position.x >= 0)
-                collider.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack);
-            else
-                collider.gameObject.GetComponent<IDamageable>().Damaged(-Player.Attack);
-            collider.gameObject.GetComponent<IEffectable>().ApplyBuff(new MaceStun(3f, "Hammer - Ability1", collider.gameObject));
+            if (collider.gameObject.tag == "Enemy")
+            {
+                if (collider.transform.position.x - transform.position.x >= 0)
+                    collider.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack);
+                else
+                    collider.gameObject.GetComponent<IDamageable>().Damaged(-Player.Attack);
+                if (collider.gameObject.GetComponent<Entity>().currentHealth > 0)
+                    collider.gameObject.GetComponent<IEffectable>().ApplyBuff(new MaceStun(3f, "Hammer - Ability1", collider.gameObject));
+            }
         }
 
         Cooldowns[1].SetActive(true);
@@ -219,16 +216,18 @@ public class Hammer : MonoBehaviour
         Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, 5f, Damageable);
         foreach (Collider2D collider in detectedObjects)
         {
-            if (collider.transform.position.x - transform.position.x >= 0)
-                collider.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack);
-            else
-                collider.gameObject.GetComponent<IDamageable>().Damaged(-Player.Attack);
-            if (collider.GetComponent<Entity>().currentHealth > 0)
+            if (collider.gameObject.tag == "Enemy")
             {
-                StartCoroutine(KnockCoroutine(collider.GetComponent<Rigidbody2D>()));
-                collider.gameObject.GetComponent<IEffectable>().ApplyBuff(new MaceStun(5f, "Hammer - Ultimate", collider.gameObject));
+                if (collider.transform.position.x - transform.position.x >= 0)
+                    collider.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack);
+                else
+                    collider.gameObject.GetComponent<IDamageable>().Damaged(-Player.Attack);
+                if (collider.GetComponent<Entity>().currentHealth > 0)
+                {
+                    StartCoroutine(KnockCoroutine(collider.GetComponent<Rigidbody2D>()));
+                    collider.gameObject.GetComponent<IEffectable>().ApplyBuff(new MaceStun(5f, "Hammer - Ultimate", collider.gameObject));
+                }
             }
-            
         }
         PSC.isAttacking = false;
         Cooldowns[3].SetActive(true);

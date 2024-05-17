@@ -36,16 +36,6 @@ public class Daggers : MonoBehaviour
         Damageable = LayerMask.GetMask("Enemy");
     }
 
-    private void Start()
-    {
-        string[] icons = { "Daggers/Attack", "Daggers/Ability1", "Daggers/Ability2", "Daggers/Ultimate", "Movement" };
-        for (int i = 0; i < icons.Length; i++)
-        {
-            Cooldowns[i].GetComponent<CooldownUI>().InitiateCooldown(Resources.Load<Sprite>("Icons/" + icons[i]), gameObject);
-            Cooldowns[i].SetActive(false);
-        }
-    }
-
     public Vector2 MapPoint(Vector2 point, float radius)
     {
         float angle = Mathf.Atan2(point.y, point.x);
@@ -112,10 +102,13 @@ public class Daggers : MonoBehaviour
         Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, attackRadius, Damageable);
         foreach (Collider2D collider in detectedObjects)
         {
-            if (collider.transform.position.x - gameObject.transform.position.x >= 0)
-                collider.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack);
-            else
-                collider.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack);
+            if (collider.gameObject.tag == "Enemy")
+            {
+                if (collider.transform.position.x - gameObject.transform.position.x >= 0)
+                    collider.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack);
+                else
+                    collider.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack);
+            }
         }
     }
 

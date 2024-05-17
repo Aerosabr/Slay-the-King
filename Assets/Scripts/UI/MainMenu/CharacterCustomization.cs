@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class CharacterCustomization : MonoBehaviour
 {
+    public static CharacterCustomization instance;
 	public List<Animator> hairList = new List<Animator>();
 	public int hairCounter = 0;
 	public Color hairColor = Color.black;
@@ -15,6 +16,7 @@ public class CharacterCustomization : MonoBehaviour
 	public int counter = 0;
 	public int equippedWeapon = 1;
 	public bool twoHanded = false;
+    public string WeaponName;
 
 	public List<Animator> Sprites = new List<Animator>();
 	public float walkSpeed = 1;
@@ -29,7 +31,8 @@ public class CharacterCustomization : MonoBehaviour
 	public Text hairName;
 
 	private void Awake()
-	{		
+	{
+        instance = this;
 	}
 
 	private void Start()
@@ -121,12 +124,15 @@ public class CharacterCustomization : MonoBehaviour
 		{
 			Sprites[5].runtimeAnimatorController = classList[counter].weapon1.runtimeAnimatorController;
 			weapon1.Select();
-		}
+            WeaponName = classList[counter].weapon1Name;
+
+        }
 		else if (equippedWeapon == 2)
 		{
 			Sprites[5].runtimeAnimatorController = classList[counter].weapon2.runtimeAnimatorController;
 			weapon2.Select();
-		}
+            WeaponName = classList[counter].weapon2Name;
+        }
 		
 		UpdateSpriteParameters();
 	}

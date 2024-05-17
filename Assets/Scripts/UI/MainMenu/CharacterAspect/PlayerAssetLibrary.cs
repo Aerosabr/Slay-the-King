@@ -15,6 +15,8 @@ public class PlayerAssetLibrary : ScriptableObject
 	public bool weapon2twoHanded;
 	public Sprite weapon1Icon;
 	public Sprite weapon2Icon;
+    public string weapon1Name;
+    public string weapon2Name;
 
-	public GameObject characterClass;
+  	public GameObject characterClass;
 }

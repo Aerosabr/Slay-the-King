@@ -42,6 +42,8 @@ public class SwordGoblin : Entity, IDamageable, IEffectable
                 Attacking();
             }
         }
+        else if (isStunned)
+            ESC.PlayAnimation("Idle");
 
         if (Buffs.Count > 0)
             HandleBuff();
@@ -101,7 +103,6 @@ public class SwordGoblin : Entity, IDamageable, IEffectable
             ESC.PlayAnimation("Death");
             Destroy(rb);
             Destroy(GetComponent<BoxCollider2D>());
-            Destroy(GetComponent<CircleCollider2D>());
             StartCoroutine(Death(2f));
         }
         else
