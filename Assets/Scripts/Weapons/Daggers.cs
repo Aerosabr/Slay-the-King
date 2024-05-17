@@ -34,6 +34,7 @@ public class Daggers : MonoBehaviour
         attackHitBoxPos = transform.Find("AttackHitbox");
         daggerPrefab = Resources.Load<GameObject>("Prefabs/Dagger");
         Damageable = LayerMask.GetMask("Enemy");
+        PSC.twoHanded = false;
     }
 
     private void Start()

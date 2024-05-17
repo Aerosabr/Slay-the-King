@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -25,6 +26,8 @@ public class PlayerSpriteController : MonoBehaviour
     public LayerMask interactableLayer;
     public bool Movable = true;
 
+    public bool twoHanded = false;
+
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
@@ -48,6 +51,13 @@ public class PlayerSpriteController : MonoBehaviour
             UpdateSpriteParameters();
         }
     }
+
+    public void ChangeCharacterAppearance(int index, Animator equipment)
+    {
+        Sprites[index].runtimeAnimatorController = equipment.runtimeAnimatorController;
+		foreach (Animator sprite in Sprites)
+			sprite.Play("IdleS", -1, 0f);
+	}
 
     public void Attack(string animation, float spriteSpeed)
     {
@@ -101,15 +111,20 @@ public class PlayerSpriteController : MonoBehaviour
 
         if (isMoving)
         {
-            if(player.Class == "Ranger")
-				PlayAnimation("ArcherRun");
-			else
+            if (twoHanded)
+                PlayAnimation("2HRun");
+            else
                 PlayAnimation("Run");
             currentDirection = keyboardDirection;
         }
         else if (!isMoving)
-            PlayAnimation("Idle");
-    }
+        {
+            if (twoHanded)
+                PlayAnimation("2HIdle");
+            else
+				PlayAnimation("Idle");
+		}
+	}
 
     public void PlayAnimation(string Name)
     {
