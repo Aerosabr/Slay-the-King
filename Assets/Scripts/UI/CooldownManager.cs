@@ -5,6 +5,8 @@ using UnityEngine;
 public class CooldownManager : MonoBehaviour
 {
     public List<GameObject> Cooldowns = new List<GameObject>();
+    public GameObject HP;
+
     void Awake()
     {
         PlayerManager.instance.Cooldowns = Cooldowns;
@@ -12,11 +14,12 @@ public class CooldownManager : MonoBehaviour
 
     private void Start()
     {
-        string[] icons = { "/Attack", "/Ability1", "/Ability2", "/Ultimate", "Movement" };
+        string[] icons = { "/Attack", "/Ability1", "/Ability2", "/Ultimate", "/Movement" };
         for (int i = 0; i < icons.Length; i++)
         {
-            Cooldowns[i].GetComponent<CooldownUI>().InitiateCooldown(Resources.Load<Sprite>("Icons/" + PlayerManager.instance.player1Weapon + icons[i]), gameObject);
+            Cooldowns[i].GetComponent<CooldownUI>().InitiateCooldown(Resources.Load<Sprite>("Icons/" + PlayerManager.instance.player1Weapon + icons[i]), PlayerManager.instance.gameObject.transform.GetChild(0).transform.GetChild(0).gameObject);
             Cooldowns[i].SetActive(false);
         }
+        PlayerManager.instance.gameObject.transform.GetChild(0).transform.GetChild(0).GetComponent<Player>().HealthBar = HP;
     }
 }
