@@ -8,9 +8,10 @@ using UnityEngine.SceneManagement;
 public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager instance;
+    public GameObject cam;
     public List<GameObject> Players = new List<GameObject>();
     public int NumPlayers = 0;
-    public string player1Weapon = "Bow";
+    public string player1Weapon;
     public List<GameObject> Cooldowns = new List<GameObject>();
 
     void Awake()
@@ -22,12 +23,6 @@ public class PlayerManager : MonoBehaviour
         }
         else
             Destroy(gameObject);
-
-        Cooldowns.Add(GameObject.Find("AttackCooldown"));
-        Cooldowns.Add(GameObject.Find("Ability1Cooldown"));
-        Cooldowns.Add(GameObject.Find("Ability2Cooldown"));
-        Cooldowns.Add(GameObject.Find("UltimateCooldown"));
-        Cooldowns.Add(GameObject.Find("MovementCooldown"));
     }
 
     
@@ -35,12 +30,6 @@ public class PlayerManager : MonoBehaviour
     {
         if (NumPlayers == 4)
             return;
-
-        GameObject temp = Instantiate(Resources.Load<GameObject>("Prefabs/Classes/Berserker"), transform.GetChild(slot - 1));
-        Transform position = GameObject.Find("CharacterSlotPositions").transform.GetChild(slot - 1).transform;
-        temp.transform.position = position.transform.position;
-        temp.transform.localScale = position.transform.localScale;
-        temp.name = "Player" + slot;
 
         NumPlayers++;
     }
@@ -64,7 +53,16 @@ public class PlayerManager : MonoBehaviour
 
     public void StartGame()
     {
-        
+        if (NumPlayers == 1)
+        {
+            player1Weapon = CharacterCustomization.instance.WeaponName;
+            GameObject temp = Instantiate(Resources.Load<GameObject>("Prefabs/Classes/" + CharacterCustomization.instance.className.text), transform.GetChild(0));
+            temp.transform.GetComponent<SpriteRenderer>().color = CharacterCustomization.instance.skinColor;
+			temp.transform.GetChild(0).GetComponent<SpriteRenderer>().color = CharacterCustomization.instance.hairColor;
+			temp.transform.GetChild(1).GetComponent<SpriteRenderer>().color = CharacterCustomization.instance.skinColor;
+			temp.SetActive(true);
+            cam.SetActive(false);
+        }
     }
 
 }

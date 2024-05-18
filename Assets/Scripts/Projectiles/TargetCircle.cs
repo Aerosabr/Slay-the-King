@@ -9,8 +9,8 @@ public class TargetCircle : MonoBehaviour
 
     public IEnumerator FillTarget()
     {
-        fill.localScale += new Vector3(.02f, .02f);
-        yield return new WaitForSeconds(duration / 100);
+        fill.localScale += new Vector3(.04f, .04f);
+        yield return new WaitForSeconds(duration / 50);
         if (fill.localScale.x < 2)
             StartCoroutine(FillTarget());
         else

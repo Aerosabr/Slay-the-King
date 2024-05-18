@@ -33,16 +33,6 @@ public class Tome : MonoBehaviour
         Laserbeam = Resources.Load<GameObject>("Prefabs/LaserBeam");
     }
 
-    private void Start()
-    {
-        string[] icons = { "Tome/Attack", "Tome/Ability1", "Tome/Ability2", "Tome/Ultimate", "Movement" };
-        for (int i = 0; i < icons.Length; i++)
-        {
-            Cooldowns[i].GetComponent<CooldownUI>().InitiateCooldown(Resources.Load<Sprite>("Icons/" + icons[i]), gameObject);
-            Cooldowns[i].SetActive(false);
-        }
-    }
-
     public Vector2 MapPoint(Vector2 point, float radius)
     {
         float angle = Mathf.Atan2(point.y, point.x);

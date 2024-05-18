@@ -29,17 +29,6 @@ public class DualAxes : MonoBehaviour
         ThrownAxe = Resources.Load<GameObject>("Prefabs/ThrownAxe");
     }
 
-    private void Start()
-    {
-        //string[] icons = { "DualAxes/Attack", "DualAxes/Ability1", "DualAxes/Ability2", "DualAxes/Ultimate", "Movement" };
-        string[] icons = { "Movement", "Movement", "Movement", "Movement", "Movement" };
-        for (int i = 0; i < icons.Length; i++)
-        {
-            Cooldowns[i].GetComponent<CooldownUI>().InitiateCooldown(Resources.Load<Sprite>("Icons/" + icons[i]), gameObject);
-            Cooldowns[i].SetActive(false);
-        }
-    }
-
     public Vector2 MapPoint(Vector2 point, float radius)
     {
         float angle = Mathf.Atan2(point.y, point.x);
@@ -108,10 +97,13 @@ public class DualAxes : MonoBehaviour
         Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, 1.5f, Damageable);
         foreach (Collider2D collider in detectedObjects)
         {
-            if (collider.transform.position.x - transform.position.x >= 0)
-                collider.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack);
-            else
-                collider.gameObject.GetComponent<IDamageable>().Damaged(-Player.Attack);
+            if (collider.gameObject.tag == "Enemy")
+            {
+                if (collider.transform.position.x - transform.position.x >= 0)
+                    collider.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack);
+                else
+                    collider.gameObject.GetComponent<IDamageable>().Damaged(-Player.Attack);
+            }
         }
     }
 
@@ -179,12 +171,18 @@ public class DualAxes : MonoBehaviour
         Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, 2f, Damageable);
         foreach (Collider2D collider in detectedObjects)
         {
-            if (collider.transform.position.x - transform.position.x >= 0)
-                collider.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack);
-            else
-                collider.gameObject.GetComponent<IDamageable>().Damaged(-Player.Attack);
-            StartCoroutine(KnockCoroutine(collider.GetComponent<Rigidbody2D>()));
-            collider.gameObject.GetComponent<IEffectable>().ApplyBuff(new IncreaseDamageTaken(20, 10f, "Dual Axes - Ability2", collider.gameObject));
+            if (collider.gameObject.tag == "Enemy")
+            {
+                if (collider.transform.position.x - transform.position.x >= 0)
+                    collider.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack);
+                else
+                    collider.gameObject.GetComponent<IDamageable>().Damaged(-Player.Attack);
+                if (collider.gameObject.GetComponent<Entity>().currentHealth > 0)
+                {
+                    StartCoroutine(KnockCoroutine(collider.GetComponent<Rigidbody2D>()));
+                    collider.gameObject.GetComponent<IEffectable>().ApplyBuff(new IncreaseDamageTaken(20, 10f, "Dual Axes - Ability2", collider.gameObject));
+                }
+            }
         }
         yield return new WaitForSeconds(.25f);
         Cooldowns[2].SetActive(true);

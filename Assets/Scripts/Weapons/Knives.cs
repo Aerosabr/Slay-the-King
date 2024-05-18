@@ -27,16 +27,6 @@ public class Knives : MonoBehaviour
         knifePrefab = Resources.Load<GameObject>("Prefabs/Knife");
     }
 
-    private void Start()
-    {
-        string[] icons = { "Knives/Attack", "Knives/Ability1", "Knives/Ability2", "Knives/Ultimate", "Movement" };
-        for (int i = 0; i < icons.Length; i++)
-        {
-            Cooldowns[i].GetComponent<CooldownUI>().InitiateCooldown(Resources.Load<Sprite>("Icons/" + icons[i]), gameObject);
-            Cooldowns[i].SetActive(false);
-        }
-    }
-
     public Vector2 MapPoint(Vector2 point, float radius)
     {
         float angle = Mathf.Atan2(point.y, point.x);

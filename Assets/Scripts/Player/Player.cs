@@ -40,12 +40,17 @@ public class Player : Entity, IEffectable, IDamageable
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        HealthBar = GameObject.Find("PlayerHealth").transform.GetChild(0).gameObject;
-        
-    }
+	}
 
     void Update()
     {
+        /*
+        if (rb == null || HealthBar == null)
+        {
+			rb = GetComponent<Rigidbody2D>();
+			HealthBar = GameObject.Find("PlayerHealth").transform.GetChild(0).gameObject;
+		}
+        */
         if (Buffs.Count > 0)
             HandleBuff();
     }

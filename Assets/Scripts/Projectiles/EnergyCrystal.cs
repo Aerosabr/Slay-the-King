@@ -36,10 +36,13 @@ public class EnergyCrystal : MonoBehaviour
         Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(transform.position, 2f, Damageable);
         foreach (Collider2D collision in detectedObjects)
         {
-            if (collision.transform.position.x - gameObject.transform.position.x >= 0)
-                collision.gameObject.GetComponent<IDamageable>().Damaged(Damage);
-            else
-                collision.gameObject.GetComponent<IDamageable>().Damaged(-Damage);
+            if (collision.gameObject.tag == "Enemy")
+            {
+                if (collision.transform.position.x - gameObject.transform.position.x >= 0)
+                    collision.gameObject.GetComponent<IDamageable>().Damaged(Damage);
+                else
+                    collision.gameObject.GetComponent<IDamageable>().Damaged(-Damage);
+            }
         }
         Destroy(gameObject);
     }
