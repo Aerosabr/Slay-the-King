@@ -56,10 +56,7 @@ public class TestPlayerAnimation : MonoBehaviour
 	}
 	public void NextWeapon()
 	{
-		if(counter == weaponSO.Length)
-		{
-			counter = 0;
-		}
+		counter = (counter + 1) % weaponSO.Length;
 		selectedWeaponSO = weaponSO[counter];
 		for (int i = 0; i < 8; i++)
 		{
@@ -67,14 +64,10 @@ public class TestPlayerAnimation : MonoBehaviour
 		}
 		DisplayWeaponText();
 		PlayAnimation("Idle");
-		counter += 1;
 	}
 	public void PrevWeapon()
 	{
-		if (counter == -1)
-		{
-			counter = weaponSO.Length - 1;
-		}
+		counter = (counter - 1 + weaponSO.Length) % weaponSO.Length;
 		selectedWeaponSO = weaponSO[counter];
 		for (int i = 0; i < 8; i++)
 		{
@@ -82,7 +75,6 @@ public class TestPlayerAnimation : MonoBehaviour
 		}
 		DisplayWeaponText();
 		PlayAnimation("Idle");
-		counter -= 1;
 	}
 
 	public void DisplayWeaponText()

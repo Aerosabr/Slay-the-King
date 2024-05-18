@@ -15,10 +15,10 @@ public class ConvertPlayerToUI : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        
-    }
+        UpdatePlayerToUI();
+	}
 
     public void UpdatePlayerToUI()
     {
@@ -32,6 +32,24 @@ public class ConvertPlayerToUI : MonoBehaviour
             {
                 storedPlayer.GetChild(i).GetComponent<Animator>().runtimeAnimatorController = player.GetChild(0).GetChild(i).GetComponent<Animator>().runtimeAnimatorController;
             }
-        }
-    }
+			if (player.GetChild(0).GetComponent<PlayerSpriteController>().twoHanded)
+			{
+				storedPlayer.GetComponent<Animator>().Play("2HIdleS");
+				for (int i = 0; i < maxBodyParts; ++i)
+				{
+					storedPlayer.GetChild(i).GetComponent<Animator>().runtimeAnimatorController = player.GetChild(0).GetChild(i).GetComponent<Animator>().runtimeAnimatorController;
+					storedPlayer.GetChild(i).GetComponent<Animator>().Play("2HIdleS");
+				}
+			}
+			else
+			{
+				storedPlayer.GetComponent<Animator>().Play("IdleS");
+				for (int i = 0; i < maxBodyParts; ++i)
+				{
+					storedPlayer.GetChild(i).GetComponent<Animator>().runtimeAnimatorController = player.GetChild(0).GetChild(i).GetComponent<Animator>().runtimeAnimatorController;
+					storedPlayer.GetChild(i).GetComponent<Animator>().Play("IdleS");
+				}
+			}
+		}
+	}
 }

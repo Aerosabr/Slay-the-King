@@ -19,6 +19,7 @@ public class Bow : MonoBehaviour
     public bool MovementCD = true;
 
     public float dashDistance = 15f;
+    public bool isDashing = false;
 
     public void Awake()
     {
@@ -45,6 +46,28 @@ public class Bow : MonoBehaviour
     }
 
 	#region Player Movement
+    public void CreateGhost()
+    {
+        transform.GetChild(4).GetChild(3).GetComponent<SpriteRenderer>().sprite = PSC.Sprites[0].GetComponent<SpriteRenderer>().sprite;
+		transform.GetChild(4).GetChild(3).GetChild(0).GetComponent<SpriteRenderer>().sprite = PSC.Sprites[1].GetComponent<SpriteRenderer>().sprite;
+		transform.GetChild(4).GetChild(3).GetChild(1).GetComponent<SpriteRenderer>().sprite = PSC.Sprites[2].GetComponent<SpriteRenderer>().sprite;
+		transform.GetChild(4).GetChild(3).GetChild(2).GetComponent<SpriteRenderer>().sprite = PSC.Sprites[3].GetComponent<SpriteRenderer>().sprite;
+		transform.GetChild(4).GetChild(3).GetChild(3).GetComponent<SpriteRenderer>().sprite = PSC.Sprites[4].GetComponent<SpriteRenderer>().sprite;
+		transform.GetChild(4).GetChild(3).GetChild(4).GetComponent<SpriteRenderer>().sprite = PSC.Sprites[5].GetComponent<SpriteRenderer>().sprite;
+		transform.GetChild(4).GetChild(3).GetChild(5).GetComponent<SpriteRenderer>().sprite = PSC.Sprites[6].GetComponent<SpriteRenderer>().sprite;
+		transform.GetChild(4).GetChild(3).GetChild(6).GetComponent<SpriteRenderer>().sprite = PSC.Sprites[7].GetComponent<SpriteRenderer>().sprite;
+        var clone = Instantiate(transform.GetChild(4).GetChild(3), transform.position, transform.rotation);
+        clone.gameObject.SetActive(true);
+		Destroy(clone.gameObject, 0.2f);
+	}
+    public IEnumerator GenerateGhost()
+    {
+        while(isDashing)
+        {
+            CreateGhost();
+            yield return null;
+        }
+    }    
 	public void OnDash()
     {
         if (!PSC.isAttacking && MovementCD)
@@ -58,7 +81,10 @@ public class Bow : MonoBehaviour
     public IEnumerator Dashing()
     {
         PSC.Movable = false;
+        isDashing = true;
+        StartCoroutine(GenerateGhost());
         yield return new WaitForSeconds(0.25f);
+        isDashing = false;
         Cooldowns[4].SetActive(true);
         Cooldowns[4].GetComponent<CooldownUI>().StartCooldown(5f);
         PSC.Movable = true;
@@ -136,8 +162,11 @@ public class Bow : MonoBehaviour
     private IEnumerator Ability1Cast()
     {
 		PSC.Attack("DashBackShoot", 1);
+		isDashing = true;
+		StartCoroutine(GenerateGhost());
 		PSC._rigidbody.velocity = new Vector2(-PSC.currentDirection.x * dashDistance, -PSC.currentDirection.y * dashDistance);
         yield return new WaitForSeconds(.2f);
+        isDashing = false;
         PSC._rigidbody.velocity = Vector2.zero;
         yield return new WaitForSeconds(.5f);
         Cooldowns[1].SetActive(true);

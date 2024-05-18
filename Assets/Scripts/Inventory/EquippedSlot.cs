@@ -100,11 +100,14 @@ public class EquippedSlot : MonoBehaviour, IPointerClickHandler
 
     public void EquipGear(ItemSO item)
     {
-        if (item.itemType == ItemType.weapon)
-            GameObject.Find("PlayerManager").transform.GetChild(0).transform.GetChild(0).GetComponent<Class>().changeWeapon(item.weaponType);
-
-        // Check if item already there
-        if (slotInUse)
+		EquipmentSO equipment = (EquipmentSO)item;
+		if (item.itemType == ItemType.weapon)
+		{
+			inventoryManager.player.transform.GetComponent<Class>().changeWeapon(item.weaponType);
+			inventoryManager.player.transform.GetComponent<PlayerSpriteController>().ChangeCharacterAppearance(5, equipment.animator);
+		}
+		// Check if item already there
+		if (slotInUse)
             UnEquipGear();
 
         // Update Image
@@ -112,11 +115,11 @@ public class EquippedSlot : MonoBehaviour, IPointerClickHandler
 		slotIcon.SetActive(false);
 		// Update Player Stats
 		this.item = item;
-        EquipmentSO equipment = (EquipmentSO)item;
         equipment.EquipItem(inventoryManager);
+		slotInUse = true;
+        
 
-        slotInUse = true;
-    }
+	}
 
     public void UnEquipGear()
     {
