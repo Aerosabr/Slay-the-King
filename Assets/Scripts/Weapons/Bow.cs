@@ -89,12 +89,6 @@ public class Bow : MonoBehaviour
         Cooldowns[4].GetComponent<CooldownUI>().StartCooldown(5f);
         PSC.Movable = true;
     }
-    public void GenerateGhost()
-    {
-        return;
-		//PSC.Sprites[5].GetChild(4).
-	}
-
     public float GetMovementCooldown()
     {
         return 5f;
