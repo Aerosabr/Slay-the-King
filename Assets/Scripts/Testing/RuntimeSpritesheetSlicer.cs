@@ -12,8 +12,8 @@ public class TextureSlicer : MonoBehaviour
 	public string baseDirectory = "Assets/Resources/PlayerSprites";
 
 	// Set your desired sprite width and height here
-	public int sliceWidth = 960;
-	public int sliceHeight = 540;
+	public int sliceWidth = 256;
+	public int sliceHeight = 256;
 
 	public List<string> foldersToLoad = new List<string>();
 
@@ -93,14 +93,17 @@ public class TextureSlicer : MonoBehaviour
 		{
 			for (int x = 0; x < textureWidth; x += sliceWidth)
 			{
-				SpriteRect spriteRect = new SpriteRect();
-				spriteRect.rect = new Rect(x, y - sliceHeight, sliceWidth, sliceHeight);
-				spriteRect.pivot = new Vector2(0.5f, 0f);
-				spriteRect.name = texture.name + "_" + counter;
-				spriteRect.alignment = SpriteAlignment.BottomCenter;
-				spriteRect.border = new Vector4(0, 0, 0, 0);
-				counter += 1;
-				spriteRects.Add(spriteRect);
+				if(counter != 20)
+				{
+					SpriteRect spriteRect = new SpriteRect();
+					spriteRect.rect = new Rect(x, y - sliceHeight, sliceWidth, sliceHeight);
+					spriteRect.pivot = new Vector2(0.5f, 0f);
+					spriteRect.name = texture.name + "_" + counter;
+					spriteRect.alignment = SpriteAlignment.BottomCenter;
+					spriteRect.border = new Vector4(0, 0, 0, 0);
+					counter += 1;
+					spriteRects.Add(spriteRect);
+				}
 			}
 		}
 

@@ -1,82 +1,121 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using System.IO;
 using System.Linq;
-using System;
-using System.Net.NetworkInformation;
-using UnityEditor.Animations;
 
 public class AnimationBuilder : MonoBehaviour
 {
 	public string[] combineFolders; // Example array of folder names
-    public string[] folderNamesToCompare;
+	public string[] folderNamesToCompare;
 
 	void Awake()
-    {
-        // Get all subdirectories (folders) within the parent folder
-        
-        foreach (string combineFolder in combineFolders)
-        {
-			string[] subDirectories = Directory.GetDirectories("Assets/Resources/PlayerSprites/" + combineFolder);
-			foreach (string subDirectory in subDirectories)
-            {
-                // Get the name of the subdirectory (folder)
-                string folderName = Path.GetFileName(subDirectory);
-                string[] subDirections = Directory.GetDirectories(subDirectory);
-                // || folderName == "Block" || folderName == "DSlash" || folderName == "HandCast"
-                if (Array.Exists(folderNamesToCompare, name => name == folderName))
-                {
-                    foreach (string subDirection in subDirections)
-                    {
-                        Debug.Log(subDirection);
-                        string directionName = Path.GetFileName(subDirection);
-                        directionName = char.ToUpper(directionName[0]) + directionName.Substring(1);
+	{
+		// Iterate through each folder in combineFolders
+		foreach (string combineFolder in combineFolders)
+		{
+			// Get all sprite sheets in the specified combine folder
+			string[] spriteSheets = Directory.GetFiles("Assets/Resources/PlayerSprites/" + combineFolder, "*.png");
 
-                        // Load all sprites from the specified folder path using Resources.LoadAll
-                        Sprite[] sprites = Resources.LoadAll<Sprite>(Path.Combine("PlayerSprites/" + combineFolder, folderName, directionName));
-                        CreateAnimationClip(folderName + directionName, sprites, subDirection, combineFolder);
+			foreach (string spriteSheet in spriteSheets)
+			{
+				// Get the name of the sprite sheet (without extension)
+				string spriteSheetName = Path.GetFileNameWithoutExtension(spriteSheet);
+				string normalizedSpriteSheetName = NormalizeName(spriteSheetName);
 
-                    }
-                }
-            }
-        }
-    }
-    private void CreateAnimationClip(string folderName, Sprite[] sprites, string parentDirectory, string combineFolder)
-    {
-        // Create a new animation clip
-        AnimationClip animationClip = new AnimationClip();
-        animationClip.frameRate = 60; // Set frame rate to 5 frames per second
+				// Ensure the directory exists
+				string directoryPath = Path.Combine("Assets/Animations/Player/" + combineFolder);
+				if (!Directory.Exists(directoryPath))
+				{
+					Directory.CreateDirectory(directoryPath);
+				}
 
-        if(folderName.Contains("Run") || folderName.Contains("Idle"))
-			animationClip.wrapMode = WrapMode.Loop;
-		// Add sprite animation curve to the animation clip
-		EditorCurveBinding curveBinding = new EditorCurveBinding();
-        curveBinding.type = typeof(SpriteRenderer);
-        curveBinding.path = "";
-        curveBinding.propertyName = "m_Sprite";
+				// Load the sprites from the sprite sheet
+				Sprite[] sprites = AssetDatabase.LoadAllAssetsAtPath(spriteSheet)
+											  .OfType<Sprite>()
+											  .ToArray();
 
-        ObjectReferenceKeyframe[] keyframes = new ObjectReferenceKeyframe[sprites.Length];
-        // Add keyframes every 5 seconds
-        float duration = 5f /60f;
-        int numKeyframes = 10; // Adjust the number of keyframes as needed
-        for (int i = 0; i < numKeyframes; i++)
-        {
-            ObjectReferenceKeyframe keyframe = new ObjectReferenceKeyframe();
-            keyframe.time = i * duration;
-            keyframe.value = sprites[i];
-            keyframes[i] = keyframe;
-        }
-        AnimationUtility.SetObjectReferenceCurve(animationClip, curveBinding, keyframes);
+				Debug.Log($"Loaded {sprites.Length} sprites from {spriteSheetName}");
 
-        // Save animation clip as asset
-        string animationClipPath = Path.Combine("Assets/Animations/Player/" + combineFolder, folderName + ".anim");
-        AssetDatabase.CreateAsset(animationClip, animationClipPath);
-        AssetDatabase.SaveAssets();
-        AssetDatabase.Refresh();
-
-		
+				if (sprites.Length > 0)
+				{
+					CreateOrUpdateAnimationClip(normalizedSpriteSheetName, sprites, combineFolder);
+				}
+				else
+				{
+					Debug.LogError($"No sprites found in sprite sheet: PlayerSprites/{combineFolder}/{spriteSheetName}");
+				}
+			}
+		}
 	}
 
+	private void CreateOrUpdateAnimationClip(string animationName, Sprite[] sprites, string combineFolder)
+	{
+		// Check if the animation clip already exists
+		string animationClipPath = Path.Combine("Assets/Animations/Player/" + combineFolder, animationName + ".anim");
+		Debug.Log($"Animation clip path: {animationClipPath}");
+
+		AnimationClip animationClip = AssetDatabase.LoadAssetAtPath<AnimationClip>(animationClipPath);
+
+		if (animationClip == null)
+		{
+			// Create a new animation clip if it doesn't exist
+			animationClip = new AnimationClip
+			{
+				frameRate = 60 // Set frame rate to 60 frames per second
+			};
+
+			if (animationName.Contains("Run") || animationName.Contains("Idle"))
+			{
+				animationClip.wrapMode = WrapMode.Loop;
+			}
+		}
+
+		// Store existing events
+		AnimationEvent[] existingEvents = AnimationUtility.GetAnimationEvents(animationClip);
+
+		// Add or update sprite animation curve in the animation clip
+		EditorCurveBinding curveBinding = new EditorCurveBinding
+		{
+			type = typeof(SpriteRenderer),
+			path = "",
+			propertyName = "m_Sprite"
+		};
+
+		ObjectReferenceKeyframe[] keyframes = new ObjectReferenceKeyframe[sprites.Length];
+
+		// Calculate duration for each frame
+		float duration = 5f / animationClip.frameRate;
+
+		for (int i = 0; i < sprites.Length; i++)
+		{
+			keyframes[i] = new ObjectReferenceKeyframe
+			{
+				time = i * duration,
+				value = sprites[i]
+			};
+		}
+		AnimationUtility.SetObjectReferenceCurve(animationClip, curveBinding, keyframes);
+
+		// Set the existing events back to the animation clip
+		AnimationUtility.SetAnimationEvents(animationClip, existingEvents);
+
+		if (AssetDatabase.Contains(animationClip))
+		{
+			// If the animation clip already exists, just save and refresh
+			EditorUtility.SetDirty(animationClip);
+		}
+		else
+		{
+			// If it's a new animation clip, create an asset
+			AssetDatabase.CreateAsset(animationClip, animationClipPath);
+		}
+
+		AssetDatabase.SaveAssets();
+		AssetDatabase.Refresh();
+	}
+
+	private string NormalizeName(string name)
+	{
+		return name.Replace("_", "");
+	}
 }
