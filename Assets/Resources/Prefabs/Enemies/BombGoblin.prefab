@@ -119,7 +119,7 @@ SpriteRenderer:
   m_Size: {x: 1.5, y: 1.5}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!95 &1145203179799810297
@@ -278,14 +278,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6f839b5512f2974cbfaaca848375ef9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseMaxHealth: 0
+  baseMaxHealth: 100
   healthMultiplier: 1
-  maxHealth: 0
-  currentHealth: 0
+  maxHealth: 100
+  currentHealth: 100
   Shield: 0
-  baseAttack: 0
+  baseAttack: 100
   attackMultiplier: 1
-  Attack: 0
+  Attack: 100
   baseDefense: 0
   defenseMultiplier: 1
   Defense: 0
@@ -305,7 +305,7 @@ MonoBehaviour:
   ccImmune: 0
   rb: {fileID: 0}
   speed: 1
-  Cost: 0
+  Cost: 5
   player: {fileID: 0}
   ESC: {fileID: 0}
   attackHitBoxPos: {fileID: 0}
@@ -313,4 +313,3 @@ MonoBehaviour:
   Damageable:
     serializedVersion: 2
     m_Bits: 0
-  arrowPrefab: {fileID: 0}

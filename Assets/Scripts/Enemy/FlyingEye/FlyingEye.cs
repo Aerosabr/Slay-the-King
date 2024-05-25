@@ -9,7 +9,6 @@ public class FlyingEye : Entity, IDamageable, IEffectable
     public Rigidbody2D rb;
     public float speed = 1.0f;
     public bool isAttacking;
-    public int Cost;
     public GameObject player;
     public EnemySpriteController ESC;
 

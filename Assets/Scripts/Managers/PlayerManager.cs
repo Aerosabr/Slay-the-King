@@ -61,6 +61,7 @@ public class PlayerManager : MonoBehaviour
 			temp.transform.GetChild(0).GetComponent<SpriteRenderer>().color = CharacterCustomization.instance.hairColor;
 			temp.transform.GetChild(1).GetComponent<SpriteRenderer>().color = CharacterCustomization.instance.skinColor;
 			temp.SetActive(true);
+            Players.Add(temp);
             cam.SetActive(false);
         }
     }

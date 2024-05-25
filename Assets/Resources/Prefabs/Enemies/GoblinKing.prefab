@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3420011905045596356}
   m_Layer: 7
   m_Name: Collider
-  m_TagString: Untagged
+  m_TagString: EnemyCollider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -121,7 +121,7 @@ GameObject:
   - component: {fileID: 4252662763630413940}
   m_Layer: 9
   m_Name: AttackHitbox
-  m_TagString: Environment
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -281,7 +281,7 @@ SpriteRenderer:
   m_Size: {x: 1.5, y: 1.5}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!95 &1145203179799810297
@@ -432,7 +432,7 @@ MonoBehaviour:
   ccImmune: 0
   rb: {fileID: 0}
   speed: 1
-  Cost: 0
+  Cost: 1000
   player: {fileID: 0}
   ESC: {fileID: 0}
   attackHitBoxPos: {fileID: 0}

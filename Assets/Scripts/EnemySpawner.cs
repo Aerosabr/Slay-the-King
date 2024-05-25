@@ -26,6 +26,8 @@ public class EnemySpawner : MonoBehaviour
     {
         instance = this;
         WaveHUD = GameObject.Find("WaveHUD");
+        StartCoroutine(Spawning());
+        /*
         for (int i = 1; i < 4; i++)
         {
             GameObject temp = Instantiate(Resources.Load<GameObject>("Prefabs/FlyingEye"), transform);
@@ -35,9 +37,8 @@ public class EnemySpawner : MonoBehaviour
             temp.name = "FlyingEye" + i;
         }
 
-        StartCoroutine(Spawning());
-
-        //SpawnEnemy(Resources.Load<GameObject>("Prefabs/FlyingEye"));
+        SpawnEnemy(Resources.Load<GameObject>("Prefabs/FlyingEye"));
+        */
     }
 
     public IEnumerator Spawning()
@@ -45,11 +46,11 @@ public class EnemySpawner : MonoBehaviour
         while (Credit > 0)
         {
             GameObject enemy = Enemies[Random.Range(0, Enemies.Count)];
-            if (Credit >= enemy.GetComponent<FlyingEye>().Cost)
+            if (Credit >= enemy.GetComponent<Entity>().Cost)
             {
                 SpawnEnemy(enemy);
-                Credit -= enemy.GetComponent<FlyingEye>().Cost;
-                yield return new WaitForSeconds(Random.Range(2f, 3f));
+                Credit -= enemy.GetComponent<Entity>().Cost;
+                yield return new WaitForSeconds(Random.Range(1f, 3f));
             } 
         }
         StartCoroutine(WaitUntilEnemiesKilled());
@@ -57,7 +58,21 @@ public class EnemySpawner : MonoBehaviour
 
     public void SpawnEnemy(GameObject Enemy)
     {
-        Vector3 SpawnArea = new Vector3(Random.Range(-spawnRadius / 2, spawnRadius / 2), Random.Range(-spawnRadius / 2, spawnRadius / 2));
+        bool searchLocation = true;
+        Vector3 SpawnArea = Vector3.zero;
+        while (searchLocation)
+        {
+            searchLocation = false;
+            SpawnArea = new Vector3(Random.Range(-spawnRadius / 2, spawnRadius / 2), Random.Range(-spawnRadius / 2, spawnRadius / 2));
+            foreach (GameObject player in PlayerManager.instance.Players)
+            {
+                if (Vector2.Distance(SpawnArea, player.transform.position) < 5)
+                {
+                    searchLocation = true;
+                    break;
+                }
+            }
+        }
         GameObject temp = Instantiate(Enemy, SpawnArea, Quaternion.identity);
         temp.SetActive(true);
         maxEnemies++;
@@ -69,7 +84,7 @@ public class EnemySpawner : MonoBehaviour
         {
             yield return new WaitForSeconds(2f);
         }
-        Credit = 50 + (Wave * 10);
+        Credit = 40 + (Wave * 10);
         enemiesKilled = 0;
         maxEnemies = 0;
         Wave++;

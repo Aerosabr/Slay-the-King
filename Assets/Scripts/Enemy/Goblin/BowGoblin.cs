@@ -7,7 +7,6 @@ public class BowGoblin : Entity, IDamageable, IEffectable
 {
     public Rigidbody2D rb;
     public float speed = 1.0f;
-    public int Cost;
     public GameObject player;
     public EnemySpriteController ESC;
     public Transform attackHitBoxPos;

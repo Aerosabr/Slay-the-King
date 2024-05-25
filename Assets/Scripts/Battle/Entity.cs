@@ -40,6 +40,8 @@ public class Entity : MonoBehaviour
     public bool isMovable = true;
     public bool ccImmune;
 
+    public int Cost;
+
     public void changeHealth(int flat, float percentage)
     {
         baseMaxHealth += flat;
