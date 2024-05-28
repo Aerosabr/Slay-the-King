@@ -16,7 +16,7 @@ public class ThrownAxe : MonoBehaviour
         if (Vector2.Distance(transform.position, position) > 5 && isActive)
         {
             GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-            Destroy(GetComponent<EdgeCollider2D>());
+            Destroy(GetComponent<CircleCollider2D>());
         }
         
     }

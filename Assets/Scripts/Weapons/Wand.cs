@@ -5,7 +5,6 @@ using UnityEngine;
 public class Wand : MonoBehaviour
 {
     public PlayerSpriteController PSC;
-    public List<GameObject> Cooldowns = new List<GameObject>();
     public Player Player;
     public GameObject Bolttarget;
     public GameObject Laserbeam;
@@ -26,7 +25,6 @@ public class Wand : MonoBehaviour
     public void Awake()
     {
         PSC = GetComponent<PlayerSpriteController>();
-        Cooldowns = PlayerManager.instance.Cooldowns;
         Player = GetComponent<Player>();
         Bolttarget = Resources.Load<GameObject>("Prefabs/BoltTarget");
         Laserbeam = Resources.Load<GameObject>("Prefabs/LaserBeam");
@@ -62,8 +60,8 @@ public class Wand : MonoBehaviour
         GetComponent<CapsuleCollider2D>().enabled = false;
         GetComponent<CircleCollider2D>().enabled = false;
         GetComponent<BoxCollider2D>().enabled = true;
-        Cooldowns[4].SetActive(true);
-        Cooldowns[4].GetComponent<CooldownUI>().StartCooldown(5f);
+        Player.Cooldowns[4].SetActive(true);
+        Player.Cooldowns[4].GetComponent<CooldownUI>().StartCooldown(5f);
         PSC.Movable = true;
     }
 
@@ -123,8 +121,8 @@ public class Wand : MonoBehaviour
                 Collider.gameObject.GetComponent<IDamageable>().Damaged(-Player.Attack);
         }
         Destroy(lineRenderer.gameObject, .5f);
-        Cooldowns[0].SetActive(true);
-        Cooldowns[0].GetComponent<CooldownUI>().StartCooldown(1 / Player.attackSpeed);
+        Player.Cooldowns[0].SetActive(true);
+        Player.Cooldowns[0].GetComponent<CooldownUI>().StartCooldown(1 / Player.attackSpeed);
         PSC.isAttacking = false;
     }
 
@@ -158,8 +156,8 @@ public class Wand : MonoBehaviour
         GameObject bolt = Instantiate(Shockbolt, Player.transform.position, Player.transform.rotation);
         bolt.GetComponent<ShockBolt>().EditBolt(8f, Player.Attack);
         bolt.GetComponent<Rigidbody2D>().velocity = 10f * MapPoint(PSC.currentDirection, 1);
-        Cooldowns[1].SetActive(true);
-        Cooldowns[1].GetComponent<CooldownUI>().StartCooldown(3f * ((100 - Player.CDR) / 100));
+        Player.Cooldowns[1].SetActive(true);
+        Player.Cooldowns[1].GetComponent<CooldownUI>().StartCooldown(3f * ((100 - Player.CDR) / 100));
         PSC.isAttacking = false;
     }
 
@@ -194,8 +192,8 @@ public class Wand : MonoBehaviour
         mousePos.z = 0;
         GameObject crystal = Instantiate(Energycrystal, mousePos, Player.transform.rotation);
         crystal.GetComponent<EnergyCrystal>().EditCrystal(Player.Attack);
-        Cooldowns[2].SetActive(true);
-        Cooldowns[2].GetComponent<CooldownUI>().StartCooldown(3f * ((100 - Player.CDR) / 100));
+        Player.Cooldowns[2].SetActive(true);
+        Player.Cooldowns[2].GetComponent<CooldownUI>().StartCooldown(3f * ((100 - Player.CDR) / 100));
         PSC.isAttacking = false;
     }
 
@@ -229,8 +227,8 @@ public class Wand : MonoBehaviour
         GameObject laser = Instantiate(Wandlaser, transform.position, Quaternion.identity);
         laser.GetComponent<WandLaser>().StartLaser(transform.position, Player.Attack);
         yield return new WaitForSeconds(10f);
-        Cooldowns[3].SetActive(true);
-        Cooldowns[3].GetComponent<CooldownUI>().StartCooldown(10f * ((100 - Player.CDR) / 100));
+        Player.Cooldowns[3].SetActive(true);
+        Player.Cooldowns[3].GetComponent<CooldownUI>().StartCooldown(10f * ((100 - Player.CDR) / 100));
         PSC.isAttacking = false;
     }
 

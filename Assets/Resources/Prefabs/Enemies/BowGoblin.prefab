@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 5600688968975946378}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.05, y: -0.35, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -65,9 +65,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.1, y: -0.44}
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.75
+  m_Radius: 0.2
 --- !u!50 &8885796338403274939
 Rigidbody2D:
   serializedVersion: 4
@@ -141,6 +141,7 @@ GameObject:
   - component: {fileID: 3537363998747294035}
   - component: {fileID: 4327534619970365542}
   - component: {fileID: 1470576331847505814}
+  - component: {fileID: 5008267160505579242}
   m_Layer: 7
   m_Name: BowGoblin
   m_TagString: Enemy
@@ -158,7 +159,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.77488995, y: 3.662, z: -0.028647741}
-  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1900743255323425867}
@@ -206,15 +207,15 @@ SpriteRenderer:
   m_SortingLayerID: -596950753
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: b23a02f9717abd8458c095768664c1cb, type: 3}
+  m_Sprite: {fileID: 2675033416346331317, guid: 6c2104c26163269489f840a403bba044, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.5, y: 1.5}
+  m_Size: {x: 2.56, y: 2.56}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!95 &1145203179799810297
@@ -297,18 +298,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.14851189, y: -1.1119852}
+  m_Offset: {x: -0.04635197, y: -0.37000108}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 9.6, y: 5.4}
-    newSize: {x: 1.5, y: 1.5}
+    oldSize: {x: 2.56, y: 2.56}
+    newSize: {x: 2.56, y: 2.56}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.0542984, y: 1.9205513}
+  m_Size: {x: 0.42047715, y: 0.3907981}
   m_EdgeRadius: 0
 --- !u!114 &4327534619970365542
 MonoBehaviour:
@@ -363,9 +364,9 @@ MonoBehaviour:
   isStunned: 0
   isMovable: 1
   ccImmune: 0
+  Cost: 2
   rb: {fileID: 0}
   speed: 1
-  Cost: 2
   player: {fileID: 0}
   ESC: {fileID: 0}
   attackHitBoxPos: {fileID: 0}
@@ -374,3 +375,38 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   arrowPrefab: {fileID: 0}
+--- !u!58 &5008267160505579242
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9088250604567957142}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 1271
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.05, y: -0.35}
+  serializedVersion: 2
+  m_Radius: 5

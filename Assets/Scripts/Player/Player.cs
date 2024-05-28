@@ -8,14 +8,6 @@ using System.Linq;
 
 public class Player : Entity, IEffectable, IDamageable
 {
-    //Class that represents each individual player's stats and inventory
-    //Equipment
-    /*public Helmet Helmet;
-    public Chestplate Chestplate;
-    public Leggings Leggings;
-    public Boots Boots;
-    public Weapon Weapon;*/
-
     //Player Class
     public string Class;
 
@@ -25,17 +17,12 @@ public class Player : Entity, IEffectable, IDamageable
     public float Ability2CD;
     public float UltimateCD;
     public float MovementCD;
+    public List<GameObject> Cooldowns = new List<GameObject>();
 
-	//ConsumableHotBar
-	public ActivateConsumables[] consumableSlot;
-
-	public GameObject HealthBar;
     public Rigidbody2D rb;
 
-    void Start()
-    {
-
-    }
+    //ConsumableHotBar
+    public ActivateConsumables[] consumableSlot;
 
     private void Awake()
     {
@@ -44,18 +31,11 @@ public class Player : Entity, IEffectable, IDamageable
 
     void Update()
     {
-        /*
-        if (rb == null || HealthBar == null)
-        {
-			rb = GetComponent<Rigidbody2D>();
-			HealthBar = GameObject.Find("PlayerHealth").transform.GetChild(0).gameObject;
-		}
-        */
         if (Buffs.Count > 0)
             HandleBuff();
     }
 
-    //IEffectable Components
+    #region IEffectable Components
     public Dictionary<string, Buff> Buffs = new Dictionary<string, Buff>();
 
     public void ApplyBuff(Buff buff)
@@ -82,30 +62,9 @@ public class Player : Entity, IEffectable, IDamageable
                 RemoveBuff(Buffs[key]);
         }
     }
+    #endregion
 
-    public Player GetPlayerComponent()
-    {
-        GameObject playerManager = GameObject.Find("PlayerManager");
-        if (playerManager != null)
-        {
-            Transform player1Transform = playerManager.transform.Find("Player1");
-            if (player1Transform != null && player1Transform.childCount > 0)
-            {
-                return player1Transform.GetChild(0).GetComponent<Player>();
-            }
-            else
-            {
-                Debug.LogError("Player1 does not exist or has no children");
-            }
-        }
-        else
-        {
-            Debug.LogError("PlayerManager not found in the scene");
-        }
-        return null;
-    }
-
-    //IDamageable Components
+    #region IDamageable Components
     public int Damaged(int amount) 
     {
         int damage = 0;
@@ -136,12 +95,33 @@ public class Player : Entity, IEffectable, IDamageable
             {
                 damage = currentHealth;
                 currentHealth = 0;
+                GetComponent<PlayerSpriteController>().PlayAnimation("Death");
+                GetComponent<PlayerSpriteController>()._rigidbody.velocity = Vector2.zero;
+                GetComponent<PlayerSpriteController>().Movable = false;
             }
         }
         
-
-        HealthBar.GetComponent<Slider>().value = (float)currentHealth / (float)maxHealth;
         DamagePopup.Create(rb.transform.position, damage, false);
+        return damage;
+    }
+
+    public int trueDamaged(int amount)
+    {
+        int damage;
+        if (amount > currentHealth)
+        {
+            damage = currentHealth;
+            currentHealth = 0;
+            GetComponent<PlayerSpriteController>().PlayAnimation("Death");
+            GetComponent<PlayerSpriteController>()._rigidbody.velocity = Vector2.zero;
+            GetComponent<PlayerSpriteController>().Movable = false;
+        }
+        else
+        {
+            damage = currentHealth - amount;
+            currentHealth -= amount;
+        }
+
         return damage;
     }
 
@@ -159,9 +139,31 @@ public class Player : Entity, IEffectable, IDamageable
             currentHealth += amount;
         }
 
-        HealthBar.GetComponent<Slider>().value = (float)currentHealth / (float)maxHealth;
         DamagePopup.Create(rb.transform.position, amount, false);
         return totalHealed;
+    }
+    #endregion
+
+    public Player GetPlayerComponent()
+    {
+        GameObject playerManager = GameObject.Find("PlayerManager");
+        if (playerManager != null)
+        {
+            Transform player1Transform = playerManager.transform.Find("Player1");
+            if (player1Transform != null && player1Transform.childCount > 0)
+            {
+                return player1Transform.GetChild(0).GetComponent<Player>();
+            }
+            else
+            {
+                Debug.LogError("Player1 does not exist or has no children");
+            }
+        }
+        else
+        {
+            Debug.LogError("PlayerManager not found in the scene");
+        }
+        return null;
     }
 
     public void UpdateEquipmentStats(EquipmentSO equipment, int change)

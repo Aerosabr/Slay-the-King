@@ -5,7 +5,6 @@ using UnityEngine;
 public class DualAxes : MonoBehaviour
 {
     public PlayerSpriteController PSC;
-    public List<GameObject> Cooldowns = new List<GameObject>();
     public Player Player;
     public Transform attackHitBoxPos;
     public LayerMask Damageable;
@@ -22,7 +21,6 @@ public class DualAxes : MonoBehaviour
     public void Awake()
     {
         PSC = GetComponent<PlayerSpriteController>();
-        Cooldowns = PlayerManager.instance.Cooldowns;
         Player = GetComponent<Player>();
         attackHitBoxPos = transform.Find("AttackHitbox");
         Damageable = LayerMask.GetMask("Enemy");
@@ -51,8 +49,8 @@ public class DualAxes : MonoBehaviour
     {
         PSC.Movable = false;
         yield return new WaitForSeconds(0.25f);
-        Cooldowns[4].SetActive(true);
-        Cooldowns[4].GetComponent<CooldownUI>().StartCooldown(5f);
+        Player.Cooldowns[4].SetActive(true);
+        Player.Cooldowns[4].GetComponent<CooldownUI>().StartCooldown(5f);
         PSC.Movable = true;
     }
 
@@ -86,8 +84,8 @@ public class DualAxes : MonoBehaviour
         yield return new WaitForSeconds(.25f);
         Attack();
         yield return new WaitForSeconds(.25f);
-        Cooldowns[0].SetActive(true);
-        Cooldowns[0].GetComponent<CooldownUI>().StartCooldown(1 / Player.attackSpeed);
+        Player.Cooldowns[0].SetActive(true);
+        Player.Cooldowns[0].GetComponent<CooldownUI>().StartCooldown(1 / Player.attackSpeed);
         PSC.isAttacking = false;
     }
 
@@ -137,8 +135,8 @@ public class DualAxes : MonoBehaviour
         GameObject axe = Instantiate(ThrownAxe, Player.transform.position, Player.transform.rotation);
         axe.GetComponent<ThrownAxe>().EditAxe(transform.position, 10f, Player.Attack, this);
         axe.GetComponent<Rigidbody2D>().velocity = 8f * MapPoint(PSC.currentDirection, 1);
-        Cooldowns[1].SetActive(true);
-        Cooldowns[1].GetComponent<CooldownUI>().StartCooldown(3f * ((100 - Player.CDR) / 100));
+        Player.Cooldowns[1].SetActive(true);
+        Player.Cooldowns[1].GetComponent<CooldownUI>().StartCooldown(3f * ((100 - Player.CDR) / 100));
         PSC.isAttacking = false;
     }
 
@@ -185,8 +183,8 @@ public class DualAxes : MonoBehaviour
             }
         }
         yield return new WaitForSeconds(.25f);
-        Cooldowns[2].SetActive(true);
-        Cooldowns[2].GetComponent<CooldownUI>().StartCooldown(3f * ((100 - Player.CDR) / 100));
+        Player.Cooldowns[2].SetActive(true);
+        Player.Cooldowns[2].GetComponent<CooldownUI>().StartCooldown(3f * ((100 - Player.CDR) / 100));
         PSC.isAttacking = false;
     }
 
@@ -230,8 +228,8 @@ public class DualAxes : MonoBehaviour
         yield return new WaitForSeconds(.5f);
         gameObject.GetComponent<IEffectable>().ApplyBuff(new AxeEnrage(20, .2f, .2f, 15f, "Mace - Ultimate", gameObject));
         PSC.isAttacking = false;
-        Cooldowns[3].SetActive(true);
-        Cooldowns[3].GetComponent<CooldownUI>().StartCooldown(cd);
+        Player.Cooldowns[3].SetActive(true);
+        Player.Cooldowns[3].GetComponent<CooldownUI>().StartCooldown(cd);
     }
 
     public float GetUltimateCooldown()

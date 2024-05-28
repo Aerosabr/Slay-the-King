@@ -12,7 +12,6 @@ public class PlayerManager : MonoBehaviour
     public List<GameObject> Players = new List<GameObject>();
     public int NumPlayers = 0;
     public string player1Weapon;
-    public List<GameObject> Cooldowns = new List<GameObject>();
 
     void Awake()
     {

@@ -5,11 +5,10 @@ using UnityEngine;
 public class CooldownManager : MonoBehaviour
 {
     public List<GameObject> Cooldowns = new List<GameObject>();
-    public GameObject HP;
 
     void Awake()
     {
-        PlayerManager.instance.Cooldowns = Cooldowns;
+        PlayerManager.instance.Players[0].GetComponent<Player>().Cooldowns = Cooldowns;
     }
 
     private void Start()
@@ -20,6 +19,5 @@ public class CooldownManager : MonoBehaviour
             Cooldowns[i].GetComponent<CooldownUI>().InitiateCooldown(Resources.Load<Sprite>("Icons/" + PlayerManager.instance.player1Weapon + icons[i]), PlayerManager.instance.gameObject.transform.GetChild(0).transform.GetChild(0).gameObject);
             Cooldowns[i].SetActive(false);
         }
-        PlayerManager.instance.gameObject.transform.GetChild(0).transform.GetChild(0).GetComponent<Player>().HealthBar = HP;
     }
 }

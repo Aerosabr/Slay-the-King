@@ -95,6 +95,23 @@ public class FlyingEye : Entity, IDamageable, IEffectable
         return damage;
     }
 
+    public int trueDamaged(int amount)
+    {
+        int damage;
+        if (amount > currentHealth)
+        {
+            damage = currentHealth;
+            currentHealth = 0;
+        }
+        else
+        {
+            damage = currentHealth - amount;
+            currentHealth -= amount;
+        }
+
+        return damage;
+    }
+
     public int Healed(int amount)
     {
         return 0;
@@ -105,7 +122,6 @@ public class FlyingEye : Entity, IDamageable, IEffectable
         yield return new WaitForSeconds(time);
         Destroy(gameObject);
         Instantiate(Resources.Load<GameObject>("Prefabs/Gold"), transform.position, Quaternion.identity);
-        EnemySpawner.instance.enemiesKilled++;
     }
 
     public void OnCollisionEnter2D(Collision2D collision)

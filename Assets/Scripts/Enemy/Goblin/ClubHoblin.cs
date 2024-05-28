@@ -36,7 +36,9 @@ public class ClubHoblin : Entity, IDamageable, IEffectable
         if (Ability > 0)
             Ability -= Time.deltaTime;
 
-        if (!isStunned && currentHealth > 0 && isMovable)
+        if (isStunned || !BattleStage.instance.Active)
+            ESC.PlayAnimation("Idle");
+        else if (!isStunned && currentHealth > 0 && isMovable)
         {
             if (!CheckAttacks())
             {
@@ -45,8 +47,6 @@ public class ClubHoblin : Entity, IDamageable, IEffectable
                 ESC.PlayAnimation("Run");
             }
         }
-        else if (isStunned)
-            ESC.PlayAnimation("Idle");
 
         if (Buffs.Count > 0)
             HandleBuff();
@@ -130,6 +130,23 @@ public class ClubHoblin : Entity, IDamageable, IEffectable
         return damage;
     }
 
+    public int trueDamaged(int amount)
+    {
+        int damage;
+        if (amount > currentHealth)
+        {
+            damage = currentHealth;
+            currentHealth = 0;
+        }
+        else
+        {
+            damage = currentHealth - amount;
+            currentHealth -= amount;
+        }
+
+        return damage;
+    }
+
     public int Healed(int amount)
     {
         return 0;
@@ -140,7 +157,7 @@ public class ClubHoblin : Entity, IDamageable, IEffectable
         yield return new WaitForSeconds(time);
         Destroy(gameObject);
         Instantiate(Resources.Load<GameObject>("Prefabs/Gold"), transform.position, Quaternion.identity);
-        //EnemySpawner.instance.enemiesKilled++;
+        BattleStage.instance.enemiesKilled++;
     }
     #endregion
 

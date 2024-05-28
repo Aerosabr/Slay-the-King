@@ -5,7 +5,6 @@ using UnityEngine;
 public class Hammer : MonoBehaviour
 {
     public PlayerSpriteController PSC;
-    public List<GameObject> Cooldowns = new List<GameObject>();
     public Player Player;
     public Transform attackHitBoxPos;
     public LayerMask Damageable;
@@ -21,7 +20,6 @@ public class Hammer : MonoBehaviour
     public void Awake()
     {
         PSC = GetComponent<PlayerSpriteController>();
-        Cooldowns = PlayerManager.instance.Cooldowns;
         Player = GetComponent<Player>();
         attackHitBoxPos = transform.Find("AttackHitbox");
         Damageable = LayerMask.GetMask("Enemy");
@@ -49,8 +47,8 @@ public class Hammer : MonoBehaviour
     {
         PSC.Movable = false;
         yield return new WaitForSeconds(0.25f);
-        Cooldowns[4].SetActive(true);
-        Cooldowns[4].GetComponent<CooldownUI>().StartCooldown(5f);
+        Player.Cooldowns[4].SetActive(true);
+        Player.Cooldowns[4].GetComponent<CooldownUI>().StartCooldown(5f);
         PSC.Movable = true;
     }
 
@@ -80,8 +78,8 @@ public class Hammer : MonoBehaviour
     private IEnumerator AttackCast()
     {
         PSC.Attack("Stab", 2);
-        Cooldowns[0].SetActive(true);
-        Cooldowns[0].GetComponent<CooldownUI>().StartCooldown(1 / Player.attackSpeed);
+        Player.Cooldowns[0].SetActive(true);
+        Player.Cooldowns[0].GetComponent<CooldownUI>().StartCooldown(1 / Player.attackSpeed);
         Attack();
         yield return new WaitForSeconds(.5f);
         PSC.isAttacking = false;
@@ -145,8 +143,8 @@ public class Hammer : MonoBehaviour
             }
         }
 
-        Cooldowns[1].SetActive(true);
-        Cooldowns[1].GetComponent<CooldownUI>().StartCooldown(6f * ((100 - Player.CDR) / 100));
+        Player.Cooldowns[1].SetActive(true);
+        Player.Cooldowns[1].GetComponent<CooldownUI>().StartCooldown(6f * ((100 - Player.CDR) / 100));
         PSC.isAttacking = false;
     }
 
@@ -177,12 +175,12 @@ public class Hammer : MonoBehaviour
     {
         PSC.PlayAnimation("Stab");
         gameObject.GetComponent<IEffectable>().ApplyBuff(new Shield(gameObject.GetComponent<Entity>().maxHealth / 3, 25f, "Hammer - Ability 2", gameObject));
-        if (Cooldowns[1].activeSelf)
-            Cooldowns[1].GetComponent<CooldownUI>().remainingTime -= (6f * ((100 - Player.CDR) / 100)) / 2;
+        if (Player.Cooldowns[1].activeSelf)
+            Player.Cooldowns[1].GetComponent<CooldownUI>().remainingTime -= (6f * ((100 - Player.CDR) / 100)) / 2;
         yield return new WaitForSeconds(.25f);
         PSC.isAttacking = false;
-        Cooldowns[2].SetActive(true);
-        Cooldowns[2].GetComponent<CooldownUI>().StartCooldown(6f * ((100 - Player.CDR) / 100));
+        Player.Cooldowns[2].SetActive(true);
+        Player.Cooldowns[2].GetComponent<CooldownUI>().StartCooldown(6f * ((100 - Player.CDR) / 100));
     }
 
     public float GetAbility2Cooldown()
@@ -230,8 +228,8 @@ public class Hammer : MonoBehaviour
             }
         }
         PSC.isAttacking = false;
-        Cooldowns[3].SetActive(true);
-        Cooldowns[3].GetComponent<CooldownUI>().StartCooldown(cd);
+        Player.Cooldowns[3].SetActive(true);
+        Player.Cooldowns[3].GetComponent<CooldownUI>().StartCooldown(cd);
     }
 
     public IEnumerator KnockCoroutine(Rigidbody2D enemy)

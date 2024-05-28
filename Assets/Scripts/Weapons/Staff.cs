@@ -5,7 +5,6 @@ using UnityEngine;
 public class Staff : MonoBehaviour
 {
     public PlayerSpriteController PSC;
-    public List<GameObject> Cooldowns = new List<GameObject>();
     public Player Player;
     public GameObject Fireball;
     public GameObject Vortex;
@@ -23,7 +22,6 @@ public class Staff : MonoBehaviour
     public void Awake()
     {
         PSC = GetComponent<PlayerSpriteController>();
-        Cooldowns = PlayerManager.instance.Cooldowns;
         Player = GetComponent<Player>();
         Fireball = Resources.Load<GameObject>("Prefabs/Fireball");
         Vortex = Resources.Load<GameObject>("Prefabs/ArcaneVortex");
@@ -52,8 +50,8 @@ public class Staff : MonoBehaviour
     {
         PSC.Movable = false;
         yield return new WaitForSeconds(0.25f);
-        Cooldowns[4].SetActive(true);
-        Cooldowns[4].GetComponent<CooldownUI>().StartCooldown(5f);
+        Player.Cooldowns[4].SetActive(true);
+        Player.Cooldowns[4].GetComponent<CooldownUI>().StartCooldown(5f);
         PSC.Movable = true;
     }
 
@@ -88,8 +86,8 @@ public class Staff : MonoBehaviour
         fireball.transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(PSC.currentDirection.y, PSC.currentDirection.x) * Mathf.Rad2Deg + 270);
         fireball.GetComponent<Fireball>().StartFireball(Player.Attack);
         fireball.GetComponent<Rigidbody2D>().velocity = 7f * MapPoint(PSC.currentDirection, 1);
-        Cooldowns[0].SetActive(true);
-        Cooldowns[0].GetComponent<CooldownUI>().StartCooldown(1 / Player.attackSpeed);
+        Player.Cooldowns[0].SetActive(true);
+        Player.Cooldowns[0].GetComponent<CooldownUI>().StartCooldown(1 / Player.attackSpeed);
         PSC.isAttacking = false;
     }
 
@@ -124,8 +122,8 @@ public class Staff : MonoBehaviour
         GameObject arcaneVortex = Instantiate(Vortex, mousePosition, Quaternion.identity);
         arcaneVortex.GetComponent<ArcaneVortex>().StartVortex(Player.Attack / 10, 10f);
         yield return new WaitForSeconds(.5f);
-        Cooldowns[1].SetActive(true);
-        Cooldowns[1].GetComponent<CooldownUI>().StartCooldown(3f * ((100 - Player.CDR) / 100));
+        Player.Cooldowns[1].SetActive(true);
+        Player.Cooldowns[1].GetComponent<CooldownUI>().StartCooldown(3f * ((100 - Player.CDR) / 100));
         PSC.isAttacking = false;
     }
 
@@ -160,8 +158,8 @@ public class Staff : MonoBehaviour
         GameObject arcaneSphere = Instantiate(Sphere, Player.transform.position, Player.transform.rotation);
         arcaneSphere.GetComponent<ArcaneSphere>().StartSphere(Player.Attack, 3f);
         arcaneSphere.GetComponent<Rigidbody2D>().velocity = 5f * MapPoint(PSC.currentDirection, 1);
-        Cooldowns[2].SetActive(true);
-        Cooldowns[2].GetComponent<CooldownUI>().StartCooldown(3f * ((100 - Player.CDR) / 100));
+        Player.Cooldowns[2].SetActive(true);
+        Player.Cooldowns[2].GetComponent<CooldownUI>().StartCooldown(3f * ((100 - Player.CDR) / 100));
         PSC.isAttacking = false;
     }
 
@@ -194,8 +192,8 @@ public class Staff : MonoBehaviour
         yield return new WaitForSeconds(.2f);
         GameObject arcaneBurst = Instantiate(Burst, Player.transform.position, Player.transform.rotation);
         arcaneBurst.GetComponent<ArcaneBurst>().StartBurst(Player.Attack * 2);
-        Cooldowns[3].SetActive(true);
-        Cooldowns[3].GetComponent<CooldownUI>().StartCooldown(10f * ((100 - Player.CDR) / 100));
+        Player.Cooldowns[3].SetActive(true);
+        Player.Cooldowns[3].GetComponent<CooldownUI>().StartCooldown(10f * ((100 - Player.CDR) / 100));
         PSC.isAttacking = false;
     }
 

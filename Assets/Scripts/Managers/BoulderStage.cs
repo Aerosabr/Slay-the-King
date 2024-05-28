@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BoulderStage : MonoBehaviour
 {
+    public static BoulderStage instance;
     public Transform spawnArea;
     public float spawnX;
     public float spawnY;
@@ -23,8 +24,13 @@ public class BoulderStage : MonoBehaviour
 
     private void Awake()
     {
+        instance = this;
         Spawning = true;
         StartCoroutine(SpawnBoulders());
+        foreach(GameObject player in PlayerManager.instance.Players)
+        {
+            player.transform.position = Vector2.zero;
+        }
     }
 
     public void FixedUpdate()
@@ -55,3 +61,4 @@ public class BoulderStage : MonoBehaviour
         GameObject boulder = Instantiate(Boulder, spawnPos, Quaternion.identity);
     }
 }
+

@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 2450284916409855044}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.07, y: -0.62, z: 0}
+  m_LocalPosition: {x: -0.02, y: -0.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -66,9 +66,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.14, y: 0}
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.65
+  m_Radius: 0.2
 --- !u!50 &4047940263851416515
 Rigidbody2D:
   serializedVersion: 4
@@ -225,7 +225,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.77488995, y: 3.662, z: -0.028647741}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 6, y: 6, z: 6}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1900743255323425867}
@@ -273,15 +273,15 @@ SpriteRenderer:
   m_SortingLayerID: -596950753
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 1149cfb7e42e6a842809514688402c65, type: 3}
+  m_Sprite: {fileID: 2675033416346331317, guid: 19081e3a8f4bc1443a5d91cf77cdeee9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.5, y: 1.5}
+  m_Size: {x: 2.56, y: 2.56}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!95 &1145203179799810297
@@ -364,18 +364,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.081504285, y: -0.6429332}
+  m_Offset: {x: -0.025158003, y: -0.19736066}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 9.6, y: 5.4}
-    newSize: {x: 1.5, y: 1.5}
+    oldSize: {x: 2.56, y: 2.56}
+    newSize: {x: 2.56, y: 2.56}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.6075808, y: 0.9824475}
+  m_Size: {x: 0.25472346, y: 0.22510809}
   m_EdgeRadius: 0
 --- !u!114 &4327534619970365542
 MonoBehaviour:
@@ -430,9 +430,9 @@ MonoBehaviour:
   isStunned: 0
   isMovable: 1
   ccImmune: 0
+  Cost: 1000
   rb: {fileID: 0}
   speed: 1
-  Cost: 1000
   player: {fileID: 0}
   ESC: {fileID: 0}
   attackHitBoxPos: {fileID: 0}

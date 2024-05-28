@@ -1050,18 +1050,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.17497826, y: -1.0523018}
+  m_Offset: {x: -0.040904075, y: -0.3169579}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 9.6, y: 5.4}
-    newSize: {x: 9.6, y: 5.4}
+    oldSize: {x: 2.56, y: 2.56}
+    newSize: {x: 2.56, y: 2.56}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.7627716, y: 1.6802814}
+  m_Size: {x: 0.42850453, y: 0.49329507}
   m_EdgeRadius: 0
 --- !u!58 &7835971379486506179
 CircleCollider2D:
@@ -1201,7 +1201,7 @@ MonoBehaviour:
   _movementInputSmoothVelocity: {x: 0, y: 0}
   sprintMultiplier: 1
   Sprites: []
-  walkSpeed: 2
+  walkSpeed: 1
   keyboardDirection: {x: 0, y: 0}
   currentDirection: {x: 0, y: -1}
   player: {fileID: 0}
@@ -1230,9 +1230,9 @@ MonoBehaviour:
   maxHealth: 100
   currentHealth: 100
   Shield: 0
-  baseAttack: 5
+  baseAttack: 100
   attackMultiplier: 1
-  Attack: 5
+  Attack: 100
   baseDefense: 1
   defenseMultiplier: 1
   Defense: 1
@@ -1257,9 +1257,9 @@ MonoBehaviour:
   Ability2CD: 0
   UltimateCD: 0
   MovementCD: 0
-  consumableSlot: []
-  HealthBar: {fileID: 0}
+  Cooldowns: []
   rb: {fileID: 0}
+  consumableSlot: []
 --- !u!114 &7463477556518435577
 MonoBehaviour:
   m_ObjectHideFlags: 0

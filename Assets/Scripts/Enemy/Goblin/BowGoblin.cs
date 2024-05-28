@@ -27,7 +27,9 @@ public class BowGoblin : Entity, IDamageable, IEffectable
 
     void Update()
     {
-        if (!isStunned && currentHealth > 0)
+        if (isStunned || !BattleStage.instance.Active)
+            ESC.PlayAnimation("Idle");
+        else if (!isStunned && currentHealth > 0)
         {
             if (currentHealth > 0 && isMovable)
             {
@@ -43,8 +45,6 @@ public class BowGoblin : Entity, IDamageable, IEffectable
                 Attacking();
             }
         }
-        else if (isStunned)
-            ESC.PlayAnimation("Idle");
 
         if (Buffs.Count > 0)
             HandleBuff();
@@ -106,10 +106,25 @@ public class BowGoblin : Entity, IDamageable, IEffectable
             Destroy(GetComponent<BoxCollider2D>());
             StartCoroutine(Death(2f));
         }
-        else
-            //anim.SetTrigger("Damaged");
+        
+        DamagePopup.Create(rb.transform.position, Mathf.Abs(damage), false);
+        return damage;
+    }
 
-            DamagePopup.Create(rb.transform.position, Mathf.Abs(damage), false);
+    public int trueDamaged(int amount)
+    {
+        int damage;
+        if (amount > currentHealth)
+        {
+            damage = currentHealth;
+            currentHealth = 0;
+        }
+        else
+        {
+            damage = currentHealth - amount;
+            currentHealth -= amount;
+        }
+
         return damage;
     }
 
@@ -124,7 +139,7 @@ public class BowGoblin : Entity, IDamageable, IEffectable
         yield return new WaitForSeconds(time);
         Destroy(gameObject);
         Instantiate(Resources.Load<GameObject>("Prefabs/Gold"), transform.position, Quaternion.identity);
-        //EnemySpawner.instance.enemiesKilled++;
+        BattleStage.instance.enemiesKilled++;
     }
 
     public void OnTriggerEnter2D(Collider2D collision)

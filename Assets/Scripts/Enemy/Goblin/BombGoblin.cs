@@ -11,6 +11,7 @@ public class BombGoblin : Entity, IDamageable, IEffectable
     public Transform attackHitBoxPos;
     public bool Attackable;
     public LayerMask Damageable;
+    public bool Killed;
 
     void Awake()
     {
@@ -24,7 +25,9 @@ public class BombGoblin : Entity, IDamageable, IEffectable
 
     void Update()
     {
-        if (!isStunned && currentHealth > 0)
+        if (isStunned || !BattleStage.instance.Active)
+            ESC.PlayAnimation("Idle");
+        else if (!isStunned && currentHealth > 0)
         {
             if (currentHealth > 0 && isMovable)
             {
@@ -40,8 +43,6 @@ public class BombGoblin : Entity, IDamageable, IEffectable
                 Attacking();
             }
         }
-        else if (isStunned)
-            ESC.PlayAnimation("Idle");
 
         if (Buffs.Count > 0)
             HandleBuff();
@@ -104,10 +105,26 @@ public class BombGoblin : Entity, IDamageable, IEffectable
             Destroy(GetComponent<CircleCollider2D>());
             StartCoroutine(Death(2f));
         }
-        else
-            //anim.SetTrigger("Damaged");
 
-            DamagePopup.Create(rb.transform.position, Mathf.Abs(damage), false);
+
+        DamagePopup.Create(rb.transform.position, Mathf.Abs(damage), false);
+        return damage;
+    }
+
+    public int trueDamaged(int amount)
+    {
+        int damage;
+        if (amount > currentHealth)
+        {
+            damage = currentHealth;
+            currentHealth = 0;
+        }
+        else
+        {
+            damage = currentHealth - amount;
+            currentHealth -= amount;
+        }
+
         return damage;
     }
 
@@ -121,7 +138,11 @@ public class BombGoblin : Entity, IDamageable, IEffectable
         yield return new WaitForSeconds(time);
         Destroy(gameObject);
         Instantiate(Resources.Load<GameObject>("Prefabs/Gold"), transform.position, Quaternion.identity);
-        //EnemySpawner.instance.enemiesKilled++;
+        if (!Killed)
+        {
+            BattleStage.instance.enemiesKilled++;
+            Killed = true;
+        }
     }
     #endregion
 
@@ -133,6 +154,11 @@ public class BombGoblin : Entity, IDamageable, IEffectable
                 collision.gameObject.GetComponent<IDamageable>().Damaged(Attack);
             else
                 collision.gameObject.GetComponent<IDamageable>().Damaged(-Attack);
+            if (!Killed)
+            {
+                BattleStage.instance.enemiesKilled++;
+                Killed = true;
+            }
             Destroy(gameObject);
         }
     }
