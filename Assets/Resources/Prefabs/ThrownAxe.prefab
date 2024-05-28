@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 3736664921017011882}
   - component: {fileID: 748691380556863092}
   - component: {fileID: 7037005627987554644}
-  - component: {fileID: 8807507164984537787}
   - component: {fileID: -2979085343396888480}
+  - component: {fileID: 6060252859467410822}
   m_Layer: 6
   m_Name: ThrownAxe
   m_TagString: Projectile
@@ -114,8 +114,26 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!68 &8807507164984537787
-EdgeCollider2D:
+--- !u!114 &-2979085343396888480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2289812481986572697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 874f31b654463a5478d97798a5a6059f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  life: 0
+  rotationSpeed: 15
+  damage: 0
+  Player: {fileID: 0}
+  position: {x: 0, y: 0}
+  isActive: 0
+--- !u!58 &6060252859467410822
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -146,38 +164,6 @@ EdgeCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_EdgeRadius: 0
-  m_Points:
-  - {x: -0.108302355, y: 0.082709774}
-  - {x: -0.16109447, y: 0.15064995}
-  - {x: -0.058494188, y: 0.10173379}
-  - {x: -0.0011656351, y: 0.029772941}
-  - {x: -0.0025730676, y: -0.030668072}
-  - {x: -0.03822799, y: -0.07871113}
-  - {x: -0.13254742, y: -0.12934217}
-  - {x: -0.16407728, y: -0.12954728}
-  - {x: -0.06000872, y: 0.0052546193}
-  - {x: -0.113241665, y: 0.087632954}
-  m_AdjacentStartPoint: {x: 0, y: 0}
-  m_AdjacentEndPoint: {x: 0, y: 0}
-  m_UseAdjacentStartPoint: 0
-  m_UseAdjacentEndPoint: 0
---- !u!114 &-2979085343396888480
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2289812481986572697}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 874f31b654463a5478d97798a5a6059f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  life: 0
-  rotationSpeed: 15
-  damage: 0
-  Player: {fileID: 0}
-  position: {x: 0, y: 0}
-  isActive: 0
+  m_Offset: {x: -0.032935202, y: -0.13540041}
+  serializedVersion: 2
+  m_Radius: 0.87217283

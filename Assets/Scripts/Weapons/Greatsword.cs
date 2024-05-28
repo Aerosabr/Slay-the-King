@@ -5,7 +5,6 @@ using UnityEngine;
 public class Greatsword : MonoBehaviour
 {
     public PlayerSpriteController PSC;
-    public List<GameObject> Cooldowns = new List<GameObject>();
     public Player Player;
     public Transform attackHitBoxPos;
     public LayerMask Damageable;
@@ -22,7 +21,6 @@ public class Greatsword : MonoBehaviour
     public void Awake()
     {
         PSC = GetComponent<PlayerSpriteController>();
-        Cooldowns = PlayerManager.instance.Cooldowns;
         Player = GetComponent<Player>();
         attackHitBoxPos = transform.Find("AttackHitbox");
         Damageable = LayerMask.GetMask("Enemy");
@@ -51,8 +49,8 @@ public class Greatsword : MonoBehaviour
     {
         PSC.Movable = false;
         yield return new WaitForSeconds(0.25f);
-        Cooldowns[4].SetActive(true);
-        Cooldowns[4].GetComponent<CooldownUI>().StartCooldown(5f);
+        Player.Cooldowns[4].SetActive(true);
+        Player.Cooldowns[4].GetComponent<CooldownUI>().StartCooldown(5f);
         PSC.Movable = true;
     }
 
@@ -82,8 +80,8 @@ public class Greatsword : MonoBehaviour
     private IEnumerator AttackCast()
     {
         PSC.Attack("Stab", 2);
-        Cooldowns[0].SetActive(true);
-        Cooldowns[0].GetComponent<CooldownUI>().StartCooldown(1 / Player.attackSpeed);
+        Player.Cooldowns[0].SetActive(true);
+        Player.Cooldowns[0].GetComponent<CooldownUI>().StartCooldown(1 / Player.attackSpeed);
         Attack();
         yield return new WaitForSeconds(.5f);
         PSC.isAttacking = false;
@@ -138,8 +136,8 @@ public class Greatsword : MonoBehaviour
         slashwave.transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(PSC.currentDirection.y, PSC.currentDirection.x) * Mathf.Rad2Deg);
         slashwave.GetComponent<Slashwave>().EditSlashwave(3f, Player.Attack);
         slashwave.GetComponent<Rigidbody2D>().velocity = 5f * MapPoint(PSC.currentDirection, 1);
-        Cooldowns[1].SetActive(true);
-        Cooldowns[1].GetComponent<CooldownUI>().StartCooldown(3f * ((100 - Player.CDR) / 100));
+        Player.Cooldowns[1].SetActive(true);
+        Player.Cooldowns[1].GetComponent<CooldownUI>().StartCooldown(3f * ((100 - Player.CDR) / 100));
         PSC.isAttacking = false;
     }
 
@@ -180,8 +178,8 @@ public class Greatsword : MonoBehaviour
             }
         }
         yield return new WaitForSeconds(.25f);
-        Cooldowns[2].SetActive(true);
-        Cooldowns[2].GetComponent<CooldownUI>().StartCooldown(3f * ((100 - Player.CDR) / 100));
+        Player.Cooldowns[2].SetActive(true);
+        Player.Cooldowns[2].GetComponent<CooldownUI>().StartCooldown(3f * ((100 - Player.CDR) / 100));
         PSC.isAttacking = false;
     }
 
@@ -229,8 +227,8 @@ public class Greatsword : MonoBehaviour
         }
         
         PSC.isAttacking = false;
-        Cooldowns[3].SetActive(true);
-        Cooldowns[3].GetComponent<CooldownUI>().StartCooldown(cd);
+        Player.Cooldowns[3].SetActive(true);
+        Player.Cooldowns[3].GetComponent<CooldownUI>().StartCooldown(cd);
     }
 
     public float GetUltimateCooldown()

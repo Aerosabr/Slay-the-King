@@ -10,10 +10,9 @@ public class CharacterSpawnpoint : MonoBehaviour
     {
         for (int i = 0; i < PlayerManager.instance.NumPlayers; i++)
         {
-            GameObject temp = PlayerManager.instance.Players[i].transform.GetChild(0).gameObject;
+            GameObject temp = PlayerManager.instance.Players[i].gameObject;
             Transform position = Spawnpoints[i].transform;
             temp.transform.position = position.transform.position;
-            temp.transform.localScale = position.transform.localScale;
         }
     }
 

@@ -5,7 +5,6 @@ using UnityEngine;
 public class Scythe : MonoBehaviour
 {
     public PlayerSpriteController PSC;
-    public List<GameObject> Cooldowns = new List<GameObject>();
     public Player Player;
     public Transform attackHitBoxPos;
     public LayerMask Damageable;
@@ -21,7 +20,6 @@ public class Scythe : MonoBehaviour
     public void Awake()
     {
         PSC = GetComponent<PlayerSpriteController>();
-        Cooldowns = PlayerManager.instance.Cooldowns;
         Player = GetComponent<Player>();
         attackHitBoxPos = transform.Find("AttackHitbox");
         Damageable = LayerMask.GetMask("Enemy");
@@ -50,8 +48,8 @@ public class Scythe : MonoBehaviour
     {
         PSC.Movable = false;
         yield return new WaitForSeconds(0.25f);
-        Cooldowns[4].SetActive(true);
-        Cooldowns[4].GetComponent<CooldownUI>().StartCooldown(5f);
+        Player.Cooldowns[4].SetActive(true);
+        Player.Cooldowns[4].GetComponent<CooldownUI>().StartCooldown(5f);
         PSC.Movable = true;
     }
 
@@ -81,8 +79,8 @@ public class Scythe : MonoBehaviour
     private IEnumerator AttackCast()
     {
         PSC.Attack("Stab", 2);
-        Cooldowns[0].SetActive(true);
-        Cooldowns[0].GetComponent<CooldownUI>().StartCooldown(1 / Player.attackSpeed);
+        Player.Cooldowns[0].SetActive(true);
+        Player.Cooldowns[0].GetComponent<CooldownUI>().StartCooldown(1 / Player.attackSpeed);
         Attack();
         yield return new WaitForSeconds(.5f);
         PSC.isAttacking = false;
@@ -147,8 +145,8 @@ public class Scythe : MonoBehaviour
             yield return new WaitForSeconds(.5f);
         }
         
-        Cooldowns[1].SetActive(true);
-        Cooldowns[1].GetComponent<CooldownUI>().StartCooldown(3f * ((100 - Player.CDR) / 100));
+        Player.Cooldowns[1].SetActive(true);
+        Player.Cooldowns[1].GetComponent<CooldownUI>().StartCooldown(3f * ((100 - Player.CDR) / 100));
         PSC.isAttacking = false;
     }
 
@@ -184,8 +182,8 @@ public class Scythe : MonoBehaviour
         PSC.PlayAnimation("Run");
         PSC._rigidbody.velocity = new Vector2(PSC.currentDirection.x * dashDistance, PSC.currentDirection.y * dashDistance);
         yield return new WaitForSeconds(.25f);       
-        Cooldowns[2].SetActive(true);
-        Cooldowns[2].GetComponent<CooldownUI>().StartCooldown(3f * ((100 - Player.CDR) / 100));
+        Player.Cooldowns[2].SetActive(true);
+        Player.Cooldowns[2].GetComponent<CooldownUI>().StartCooldown(3f * ((100 - Player.CDR) / 100));
         dashing = false;
         GetComponent<CapsuleCollider2D>().enabled = false;
         GetComponent<CircleCollider2D>().enabled = false;
@@ -256,8 +254,8 @@ public class Scythe : MonoBehaviour
         yield return new WaitForSeconds(.5f);
         PSC.isAttacking = false;
         yield return new WaitForSeconds(10f);
-        Cooldowns[3].SetActive(true);
-        Cooldowns[3].GetComponent<CooldownUI>().StartCooldown(cd);
+        Player.Cooldowns[3].SetActive(true);
+        Player.Cooldowns[3].GetComponent<CooldownUI>().StartCooldown(cd);
     }
 
     public float GetUltimateCooldown()

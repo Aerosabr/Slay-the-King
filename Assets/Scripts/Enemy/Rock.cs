@@ -48,6 +48,23 @@ public class Rock : Entity, IDamageable
         return damage;
     }
 
+    public int trueDamaged(int amount)
+    {
+        int damage;
+        if (amount > currentHealth)
+        {
+            damage = currentHealth;
+            currentHealth = 0;
+        }
+        else
+        {
+            damage = currentHealth - amount;
+            currentHealth -= amount;
+        }
+
+        return damage;
+    }
+
     public int Healed(int amount)
     {
         return 0;

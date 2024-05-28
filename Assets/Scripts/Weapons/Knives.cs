@@ -5,7 +5,6 @@ using UnityEngine;
 public class Knives : MonoBehaviour
 {
     public PlayerSpriteController PSC;
-    public List<GameObject> Cooldowns = new List<GameObject>();
     public Player Player;
     public GameObject knifePrefab;
     public float knifeSpeed = 10f;
@@ -22,7 +21,6 @@ public class Knives : MonoBehaviour
     public void Awake()
     {
         PSC = GetComponent<PlayerSpriteController>();
-        Cooldowns = PlayerManager.instance.Cooldowns;
         Player = GetComponent<Player>();
         knifePrefab = Resources.Load<GameObject>("Prefabs/Knife");
     }
@@ -54,8 +52,8 @@ public class Knives : MonoBehaviour
     {
         PSC.Movable = false;
         yield return new WaitForSeconds(0.25f);
-        Cooldowns[4].SetActive(true);
-        Cooldowns[4].GetComponent<CooldownUI>().StartCooldown(5f);
+        Player.Cooldowns[4].SetActive(true);
+        Player.Cooldowns[4].GetComponent<CooldownUI>().StartCooldown(5f);
         PSC.Movable = true;
     }
 
@@ -86,8 +84,8 @@ public class Knives : MonoBehaviour
     {
         PSC.Attack("Shoot", 2);
         yield return new WaitForSeconds(.5f);
-        Cooldowns[0].SetActive(true);
-        Cooldowns[0].GetComponent<CooldownUI>().StartCooldown(1 / Player.attackSpeed);
+        Player.Cooldowns[0].SetActive(true);
+        Player.Cooldowns[0].GetComponent<CooldownUI>().StartCooldown(1 / Player.attackSpeed);
         Attack();
         PSC.isAttacking = false;
     }
@@ -127,8 +125,8 @@ public class Knives : MonoBehaviour
     {
         PSC.Attack("Shoot", 2);
         yield return new WaitForSeconds(.5f);
-        Cooldowns[1].SetActive(true);
-        Cooldowns[1].GetComponent<CooldownUI>().StartCooldown(3f * ((100 - Player.CDR) / 100));
+        Player.Cooldowns[1].SetActive(true);
+        Player.Cooldowns[1].GetComponent<CooldownUI>().StartCooldown(3f * ((100 - Player.CDR) / 100));
         Ability1();
         PSC.isAttacking = false;
     }
@@ -171,8 +169,8 @@ public class Knives : MonoBehaviour
         PSC._rigidbody.velocity = Vector2.zero;
         PSC.Attack("Shoot", 2);
         yield return new WaitForSeconds(.5f);
-        Cooldowns[2].SetActive(true);
-        Cooldowns[2].GetComponent<CooldownUI>().StartCooldown(3f * ((100 - Player.CDR) / 100));
+        Player.Cooldowns[2].SetActive(true);
+        Player.Cooldowns[2].GetComponent<CooldownUI>().StartCooldown(3f * ((100 - Player.CDR) / 100));
         Ability2();
         PSC.isAttacking = false;
     }
@@ -233,8 +231,8 @@ public class Knives : MonoBehaviour
             }
             yield return new WaitForSeconds(.2f);
         }
-        Cooldowns[3].SetActive(true);
-        Cooldowns[3].GetComponent<CooldownUI>().StartCooldown(10f * ((100 - Player.CDR) / 100));
+        Player.Cooldowns[3].SetActive(true);
+        Player.Cooldowns[3].GetComponent<CooldownUI>().StartCooldown(10f * ((100 - Player.CDR) / 100));
         PSC.isAttacking = false;
     }
 

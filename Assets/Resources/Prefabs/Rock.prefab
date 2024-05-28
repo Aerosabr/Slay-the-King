@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.373, y: 3.448, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -175,6 +175,7 @@ MonoBehaviour:
   healthMultiplier: 1
   maxHealth: 10
   currentHealth: 10
+  Shield: 0
   baseAttack: 0
   attackMultiplier: 1
   Attack: 0
@@ -193,6 +194,9 @@ MonoBehaviour:
   CDR: 0
   Luck: 0
   isStunned: 0
+  isMovable: 1
+  ccImmune: 0
+  Cost: 0
   rb: {fileID: 0}
   goldPrefab: {fileID: 3178657999110848731, guid: da5e2d08617cc2f4fb5bef389897010a, type: 3}
   explosionRadius: 15

@@ -5,7 +5,6 @@ using UnityEngine;
 public class Tome : MonoBehaviour
 {
     public PlayerSpriteController PSC;
-    public List<GameObject> Cooldowns = new List<GameObject>();
     public Player Player;
     public GameObject Sunwave;
     public GameObject Holylight;
@@ -25,7 +24,6 @@ public class Tome : MonoBehaviour
     public void Awake()
     {
         PSC = GetComponent<PlayerSpriteController>();
-        Cooldowns = PlayerManager.instance.Cooldowns;
         Player = GetComponent<Player>();
         Sunwave = Resources.Load<GameObject>("Prefabs/Sunwave");
         Holylight = Resources.Load<GameObject>("Prefabs/HolyLight");
@@ -60,8 +58,8 @@ public class Tome : MonoBehaviour
         GetComponent<CapsuleCollider2D>().enabled = false;
         GetComponent<CircleCollider2D>().enabled = false;
         GetComponent<BoxCollider2D>().enabled = true;
-        Cooldowns[4].SetActive(true);
-        Cooldowns[4].GetComponent<CooldownUI>().StartCooldown(5f);
+        Player.Cooldowns[4].SetActive(true);
+        Player.Cooldowns[4].GetComponent<CooldownUI>().StartCooldown(5f);
         PSC.Movable = true;
     }
 
@@ -122,8 +120,8 @@ public class Tome : MonoBehaviour
                 Collider.gameObject.GetComponent<IDamageable>().Damaged(-Player.Attack);
         }
         Destroy(lineRenderer.gameObject, .5f);
-        Cooldowns[0].SetActive(true);
-        Cooldowns[0].GetComponent<CooldownUI>().StartCooldown(1 / Player.attackSpeed);
+        Player.Cooldowns[0].SetActive(true);
+        Player.Cooldowns[0].GetComponent<CooldownUI>().StartCooldown(1 / Player.attackSpeed);
         PSC.isAttacking = false;
     }
 
@@ -158,8 +156,8 @@ public class Tome : MonoBehaviour
         GameObject Light = Instantiate(Holylight, mousePosition, Quaternion.identity);
         Light.GetComponent<HolyLight>().EditHolyLight(Player.Attack);
         yield return new WaitForSeconds(.5f);
-        Cooldowns[1].SetActive(true);
-        Cooldowns[1].GetComponent<CooldownUI>().StartCooldown(3f * ((100 - Player.CDR) / 100));
+        Player.Cooldowns[1].SetActive(true);
+        Player.Cooldowns[1].GetComponent<CooldownUI>().StartCooldown(3f * ((100 - Player.CDR) / 100));
         PSC.isAttacking = false;
     }
 
@@ -191,8 +189,8 @@ public class Tome : MonoBehaviour
         PSC.Attack("HandCast", 16);
         yield return new WaitForSeconds(.2f);
         Ability2();
-        Cooldowns[2].SetActive(true);
-        Cooldowns[2].GetComponent<CooldownUI>().StartCooldown(3f * ((100 - Player.CDR) / 100));
+        Player.Cooldowns[2].SetActive(true);
+        Player.Cooldowns[2].GetComponent<CooldownUI>().StartCooldown(3f * ((100 - Player.CDR) / 100));
         PSC.isAttacking = false;
     }
 
@@ -235,8 +233,8 @@ public class Tome : MonoBehaviour
         PSC.Attack("HandCast", 2);
         yield return new WaitForSeconds(.5f);
         GetComponent<IEffectable>().ApplyBuff(new TomesBlessing(50, 50, 50, 5f, "Tome - Ultimate", gameObject));
-        Cooldowns[3].SetActive(true);
-        Cooldowns[3].GetComponent<CooldownUI>().StartCooldown(10f * ((100 - Player.CDR) / 100));
+        Player.Cooldowns[3].SetActive(true);
+        Player.Cooldowns[3].GetComponent<CooldownUI>().StartCooldown(10f * ((100 - Player.CDR) / 100));
         StartCoroutine(Ultimate(mousePosition));
         PSC.isAttacking = false;
     }

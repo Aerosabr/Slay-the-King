@@ -7,7 +7,6 @@ public class Bow : MonoBehaviour
 {
     public PlayerSpriteController PSC;
     public GameObject arrowPrefab;
-    public List<GameObject> Cooldowns = new List<GameObject>();
     public Player Player;
     public float arrowSpeed = 10f;
     public float arrowLife = 3f;
@@ -25,18 +24,7 @@ public class Bow : MonoBehaviour
     {
         PSC = GetComponent<PlayerSpriteController>();
         arrowPrefab = Resources.Load<GameObject>("Prefabs/Arrows");
-        Cooldowns = PlayerManager.instance.Cooldowns;
         Player = GetComponent<Player>();
-    }
-
-    private void Start()
-    {
-        string[] icons = { "Bow/Attack", "Bow/Ability1", "Bow/Ability2", "Bow/Ultimate", "Movement" };
-        for (int i = 0; i < icons.Length; i++)
-        {
-            Cooldowns[i].GetComponent<CooldownUI>().InitiateCooldown(Resources.Load<Sprite>("Icons/" + icons[i]), gameObject);
-            Cooldowns[i].SetActive(false);
-        }
     }
 
     public Vector2 MapPoint(Vector2 point, float radius)
@@ -85,8 +73,8 @@ public class Bow : MonoBehaviour
         StartCoroutine(GenerateGhost());
         yield return new WaitForSeconds(0.25f);
         isDashing = false;
-        Cooldowns[4].SetActive(true);
-        Cooldowns[4].GetComponent<CooldownUI>().StartCooldown(5f);
+        Player.Cooldowns[4].SetActive(true);
+        Player.Cooldowns[4].GetComponent<CooldownUI>().StartCooldown(5f);
         PSC.Movable = true;
     }
     public float GetMovementCooldown()
@@ -116,8 +104,8 @@ public class Bow : MonoBehaviour
     {
         PSC.Attack("Shoot", 2);
         yield return new WaitForSeconds(.5f);
-        Cooldowns[0].SetActive(true);
-        Cooldowns[0].GetComponent<CooldownUI>().StartCooldown(1 / Player.attackSpeed);
+        Player.Cooldowns[0].SetActive(true);
+        Player.Cooldowns[0].GetComponent<CooldownUI>().StartCooldown(1 / Player.attackSpeed);
         Attack();
         PSC.isAttacking = false;
     }
@@ -163,8 +151,8 @@ public class Bow : MonoBehaviour
         isDashing = false;
         PSC._rigidbody.velocity = Vector2.zero;
         yield return new WaitForSeconds(.5f);
-        Cooldowns[1].SetActive(true);
-        Cooldowns[1].GetComponent<CooldownUI>().StartCooldown(3f * ((100 - Player.CDR) / 100));
+        Player.Cooldowns[1].SetActive(true);
+        Player.Cooldowns[1].GetComponent<CooldownUI>().StartCooldown(3f * ((100 - Player.CDR) / 100));
         Ability1();
         PSC.isAttacking = false;
     }
@@ -321,8 +309,8 @@ public class Bow : MonoBehaviour
 		PSC.Sprites[5].transform.GetChild(1).GetComponent<ParticleSystem>().Play();
 		yield return new WaitForSeconds(1f);
         Ability2();
-        Cooldowns[2].SetActive(true);
-        Cooldowns[2].GetComponent<CooldownUI>().StartCooldown(3f * ((100 - Player.CDR) / 100));
+        Player.Cooldowns[2].SetActive(true);
+        Player.Cooldowns[2].GetComponent<CooldownUI>().StartCooldown(3f * ((100 - Player.CDR) / 100));
         PSC.isAttacking = false;
     }
 
@@ -366,8 +354,8 @@ public class Bow : MonoBehaviour
     {
         PSC.Attack("ShootUp", 1);
         yield return new WaitForSeconds(1f);
-        Cooldowns[3].SetActive(true);
-        Cooldowns[3].GetComponent<CooldownUI>().StartCooldown(10f * ((100 - Player.CDR) / 100));
+        Player.Cooldowns[3].SetActive(true);
+        Player.Cooldowns[3].GetComponent<CooldownUI>().StartCooldown(10f * ((100 - Player.CDR) / 100));
         StartCoroutine(Ultimate(mousePosition));
         PSC.isAttacking = false;
     }

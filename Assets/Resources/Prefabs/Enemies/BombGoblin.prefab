@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 8264967488990140748}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalPosition: {x: -0.05, y: -0.35, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -64,7 +64,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.77488995, y: 3.662, z: -0.028647741}
-  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1900743255323425867}
@@ -111,12 +111,12 @@ SpriteRenderer:
   m_SortingLayerID: -596950753
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 7e57372a0487f264db032f0b80588d8c, type: 3}
+  m_Sprite: {fileID: 2675033416346331317, guid: f4c1bf1815c8bbd47b2584c3bc763460, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.5, y: 1.5}
+  m_Size: {x: 2.56, y: 2.56}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -202,18 +202,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.16343427, y: -0.8136846}
+  m_Offset: {x: -0.04635197, y: -0.37000108}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 9.6, y: 5.4}
-    newSize: {x: 1.5, y: 1.5}
+    oldSize: {x: 2.56, y: 2.56}
+    newSize: {x: 2.56, y: 2.56}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.793004, y: 2.4121244}
+  m_Size: {x: 0.42047715, y: 0.3907981}
   m_EdgeRadius: 0
 --- !u!58 &8537200574785396025
 CircleCollider2D:
@@ -247,9 +247,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.1, y: -1}
+  m_Offset: {x: -0.05, y: -0.35}
   serializedVersion: 2
-  m_Radius: 2
+  m_Radius: 0.6
 --- !u!114 &4327534619970365542
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -278,14 +278,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6f839b5512f2974cbfaaca848375ef9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseMaxHealth: 0
+  baseMaxHealth: 100
   healthMultiplier: 1
-  maxHealth: 0
-  currentHealth: 0
+  maxHealth: 100
+  currentHealth: 100
   Shield: 0
-  baseAttack: 0
+  baseAttack: 100
   attackMultiplier: 1
-  Attack: 0
+  Attack: 100
   baseDefense: 0
   defenseMultiplier: 1
   Defense: 0
@@ -303,9 +303,9 @@ MonoBehaviour:
   isStunned: 0
   isMovable: 1
   ccImmune: 0
+  Cost: 5
   rb: {fileID: 0}
   speed: 1
-  Cost: 0
   player: {fileID: 0}
   ESC: {fileID: 0}
   attackHitBoxPos: {fileID: 0}
@@ -313,4 +313,3 @@ MonoBehaviour:
   Damageable:
     serializedVersion: 2
     m_Bits: 0
-  arrowPrefab: {fileID: 0}

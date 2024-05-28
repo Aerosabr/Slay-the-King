@@ -5,7 +5,6 @@ using UnityEngine;
 public class Daggers : MonoBehaviour
 {
     public PlayerSpriteController PSC;
-    public List<GameObject> Cooldowns = new List<GameObject>();
     public Player Player;
     public GameObject daggerPrefab;
     public Transform attackHitBoxPos;
@@ -29,7 +28,6 @@ public class Daggers : MonoBehaviour
     public void Awake()
     {
         PSC = gameObject.GetComponent<PlayerSpriteController>();
-        Cooldowns = PlayerManager.instance.Cooldowns;
         Player = gameObject.GetComponent<Player>();
         attackHitBoxPos = transform.Find("AttackHitbox");
         daggerPrefab = Resources.Load<GameObject>("Prefabs/Dagger");
@@ -59,8 +57,8 @@ public class Daggers : MonoBehaviour
     {
         PSC.Movable = false;
         yield return new WaitForSeconds(0.25f);
-        Cooldowns[4].SetActive(true);
-        Cooldowns[4].GetComponent<CooldownUI>().StartCooldown(5f);
+        Player.Cooldowns[4].SetActive(true);
+        Player.Cooldowns[4].GetComponent<CooldownUI>().StartCooldown(5f);
         PSC.Movable = true;
     }
 
@@ -90,8 +88,8 @@ public class Daggers : MonoBehaviour
     private IEnumerator AttackCast()
     {
         PSC.Attack("HSlash", 2);
-        Cooldowns[0].SetActive(true);
-        Cooldowns[0].GetComponent<CooldownUI>().StartCooldown(1 / Player.attackSpeed);
+        Player.Cooldowns[0].SetActive(true);
+        Player.Cooldowns[0].GetComponent<CooldownUI>().StartCooldown(1 / Player.attackSpeed);
         Attack();
         yield return new WaitForSeconds(.5f);
         PSC.isAttacking = false;
@@ -146,8 +144,8 @@ public class Daggers : MonoBehaviour
     private IEnumerator Ability1Cast()
     {
         PSC.Attack("Stab", 2);
-        Cooldowns[1].SetActive(true);
-        Cooldowns[1].GetComponent<CooldownUI>().StartCooldown(3f * ((100 - Player.CDR) / 100));
+        Player.Cooldowns[1].SetActive(true);
+        Player.Cooldowns[1].GetComponent<CooldownUI>().StartCooldown(3f * ((100 - Player.CDR) / 100));
         Ability1();
         yield return new WaitForSeconds(.5f);
         PSC.isAttacking = false;
@@ -165,7 +163,7 @@ public class Daggers : MonoBehaviour
     {
         ability1Hit = true;
         dashEnemy = enemy;
-        Cooldowns[1].SetActive(false);
+        Player.Cooldowns[1].SetActive(false);
         Ability1CD = true;
         ability1Coroutine = Ability1DashTimer();
         StartCoroutine(ability1Coroutine);
@@ -181,8 +179,8 @@ public class Daggers : MonoBehaviour
             {
                 dashing = false;
                 PSC.isAttacking = false;
-                Cooldowns[1].SetActive(true);
-                Cooldowns[1].GetComponent<CooldownUI>().StartCooldown(3f * ((100 - Player.CDR) / 100));
+                Player.Cooldowns[1].SetActive(true);
+                Player.Cooldowns[1].GetComponent<CooldownUI>().StartCooldown(3f * ((100 - Player.CDR) / 100));
                 ability1Hit = false;
                 StopCoroutine(ability1Coroutine);
                 gameObject.GetComponent<BoxCollider2D>().enabled = true;
@@ -198,8 +196,8 @@ public class Daggers : MonoBehaviour
     {
         yield return new WaitForSeconds(5f);
         Ability1CD = false;
-        Cooldowns[1].SetActive(true);
-        Cooldowns[1].GetComponent<CooldownUI>().StartCooldown(3f * ((100 - Player.CDR) / 100));
+        Player.Cooldowns[1].SetActive(true);
+        Player.Cooldowns[1].GetComponent<CooldownUI>().StartCooldown(3f * ((100 - Player.CDR) / 100));
         ability1Hit = false;
     }
 
@@ -240,8 +238,8 @@ public class Daggers : MonoBehaviour
         }
         PSC._rigidbody.velocity = Vector2.zero;
         PSC.Attack("Stab", 2);
-        Cooldowns[2].SetActive(true);
-        Cooldowns[2].GetComponent<CooldownUI>().StartCooldown(3f * ((100 - Player.CDR) / 100));
+        Player.Cooldowns[2].SetActive(true);
+        Player.Cooldowns[2].GetComponent<CooldownUI>().StartCooldown(3f * ((100 - Player.CDR) / 100));
         PSC.isAttacking = false;
     }
 
@@ -284,12 +282,12 @@ public class Daggers : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
         Ability1CD = true;
         Ability2CD = true;
-        Cooldowns[1].SetActive(false);
-        Cooldowns[2].SetActive(false);
+        Player.Cooldowns[1].SetActive(false);
+        Player.Cooldowns[2].SetActive(false);
         if (ultimateCasts == 3)
         {
-            Cooldowns[3].SetActive(true);
-            Cooldowns[3].GetComponent<CooldownUI>().StartCooldown(10f * ((100 - Player.CDR) / 100));
+            Player.Cooldowns[3].SetActive(true);
+            Player.Cooldowns[3].GetComponent<CooldownUI>().StartCooldown(10f * ((100 - Player.CDR) / 100));
             ultimateCasts = 0;
             StopCoroutine(ultimateCoroutine);
         }
@@ -304,9 +302,9 @@ public class Daggers : MonoBehaviour
     public IEnumerator UltimateCastTimer()
     {
         yield return new WaitForSeconds(10f);
-        Cooldowns[3].SetActive(true);
-        Cooldowns[3].SetActive(true);
-        Cooldowns[3].GetComponent<CooldownUI>().StartCooldown(10f * ((100 - Player.CDR) / 100));
+        Player.Cooldowns[3].SetActive(true);
+        Player.Cooldowns[3].SetActive(true);
+        Player.Cooldowns[3].GetComponent<CooldownUI>().StartCooldown(10f * ((100 - Player.CDR) / 100));
         ultimateCasts = 0;
     }
 
