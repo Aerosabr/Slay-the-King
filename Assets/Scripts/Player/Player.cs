@@ -10,6 +10,7 @@ public class Player : Entity, IEffectable, IDamageable
 {
     //Player Class
     public string Class;
+    public string Weapon;
 
     //Ability Cooldowns
     public float AttackCD;

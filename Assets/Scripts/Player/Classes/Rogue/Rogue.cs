@@ -9,35 +9,33 @@ public class Rogue : Class
         return true;
     }
 
-    public override void changeWeapon(string weapon)
+    public override void changeWeapon()
     {
         ItemSO item = GameObject.Find("WeaponSlot").GetComponent<EquippedSlot>().item;
 
         if (!item)
+            equipCurrent();
+        else if (gameObject.GetComponent<Player>().Weapon != item.weaponType)
         {
-            if (weapon == "Scythe")
-                gameObject.AddComponent<Scythe>();
-            else if (weapon == "Daggers")
-                gameObject.AddComponent<Daggers>();
+            unequipWeapon(item.weaponType);
+            equipCurrent();
         }
-        else if (weapon != item.weaponType)
-        {
-            switch (item.weaponType)
-            {
-                case "Scythe":
-                    Destroy(GetComponent<Scythe>());
-                    break;
-                case "Daggers":
-                    Destroy(GetComponent<Daggers>());
-                    break;
-                default:
-                    break;
-            }
+    }
 
-            if (weapon == "Scythe")
-                gameObject.AddComponent<Scythe>();
-            else if (weapon == "Daggers")
-                gameObject.AddComponent<Daggers>();
-        }
+    public override void unequipWeapon(string weapon)
+    {
+        if (weapon == "Scythe")
+            Destroy(GetComponent<Scythe>());
+        else if (weapon == "Daggers")
+            Destroy(GetComponent<Daggers>());
+    }
+
+    public override void equipCurrent()
+    {
+        string weapon = gameObject.GetComponent<Player>().Weapon;
+        if (weapon == "Scythe")
+            gameObject.AddComponent<Scythe>();
+        else if (weapon == "Daggers")
+            gameObject.AddComponent<Daggers>();
     }
 }

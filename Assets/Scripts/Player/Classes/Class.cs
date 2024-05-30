@@ -9,5 +9,9 @@ public abstract class Class : MonoBehaviour
 
     public abstract bool checkEquippable(string weapon);
 
-    public abstract void changeWeapon(string weapon);
+    public abstract void changeWeapon();
+
+    public abstract void unequipWeapon(string weapon);
+
+    public abstract void equipCurrent();
 }

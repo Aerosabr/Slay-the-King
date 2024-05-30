@@ -14,8 +14,7 @@ public class ClubHoblin : Entity, IDamageable, IEffectable
     public GameObject TargetCircle;
 
     //Cooldowns
-    public float Ability, AbilityCD; //
-
+    public float Ability, AbilityCD; 
 
     void Awake()
     {
@@ -54,13 +53,13 @@ public class ClubHoblin : Entity, IDamageable, IEffectable
 
     public void ProcessDirection(Vector2 target)
     {
-        float angle = Mathf.Atan2(target.y - (transform.position.y - 1.05f), target.x - (transform.position.x - .13f));
+        float angle = Mathf.Atan2(target.y - (transform.position.y - 0.3f), target.x - (transform.position.x - .03f));
         ESC.currentDir = new Vector2(Mathf.Cos(angle) * 1f, Mathf.Sin(angle) * 1f);
     }
 
     public bool CheckAttacks()
     {
-        float dist = Vector2.Distance(transform.position, player.transform.position);
+        float dist = Vector2.Distance(transform.position - new Vector3(-0.04f, -0.4f), player.transform.position);
 
         if (Ability <= 0 && dist < 4)
         {
@@ -167,17 +166,19 @@ public class ClubHoblin : Entity, IDamageable, IEffectable
         ProcessDirection(player.transform.position);
         isMovable = false;
         ESC.PlayAnimation("Slash");
-        float angle = Mathf.Atan2(player.transform.position.y - (transform.position.y - 1.05f), player.transform.position.x - (transform.position.x - .13f));
-        attackHitBoxPos.localPosition = new Vector2((Mathf.Cos(angle) - .13f) * 2, (Mathf.Sin(angle) - 1.05f) * 2);
+        float angle = Mathf.Atan2(player.transform.position.y - (transform.position.y - .3f), player.transform.position.x - (transform.position.x - .03f));
+        attackHitBoxPos.localPosition = new Vector2((Mathf.Cos(angle) - .03f), (Mathf.Sin(angle) - .3f));
         GameObject tc = Instantiate(TargetCircle, attackHitBoxPos.position, Quaternion.identity);
         tc.GetComponent<TargetCircle>().InitiateTarget(1.5f, .3f);
     }
 
     public IEnumerator BasicAttack()
     {
+        Debug.Log(attackHitBoxPos.position);
         Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, 1.5f, Damageable);
         foreach (Collider2D collider in detectedObjects)
         {
+            Debug.Log(collider.transform.parent.gameObject.name);
             if (collider.transform.position.x - transform.position.x >= 0)
                 collider.gameObject.GetComponent<IDamageable>().Damaged(Attack);
             else
@@ -213,8 +214,8 @@ public class ClubHoblin : Entity, IDamageable, IEffectable
         ProcessDirection(player.transform.position);
         isMovable = false;
         ESC.PlayAnimation("Slam");
-        float angle = Mathf.Atan2(player.transform.position.y - (transform.position.y - 1.05f), player.transform.position.x - (transform.position.x - .13f));
-        attackHitBoxPos.localPosition = new Vector2((Mathf.Cos(angle) - .13f) * 2, (Mathf.Sin(angle) - 1.05f) * 2);
+        float angle = Mathf.Atan2(player.transform.position.y - (transform.position.y - .3f), player.transform.position.x - (transform.position.x - .03f));
+        attackHitBoxPos.localPosition = new Vector2((Mathf.Cos(angle) - .03f), (Mathf.Sin(angle) - .3f));
         GameObject tc = Instantiate(TargetCircle, attackHitBoxPos.position, Quaternion.identity);
         tc.GetComponent<TargetCircle>().InitiateTarget(2f, .3f);
     }

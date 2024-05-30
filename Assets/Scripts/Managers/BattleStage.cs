@@ -17,6 +17,7 @@ public class BattleStage : MonoBehaviour
     public GameObject WaveHUD;
     public List<GameObject> Enemies = new List<GameObject>();
     public bool Active = true;
+    public bool Spawnable;
 
     //Map
     public GameObject Map;
@@ -30,8 +31,11 @@ public class BattleStage : MonoBehaviour
     {
         instance = this;
         WaveHUD = GameObject.Find("WaveHUD");
-        StartCoroutine(Spawning());
-        StartCoroutine(CheckAlive());
+        if (Spawnable)
+        {
+            StartCoroutine(Spawning());
+            StartCoroutine(CheckAlive());
+        }
     }
 
     public IEnumerator Spawning()
@@ -95,7 +99,7 @@ public class BattleStage : MonoBehaviour
         if (stage >= 1 && stage <= 3)
         {
             //If on stage 1-3, open Battle + 2 others
-            GameObject map = Instantiate(Resources.Load<GameObject>("Prefabs/Maps/MapComplete3"), transform);
+            GameObject map = Instantiate(Resources.Load<GameObject>("Prefabs/Maps/Battle/MapComplete3"), transform);
             map.transform.GetChild(0).GetComponent<StageTeleport>().SetTeleport("Battle");
             map.transform.GetChild(1).GetComponent<StageTeleport>().SetTeleport("Random");
             map.transform.GetChild(2).GetComponent<StageTeleport>().SetTeleport("Random", map.transform.GetChild(1).GetComponent<StageTeleport>().Stage);
@@ -103,13 +107,13 @@ public class BattleStage : MonoBehaviour
         else if (stage == 4)
         {
             //If on stage 4, open Elite
-            GameObject map = Instantiate(Resources.Load<GameObject>("Prefabs/Maps/MapComplete1"), transform);
+            GameObject map = Instantiate(Resources.Load<GameObject>("Prefabs/Maps/Battle/MapComplete1"), transform);
             map.transform.GetChild(0).GetComponent<StageTeleport>().SetTeleport("Elite");
         }
         else if (stage == 7)
         {
             //If on stage 7, open Battle + 2 others
-            GameObject map = Instantiate(Resources.Load<GameObject>("Prefabs/Maps/MapComplete3"), transform);
+            GameObject map = Instantiate(Resources.Load<GameObject>("Prefabs/Maps/Battle/MapComplete3"), transform);
             map.transform.GetChild(0).GetComponent<StageTeleport>().SetTeleport("Battle");
             map.transform.GetChild(1).GetComponent<StageTeleport>().SetTeleport("Random");
             map.transform.GetChild(2).GetComponent<StageTeleport>().SetTeleport("Random", map.transform.GetChild(1).GetComponent<StageTeleport>().Stage);
@@ -117,7 +121,7 @@ public class BattleStage : MonoBehaviour
         else if (stage == 8)
         {
             //If on stage 8, open Shop + 1 other
-            GameObject map = Instantiate(Resources.Load<GameObject>("Prefabs/Maps/MapComplete2"), transform);
+            GameObject map = Instantiate(Resources.Load<GameObject>("Prefabs/Maps/Battle/MapComplete2"), transform);
             map.transform.GetChild(0).GetComponent<StageTeleport>().SetTeleport("Shop");
             map.transform.GetChild(1).GetComponent<StageTeleport>().SetTeleport("Random");
         }

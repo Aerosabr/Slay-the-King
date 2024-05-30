@@ -52,7 +52,7 @@ public class BowGoblin : Entity, IDamageable, IEffectable
 
     public void ProcessDirection(Vector2 target)
     {
-        float angle = Mathf.Atan2(target.y - transform.position.y, target.x - transform.position.x);
+        float angle = Mathf.Atan2((target.y - 0.3f) - (transform.position.y - .35f), (target.x - 0.04f) - (transform.position.x - 0.05f));
         ESC.currentDir = new Vector2(Mathf.Cos(angle) * 1f, Mathf.Sin(angle) * 1f);
     }
 
@@ -166,16 +166,10 @@ public class BowGoblin : Entity, IDamageable, IEffectable
         ESC.PlayAnimation("Shoot");
     }
 
-    public Vector2 MapPoint(Vector2 point, float radius)
-    {
-        float angle = Mathf.Atan2(point.y, point.x);
-        return new Vector2(Mathf.Cos(angle) * radius, Mathf.Sin(angle) * radius);
-    }
-
     public IEnumerator BasicAttack()
     {
         ProcessDirection(player.transform.position);
-        GameObject arrow = Instantiate(arrowPrefab, transform.position, transform.rotation);
+        GameObject arrow = Instantiate(arrowPrefab, transform.position - new Vector3(0.05f, 0.35f), transform.rotation);
         arrow.transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(ESC.currentDir.y, ESC.currentDir.x) * Mathf.Rad2Deg + 180);
         arrow.GetComponent<GoblinArrow>().EditArrow(3f, Attack, true);
         arrow.GetComponent<Rigidbody2D>().velocity = 10f * ESC.currentDir;
