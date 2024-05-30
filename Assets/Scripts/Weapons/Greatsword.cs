@@ -72,7 +72,7 @@ public class Greatsword : MonoBehaviour
         {
             PSC.isAttacking = true;
             AttackCD = false;
-            PSC.currentDirection = MapPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position, 1f);
+            PSC.currentDirection = MapPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition) - (transform.position - new Vector3(0.04f, 0.3f)), 1f);
             StartCoroutine(AttackCast());
         }
     }
@@ -89,8 +89,9 @@ public class Greatsword : MonoBehaviour
 
     public void Attack()
     {
-        attackHitBoxPos.localPosition = MapPoint(PSC.currentDirection, 3f);
-        Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, 1.5f, Damageable);
+        attackHitBoxPos.localPosition = MapPoint(PSC.currentDirection, .75f);
+        attackHitBoxPos.gameObject.GetComponent<CircleCollider2D>().radius = 0.75f;
+        Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, .75f, Damageable);
         foreach (Collider2D collider in detectedObjects)
         {
             if (collider.gameObject.tag == "Enemy")
@@ -165,8 +166,9 @@ public class Greatsword : MonoBehaviour
 
     private IEnumerator Ability2Cast()
     {
-        attackHitBoxPos.localPosition = transform.position;
-        Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, 5f, Damageable);
+        attackHitBoxPos.localPosition = Vector3.zero;
+        attackHitBoxPos.gameObject.GetComponent<CircleCollider2D>().radius = 2.5f;
+        Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, 2.5f, Damageable);
         foreach (Collider2D collider in detectedObjects)
         {
             if (collider.gameObject.tag == "Enemy")
@@ -212,7 +214,8 @@ public class Greatsword : MonoBehaviour
         PSC.Attack("Stab", 2);
         yield return new WaitForSeconds(.5f);
         attackHitBoxPos.localPosition = MapPoint(PSC.currentDirection, 3f);
-        Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, 5f, Damageable);
+        attackHitBoxPos.gameObject.GetComponent<CircleCollider2D>().radius = 3f;
+        Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, 3f, Damageable);
         foreach (Collider2D collider in detectedObjects)
         {
             if (collider.gameObject.tag == "Enemy")

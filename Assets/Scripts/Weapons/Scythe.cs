@@ -71,7 +71,7 @@ public class Scythe : MonoBehaviour
         {
             PSC.isAttacking = true;
             AttackCD = false;
-            PSC.currentDirection = MapPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position, 1f);
+            PSC.currentDirection = MapPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition) - (transform.position - new Vector3(0.04f, 0.3f)), 1f);
             StartCoroutine(AttackCast());
         }
     }
@@ -88,7 +88,8 @@ public class Scythe : MonoBehaviour
 
     public void Attack()
     {
-        attackHitBoxPos.localPosition = MapPoint(PSC.currentDirection, 3f);
+        attackHitBoxPos.localPosition = MapPoint(PSC.currentDirection, 1f);
+        attackHitBoxPos.gameObject.GetComponent<CircleCollider2D>().radius = 1f;
         Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, 1f, Damageable);
         foreach (Collider2D collider in detectedObjects)
         {
@@ -120,14 +121,15 @@ public class Scythe : MonoBehaviour
         {
             Ability1CD = false;
             PSC.isAttacking = true;
-            PSC.currentDirection = MapPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position, 1f);
+            PSC.currentDirection = MapPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition) - (transform.position - new Vector3(0.04f, 0.3f)), 1f);
             StartCoroutine(Ability1Cast());
         }
     }
 
     private IEnumerator Ability1Cast()
     {
-        attackHitBoxPos.localPosition = MapPoint(PSC.currentDirection, 3f);
+        attackHitBoxPos.localPosition = MapPoint(PSC.currentDirection, 1.5f);
+        attackHitBoxPos.gameObject.GetComponent<CircleCollider2D>().radius = 1.5f;
         for (int i = 0; i < 2; i++)
         {
             PSC.Attack("Stab", 2);
@@ -178,7 +180,7 @@ public class Scythe : MonoBehaviour
 
     private IEnumerator Ability2Cast()
     {
-        PSC.currentDirection = MapPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position, 1f);
+        PSC.currentDirection = MapPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition) - (transform.position - new Vector3(0.04f, 0.3f)), 1f);
         PSC.PlayAnimation("Run");
         PSC._rigidbody.velocity = new Vector2(PSC.currentDirection.x * dashDistance, PSC.currentDirection.y * dashDistance);
         yield return new WaitForSeconds(.25f);       
@@ -238,7 +240,8 @@ public class Scythe : MonoBehaviour
     {
         float cd = 10f * ((100 - Player.CDR) / 100);
         PSC.Attack("Stab", 2);
-        attackHitBoxPos.localPosition = Player.transform.localPosition;
+        attackHitBoxPos.localPosition = Vector2.zero;
+        attackHitBoxPos.gameObject.GetComponent<CircleCollider2D>().radius = 5f;
         Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, 5f, Damageable);
         foreach (Collider2D collider in detectedObjects)
         {

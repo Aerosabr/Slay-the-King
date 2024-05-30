@@ -103,7 +103,8 @@ public class EquippedSlot : MonoBehaviour, IPointerClickHandler
 		EquipmentSO equipment = (EquipmentSO)item;
 		if (item.itemType == ItemType.weapon)
 		{
-			inventoryManager.player.transform.GetComponent<Class>().changeWeapon(item.weaponType);
+            inventoryManager.player.transform.GetComponent<Player>().Weapon = item.weaponType;
+            inventoryManager.player.transform.GetComponent<Class>().changeWeapon();
 			inventoryManager.player.transform.GetComponent<PlayerSpriteController>().ChangeCharacterAppearance(5, equipment.animator);
 		}
 		// Check if item already there

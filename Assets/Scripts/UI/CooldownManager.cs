@@ -16,7 +16,7 @@ public class CooldownManager : MonoBehaviour
         string[] icons = { "/Attack", "/Ability1", "/Ability2", "/Ultimate", "/Movement" };
         for (int i = 0; i < icons.Length; i++)
         {
-            Cooldowns[i].GetComponent<CooldownUI>().InitiateCooldown(Resources.Load<Sprite>("Icons/" + PlayerManager.instance.player1Weapon + icons[i]), PlayerManager.instance.gameObject.transform.GetChild(0).transform.GetChild(0).gameObject);
+            Cooldowns[i].GetComponent<CooldownUI>().InitiateCooldown(Resources.Load<Sprite>("Icons/" + PlayerManager.instance.Players[0].GetComponent<Player>().Weapon + icons[i]), PlayerManager.instance.Players[0]);
             Cooldowns[i].SetActive(false);
         }
     }

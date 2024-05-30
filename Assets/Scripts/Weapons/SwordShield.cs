@@ -70,7 +70,7 @@ public class SwordShield : MonoBehaviour
         {
             PSC.isAttacking = true;
             AttackCD = false;
-            PSC.currentDirection = MapPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position, 1f);
+            PSC.currentDirection = MapPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition) - (transform.position - new Vector3(0.04f, 0.3f)), 1f);
             StartCoroutine(AttackCast());
         }
     }
@@ -87,8 +87,9 @@ public class SwordShield : MonoBehaviour
 
     public void Attack()
     {
-        attackHitBoxPos.localPosition = MapPoint(PSC.currentDirection, 3f);
-        Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, 1f, Damageable);
+        attackHitBoxPos.localPosition = MapPoint(PSC.currentDirection, .75f);
+        attackHitBoxPos.gameObject.GetComponent<CircleCollider2D>().radius = .75f;
+        Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, .75f, Damageable);
         foreach (Collider2D collider in detectedObjects)
         {
             if (collider.gameObject.tag == "Enemy")
@@ -119,7 +120,7 @@ public class SwordShield : MonoBehaviour
         {
             Ability1CD = false;
             PSC.isAttacking = true;
-            PSC.currentDirection = MapPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position, 1f);
+            PSC.currentDirection = MapPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition) - (transform.position - new Vector3(0.04f, 0.3f)), 1f);
             StartCoroutine(Ability1Cast());
         }
     }
@@ -129,7 +130,8 @@ public class SwordShield : MonoBehaviour
         PSC.Attack("Stab", 2);
         gameObject.GetComponent<IEffectable>().ApplyBuff(new IncreaseDefense(0, 1f, 2f, "Sword & Shield - Ability 1", gameObject));
         yield return new WaitForSeconds(3f);
-        attackHitBoxPos.localPosition = MapPoint(PSC.currentDirection, 3f);
+        attackHitBoxPos.localPosition = MapPoint(PSC.currentDirection, 1.5f);
+        attackHitBoxPos.gameObject.GetComponent<CircleCollider2D>().radius = 1.5f;
         Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, 1.5f, Damageable);
         foreach (Collider2D collider in detectedObjects)
         {
@@ -172,7 +174,7 @@ public class SwordShield : MonoBehaviour
     private IEnumerator Ability2Cast()
     {
         PSC.PlayAnimation("Stab");
-        attackHitBoxPos.localPosition = transform.position;
+        attackHitBoxPos.localPosition = Vector2.zero;
         Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, 5f, Damageable);
         foreach (Collider2D collider in detectedObjects)
         {

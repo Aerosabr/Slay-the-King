@@ -8,7 +8,6 @@ public class Daggers : MonoBehaviour
     public Player Player;
     public GameObject daggerPrefab;
     public Transform attackHitBoxPos;
-    public float attackRadius = 0.5f;
     public LayerMask Damageable;
     public GameObject dashEnemy;
     public bool dashing = false;
@@ -80,7 +79,7 @@ public class Daggers : MonoBehaviour
         {
             AttackCD = false;
             PSC.isAttacking = true;
-            PSC.currentDirection = MapPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position, 1f);
+            PSC.currentDirection = MapPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition) - (transform.position - new Vector3(0.04f, 0.3f)), 1f);
             StartCoroutine(AttackCast());
         }
     }
@@ -97,8 +96,9 @@ public class Daggers : MonoBehaviour
 
     public void Attack()
     {
-        attackHitBoxPos.localPosition = MapPoint(PSC.currentDirection, 3f);
-        Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, attackRadius, Damageable);
+        attackHitBoxPos.localPosition = MapPoint(PSC.currentDirection, .5f);
+        attackHitBoxPos.gameObject.GetComponent<CircleCollider2D>().radius = .5f;
+        Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, .5f, Damageable);
         foreach (Collider2D collider in detectedObjects)
         {
             if (collider.gameObject.tag == "Enemy")
@@ -131,12 +131,12 @@ public class Daggers : MonoBehaviour
             PSC.isAttacking = true;
             if (ability1Hit)
             {
-                PSC.currentDirection = MapPoint(dashEnemy.transform.position - gameObject.transform.position, 1f);
+                PSC.currentDirection = MapPoint(dashEnemy.transform.position - (transform.position - new Vector3(0.04f, 0.3f)), 1f);
                 PSC.PlayAnimation("Run");
                 dashing = true;
                 return;
             }
-            PSC.currentDirection = MapPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position, 1f);
+            PSC.currentDirection = MapPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition) - (transform.position - new Vector3(0.04f, 0.3f)), 1f);
             StartCoroutine(Ability1Cast());
         }
     }
@@ -153,7 +153,7 @@ public class Daggers : MonoBehaviour
 
     public void Ability1()
     {
-        GameObject dagger = Instantiate(daggerPrefab, Player.transform.position, Player.transform.rotation);
+        GameObject dagger = Instantiate(daggerPrefab, transform.position, transform.rotation);
         dagger.transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(PSC.currentDirection.y, PSC.currentDirection.x) * Mathf.Rad2Deg - 90);
         dagger.GetComponent<Dagger>().EditDagger(2f, Player.Attack, true, this);
         dagger.GetComponent<Rigidbody2D>().velocity = 7f * MapPoint(PSC.currentDirection, 3f);
@@ -175,7 +175,8 @@ public class Daggers : MonoBehaviour
         {
             transform.position = Vector2.MoveTowards(transform.position, dashEnemy.transform.position, 10f * Time.deltaTime);
             gameObject.GetComponent<BoxCollider2D>().enabled = false;
-            if (gameObject.transform.position == dashEnemy.transform.position)
+
+            if (Vector2.Distance(transform.position, dashEnemy.transform.position) < .3f)
             {
                 dashing = false;
                 PSC.isAttacking = false;
@@ -219,7 +220,7 @@ public class Daggers : MonoBehaviour
         {
             Ability2CD = false;
             PSC.isAttacking = true;
-            PSC.currentDirection = MapPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position, 1f);
+            PSC.currentDirection = MapPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition) - (transform.position - new Vector3(0.04f, 0.3f)), 1f);
             PSC.PlayAnimation("Run");
             StartCoroutine(Ability2Cast());
         }
@@ -230,7 +231,7 @@ public class Daggers : MonoBehaviour
         PSC._rigidbody.velocity = new Vector2(-PSC.currentDirection.x * (dashDistance / 2), -PSC.currentDirection.y * (dashDistance / 2));
         for (int i = 0; i < 3; i++)
         {
-            GameObject dagger = Instantiate(daggerPrefab, Player.transform.position, Player.transform.rotation);
+            GameObject dagger = Instantiate(daggerPrefab, transform.position, transform.rotation);
             dagger.transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(PSC.currentDirection.y, PSC.currentDirection.x) * Mathf.Rad2Deg - 90);
             dagger.GetComponent<Dagger>().EditDagger(2f, Player.Attack, false, null);
             dagger.GetComponent<Rigidbody2D>().velocity = 15f * MapPoint(PSC.currentDirection, 1f);
@@ -276,7 +277,7 @@ public class Daggers : MonoBehaviour
 
     private IEnumerator UltimateCast()
     {
-        PSC.currentDirection = MapPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position, 1f);
+        PSC.currentDirection = MapPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition) - (transform.position - new Vector3(0.04f, 0.3f)), 1f);
         PSC.PlayAnimation("Run");
         PSC._rigidbody.velocity = new Vector2(PSC.currentDirection.x * dashDistance * 1.5f, PSC.currentDirection.y * dashDistance * 1.5f);
         yield return new WaitForSeconds(0.2f);
