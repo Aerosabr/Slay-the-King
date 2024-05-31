@@ -14,7 +14,7 @@ public class SpriteToImageCharacter : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         visualCharacter.sprite = originalCharacter.sprite;
         visualCharacter.color = originalCharacter.color;
