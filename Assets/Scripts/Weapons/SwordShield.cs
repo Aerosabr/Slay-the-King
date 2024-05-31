@@ -92,13 +92,8 @@ public class SwordShield : MonoBehaviour
         Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, .75f, Damageable);
         foreach (Collider2D collider in detectedObjects)
         {
-            if (collider.gameObject.tag == "Enemy")
-            {
-                if (collider.transform.position.x - transform.position.x >= 0)
-                    collider.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack);
-                else
-                    collider.gameObject.GetComponent<IDamageable>().Damaged(-Player.Attack);
-            }
+            if (collider.gameObject.tag == "Enemy" && collider.GetType().ToString() == "UnityEngine.BoxCollider2D")
+                collider.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack, transform.position, 3);
         }
     }
 
@@ -135,13 +130,8 @@ public class SwordShield : MonoBehaviour
         Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, 1.5f, Damageable);
         foreach (Collider2D collider in detectedObjects)
         {
-            if (collider.gameObject.tag == "Enemy")
-            {
-                if (collider.transform.position.x - transform.position.x >= 0)
-                    collider.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack);
-                else
-                    collider.gameObject.GetComponent<IDamageable>().Damaged(-Player.Attack);
-            }
+            if (collider.gameObject.tag == "Enemy" && collider.GetType().ToString() == "UnityEngine.BoxCollider2D")
+                collider.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack, transform.position, 3);
         }
         Player.Cooldowns[1].SetActive(true);
         Player.Cooldowns[1].GetComponent<CooldownUI>().StartCooldown(6f * ((100 - Player.CDR) / 100));
@@ -178,7 +168,7 @@ public class SwordShield : MonoBehaviour
         Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, 5f, Damageable);
         foreach (Collider2D collider in detectedObjects)
         {
-            if (collider.gameObject.tag == "Enemy")
+            if (collider.gameObject.tag == "Enemy" && collider.GetType().ToString() == "UnityEngine.BoxCollider2D")
             {
                 collider.gameObject.GetComponent<IEffectable>().ApplyBuff(new MaceStun(.5f, "Sword & Shield - Ability 2", collider.gameObject));
                 collider.gameObject.GetComponent<IEffectable>().ApplyBuff(new IncreaseAttack(0, -0.3f, 30f, "Sword & Shield - Ability 2", collider.gameObject));

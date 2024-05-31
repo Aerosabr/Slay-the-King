@@ -26,10 +26,7 @@ public class GoblinArrow : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            if (collision.transform.position.x - gameObject.transform.position.x >= 0)
-                collision.gameObject.GetComponent<IDamageable>().Damaged((int)damage);
-            else
-                collision.gameObject.GetComponent<IDamageable>().Damaged((int)-damage);
+            collision.gameObject.GetComponent<IDamageable>().Damaged((int)damage, transform.position, 1);
 
             if (destroyOnCollision)
                 Destroy(gameObject);

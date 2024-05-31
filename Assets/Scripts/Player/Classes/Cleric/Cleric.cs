@@ -37,5 +37,6 @@ public class Cleric : Class
             gameObject.AddComponent<Tome>();
         else if (weapon == "MaceShield")
             gameObject.AddComponent<MaceShield>();
+        CooldownManager.instance.LoadCooldowns();
     }
 }

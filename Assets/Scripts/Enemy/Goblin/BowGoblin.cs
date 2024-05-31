@@ -86,8 +86,11 @@ public class BowGoblin : Entity, IDamageable, IEffectable
     #endregion
 
     #region IDamageable Components
-    public int Damaged(int amount)
+    public int Damaged(int amount, Vector3 origin, float kb)
     {
+        if (currentHealth <= 0)
+            return 0;
+
         amount = Mathf.Abs(amount);
         int damage = (amount - Defense > 0) ? amount - Defense : 1;
 
@@ -99,6 +102,10 @@ public class BowGoblin : Entity, IDamageable, IEffectable
             currentHealth = 0;
         }
 
+        if (kbResistance < kb)
+            StartCoroutine(KnockCoroutine(origin, kb - kbResistance));
+        DamagePopup.Create(rb.transform.position, damage, false);
+
         if (currentHealth <= 0)
         {
             ESC.PlayAnimation("Death");
@@ -107,7 +114,6 @@ public class BowGoblin : Entity, IDamageable, IEffectable
             StartCoroutine(Death(2f));
         }
         
-        DamagePopup.Create(rb.transform.position, Mathf.Abs(damage), false);
         return damage;
     }
 
@@ -126,6 +132,19 @@ public class BowGoblin : Entity, IDamageable, IEffectable
         }
 
         return damage;
+    }
+
+    public IEnumerator KnockCoroutine(Vector3 origin, float kb)
+    {
+        Vector2 force = (transform.position - origin).normalized * kb;
+        isMovable = false;
+        rb.velocity = force;
+        yield return new WaitForSeconds(.3f);
+        if (!Attackable)
+            isMovable = true;
+
+        if(currentHealth > 0)
+            rb.velocity = new Vector2();
     }
 
     public int Healed(int amount)

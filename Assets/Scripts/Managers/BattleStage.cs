@@ -30,7 +30,6 @@ public class BattleStage : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        WaveHUD = GameObject.Find("WaveHUD");
         if (Spawnable)
         {
             StartCoroutine(Spawning());
@@ -81,15 +80,19 @@ public class BattleStage : MonoBehaviour
         {
             yield return new WaitForSeconds(2f);
         }
-        /*
-        Credit = 40 + (Wave * 10);
-        enemiesKilled = 0;
-        maxEnemies = 0;
-        Wave++;
-        WaveHUD.GetComponent<Text>().text = "Wave " + Wave;
-        StartCoroutine(Spawning()); 
-        */
-        LoadNextStage();
+        
+        if (Wave == 3)
+            LoadNextStage();
+        else
+        {
+            Credit = 50 + (Wave * 10);
+            enemiesKilled = 0;
+            maxEnemies = 0;
+            Wave++;
+            WaveHUD.GetComponent<Text>().text = "Wave " + Wave;
+            StartCoroutine(Spawning());
+        }
+
     }
 
     public void LoadNextStage()

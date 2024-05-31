@@ -92,13 +92,8 @@ public class Hammer : MonoBehaviour
         Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, .75f, Damageable);
         foreach (Collider2D collider in detectedObjects)
         {
-            if (collider.gameObject.tag == "Enemy")
-            {
-                if (collider.transform.position.x - transform.position.x >= 0)
-                    collider.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack);
-                else
-                    collider.gameObject.GetComponent<IDamageable>().Damaged(-Player.Attack);
-            }
+            if (collider.gameObject.tag == "Enemy" && collider.GetType().ToString() == "UnityEngine.BoxCollider2D")
+                collider.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack, transform.position, 3);  
         }
     }
 
@@ -134,12 +129,9 @@ public class Hammer : MonoBehaviour
         Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, 1.5f, Damageable);
         foreach (Collider2D collider in detectedObjects)
         {
-            if (collider.gameObject.tag == "Enemy")
+            if (collider.gameObject.tag == "Enemy" && collider.GetType().ToString() == "UnityEngine.BoxCollider2D")
             {
-                if (collider.transform.position.x - transform.position.x >= 0)
-                    collider.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack);
-                else
-                    collider.gameObject.GetComponent<IDamageable>().Damaged(-Player.Attack);
+                collider.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack, transform.position, 3);
                 if (collider.gameObject.GetComponent<Entity>().currentHealth > 0)
                     collider.gameObject.GetComponent<IEffectable>().ApplyBuff(new MaceStun(3f, "Hammer - Ability1", collider.gameObject));
             }
@@ -217,12 +209,9 @@ public class Hammer : MonoBehaviour
         Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, 4f, Damageable);
         foreach (Collider2D collider in detectedObjects)
         {
-            if (collider.gameObject.tag == "Enemy")
+            if (collider.gameObject.tag == "Enemy" && collider.GetType().ToString() == "UnityEngine.BoxCollider2D")
             {
-                if (collider.transform.position.x - transform.position.x >= 0)
-                    collider.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack);
-                else
-                    collider.gameObject.GetComponent<IDamageable>().Damaged(-Player.Attack);
+                collider.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack, transform.position, 5);
                 if (collider.GetComponent<Entity>().currentHealth > 0)
                 {
                     StartCoroutine(KnockCoroutine(collider.GetComponent<Rigidbody2D>()));

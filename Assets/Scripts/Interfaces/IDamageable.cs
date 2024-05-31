@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface IDamageable
 {
-    public int Damaged(int damage);
+    public int Damaged(int damage, Vector3 origin, float kb);
     public int trueDamaged(int damage);
     public int Healed(int amount);
 }

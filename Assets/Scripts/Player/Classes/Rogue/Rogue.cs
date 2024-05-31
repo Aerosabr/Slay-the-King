@@ -37,5 +37,6 @@ public class Rogue : Class
             gameObject.AddComponent<Scythe>();
         else if (weapon == "Daggers")
             gameObject.AddComponent<Daggers>();
+        CooldownManager.instance.LoadCooldowns();
     }
 }

@@ -104,7 +104,7 @@ public class ClubHoblin : Entity, IDamageable, IEffectable
     #endregion
 
     #region IDamageable Components
-    public int Damaged(int amount)
+    public int Damaged(int amount, Vector3 origin, float kb)
     {
         amount = Mathf.Abs(amount);
         int damage = (amount - Defense > 0) ? amount - Defense : 1;
@@ -116,7 +116,10 @@ public class ClubHoblin : Entity, IDamageable, IEffectable
             damage = currentHealth;
             currentHealth = 0;
         }
-        DamagePopup.Create(rb.transform.position, Mathf.Abs(damage), false);
+
+        if (kbResistance < kb)
+            StartCoroutine(KnockCoroutine(origin, kb - kbResistance));
+        DamagePopup.Create(rb.transform.position, damage, false);
 
         if (currentHealth <= 0)
         {
@@ -144,6 +147,17 @@ public class ClubHoblin : Entity, IDamageable, IEffectable
         }
 
         return damage;
+    }
+
+    public IEnumerator KnockCoroutine(Vector3 origin, float kb)
+    {
+        Vector2 force = (transform.position - origin).normalized * kb;
+        isMovable = false;
+        rb.velocity = force;
+        yield return new WaitForSeconds(.3f);
+        isMovable = true;
+        if (currentHealth > 0)
+            rb.velocity = new Vector2();
     }
 
     public int Healed(int amount)
@@ -178,33 +192,12 @@ public class ClubHoblin : Entity, IDamageable, IEffectable
         Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, 1.5f, Damageable);
         foreach (Collider2D collider in detectedObjects)
         {
-            Debug.Log(collider.transform.parent.gameObject.name);
-            if (collider.transform.position.x - transform.position.x >= 0)
-                collider.gameObject.GetComponent<IDamageable>().Damaged(Attack);
-            else
-                collider.gameObject.GetComponent<IDamageable>().Damaged(-Attack);
-
-            if (collider.gameObject.GetComponent<Entity>().currentHealth > 0)
-                StartCoroutine(KnockCoroutine(collider.GetComponent<Rigidbody2D>()));
+            collider.gameObject.GetComponent<IDamageable>().Damaged(Attack, transform.position, 5);
         }
         yield return new WaitForSeconds(.15f);
         ESC.PlayAnimation("Idle");
         yield return new WaitForSeconds(.5f);
         isMovable = true;
-    }
-
-    public IEnumerator KnockCoroutine(Rigidbody2D enemy)
-    {
-        Vector2 force = (enemy.transform.position - transform.position).normalized * 5f;
-        Debug.Log(force);
-        enemy.GetComponent<Entity>().isMovable = false;
-        enemy.GetComponent<PlayerSpriteController>().Movable = false;
-        enemy.velocity = force;
-        yield return new WaitForSeconds(.3f);
-        enemy.GetComponent<Entity>().isMovable = true;
-        enemy.velocity = new Vector2();
-        enemy.GetComponent<PlayerSpriteController>().Movable = true;
-
     }
     #endregion
 
@@ -225,10 +218,7 @@ public class ClubHoblin : Entity, IDamageable, IEffectable
         Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, 2f, Damageable);
         foreach (Collider2D collider in detectedObjects)
         {
-            if (collider.transform.position.x - transform.position.x >= 0)
-                collider.gameObject.GetComponent<IDamageable>().Damaged(Attack);
-            else
-                collider.gameObject.GetComponent<IDamageable>().Damaged(-Attack);
+            collider.gameObject.GetComponent<IDamageable>().Damaged(Attack, transform.position, 5);
             if (collider.gameObject.GetComponent<Entity>().currentHealth > 0)
                 collider.gameObject.GetComponent<IEffectable>().ApplyBuff(new MaceStun(2f, "Club Hoblin - Ability", collider.gameObject));
         }

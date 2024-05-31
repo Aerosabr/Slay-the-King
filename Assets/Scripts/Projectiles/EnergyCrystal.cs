@@ -10,10 +10,7 @@ public class EnergyCrystal : MonoBehaviour
     {
         if (collision.gameObject.tag == "Enemy")
         {
-            if (collision.transform.position.x - gameObject.transform.position.x >= 0)
-                collision.gameObject.GetComponent<IDamageable>().Damaged(Damage);
-            else
-                collision.gameObject.GetComponent<IDamageable>().Damaged(-Damage);
+            collision.gameObject.GetComponent<IDamageable>().Damaged(Damage, transform.position, 0);
             Explosion();
         }
     }
@@ -38,10 +35,7 @@ public class EnergyCrystal : MonoBehaviour
         {
             if (collision.gameObject.tag == "Enemy")
             {
-                if (collision.transform.position.x - gameObject.transform.position.x >= 0)
-                    collision.gameObject.GetComponent<IDamageable>().Damaged(Damage);
-                else
-                    collision.gameObject.GetComponent<IDamageable>().Damaged(-Damage);
+                collision.gameObject.GetComponent<IDamageable>().Damaged(Damage, transform.position, 5);
             }
         }
         Destroy(gameObject);

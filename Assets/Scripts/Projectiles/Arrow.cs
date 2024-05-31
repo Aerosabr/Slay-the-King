@@ -26,10 +26,7 @@ public class Arrow : MonoBehaviour
     {
         if (collision.gameObject.tag == "Enemy")
         {
-            if (collision.transform.position.x - gameObject.transform.position.x >= 0)
-                collision.gameObject.GetComponent<IDamageable>().Damaged((int)damage);
-            else
-                collision.gameObject.GetComponent<IDamageable>().Damaged((int)-damage);
+            collision.gameObject.GetComponent<IDamageable>().Damaged((int)damage, transform.position, 3);
 
             if (destroyOnCollision)
                 Destroy(gameObject);

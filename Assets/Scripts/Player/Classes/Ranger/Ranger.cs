@@ -37,5 +37,6 @@ public class Ranger : Class
             gameObject.AddComponent<Knives>();
         else if (weapon == "Bow")
             gameObject.AddComponent<Bow>();
+        CooldownManager.instance.LoadCooldowns();
     }
 }

@@ -58,12 +58,9 @@ public class Axe : MonoBehaviour
         Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, .5f, Damageable);
         foreach (Collider2D collider in detectedObjects)
         {
-            if (collider.gameObject.tag == "Enemy")
+            if (collider.gameObject.tag == "Enemy" && collider.GetType().ToString() == "UnityEngine.BoxCollider2D")
             {
-                if (collider.transform.position.x - gameObject.transform.position.x >= 0)
-                    collider.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack);
-                else
-                    collider.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack);
+                collider.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack, transform.position, 0);
             }
         }
     }

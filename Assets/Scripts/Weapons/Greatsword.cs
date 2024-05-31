@@ -94,12 +94,9 @@ public class Greatsword : MonoBehaviour
         Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, .75f, Damageable);
         foreach (Collider2D collider in detectedObjects)
         {
-            if (collider.gameObject.tag == "Enemy")
+            if (collider.gameObject.tag == "Enemy" && collider.GetType().ToString() == "UnityEngine.BoxCollider2D")
             {
-                if (collider.transform.position.x - transform.position.x >= 0)
-                    collider.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack);
-                else
-                    collider.gameObject.GetComponent<IDamageable>().Damaged(-Player.Attack);
+                collider.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack, transform.position, 3);
             }
         }
     }
@@ -171,13 +168,8 @@ public class Greatsword : MonoBehaviour
         Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, 2.5f, Damageable);
         foreach (Collider2D collider in detectedObjects)
         {
-            if (collider.gameObject.tag == "Enemy")
-            {
-                if (collider.transform.position.x - transform.position.x >= 0)
-                    collider.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack);
-                else
-                    collider.gameObject.GetComponent<IDamageable>().Damaged(-Player.Attack);
-            }
+            if (collider.gameObject.tag == "Enemy" && collider.GetType().ToString() == "UnityEngine.BoxCollider2D")
+                collider.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack, transform.position, 3);
         }
         yield return new WaitForSeconds(.25f);
         Player.Cooldowns[2].SetActive(true);
@@ -218,12 +210,9 @@ public class Greatsword : MonoBehaviour
         Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, 3f, Damageable);
         foreach (Collider2D collider in detectedObjects)
         {
-            if (collider.gameObject.tag == "Enemy")
+            if (collider.gameObject.tag == "Enemy" && collider.GetType().ToString() == "UnityEngine.BoxCollider2D")
             {
-                if (collider.transform.position.x - transform.position.x >= 0)
-                    collider.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack);
-                else
-                    collider.gameObject.GetComponent<IDamageable>().Damaged(-Player.Attack);
+                collider.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack, transform.position, 3);
                 if (collider.gameObject.GetComponent<Entity>().currentHealth > 0)
                     collider.gameObject.GetComponent<IEffectable>().ApplyBuff(new MaceStun(3f, "Greatsword - Ultimate", collider.gameObject));
             }

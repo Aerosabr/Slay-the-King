@@ -29,7 +29,7 @@ public class Rock : Entity, IDamageable
     }
 
     //IDamageable Components
-    public int Damaged(int amount)
+    public int Damaged(int amount, Vector3 origin, float kb)
     {
         int damage = (Mathf.Abs(amount) - Defense > 0) ? Mathf.Abs(amount) - Defense : 1;
 
@@ -96,7 +96,7 @@ public class Rock : Entity, IDamageable
                 Player playerHealth = hitCollider.GetComponent<Player>();
                 if (playerHealth != null)
                 {
-                    playerHealth.Damaged(5);
+                    //playerHealth.Damaged(5);
                 }
             }
         }

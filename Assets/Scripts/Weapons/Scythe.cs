@@ -93,13 +93,8 @@ public class Scythe : MonoBehaviour
         Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, 1f, Damageable);
         foreach (Collider2D collider in detectedObjects)
         {
-            if (collider.gameObject.tag == "Enemy")
-            {
-                if (collider.transform.position.x - transform.position.x >= 0)
-                    collider.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack);
-                else
-                    collider.gameObject.GetComponent<IDamageable>().Damaged(-Player.Attack);
-            }
+            if (collider.gameObject.tag == "Enemy" && collider.GetType().ToString() == "UnityEngine.BoxCollider2D")
+                collider.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack, transform.position, 3);
         }
     }
 
@@ -136,13 +131,8 @@ public class Scythe : MonoBehaviour
             Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, 1.5f, Damageable);
             foreach (Collider2D collider in detectedObjects)
             {
-                if (collider.gameObject.tag == "Enemy")
-                {
-                    if (collider.transform.position.x - transform.position.x >= 0)
-                        collider.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack);
-                    else
-                        collider.gameObject.GetComponent<IDamageable>().Damaged(-Player.Attack);
-                }
+                if (collider.gameObject.tag == "Enemy" && collider.GetType().ToString() == "UnityEngine.BoxCollider2D")
+                    collider.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack, transform.position, i * 3);
             }
             yield return new WaitForSeconds(.5f);
         }
@@ -199,10 +189,7 @@ public class Scythe : MonoBehaviour
         {
             if (collision.gameObject.tag == "Enemy")
             {
-                if (collision.transform.position.x - transform.position.x >= 0)
-                    collision.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack);
-                else
-                    collision.gameObject.GetComponent<IDamageable>().Damaged(-Player.Attack);
+                collision.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack, transform.position, 3);
             }
             else if (collision.gameObject.tag == "Environment")
             {
@@ -245,13 +232,8 @@ public class Scythe : MonoBehaviour
         Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, 5f, Damageable);
         foreach (Collider2D collider in detectedObjects)
         {
-            if (collider.gameObject.tag == "Enemy")
-            {
-                if (collider.transform.position.x - transform.position.x >= 0)
-                    collider.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack);
-                else
-                    collider.gameObject.GetComponent<IDamageable>().Damaged(-Player.Attack);
-            }
+            if (collider.gameObject.tag == "Enemy" && collider.GetType().ToString() == "UnityEngine.BoxCollider2D")
+                collider.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack, transform.position, 3);
         }
         Instantiate(Resources.Load<GameObject>("Prefabs/ScytheDomain"), transform.position, Quaternion.identity);
         yield return new WaitForSeconds(.5f);

@@ -113,12 +113,7 @@ public class Tome : MonoBehaviour
         lineRenderer.SetPosition(0, transform.position); 
         lineRenderer.SetPosition(1, laserEnd); 
         if (Collider != null)
-        {
-            if (Collider.transform.position.x - transform.position.x >= 0)
-                Collider.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack);
-            else
-                Collider.gameObject.GetComponent<IDamageable>().Damaged(-Player.Attack);
-        }
+            Collider.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack, transform.position, 3);
         Destroy(lineRenderer.gameObject, .5f);
         Player.Cooldowns[0].SetActive(true);
         Player.Cooldowns[0].GetComponent<CooldownUI>().StartCooldown(1 / Player.attackSpeed);

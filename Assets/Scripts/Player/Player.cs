@@ -66,7 +66,7 @@ public class Player : Entity, IEffectable, IDamageable
     #endregion
 
     #region IDamageable Components
-    public int Damaged(int amount) 
+    public int Damaged(int amount, Vector3 origin, float kb) 
     {
         int damage = 0;
         amount = Mathf.Abs(amount);
@@ -96,13 +96,19 @@ public class Player : Entity, IEffectable, IDamageable
             {
                 damage = currentHealth;
                 currentHealth = 0;
+            }
+
+            if (kbResistance < kb)
+                StartCoroutine(KnockCoroutine(origin, kb - kbResistance));
+            DamagePopup.Create(rb.transform.position, damage, false);
+            if (currentHealth <= 0)
+            {
                 GetComponent<PlayerSpriteController>().PlayAnimation("Death");
                 GetComponent<PlayerSpriteController>()._rigidbody.velocity = Vector2.zero;
                 GetComponent<PlayerSpriteController>().Movable = false;
             }
         }
         
-        DamagePopup.Create(rb.transform.position, damage, false);
         return damage;
     }
 
@@ -124,6 +130,17 @@ public class Player : Entity, IEffectable, IDamageable
         }
 
         return damage;
+    }
+
+    public IEnumerator KnockCoroutine(Vector3 origin, float kb)
+    {
+        Vector2 force = (transform.position - origin).normalized * kb;
+        isMovable = false;
+        rb.velocity = force;
+        yield return new WaitForSeconds(.3f);
+        isMovable = true;
+        if (currentHealth > 0)
+            rb.velocity = new Vector2();
     }
 
     public int Healed(int amount)

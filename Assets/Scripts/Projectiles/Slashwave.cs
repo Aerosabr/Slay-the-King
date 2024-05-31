@@ -16,10 +16,7 @@ public class Slashwave : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.transform.position.x - gameObject.transform.position.x >= 0)
-            collision.gameObject.GetComponent<IDamageable>().Damaged((int)damage);
-        else
-            collision.gameObject.GetComponent<IDamageable>().Damaged((int)-damage);
+        collision.gameObject.GetComponent<IDamageable>().Damaged((int)damage, transform.position, 3);
     }
 
     public void EditSlashwave(float Life, float Damage)

@@ -84,7 +84,7 @@ public class BombGoblin : Entity, IDamageable, IEffectable
     #endregion
 
     #region IDamageable Components
-    public int Damaged(int amount)
+    public int Damaged(int amount, Vector3 origin, float kb)
     {
         amount = Mathf.Abs(amount);
         int damage = (amount - Defense > 0) ? amount - Defense : 1;
@@ -97,6 +97,10 @@ public class BombGoblin : Entity, IDamageable, IEffectable
             currentHealth = 0;
         }
 
+        if (kbResistance < kb)
+            StartCoroutine(KnockCoroutine(origin, kb - kbResistance));
+        DamagePopup.Create(rb.transform.position, damage, false);
+
         if (currentHealth <= 0)
         {
             ESC.PlayAnimation("Death");
@@ -105,9 +109,6 @@ public class BombGoblin : Entity, IDamageable, IEffectable
             Destroy(GetComponent<CircleCollider2D>());
             StartCoroutine(Death(2f));
         }
-
-
-        DamagePopup.Create(rb.transform.position, Mathf.Abs(damage), false);
         return damage;
     }
 
@@ -126,6 +127,17 @@ public class BombGoblin : Entity, IDamageable, IEffectable
         }
 
         return damage;
+    }
+
+    public IEnumerator KnockCoroutine(Vector3 origin, float kb)
+    {
+        Vector2 force = (transform.position - origin).normalized * kb;
+        isMovable = false;
+        rb.velocity = force;
+        yield return new WaitForSeconds(.3f);
+        isMovable = true;
+        if (currentHealth > 0)
+            rb.velocity = new Vector2();
     }
 
     public int Healed(int amount)
@@ -150,10 +162,7 @@ public class BombGoblin : Entity, IDamageable, IEffectable
     {
         if (collision.gameObject.tag == "Player")
         {
-            if (collision.transform.position.x - transform.position.x >= 0)
-                collision.gameObject.GetComponent<IDamageable>().Damaged(Attack);
-            else
-                collision.gameObject.GetComponent<IDamageable>().Damaged(-Attack);
+            collision.gameObject.GetComponent<IDamageable>().Damaged(Attack, transform.position, 5);
             if (!Killed)
             {
                 BattleStage.instance.enemiesKilled++;

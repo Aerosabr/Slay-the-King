@@ -79,29 +79,26 @@ public class DualAxes : MonoBehaviour
 
     private IEnumerator AttackCast()
     {
-        PSC.Attack("Stab", 2);
-        Attack();
+        PSC.Attack("DSlash", 2);
+        Attack(1);
         yield return new WaitForSeconds(.25f);
-        Attack();
+        Attack(3);
         yield return new WaitForSeconds(.25f);
         Player.Cooldowns[0].SetActive(true);
         Player.Cooldowns[0].GetComponent<CooldownUI>().StartCooldown(1 / Player.attackSpeed);
         PSC.isAttacking = false;
     }
 
-    public void Attack()
+    public void Attack(float kb)
     {
         attackHitBoxPos.localPosition = MapPoint(PSC.currentDirection, 1f);
         attackHitBoxPos.gameObject.GetComponent<CircleCollider2D>().radius = 0.5f;
         Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, .5f, Damageable);
         foreach (Collider2D collider in detectedObjects)
         {
-            if (collider.gameObject.tag == "Enemy")
+            if (collider.gameObject.tag == "Enemy" && collider.GetType().ToString() == "UnityEngine.BoxCollider2D")
             {
-                if (collider.transform.position.x - transform.position.x >= 0)
-                    collider.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack);
-                else
-                    collider.gameObject.GetComponent<IDamageable>().Damaged(-Player.Attack);
+                collider.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack, transform.position, kb);
             }
         }
     }
@@ -166,38 +163,23 @@ public class DualAxes : MonoBehaviour
 
     private IEnumerator Ability2Cast()
     {
+        PSC.Attack("2HSlam", 2);
         attackHitBoxPos.localPosition = MapPoint(PSC.currentDirection, 1f);
         attackHitBoxPos.gameObject.GetComponent<CircleCollider2D>().radius = 1f;
         Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, 1f, Damageable);
         foreach (Collider2D collider in detectedObjects)
         {
-            if (collider.gameObject.tag == "Enemy")
+            if (collider.gameObject.tag == "Enemy" && collider.GetType().ToString() == "UnityEngine.BoxCollider2D")
             {
-                if (collider.transform.position.x - transform.position.x >= 0)
-                    collider.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack);
-                else
-                    collider.gameObject.GetComponent<IDamageable>().Damaged(-Player.Attack);
+                collider.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack, transform.position, 3);
                 if (collider.gameObject.GetComponent<Entity>().currentHealth > 0)
-                {
-                    StartCoroutine(KnockCoroutine(collider.GetComponent<Rigidbody2D>()));
                     collider.gameObject.GetComponent<IEffectable>().ApplyBuff(new IncreaseDamageTaken(20, 10f, "Dual Axes - Ability2", collider.gameObject));
-                }
             }
         }
         yield return new WaitForSeconds(.25f);
         Player.Cooldowns[2].SetActive(true);
         Player.Cooldowns[2].GetComponent<CooldownUI>().StartCooldown(3f * ((100 - Player.CDR) / 100));
         PSC.isAttacking = false;
-    }
-
-    public IEnumerator KnockCoroutine(Rigidbody2D enemy)
-    {
-        Vector2 force = (enemy.transform.position - transform.position).normalized * 3f;
-        enemy.GetComponent<Entity>().isMovable = false;
-        enemy.velocity = force;
-        yield return new WaitForSeconds(.3f);
-        enemy.GetComponent<Entity>().isMovable = true;
-        enemy.velocity = new Vector2();
     }
 
     public float GetAbility2Cooldown()
