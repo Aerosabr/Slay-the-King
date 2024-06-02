@@ -27,20 +27,13 @@ public class SwordGoblin : Entity, IDamageable, IEffectable
     {
         if (isStunned || !BattleStage.instance.Active)
             ESC.PlayAnimation("Idle");
-        else if (!isStunned && currentHealth > 0)
+        else if (!isStunned && currentHealth > 0 && isMovable)
         {
-            if (currentHealth > 0 && isMovable)
+            if (!CheckAttacks())
             {
                 transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
                 ProcessDirection(player.transform.position);
-                ESC.isMoving = true;
-                ESC.isAttacking = false;
                 ESC.PlayAnimation("Run");
-            }
-            else if (Attackable && !ESC.isAttacking)
-            {
-                ESC.isMoving = false;
-                Attacking();
             }
         }
 
@@ -50,7 +43,7 @@ public class SwordGoblin : Entity, IDamageable, IEffectable
 
     public void ProcessDirection(Vector2 target)
     {
-        float angle = Mathf.Atan2(target.y - transform.position.y, target.x - transform.position.x);
+        float angle = Mathf.Atan2(target.y - (transform.position.y - 0.4f), target.x - (transform.position.x - 0.04f));
         ESC.currentDir = new Vector2(Mathf.Cos(angle) * 1f, Mathf.Sin(angle) * 1f);
     }
 
@@ -140,35 +133,28 @@ public class SwordGoblin : Entity, IDamageable, IEffectable
         BattleStage.instance.enemiesKilled++;
     }
 
-    public void OnTriggerEnter2D(Collider2D collision)
+    public bool CheckAttacks()
     {
-        if (collision.gameObject.tag == "Player")
+        float dist = Vector2.Distance(transform.position - new Vector3(-0.04f, -0.4f), player.transform.position);
+        if (dist < 1.5f)
         {
-            isMovable = false;
-            Attackable = true;
+            Attacking();
+            return true;
         }
-    }
-
-    public void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Player")
-        {
-            isMovable = true;
-            Attackable = false;
-        }
+        return false;
     }
 
     public void Attacking()
     {
-        ESC.isAttacking = true;
+        isMovable = false;
         ESC.PlayAnimation("DSlash");
     }
 
     public IEnumerator BasicAttack()
     {
-        float angle = Mathf.Atan2(player.transform.position.y - transform.position.y, player.transform.position.x - transform.position.x);
-        attackHitBoxPos.localPosition = new Vector2(Mathf.Cos(angle) * 3f, Mathf.Sin(angle) * 3f);
-        Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, 2f, Damageable);
+        float angle = Mathf.Atan2(player.transform.position.y - (transform.position.y - 0.4f), player.transform.position.x - (transform.position.x - 0.04f));
+        attackHitBoxPos.localPosition = new Vector2(Mathf.Cos(angle) - .03f, Mathf.Sin(angle) - .3f);
+        Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, 1f, Damageable);
         foreach (Collider2D collider in detectedObjects)
         {
             if (collider.transform.position.x - transform.position.x >= 0)
@@ -179,6 +165,6 @@ public class SwordGoblin : Entity, IDamageable, IEffectable
         yield return new WaitForSeconds(.15f);
         ESC.PlayAnimation("Idle");
         yield return new WaitForSeconds(.5f);
-        ESC.isAttacking = false;
+        isMovable = true;
     }
 }

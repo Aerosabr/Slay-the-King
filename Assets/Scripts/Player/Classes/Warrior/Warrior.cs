@@ -9,35 +9,33 @@ public class Warrior : Class
         return true;
     }
 
-    public override void changeWeapon(string weapon)
+    public override void changeWeapon()
     {
         ItemSO item = GameObject.Find("WeaponSlot").GetComponent<EquippedSlot>().item;
 
         if (!item)
+            equipCurrent();      
+        else if (gameObject.GetComponent<Player>().Weapon != item.weaponType)
         {
-            if (weapon == "Greatsword")
-                gameObject.AddComponent<Greatsword>();
-            else if (weapon == "DualAxes")
-                gameObject.AddComponent<DualAxes>();
+            unequipWeapon(item.weaponType);
+            equipCurrent();
         }
-        else if (weapon != item.weaponType)
-        {
-            switch (item.weaponType)
-            {
-                case "Greatsword":
-                    Destroy(GetComponent<Greatsword>());
-                    break;
-                case "DualAxes":
-                    Destroy(GetComponent<DualAxes>());
-                    break;
-                default:
-                    break;
-            }
+    }
 
-            if (weapon == "Greatsword")
-                gameObject.AddComponent<Greatsword>();
-            else if (weapon == "DualAxes")
-                gameObject.AddComponent<DualAxes>();
-        }
+    public override void unequipWeapon(string weapon)
+    {
+        if (weapon == "Greatsword")
+            Destroy(GetComponent<Greatsword>());
+        else if (weapon == "DualAxes")
+            Destroy(GetComponent<DualAxes>());
+    }
+
+    public override void equipCurrent()
+    {
+        string weapon = gameObject.GetComponent<Player>().Weapon;
+        if (weapon == "Greatsword")
+            gameObject.AddComponent<Greatsword>();
+        else if (weapon == "DualAxes")
+            gameObject.AddComponent<DualAxes>();
     }
 }

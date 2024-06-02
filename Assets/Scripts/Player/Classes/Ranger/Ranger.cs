@@ -9,35 +9,33 @@ public class Ranger : Class
         return true;
     }
 
-    public override void changeWeapon(string weapon)
+    public override void changeWeapon()
     {
         ItemSO item = GameObject.Find("WeaponSlot").GetComponent<EquippedSlot>().item;
 
         if (!item)
+            equipCurrent();
+        else if (gameObject.GetComponent<Player>().Weapon != item.weaponType)
         {
-            if (weapon == "Bow")
-                gameObject.AddComponent<Bow>();
-            else if (weapon == "Knives")
-                gameObject.AddComponent<Knives>();
+            unequipWeapon(item.weaponType);
+            equipCurrent();
         }
-        else if (weapon != item.weaponType)
-        {
-            switch (item.weaponType)
-            {
-                case "Bow":
-                    Destroy(GetComponent<Bow>());
-                    break;
-                case "Knives":
-                    Destroy(GetComponent<Knives>());
-                    break;
-                default:
-                    break;
-            }
+    }
 
-            if (weapon == "Bow")
-                gameObject.AddComponent<Bow>();
-            else if (weapon == "Knives")
-                gameObject.AddComponent<Knives>();
-        } 
+    public override void unequipWeapon(string weapon)
+    {
+        if (weapon == "Knives")
+            Destroy(GetComponent<Knives>());
+        else if (weapon == "Bow")
+            Destroy(GetComponent<Bow>());
+    }
+
+    public override void equipCurrent()
+    {
+        string weapon = gameObject.GetComponent<Player>().Weapon;
+        if (weapon == "Knives")
+            gameObject.AddComponent<Knives>();
+        else if (weapon == "Bow")
+            gameObject.AddComponent<Bow>();
     }
 }

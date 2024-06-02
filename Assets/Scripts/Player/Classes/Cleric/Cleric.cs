@@ -9,35 +9,33 @@ public class Cleric : Class
         return true;
     }
 
-    public override void changeWeapon(string weapon)
+    public override void changeWeapon()
     {
         ItemSO item = GameObject.Find("WeaponSlot").GetComponent<EquippedSlot>().item;
 
         if (!item)
+            equipCurrent();
+        else if (gameObject.GetComponent<Player>().Weapon != item.weaponType)
         {
-            if (weapon == "Tome")
-                gameObject.AddComponent<Tome>();
-            else if (weapon == "MaceShield")
-                gameObject.AddComponent<MaceShield>();
+            unequipWeapon(item.weaponType);
+            equipCurrent();
         }
-        else if (weapon != item.weaponType)
-        {
-            switch (item.weaponType)
-            {
-                case "Tome":
-                    Destroy(GetComponent<Tome>());
-                    break;
-                case "MaceShield":
-                    Destroy(GetComponent<MaceShield>());
-                    break;
-                default:
-                    break;
-            }
+    }
 
-            if (weapon == "Tome")
-                gameObject.AddComponent<Tome>();
-            else if (weapon == "MaceShield")
-                gameObject.AddComponent<MaceShield>();
-        }
+    public override void unequipWeapon(string weapon)
+    {
+        if (weapon == "Tome")
+            Destroy(GetComponent<Tome>());
+        else if (weapon == "MaceShield")
+            Destroy(GetComponent<MaceShield>());
+    }
+
+    public override void equipCurrent()
+    {
+        string weapon = gameObject.GetComponent<Player>().Weapon;
+        if (weapon == "Tome")
+            gameObject.AddComponent<Tome>();
+        else if (weapon == "MaceShield")
+            gameObject.AddComponent<MaceShield>();
     }
 }

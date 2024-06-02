@@ -9,35 +9,33 @@ public class Mage : Class
         return true;
     }
 
-    public override void changeWeapon(string weapon)
+    public override void changeWeapon()
     {
         ItemSO item = GameObject.Find("WeaponSlot").GetComponent<EquippedSlot>().item;
 
         if (!item)
+            equipCurrent();
+        else if (gameObject.GetComponent<Player>().Weapon != item.weaponType)
         {
-            if (weapon == "Staff")
-                gameObject.AddComponent<Staff>();
-            else if (weapon == "Wand")
-                gameObject.AddComponent<Wand>();
+            unequipWeapon(item.weaponType);
+            equipCurrent();
         }
-        else if (weapon != item.weaponType)
-        {
-            switch (item.weaponType)
-            {
-                case "Staff":
-                    Destroy(GetComponent<Staff>());
-                    break;
-                case "Wand":
-                    Destroy(GetComponent<Wand>());
-                    break;
-                default:
-                    break;
-            }
+    }
 
-            if (weapon == "Staff")
-                gameObject.AddComponent<Staff>();
-            else if (weapon == "Wand")
-                gameObject.AddComponent<Wand>();
-        }
+    public override void unequipWeapon(string weapon)
+    {
+        if (weapon == "Staff")
+            Destroy(GetComponent<Staff>());
+        else if (weapon == "Wand")
+            Destroy(GetComponent<Wand>());
+    }
+
+    public override void equipCurrent()
+    {
+        string weapon = gameObject.GetComponent<Player>().Weapon;
+        if (weapon == "Staff")
+            gameObject.AddComponent<Staff>();
+        else if (weapon == "Wand")
+            gameObject.AddComponent<Wand>();
     }
 }
