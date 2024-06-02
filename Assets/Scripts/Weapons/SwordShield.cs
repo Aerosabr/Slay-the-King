@@ -23,7 +23,8 @@ public class SwordShield : MonoBehaviour
         Player = GetComponent<Player>();
         attackHitBoxPos = transform.Find("AttackHitbox");
         Damageable = LayerMask.GetMask("Enemy");
-    }
+        PSC.twoHanded = false;
+	}
 
     public Vector2 MapPoint(Vector2 point, float radius)
     {

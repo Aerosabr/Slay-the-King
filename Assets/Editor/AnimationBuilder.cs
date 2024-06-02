@@ -106,7 +106,7 @@ public class AnimationBuilder : EditorWindow
 		ObjectReferenceKeyframe[] keyframes = new ObjectReferenceKeyframe[sprites.Length];
 
 		// Calculate duration for each frame
-		float duration = 1f / animationClip.frameRate;
+		float duration = 5f / animationClip.frameRate;
 
 		for (int i = 0; i < sprites.Length; i++)
 		{

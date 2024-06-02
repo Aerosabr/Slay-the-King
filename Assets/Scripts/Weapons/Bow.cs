@@ -25,7 +25,8 @@ public class Bow : MonoBehaviour
         PSC = GetComponent<PlayerSpriteController>();
         arrowPrefab = Resources.Load<GameObject>("Prefabs/Arrows");
         Player = GetComponent<Player>();
-    }
+        PSC.twoHanded = false;
+	}
 
     public Vector2 MapPoint(Vector2 point, float radius)
     {

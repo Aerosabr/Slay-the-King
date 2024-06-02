@@ -15,6 +15,8 @@ public class SpriteSheetSlicer : EditorWindow
 	private int sliceWidth = 256;
 	private int sliceHeight = 256;
 
+	private int spriteNum = 10;
+
 	private List<string> foldersToLoad = new List<string>();
 
 	[MenuItem("Tools/SpriteSheet Slicer")]
@@ -30,6 +32,7 @@ public class SpriteSheetSlicer : EditorWindow
 		baseDirectory = EditorGUILayout.TextField("Base Directory", baseDirectory);
 		sliceWidth = EditorGUILayout.IntField("Slice Width", sliceWidth);
 		sliceHeight = EditorGUILayout.IntField("Slice Height", sliceHeight);
+		spriteNum = EditorGUILayout.IntField("Number of Sprites", spriteNum);
 
 		EditorGUILayout.LabelField("Folders to Load");
 		if (GUILayout.Button("Add Folder"))
@@ -67,7 +70,7 @@ public class SpriteSheetSlicer : EditorWindow
 
 				if (texture != null)
 				{
-					SliceTexture(texture, sliceWidth, sliceHeight);
+					SliceTexture(texture, sliceWidth, sliceHeight, spriteNum);
 					Debug.Log("Loaded and sliced texture: " + relativePath);
 				}
 				else
@@ -78,7 +81,7 @@ public class SpriteSheetSlicer : EditorWindow
 		}
 	}
 
-	public static void SliceTexture(Texture2D texture, int sliceWidth, int sliceHeight)
+	public static void SliceTexture(Texture2D texture, int sliceWidth, int sliceHeight, int spriteNum)
 	{
 		string assetPath = AssetDatabase.GetAssetPath(texture);
 		Debug.Log(assetPath);
@@ -102,7 +105,7 @@ public class SpriteSheetSlicer : EditorWindow
 			AssetDatabase.ImportAsset(assetPath, ImportAssetOptions.ForceUpdate);
 
 			// Generate sprite rects for slicing
-			SpriteRect[] spriteRects = GenerateSpriteRectData(texture.width, texture.height, sliceWidth, sliceHeight, texture);
+			SpriteRect[] spriteRects = GenerateSpriteRectData(texture.width, texture.height, sliceWidth, sliceHeight, spriteNum, texture);
 
 			// Apply sprite rects
 			var factory = new SpriteDataProviderFactories();
@@ -121,7 +124,7 @@ public class SpriteSheetSlicer : EditorWindow
 		}
 	}
 
-	private static SpriteRect[] GenerateSpriteRectData(int textureWidth, int textureHeight, int sliceWidth, int sliceHeight, Texture2D texture)
+	private static SpriteRect[] GenerateSpriteRectData(int textureWidth, int textureHeight, int sliceWidth, int sliceHeight, int spriteNum, Texture2D texture)
 	{
 		List<SpriteRect> spriteRects = new List<SpriteRect>();
 		int counter = 0;
@@ -130,7 +133,7 @@ public class SpriteSheetSlicer : EditorWindow
 		{
 			for (int x = 0; x < textureWidth; x += sliceWidth)
 			{
-				if (counter != 10)
+				if (counter != spriteNum)
 				{
 					SpriteRect spriteRect = new SpriteRect();
 					spriteRect.rect = new Rect(x, y - sliceHeight, sliceWidth, sliceHeight);

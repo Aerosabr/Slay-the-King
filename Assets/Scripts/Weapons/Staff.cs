@@ -27,7 +27,8 @@ public class Staff : MonoBehaviour
         Vortex = Resources.Load<GameObject>("Prefabs/ArcaneVortex");
         Sphere = Resources.Load<GameObject>("Prefabs/ArcaneSphere");
         Burst = Resources.Load<GameObject>("Prefabs/ArcaneBurst");
-    }
+		PSC.twoHanded = true;
+	}
 
     public Vector2 MapPoint(Vector2 point, float radius)
     {

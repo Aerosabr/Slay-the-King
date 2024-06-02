@@ -31,7 +31,8 @@ public class Wand : MonoBehaviour
         Shockbolt = Resources.Load<GameObject>("Prefabs/ShockBolt");
         Energycrystal = Resources.Load<GameObject>("Prefabs/EnergyCrystal");
         Wandlaser = Resources.Load<GameObject>("Prefabs/WandLaser");
-    }
+        PSC.twoHanded = false;
+	}
 
     public Vector2 MapPoint(Vector2 point, float radius)
     {

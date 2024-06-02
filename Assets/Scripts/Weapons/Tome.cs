@@ -29,7 +29,8 @@ public class Tome : MonoBehaviour
         Holylight = Resources.Load<GameObject>("Prefabs/HolyLight");
         Lasertarget = Resources.Load<GameObject>("Prefabs/LaserTarget");
         Laserbeam = Resources.Load<GameObject>("Prefabs/LaserBeam");
-    }
+		PSC.twoHanded = false;
+	}
 
     public Vector2 MapPoint(Vector2 point, float radius)
     {
