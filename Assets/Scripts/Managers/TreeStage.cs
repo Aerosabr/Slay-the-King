@@ -7,6 +7,7 @@ public class TreeStage : MonoBehaviour
     public static TreeStage instance;
     public Animator axe;
     public float timeElapsed;
+    public bool treeCut;
 
     public void Awake()
     {
@@ -16,7 +17,8 @@ public class TreeStage : MonoBehaviour
 
     public void FixedUpdate()
     {
-        timeElapsed += Time.deltaTime;
+        if (!treeCut)
+            timeElapsed += Time.deltaTime;
     }
 
     public void loadAxes()
@@ -27,6 +29,7 @@ public class TreeStage : MonoBehaviour
             player.AddComponent<Axe>();
             player.GetComponent<PlayerSpriteController>().Sprites[5].GetComponent<Animator>().runtimeAnimatorController = axe.runtimeAnimatorController;
         }
+        CooldownManager.instance.LoadCooldowns("Axe");
     }
 
     public void unequipAxes()
@@ -37,10 +40,12 @@ public class TreeStage : MonoBehaviour
             player.GetComponent<Class>().equipCurrent();
             
         }
+        CooldownManager.instance.LoadCooldowns();
     }
 
     public void treeFelled()
     {
-
+        TeleportManager.instance.LoadNextStage("Tree");
+        treeCut = true;
     }
 }

@@ -10,9 +10,17 @@ public class ChestStage : MonoBehaviour
     public GameObject Chest2;
     public GameObject Chest3;
 
-    public void Awake()
+    private void Awake()
     {
         instance = this;
+    }
+
+    private void Start()
+    {
+        foreach(GameObject player in PlayerManager.instance.Players)
+        {
+            player.GetComponent<Player>().canInteract = true;
+        }
     }
 
     public void ChestOpened(int num, Player player)
@@ -20,10 +28,16 @@ public class ChestStage : MonoBehaviour
         switch(num)
         {
             case 1:
+                Chest2.GetComponent<Chest>().anim.Play("Disappear");
+                Chest3.GetComponent<Chest>().anim.Play("Disappear");
                 break;
             case 2:
+                Chest1.GetComponent<Chest>().anim.Play("Disappear");
+                Chest3.GetComponent<Chest>().anim.Play("Disappear");
                 break;
             case 3:
+                Chest1.GetComponent<Chest>().anim.Play("Disappear");
+                Chest2.GetComponent<Chest>().anim.Play("Disappear");
                 break;
         }
     }

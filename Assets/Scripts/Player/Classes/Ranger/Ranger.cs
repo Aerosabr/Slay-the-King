@@ -11,6 +11,9 @@ public class Ranger : Class
 
     public override void changeWeapon()
     {
+        if (!kitChangeable)
+            return;
+
         ItemSO item = GameObject.Find("WeaponSlot").GetComponent<EquippedSlot>().item;
 
         if (!item)

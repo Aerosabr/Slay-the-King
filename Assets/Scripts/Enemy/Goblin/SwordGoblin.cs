@@ -124,7 +124,7 @@ public class SwordGoblin : Entity, IDamageable, IEffectable
 
     public IEnumerator KnockCoroutine(Vector3 origin, float kb)
     {
-        Vector2 force = (transform.position - origin).normalized * kb;
+        Vector2 force = ((transform.position - new Vector3(0.04f, 0.4f)) - origin).normalized * kb;
         isMovable = false;
         rb.velocity = force;
         yield return new WaitForSeconds(.3f);

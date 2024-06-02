@@ -24,6 +24,7 @@ public class Player : Entity, IEffectable, IDamageable
 
     //ConsumableHotBar
     public ActivateConsumables[] consumableSlot;
+    public bool canInteract;
 
     private void Awake()
     {
@@ -134,7 +135,10 @@ public class Player : Entity, IEffectable, IDamageable
 
     public IEnumerator KnockCoroutine(Vector3 origin, float kb)
     {
-        Vector2 force = (transform.position - origin).normalized * kb;
+        Vector2 force = ((transform.position - new Vector3(0.04f, 0.3f)) - origin).normalized * kb;
+        Debug.Log("Force " + force);
+        Debug.Log("Origin " + origin);
+        Debug.Log("Pos " + transform.position);
         isMovable = false;
         rb.velocity = force;
         yield return new WaitForSeconds(.3f);
@@ -210,4 +214,26 @@ public class Player : Entity, IEffectable, IDamageable
 		consumableSlot[2].Activate();
 	}
 
+    public void OnInteract()
+    {
+        if (canInteract)
+        {
+            Transform attackHB = transform.Find("AttackHitbox");
+            attackHB.transform.localPosition = MapPoint(GetComponent<PlayerSpriteController>().currentDirection, 1f);
+            attackHB.gameObject.GetComponent<CircleCollider2D>().radius = 1f;
+            Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHB.position, 1f, LayerMask.GetMask("Interactable"));
+            foreach (Collider2D collider in detectedObjects)
+            {
+                if (collider.gameObject.tag == "Interactable" && collider.GetType().ToString() == "UnityEngine.BoxCollider2D")
+                    collider.GetComponent<IInteractable>().Interacted(this);               
+            }
+        }
+    }
+
+    public Vector2 MapPoint(Vector2 point, float radius)
+    {
+        float angle = Mathf.Atan2(point.y, point.x);
+        Vector2 temp = new Vector2(Mathf.Cos(angle) * radius, Mathf.Sin(angle) * radius);
+        return temp;
+    }
 }

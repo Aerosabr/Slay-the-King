@@ -25,11 +25,11 @@ public class Tree : Entity, IDamageable
         anim.Play("Hit");
         if (kbResistance < kb)
             StartCoroutine(KnockCoroutine(origin, kb - kbResistance));
-        DamagePopup.Create(rb.transform.position, Mathf.Abs(damage), false);
+        DamagePopup.Create(transform.position, Mathf.Abs(damage), false);
 
         if (currentHealth <= 0)
         {
-            anim.SetBool("Felled", true);
+            anim.Play("Felled");
             TreeStage.instance.treeFelled();
         }
 
