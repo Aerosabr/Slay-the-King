@@ -25,7 +25,8 @@ public class Greatsword : MonoBehaviour
         attackHitBoxPos = transform.Find("AttackHitbox");
         Damageable = LayerMask.GetMask("Enemy");
         Slashwave = Resources.Load<GameObject>("Prefabs/Slashwave");
-    }
+		PSC.twoHanded = true;
+	}
 
     public Vector2 MapPoint(Vector2 point, float radius)
     {

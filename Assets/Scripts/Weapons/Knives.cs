@@ -23,7 +23,8 @@ public class Knives : MonoBehaviour
         PSC = GetComponent<PlayerSpriteController>();
         Player = GetComponent<Player>();
         knifePrefab = Resources.Load<GameObject>("Prefabs/Knife");
-    }
+		PSC.twoHanded = false;
+	}
 
     public Vector2 MapPoint(Vector2 point, float radius)
     {

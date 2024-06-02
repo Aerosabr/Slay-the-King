@@ -25,7 +25,8 @@ public class DualAxes : MonoBehaviour
         attackHitBoxPos = transform.Find("AttackHitbox");
         Damageable = LayerMask.GetMask("Enemy");
         ThrownAxe = Resources.Load<GameObject>("Prefabs/ThrownAxe");
-    }
+		PSC.twoHanded = false;
+	}
 
     public Vector2 MapPoint(Vector2 point, float radius)
     {
