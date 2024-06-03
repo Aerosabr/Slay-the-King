@@ -10,8 +10,11 @@ public class SwordShield : MonoBehaviour
     public LayerMask Damageable;
 
     public bool AttackCD = true;
+    private float AttackRadius = 0.75f;
     public bool Ability1CD = true;
+    private float Ability1Radius = 1.5f;
     public bool Ability2CD = true;
+    private float Ability2Radius = 5f;
     public bool UltimateCD = true;
     public bool MovementCD = true;
 
@@ -88,9 +91,9 @@ public class SwordShield : MonoBehaviour
 
     public void Attack()
     {
-        attackHitBoxPos.localPosition = MapPoint(PSC.currentDirection, .75f);
-        attackHitBoxPos.gameObject.GetComponent<CircleCollider2D>().radius = .75f;
-        Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, .75f, Damageable);
+        attackHitBoxPos.localPosition = MapPoint(PSC.currentDirection, AttackRadius);
+        attackHitBoxPos.gameObject.GetComponent<CircleCollider2D>().radius = AttackRadius;
+        Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, AttackRadius, Damageable);
         foreach (Collider2D collider in detectedObjects)
         {
             if (collider.gameObject.tag == "Enemy" && collider.GetType().ToString() == "UnityEngine.BoxCollider2D")
@@ -126,9 +129,9 @@ public class SwordShield : MonoBehaviour
         PSC.Attack("Stab", 2);
         gameObject.GetComponent<IEffectable>().ApplyBuff(new IncreaseDefense(0, 1f, 2f, "Sword & Shield - Ability 1", gameObject));
         yield return new WaitForSeconds(3f);
-        attackHitBoxPos.localPosition = MapPoint(PSC.currentDirection, 1.5f);
-        attackHitBoxPos.gameObject.GetComponent<CircleCollider2D>().radius = 1.5f;
-        Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, 1.5f, Damageable);
+        attackHitBoxPos.localPosition = MapPoint(PSC.currentDirection, Ability1Radius);
+        attackHitBoxPos.gameObject.GetComponent<CircleCollider2D>().radius = Ability1Radius;
+        Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, Ability1Radius, Damageable);
         foreach (Collider2D collider in detectedObjects)
         {
             if (collider.gameObject.tag == "Enemy" && collider.GetType().ToString() == "UnityEngine.BoxCollider2D")
@@ -166,7 +169,7 @@ public class SwordShield : MonoBehaviour
     {
         PSC.PlayAnimation("Stab");
         attackHitBoxPos.localPosition = Vector2.zero;
-        Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, 5f, Damageable);
+        Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, Ability2Radius, Damageable);
         foreach (Collider2D collider in detectedObjects)
         {
             if (collider.gameObject.tag == "Enemy" && collider.GetType().ToString() == "UnityEngine.BoxCollider2D")

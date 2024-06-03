@@ -30,7 +30,7 @@ public class Tree : Entity, IDamageable
         if (currentHealth <= 0)
         {
             anim.Play("Felled");
-            TreeStage.instance.treeFelled();
+            TreeStage.instance.StartCoroutine(TreeStage.instance.treeFelled());
         }
 
         return damage;

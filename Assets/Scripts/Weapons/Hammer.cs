@@ -10,9 +10,12 @@ public class Hammer : MonoBehaviour
     public LayerMask Damageable;
 
     public bool AttackCD = true;
+    private float AttackRadius = .75f;
     public bool Ability1CD = true;
+    private float Ability1Radius = 1.5f;
     public bool Ability2CD = true;
     public bool UltimateCD = true;
+    private float UltimateRadius = 4f;
     public bool MovementCD = true;
 
     public float dashDistance = 15f;
@@ -88,9 +91,9 @@ public class Hammer : MonoBehaviour
 
     public void Attack()
     {
-        attackHitBoxPos.localPosition = MapPoint(PSC.currentDirection, .75f);
-        attackHitBoxPos.gameObject.GetComponent<CircleCollider2D>().radius = .75f;
-        Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, .75f, Damageable);
+        attackHitBoxPos.localPosition = MapPoint(PSC.currentDirection, AttackRadius);
+        attackHitBoxPos.gameObject.GetComponent<CircleCollider2D>().radius = AttackRadius;
+        Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, AttackRadius, Damageable);
         foreach (Collider2D collider in detectedObjects)
         {
             if (collider.gameObject.tag == "Enemy" && collider.GetType().ToString() == "UnityEngine.BoxCollider2D")
@@ -123,11 +126,11 @@ public class Hammer : MonoBehaviour
 
     private IEnumerator Ability1Cast()
     {
-        attackHitBoxPos.localPosition = MapPoint(PSC.currentDirection, 1.5f);
-        attackHitBoxPos.gameObject.GetComponent<CircleCollider2D>().radius = 1.5f;
+        attackHitBoxPos.localPosition = MapPoint(PSC.currentDirection, Ability1Radius);
+        attackHitBoxPos.gameObject.GetComponent<CircleCollider2D>().radius = Ability1Radius;
         PSC.Attack("Stab", 2);
         yield return new WaitForSeconds(1.5f);
-        Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, 1.5f, Damageable);
+        Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, Ability1Radius, Damageable);
         foreach (Collider2D collider in detectedObjects)
         {
             if (collider.gameObject.tag == "Enemy" && collider.GetType().ToString() == "UnityEngine.BoxCollider2D")
@@ -206,8 +209,8 @@ public class Hammer : MonoBehaviour
         PSC.Attack("Stab", 2);
         yield return new WaitForSeconds(.25f);
         attackHitBoxPos.localPosition = Vector2.zero;
-        attackHitBoxPos.gameObject.GetComponent<CircleCollider2D>().radius = 4f;
-        Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, 4f, Damageable);
+        attackHitBoxPos.gameObject.GetComponent<CircleCollider2D>().radius = UltimateRadius;
+        Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, UltimateRadius, Damageable);
         foreach (Collider2D collider in detectedObjects)
         {
             if (collider.gameObject.tag == "Enemy" && collider.GetType().ToString() == "UnityEngine.BoxCollider2D")

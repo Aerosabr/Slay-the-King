@@ -17,6 +17,7 @@ public class Daggers : MonoBehaviour
     public int ultimateCasts = 0;
 
     public bool AttackCD = true;
+    private float AttackRadius = 0.5f;
     public bool Ability1CD = true;
     public bool Ability2CD = true;
     public bool UltimateCD = true;
@@ -96,9 +97,9 @@ public class Daggers : MonoBehaviour
 
     public void Attack()
     {
-        attackHitBoxPos.localPosition = MapPoint(PSC.currentDirection, .5f);
-        attackHitBoxPos.gameObject.GetComponent<CircleCollider2D>().radius = .5f;
-        Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, .5f, Damageable);
+        attackHitBoxPos.localPosition = MapPoint(PSC.currentDirection, AttackRadius);
+        attackHitBoxPos.gameObject.GetComponent<CircleCollider2D>().radius = AttackRadius;
+        Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, AttackRadius, Damageable);
         foreach (Collider2D collider in detectedObjects)
         {
             if (collider.gameObject.tag == "Enemy" && collider.GetType().ToString() == "UnityEngine.BoxCollider2D")

@@ -40,6 +40,7 @@ public class ChestStage : MonoBehaviour
                 Chest2.GetComponent<Chest>().anim.Play("Disappear");
                 break;
         }
+        TeleportManager.instance.LoadNextStage("Chests");
     }
 }
 

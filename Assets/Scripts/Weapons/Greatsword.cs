@@ -11,9 +11,12 @@ public class Greatsword : MonoBehaviour
     public GameObject Slashwave;
 
     public bool AttackCD = true;
+    private float AttackRadius = 0.75f;
     public bool Ability1CD = true;
     public bool Ability2CD = true;
+    private float Ability2Radius = 2.5f;
     public bool UltimateCD = true;
+    private float UltimateRadius = 3f;
     public bool MovementCD = true;
 
     public float dashDistance = 15f;
@@ -90,9 +93,9 @@ public class Greatsword : MonoBehaviour
 
     public void Attack()
     {
-        attackHitBoxPos.localPosition = MapPoint(PSC.currentDirection, .75f);
-        attackHitBoxPos.gameObject.GetComponent<CircleCollider2D>().radius = 0.75f;
-        Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, .75f, Damageable);
+        attackHitBoxPos.localPosition = MapPoint(PSC.currentDirection, AttackRadius);
+        attackHitBoxPos.gameObject.GetComponent<CircleCollider2D>().radius = AttackRadius;
+        Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, AttackRadius, Damageable);
         foreach (Collider2D collider in detectedObjects)
         {
             if (collider.gameObject.tag == "Enemy" && collider.GetType().ToString() == "UnityEngine.BoxCollider2D")
@@ -165,8 +168,8 @@ public class Greatsword : MonoBehaviour
     private IEnumerator Ability2Cast()
     {
         attackHitBoxPos.localPosition = Vector3.zero;
-        attackHitBoxPos.gameObject.GetComponent<CircleCollider2D>().radius = 2.5f;
-        Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, 2.5f, Damageable);
+        attackHitBoxPos.gameObject.GetComponent<CircleCollider2D>().radius = Ability2Radius;
+        Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, Ability2Radius, Damageable);
         foreach (Collider2D collider in detectedObjects)
         {
             if (collider.gameObject.tag == "Enemy" && collider.GetType().ToString() == "UnityEngine.BoxCollider2D")
@@ -206,8 +209,8 @@ public class Greatsword : MonoBehaviour
         float cd = 10f * ((100 - Player.CDR) / 100);
         PSC.Attack("Stab", 2);
         yield return new WaitForSeconds(.5f);
-        attackHitBoxPos.localPosition = MapPoint(PSC.currentDirection, 3f);
-        attackHitBoxPos.gameObject.GetComponent<CircleCollider2D>().radius = 3f;
+        attackHitBoxPos.localPosition = MapPoint(PSC.currentDirection, UltimateRadius);
+        attackHitBoxPos.gameObject.GetComponent<CircleCollider2D>().radius = UltimateRadius;
         Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, 3f, Damageable);
         foreach (Collider2D collider in detectedObjects)
         {

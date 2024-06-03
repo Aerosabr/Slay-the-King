@@ -11,8 +11,10 @@ public class DualAxes : MonoBehaviour
     public GameObject ThrownAxe;
 
     public bool AttackCD = true;
+    private float AttackRadius = 0.5f;
     public bool Ability1CD = true;
     public bool Ability2CD = true;
+    private float Ability2Radius = 1f;
     public bool UltimateCD = true;
     public bool MovementCD = true;
 
@@ -92,9 +94,9 @@ public class DualAxes : MonoBehaviour
 
     public void Attack(float kb)
     {
-        attackHitBoxPos.localPosition = MapPoint(PSC.currentDirection, 1f);
-        attackHitBoxPos.gameObject.GetComponent<CircleCollider2D>().radius = 0.5f;
-        Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, .5f, Damageable);
+        attackHitBoxPos.localPosition = MapPoint(PSC.currentDirection, AttackRadius * 2);
+        attackHitBoxPos.gameObject.GetComponent<CircleCollider2D>().radius = AttackRadius;
+        Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, AttackRadius, Damageable);
         foreach (Collider2D collider in detectedObjects)
         {
             if (collider.gameObject.tag == "Enemy" && collider.GetType().ToString() == "UnityEngine.BoxCollider2D")
@@ -132,7 +134,7 @@ public class DualAxes : MonoBehaviour
         PSC.Attack("Stab", 2);       
         yield return new WaitForSeconds(.2f);
         GameObject axe = Instantiate(ThrownAxe, Player.transform.position, Player.transform.rotation);
-        axe.GetComponent<ThrownAxe>().EditAxe(transform.position, 10f, Player.Attack, this);
+        axe.GetComponent<ThrownAxe>().EditAxe(transform.position, 5f, Player.Attack, this);
         axe.GetComponent<Rigidbody2D>().velocity = 8f * MapPoint(PSC.currentDirection, 1);
         Player.Cooldowns[1].SetActive(true);
         Player.Cooldowns[1].GetComponent<CooldownUI>().StartCooldown(3f * ((100 - Player.CDR) / 100));
@@ -165,9 +167,9 @@ public class DualAxes : MonoBehaviour
     private IEnumerator Ability2Cast()
     {
         PSC.Attack("2HSlam", 2);
-        attackHitBoxPos.localPosition = MapPoint(PSC.currentDirection, 1f);
-        attackHitBoxPos.gameObject.GetComponent<CircleCollider2D>().radius = 1f;
-        Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, 1f, Damageable);
+        attackHitBoxPos.localPosition = MapPoint(PSC.currentDirection, Ability2Radius);
+        attackHitBoxPos.gameObject.GetComponent<CircleCollider2D>().radius = Ability2Radius;
+        Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, Ability2Radius, Damageable);
         foreach (Collider2D collider in detectedObjects)
         {
             if (collider.gameObject.tag == "Enemy" && collider.GetType().ToString() == "UnityEngine.BoxCollider2D")

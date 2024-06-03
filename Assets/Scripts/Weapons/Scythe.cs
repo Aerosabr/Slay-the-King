@@ -10,7 +10,9 @@ public class Scythe : MonoBehaviour
     public LayerMask Damageable;
 
     public bool AttackCD = true;
+    private float AttackRadius = 1f;
     public bool Ability1CD = true;
+    private float Ability1Radius = 1.5f;
     public bool Ability2CD = true;
     public bool UltimateCD = true;
     public bool MovementCD = true;
@@ -88,9 +90,9 @@ public class Scythe : MonoBehaviour
 
     public void Attack()
     {
-        attackHitBoxPos.localPosition = MapPoint(PSC.currentDirection, 1f);
-        attackHitBoxPos.gameObject.GetComponent<CircleCollider2D>().radius = 1f;
-        Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, 1f, Damageable);
+        attackHitBoxPos.localPosition = MapPoint(PSC.currentDirection, AttackRadius);
+        attackHitBoxPos.gameObject.GetComponent<CircleCollider2D>().radius = AttackRadius;
+        Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, AttackRadius, Damageable);
         foreach (Collider2D collider in detectedObjects)
         {
             if (collider.gameObject.tag == "Enemy" && collider.GetType().ToString() == "UnityEngine.BoxCollider2D")
@@ -123,12 +125,12 @@ public class Scythe : MonoBehaviour
 
     private IEnumerator Ability1Cast()
     {
-        attackHitBoxPos.localPosition = MapPoint(PSC.currentDirection, 1.5f);
-        attackHitBoxPos.gameObject.GetComponent<CircleCollider2D>().radius = 1.5f;
+        attackHitBoxPos.localPosition = MapPoint(PSC.currentDirection, Ability1Radius);
+        attackHitBoxPos.gameObject.GetComponent<CircleCollider2D>().radius = Ability1Radius;
         for (int i = 0; i < 2; i++)
         {
             PSC.Attack("Stab", 2);
-            Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, 1.5f, Damageable);
+            Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, Ability1Radius, Damageable);
             foreach (Collider2D collider in detectedObjects)
             {
                 if (collider.gameObject.tag == "Enemy" && collider.GetType().ToString() == "UnityEngine.BoxCollider2D")

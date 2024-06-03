@@ -3483,7 +3483,7 @@ PrefabInstance:
     - target: {fileID: 7250359071021269316, guid: 3de2de7b885b3bf43ad4371c7de8e05c, type: 3}
       propertyPath: Players.Array.data[0]
       value: 
-      objectReference: {fileID: 1285354121}
+      objectReference: {fileID: 803628993}
     - target: {fileID: 7250359071021269316, guid: 3de2de7b885b3bf43ad4371c7de8e05c, type: 3}
       propertyPath: Players.Array.data[1]
       value: 
@@ -25907,6 +25907,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 802520262}
   m_CullTransparentMesh: 1
+--- !u!1 &803628993 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5092378024536171872, guid: 9675d4db8d7bc0646b7d0d8ed7b85a86, type: 3}
+  m_PrefabInstance: {fileID: 773629088}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &803829306
 GameObject:
   m_ObjectHideFlags: 0
@@ -28159,21 +28164,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1947650532}
     m_Modifications:
-    - target: {fileID: 3537363998747294035, guid: 4d055585a3ca46743ac91d776706d690, type: 3}
-      propertyPath: m_Offset.x
-      value: -0.025
-      objectReference: {fileID: 0}
-    - target: {fileID: 3537363998747294035, guid: 4d055585a3ca46743ac91d776706d690, type: 3}
-      propertyPath: m_Offset.y
-      value: -0.2
-      objectReference: {fileID: 0}
     - target: {fileID: 5651209541059400872, guid: 4d055585a3ca46743ac91d776706d690, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.1232514
+      value: -1.4
       objectReference: {fileID: 0}
     - target: {fileID: 5651209541059400872, guid: 4d055585a3ca46743ac91d776706d690, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.5365033
+      value: 2.98
       objectReference: {fileID: 0}
     - target: {fileID: 5651209541059400872, guid: 4d055585a3ca46743ac91d776706d690, type: 3}
       propertyPath: m_LocalPosition.z
@@ -29660,11 +29657,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5651209541059400872, guid: 0e19617d7368da949bfa90818a87d3b0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.2816386
+      value: 1.06
       objectReference: {fileID: 0}
     - target: {fileID: 5651209541059400872, guid: 0e19617d7368da949bfa90818a87d3b0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.35549664
+      value: 2.77
       objectReference: {fileID: 0}
     - target: {fileID: 5651209541059400872, guid: 0e19617d7368da949bfa90818a87d3b0, type: 3}
       propertyPath: m_LocalPosition.z
@@ -36415,11 +36412,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1283460415}
   m_CullTransparentMesh: 1
---- !u!1 &1285354121 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7674789147919560599, guid: 4ece98136438eaa47aeb82888e2666aa, type: 3}
-  m_PrefabInstance: {fileID: 507809668}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1285912611
 GameObject:
   m_ObjectHideFlags: 0
@@ -56348,7 +56340,15 @@ CompositeCollider2D:
       - X: 100000000
         Y: -80000000
   m_CompositePaths:
-    m_Paths: []
+    m_Paths:
+    - - {x: 10.24997, y: -8.25}
+      - {x: 10.24997, y: 10}
+      - {x: -10.25, y: 9.99997}
+      - {x: -10.24997, y: -8.25}
+    - - {x: 10, y: -7.9999704}
+      - {x: -10, y: -7.9999704}
+      - {x: -9.99997, y: 8}
+      - {x: 10, y: 7.9999704}
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.00005
   m_UseDelaunayMesh: 0
@@ -58300,9 +58300,9 @@ Transform:
   - {fileID: 2023661171}
   - {fileID: 507809669}
   - {fileID: 384698968}
-  - {fileID: 773629089}
   - {fileID: 871109900}
   - {fileID: 520971704}
+  - {fileID: 773629089}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1960057355

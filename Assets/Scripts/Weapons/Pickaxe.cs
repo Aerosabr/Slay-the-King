@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Axe : MonoBehaviour
+public class Pickaxe : MonoBehaviour
 {
     public PlayerSpriteController PSC;
     public Player Player;
@@ -44,7 +44,7 @@ public class Axe : MonoBehaviour
 
     private IEnumerator AttackCast()
     {
-        PSC.Attack("Chop", 2);
+        PSC.Attack("Mine", 2);
         Player.Cooldowns[0].SetActive(true);
         Player.Cooldowns[0].GetComponent<CooldownUI>().StartCooldown(1 / Player.attackSpeed);
         Attack();
