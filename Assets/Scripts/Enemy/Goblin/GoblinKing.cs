@@ -159,7 +159,7 @@ public class GoblinKing : Entity, IDamageable, IEffectable
     #endregion
 
     #region IDamageable Components
-    public int Damaged(int amount)
+    public int Damaged(int amount, Vector3 origin, float kb)
     {
         amount = Mathf.Abs(amount);
         int damage = (amount - Defense > 0) ? amount - Defense : 1;
@@ -171,6 +171,9 @@ public class GoblinKing : Entity, IDamageable, IEffectable
             damage = currentHealth;
             currentHealth = 0;
         }
+
+        if (kbResistance < kb)
+            StartCoroutine(KnockCoroutine(origin, kb - kbResistance));
         DamagePopup.Create(rb.transform.position, Mathf.Abs(damage), false);
 
         if (currentHealth <= 0)
@@ -199,6 +202,17 @@ public class GoblinKing : Entity, IDamageable, IEffectable
         }
 
         return damage;
+    }
+
+    public IEnumerator KnockCoroutine(Vector3 origin, float kb)
+    {
+        Vector2 force = ((transform.position - new Vector3(0.25f, 0.2f)) - origin).normalized * kb;
+        isMovable = false;
+        rb.velocity = force;
+        yield return new WaitForSeconds(.3f);
+        isMovable = true;
+        if (currentHealth > 0)
+            rb.velocity = new Vector2();
     }
 
     public int Healed(int amount)
@@ -232,10 +246,7 @@ public class GoblinKing : Entity, IDamageable, IEffectable
         Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, 2f, Damageable);
         foreach (Collider2D collider in detectedObjects)
         {
-            if (collider.transform.position.x - transform.position.x >= 0)
-                collider.gameObject.GetComponent<IDamageable>().Damaged(Attack);
-            else
-                collider.gameObject.GetComponent<IDamageable>().Damaged(-Attack);
+            collider.gameObject.GetComponent<IDamageable>().Damaged(Attack, transform.position, 1);
         }
         yield return new WaitForSeconds(.15f);
         ESC.PlayAnimation("Idle");
@@ -282,12 +293,7 @@ public class GoblinKing : Entity, IDamageable, IEffectable
         Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, 3f, Damageable);
         foreach (Collider2D collider in detectedObjects)
         {
-            if (collider.transform.position.x - transform.position.x >= 0)
-                collider.gameObject.GetComponent<IDamageable>().Damaged(Attack);
-            else
-                collider.gameObject.GetComponent<IDamageable>().Damaged(-Attack);
-            if (collider.gameObject.GetComponent<Entity>().currentHealth > 0)
-                StartCoroutine(KnockCoroutine(collider.GetComponent<Rigidbody2D>()));
+            collider.gameObject.GetComponent<IDamageable>().Damaged(Attack, transform.position, 5);
         }
         yield return new WaitForSeconds(.25f);
         ESC.PlayAnimation("Idle");
@@ -334,10 +340,7 @@ public class GoblinKing : Entity, IDamageable, IEffectable
         Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, 2f, Damageable);
         foreach (Collider2D collider in detectedObjects)
         {
-            if (collider.transform.position.x - transform.position.x >= 0)
-                collider.gameObject.GetComponent<IDamageable>().Damaged(Attack);
-            else
-                collider.gameObject.GetComponent<IDamageable>().Damaged(-Attack);
+            collider.gameObject.GetComponent<IDamageable>().Damaged(Attack, transform.position, 0);
         }
 
         if (A3Counter == 6)
@@ -379,10 +382,7 @@ public class GoblinKing : Entity, IDamageable, IEffectable
 
     public void EnemyCharged(Collision2D collision)
     {
-        if (collision.transform.position.x - transform.position.x >= 0)
-            collision.gameObject.GetComponent<IDamageable>().Damaged(Attack);
-        else
-            collision.gameObject.GetComponent<IDamageable>().Damaged(-Attack);
+        collision.gameObject.GetComponent<IDamageable>().Damaged(Attack, transform.position, 5);
         StartCoroutine(KnockCoroutine(collision.gameObject.GetComponent<Rigidbody2D>()));
     }
     #endregion
@@ -417,11 +417,8 @@ public class GoblinKing : Entity, IDamageable, IEffectable
         Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, 4f, Damageable);
         foreach (Collider2D collider in detectedObjects)
         {
-            Debug.Log(collider.name);
-            if (collider.transform.position.x - transform.position.x >= 0)
-                collider.gameObject.GetComponent<IDamageable>().Damaged(Attack);
-            else
-                collider.gameObject.GetComponent<IDamageable>().Damaged(-Attack);
+            if (collider.gameObject.tag == "Player" && collider.GetType().ToString() == "UnityEngine.BoxCollider2D")
+                collider.gameObject.GetComponent<IDamageable>().Damaged(Attack, transform.position, 5);         
         }
         
         yield return new WaitForSeconds(.5f);

@@ -42,7 +42,7 @@ public class WandLaser : MonoBehaviour
     public IEnumerator DamageEnemies()
     {
         for (int i = 0; i < hitEnemies.Count; i++)
-            hitEnemies[i].GetComponent<IDamageable>().Damaged(Damage);
+            hitEnemies[i].GetComponent<IDamageable>().Damaged(Damage, transform.position, 0);
         
         yield return new WaitForSeconds(.25f);
         StartCoroutine(DamageEnemies());

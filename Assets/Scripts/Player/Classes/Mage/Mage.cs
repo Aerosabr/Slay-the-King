@@ -37,5 +37,6 @@ public class Mage : Class
             gameObject.AddComponent<Staff>();
         else if (weapon == "Wand")
             gameObject.AddComponent<Wand>();
+        CooldownManager.instance.LoadCooldowns();
     }
 }

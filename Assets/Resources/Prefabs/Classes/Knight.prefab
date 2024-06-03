@@ -1296,14 +1296,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a049d1a4df25a7143b911ce19cd5c703, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseMaxHealth: 100
+  baseMaxHealth: 10000
   healthMultiplier: 1
-  maxHealth: 100
-  currentHealth: 100
+  maxHealth: 10000
+  currentHealth: 10000
   Shield: 0
-  baseAttack: 5
+  baseAttack: 100
   attackMultiplier: 1
-  Attack: 5
+  Attack: 100
   baseDefense: 1
   defenseMultiplier: 1
   Defense: 1
@@ -1321,8 +1321,10 @@ MonoBehaviour:
   isStunned: 0
   isMovable: 1
   ccImmune: 0
+  kbResistance: 0
   Cost: 0
   Class: 
+  Weapon: 
   AttackCD: 0
   Ability1CD: 0
   Ability2CD: 0

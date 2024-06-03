@@ -39,6 +39,7 @@ public class Entity : MonoBehaviour
     public bool isStunned;
     public bool isMovable = true;
     public bool ccImmune;
+    public float kbResistance;
 
     public int Cost;
 

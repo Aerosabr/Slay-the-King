@@ -8,14 +8,20 @@ public class MaceShield : MonoBehaviour
     public Player Player;
     public Transform attackHitBoxPos;
     public LayerMask Damageable;
-    public float thrust = 10f;
+
+    //Cooldowns
     public bool AttackCD = true;
+    private float AttackRadius = 1f;
     public bool Ability1CD = true;
+    private float Ability1Radius = 1f;
     public bool Ability2CD = true;
     public bool UltimateCD = true;
     public bool MovementCD = true;
 
+    //Weapon variables
     public float dashDistance = 15f;
+    public float thrust = 10f;
+
 
     public void Awake()
     {
@@ -88,21 +94,13 @@ public class MaceShield : MonoBehaviour
 
     public void Attack()
     {
-        attackHitBoxPos.localPosition = MapPoint(PSC.currentDirection, .75f);
-        attackHitBoxPos.gameObject.GetComponent<CircleCollider2D>().radius = .75f;
-        Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, .75f, Damageable);
+        attackHitBoxPos.localPosition = MapPoint(PSC.currentDirection, AttackRadius);
+        attackHitBoxPos.gameObject.GetComponent<CircleCollider2D>().radius = AttackRadius;
+        Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, AttackRadius, Damageable);
         foreach (Collider2D collider in detectedObjects)
         {
-            if (collider.gameObject.tag == "Enemy")
-            {
-                if (collider.transform.position.x - transform.position.x >= 0)
-                    collider.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack);
-                else
-                    collider.gameObject.GetComponent<IDamageable>().Damaged(-Player.Attack);
-
-                if (collider.gameObject.GetComponent<Entity>().currentHealth > 0)
-                    StartCoroutine(KnockCoroutine(collider.GetComponent<Rigidbody2D>()));
-            }
+            if (collider.gameObject.tag == "Enemy" && collider.GetType().ToString() == "UnityEngine.BoxCollider2D")
+                collider.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack, transform.position, 3);
         }
     }
 
@@ -141,19 +139,16 @@ public class MaceShield : MonoBehaviour
 
     private IEnumerator Ability1Cast()
     {
-        attackHitBoxPos.localPosition = MapPoint(PSC.currentDirection, 1f);
-        attackHitBoxPos.gameObject.GetComponent<CircleCollider2D>().radius = 1f;
+        attackHitBoxPos.localPosition = MapPoint(PSC.currentDirection, Ability1Radius);
+        attackHitBoxPos.gameObject.GetComponent<CircleCollider2D>().radius = Ability1Radius;
         PSC.Attack("Stab", 2);
         yield return new WaitForSeconds(.1f);
-        Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, 1f, Damageable);
+        Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, Ability1Radius, Damageable);
         foreach (Collider2D collider in detectedObjects)
         {
-            if (collider.gameObject.tag == "Enemy")
+            if (collider.gameObject.tag == "Enemy" && collider.GetType().ToString() == "UnityEngine.BoxCollider2D")
             {
-                if (collider.transform.position.x - transform.position.x >= 0)
-                    collider.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack);
-                else
-                    collider.gameObject.GetComponent<IDamageable>().Damaged(-Player.Attack);
+                collider.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack, transform.position, 3);
                 if (collider.gameObject.GetComponent<Entity>().currentHealth > 0)
                     collider.gameObject.GetComponent<IEffectable>().ApplyBuff(new MaceStun(3f, "Mace & Shield - Ability1", collider.gameObject));
             }

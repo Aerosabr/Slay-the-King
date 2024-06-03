@@ -15,6 +15,7 @@ public class Bow : MonoBehaviour
     public bool Ability1CD = true;
     public bool Ability2CD = true;
     public bool UltimateCD = true;
+    private float UltimateRadius = 1.6f;
     public bool MovementCD = true;
 
     public float dashDistance = 15f;
@@ -367,7 +368,7 @@ public class Bow : MonoBehaviour
         
         for (int i = 0; i < 40; i++)
         {
-            temp.x = mousePosition.x + Random.Range(-1.6f, 1.6f);
+            temp.x = mousePosition.x + Random.Range(-UltimateRadius, UltimateRadius);
             GameObject arrow = Instantiate(arrowPrefab, temp, Quaternion.identity);
             arrow.GetComponent<Arrow>().EditArrow(0.6f, Player.Attack, false);
             arrow.transform.rotation = Quaternion.Euler(0, 0, 90);

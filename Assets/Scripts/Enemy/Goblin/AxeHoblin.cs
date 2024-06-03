@@ -104,7 +104,7 @@ public class AxeHoblin : Entity, IDamageable, IEffectable
     #endregion
 
     #region IDamageable Components
-    public int Damaged(int amount)
+    public int Damaged(int amount, Vector3 origin, float kb)
     {
         amount = Mathf.Abs(amount);
         int damage = (amount - Defense > 0) ? amount - Defense : 1;
@@ -116,7 +116,10 @@ public class AxeHoblin : Entity, IDamageable, IEffectable
             damage = currentHealth;
             currentHealth = 0;
         }
-        DamagePopup.Create(rb.transform.position, Mathf.Abs(damage), false);
+
+        if (kbResistance < kb)
+            StartCoroutine(KnockCoroutine(origin, kb - kbResistance));
+        DamagePopup.Create(rb.transform.position, damage, false);
 
         if (currentHealth <= 0)
         {
@@ -144,6 +147,17 @@ public class AxeHoblin : Entity, IDamageable, IEffectable
         }
 
         return damage;
+    }
+
+    public IEnumerator KnockCoroutine(Vector3 origin, float kb)
+    {
+        Vector2 force = ((transform.position - new Vector3(0.03f, 0.3f)) - origin).normalized * kb;
+        isMovable = false;
+        rb.velocity = force;
+        yield return new WaitForSeconds(.3f);
+        isMovable = true;
+        if (currentHealth > 0)
+            rb.velocity = new Vector2();
     }
 
     public int Healed(int amount)
@@ -177,10 +191,7 @@ public class AxeHoblin : Entity, IDamageable, IEffectable
         Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, 1.5f, Damageable);
         foreach (Collider2D collider in detectedObjects)
         {
-            if (collider.transform.position.x - transform.position.x >= 0)
-                collider.gameObject.GetComponent<IDamageable>().Damaged(Attack);
-            else
-                collider.gameObject.GetComponent<IDamageable>().Damaged(-Attack);
+            collider.gameObject.GetComponent<IDamageable>().Damaged(Attack, transform.position, 5);
         }
         yield return new WaitForSeconds(.15f);
         ESC.PlayAnimation("Idle");
@@ -205,10 +216,7 @@ public class AxeHoblin : Entity, IDamageable, IEffectable
         Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, 2f, Damageable);
         foreach (Collider2D collider in detectedObjects)
         {
-            if (collider.transform.position.x - transform.position.x >= 0)
-                collider.gameObject.GetComponent<IDamageable>().Damaged(Attack);
-            else
-                collider.gameObject.GetComponent<IDamageable>().Damaged(-Attack);
+            collider.gameObject.GetComponent<IDamageable>().Damaged(Attack, transform.position, 5);
         }
         yield return new WaitForSeconds(.1f);
         ESC.PlayAnimation("Idle");

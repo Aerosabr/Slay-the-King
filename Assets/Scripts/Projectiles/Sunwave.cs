@@ -19,13 +19,9 @@ public class Sunwave : MonoBehaviour
     {
         if (collision.gameObject.tag == "Enemy")
         {
-            if (collision.transform.position.x - gameObject.transform.position.x >= 0)
-                collision.gameObject.GetComponent<IDamageable>().Damaged((int)damage);
-            else
-                collision.gameObject.GetComponent<IDamageable>().Damaged((int)-damage);
+            collision.gameObject.GetComponent<IDamageable>().Damaged((int)damage, transform.position, 3);
 
-            //collision.gameObject.GetComponent<IEffectable>()
-            //    .ApplyBuff(new IncreaseDamageTaken(20, 10f, "Throwing Knife - Ability 1", collision.gameObject));
+            collision.gameObject.GetComponent<IEffectable>().ApplyBuff(new IncreaseDamageTaken(20, 10f, "Tome - Ability 2", collision.gameObject));
         }
     }
 

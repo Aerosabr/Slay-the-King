@@ -10,8 +10,11 @@ public class SwordShield : MonoBehaviour
     public LayerMask Damageable;
 
     public bool AttackCD = true;
+    private float AttackRadius = 0.75f;
     public bool Ability1CD = true;
+    private float Ability1Radius = 1.5f;
     public bool Ability2CD = true;
+    private float Ability2Radius = 5f;
     public bool UltimateCD = true;
     public bool MovementCD = true;
 
@@ -88,18 +91,13 @@ public class SwordShield : MonoBehaviour
 
     public void Attack()
     {
-        attackHitBoxPos.localPosition = MapPoint(PSC.currentDirection, .75f);
-        attackHitBoxPos.gameObject.GetComponent<CircleCollider2D>().radius = .75f;
-        Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, .75f, Damageable);
+        attackHitBoxPos.localPosition = MapPoint(PSC.currentDirection, AttackRadius);
+        attackHitBoxPos.gameObject.GetComponent<CircleCollider2D>().radius = AttackRadius;
+        Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, AttackRadius, Damageable);
         foreach (Collider2D collider in detectedObjects)
         {
-            if (collider.gameObject.tag == "Enemy")
-            {
-                if (collider.transform.position.x - transform.position.x >= 0)
-                    collider.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack);
-                else
-                    collider.gameObject.GetComponent<IDamageable>().Damaged(-Player.Attack);
-            }
+            if (collider.gameObject.tag == "Enemy" && collider.GetType().ToString() == "UnityEngine.BoxCollider2D")
+                collider.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack, transform.position, 3);
         }
     }
 
@@ -131,18 +129,13 @@ public class SwordShield : MonoBehaviour
         PSC.Attack("Stab", 2);
         gameObject.GetComponent<IEffectable>().ApplyBuff(new IncreaseDefense(0, 1f, 2f, "Sword & Shield - Ability 1", gameObject));
         yield return new WaitForSeconds(3f);
-        attackHitBoxPos.localPosition = MapPoint(PSC.currentDirection, 1.5f);
-        attackHitBoxPos.gameObject.GetComponent<CircleCollider2D>().radius = 1.5f;
-        Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, 1.5f, Damageable);
+        attackHitBoxPos.localPosition = MapPoint(PSC.currentDirection, Ability1Radius);
+        attackHitBoxPos.gameObject.GetComponent<CircleCollider2D>().radius = Ability1Radius;
+        Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, Ability1Radius, Damageable);
         foreach (Collider2D collider in detectedObjects)
         {
-            if (collider.gameObject.tag == "Enemy")
-            {
-                if (collider.transform.position.x - transform.position.x >= 0)
-                    collider.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack);
-                else
-                    collider.gameObject.GetComponent<IDamageable>().Damaged(-Player.Attack);
-            }
+            if (collider.gameObject.tag == "Enemy" && collider.GetType().ToString() == "UnityEngine.BoxCollider2D")
+                collider.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack, transform.position, 3);
         }
         Player.Cooldowns[1].SetActive(true);
         Player.Cooldowns[1].GetComponent<CooldownUI>().StartCooldown(6f * ((100 - Player.CDR) / 100));
@@ -176,10 +169,10 @@ public class SwordShield : MonoBehaviour
     {
         PSC.PlayAnimation("Stab");
         attackHitBoxPos.localPosition = Vector2.zero;
-        Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, 5f, Damageable);
+        Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, Ability2Radius, Damageable);
         foreach (Collider2D collider in detectedObjects)
         {
-            if (collider.gameObject.tag == "Enemy")
+            if (collider.gameObject.tag == "Enemy" && collider.GetType().ToString() == "UnityEngine.BoxCollider2D")
             {
                 collider.gameObject.GetComponent<IEffectable>().ApplyBuff(new MaceStun(.5f, "Sword & Shield - Ability 2", collider.gameObject));
                 collider.gameObject.GetComponent<IEffectable>().ApplyBuff(new IncreaseAttack(0, -0.3f, 30f, "Sword & Shield - Ability 2", collider.gameObject));

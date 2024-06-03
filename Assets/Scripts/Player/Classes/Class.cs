@@ -6,6 +6,7 @@ public abstract class Class : MonoBehaviour
 {
     //Main class that all character classes derive from
     public string Name;
+    public bool kitChangeable = true;
 
     public abstract bool checkEquippable(string weapon);
 

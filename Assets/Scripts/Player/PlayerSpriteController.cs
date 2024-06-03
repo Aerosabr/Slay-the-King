@@ -43,7 +43,7 @@ public class PlayerSpriteController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!isAttacking && Movable && !player.isStunned)
+        if (!isAttacking && Movable && !player.isStunned && player.isMovable)
         {
             _smoothedMovementInput = Vector2.SmoothDamp(_smoothedMovementInput, _movementInput, ref _movementInputSmoothVelocity, 0.1f);
             _rigidbody.velocity = _smoothedMovementInput * player.movementSpeed * sprintMultiplier * 3;

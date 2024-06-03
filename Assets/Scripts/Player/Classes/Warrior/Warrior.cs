@@ -37,5 +37,6 @@ public class Warrior : Class
             gameObject.AddComponent<Greatsword>();
         else if (weapon == "DualAxes")
             gameObject.AddComponent<DualAxes>();
+        CooldownManager.instance.LoadCooldowns();
     }
 }
