@@ -37,5 +37,6 @@ public class Knight : Class
             gameObject.AddComponent<SwordShield>();
         else if (weapon == "Hammer")
             gameObject.AddComponent<Hammer>();
+        CooldownManager.instance.LoadCooldowns();
     }
 }

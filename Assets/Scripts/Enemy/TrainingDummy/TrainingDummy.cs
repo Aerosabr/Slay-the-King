@@ -27,7 +27,7 @@ public class TrainingDummy : Entity, IDamageable, IEffectable
     }
 
     //IDamageable Components
-    public int Damaged(int amount)
+    public int Damaged(int amount, Vector3 origin, float kb)
     {
         int damage = (Mathf.Abs(amount) - Defense > 0) ? Mathf.Abs(amount) - Defense : 1;
 
@@ -39,12 +39,12 @@ public class TrainingDummy : Entity, IDamageable, IEffectable
             currentHealth = 0;
         }
 
-        if (amount > 0)
+        if (origin.x - transform.position.x < 0)
             anim.SetTrigger("DamagedLeft");
         else
             anim.SetTrigger("DamagedRight");
 
-        DamagePopup.Create(rb.transform.position, (int)Mathf.Abs(damage), false);
+        DamagePopup.Create(rb.transform.position, damage, false);
         return damage;
     }
 

@@ -39,7 +39,7 @@ public class FlyingEye : Entity, IDamageable, IEffectable
             HandleBuff();
     }
 
-    //IEffectable Components
+    #region IEffectable Components
     public Dictionary<string, Buff> Buffs = new Dictionary<string, Buff>();
 
     public void ApplyBuff(Buff buff)
@@ -66,9 +66,10 @@ public class FlyingEye : Entity, IDamageable, IEffectable
                 RemoveBuff(Buffs[key]);
         }
     }
+    #endregion
 
-    //IDamageable Components
-    public int Damaged(int amount)
+    #region IDamageable Components
+    public int Damaged(int amount, Vector3 origin, float kb)
     {
         amount = Mathf.Abs(amount);
         int damage = (amount - Defense > 0) ? amount - Defense : 1;
@@ -80,7 +81,10 @@ public class FlyingEye : Entity, IDamageable, IEffectable
             damage = currentHealth;
             currentHealth = 0;
         }
-        
+
+        if (kbResistance < kb)
+            StartCoroutine(KnockCoroutine(origin, kb - kbResistance));
+
         if (currentHealth <= 0)
         {
             anim.SetTrigger("Death");
@@ -112,10 +116,21 @@ public class FlyingEye : Entity, IDamageable, IEffectable
         return damage;
     }
 
+    public IEnumerator KnockCoroutine(Vector3 origin, float kb)
+    {
+        Vector2 force = (transform.position - origin).normalized * kb;
+        isMovable = false;
+        rb.velocity = force;
+        yield return new WaitForSeconds(.3f);
+        isMovable = true;
+        rb.velocity = new Vector2();
+    }
+
     public int Healed(int amount)
     {
         return 0;
     }
+    #endregion
 
     public IEnumerator Death(float time)
     {
@@ -149,7 +164,7 @@ public class FlyingEye : Entity, IDamageable, IEffectable
         isAttacking = true;
         anim.SetTrigger("Attack");
         yield return new WaitForSeconds(.75f);
-        collision.gameObject.GetComponent<IDamageable>().Damaged(Attack);
+        collision.gameObject.GetComponent<IDamageable>().Damaged(Attack, transform.position, 0);
         isAttacking = false;
     }
 }

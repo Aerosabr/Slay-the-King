@@ -116,10 +116,7 @@ public class Wand : MonoBehaviour
         lineRenderer.SetPosition(1, boltEnd);
         if (Collider != null)
         {
-            if (Collider.transform.position.x - transform.position.x >= 0)
-                Collider.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack);
-            else
-                Collider.gameObject.GetComponent<IDamageable>().Damaged(-Player.Attack);
+            Collider.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack, transform.position, 3);
         }
         Destroy(lineRenderer.gameObject, .5f);
         Player.Cooldowns[0].SetActive(true);

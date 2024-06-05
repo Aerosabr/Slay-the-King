@@ -24,6 +24,7 @@ public class Player : Entity, IEffectable, IDamageable
 
     //ConsumableHotBar
     public ActivateConsumables[] consumableSlot;
+    public bool canInteract;
 
     private void Awake()
     {
@@ -66,7 +67,7 @@ public class Player : Entity, IEffectable, IDamageable
     #endregion
 
     #region IDamageable Components
-    public int Damaged(int amount) 
+    public int Damaged(int amount, Vector3 origin, float kb) 
     {
         int damage = 0;
         amount = Mathf.Abs(amount);
@@ -96,13 +97,19 @@ public class Player : Entity, IEffectable, IDamageable
             {
                 damage = currentHealth;
                 currentHealth = 0;
+            }
+
+            if (kbResistance < kb)
+                StartCoroutine(KnockCoroutine(origin, kb - kbResistance));
+            DamagePopup.Create(rb.transform.position, damage, false);
+            if (currentHealth <= 0)
+            {
                 GetComponent<PlayerSpriteController>().PlayAnimation("Death");
                 GetComponent<PlayerSpriteController>()._rigidbody.velocity = Vector2.zero;
                 GetComponent<PlayerSpriteController>().Movable = false;
             }
         }
         
-        DamagePopup.Create(rb.transform.position, damage, false);
         return damage;
     }
 
@@ -124,6 +131,20 @@ public class Player : Entity, IEffectable, IDamageable
         }
 
         return damage;
+    }
+
+    public IEnumerator KnockCoroutine(Vector3 origin, float kb)
+    {
+        Vector2 force = ((transform.position - new Vector3(0.04f, 0.3f)) - origin).normalized * kb;
+        Debug.Log("Force " + force);
+        Debug.Log("Origin " + origin);
+        Debug.Log("Pos " + transform.position);
+        isMovable = false;
+        rb.velocity = force;
+        yield return new WaitForSeconds(.3f);
+        isMovable = true;
+        if (currentHealth > 0)
+            rb.velocity = new Vector2();
     }
 
     public int Healed(int amount)
@@ -193,4 +214,26 @@ public class Player : Entity, IEffectable, IDamageable
 		consumableSlot[2].Activate();
 	}
 
+    public void OnInteract()
+    {
+        if (canInteract)
+        {
+            Transform attackHB = transform.Find("AttackHitbox");
+            attackHB.transform.localPosition = MapPoint(GetComponent<PlayerSpriteController>().currentDirection, 1f);
+            attackHB.gameObject.GetComponent<CircleCollider2D>().radius = 1f;
+            Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHB.position, 1f, LayerMask.GetMask("Interactable"));
+            foreach (Collider2D collider in detectedObjects)
+            {
+                if (collider.gameObject.tag == "Interactable" && collider.GetType().ToString() == "UnityEngine.BoxCollider2D")
+                    collider.GetComponent<IInteractable>().Interacted(this);               
+            }
+        }
+    }
+
+    public Vector2 MapPoint(Vector2 point, float radius)
+    {
+        float angle = Mathf.Atan2(point.y, point.x);
+        Vector2 temp = new Vector2(Mathf.Cos(angle) * radius, Mathf.Sin(angle) * radius);
+        return temp;
+    }
 }

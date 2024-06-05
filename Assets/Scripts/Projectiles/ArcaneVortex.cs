@@ -33,7 +33,7 @@ public class ArcaneVortex : MonoBehaviour
         foreach(GameObject enemy in Enemies)
         {
             if (enemy.tag == "Enemy")
-                enemy.GetComponent<IDamageable>().Damaged(Damage);
+                enemy.GetComponent<IDamageable>().Damaged(Damage, transform.position, 5);
         }
         yield return new WaitForSeconds(1f);
         StartCoroutine(DamageEnemies());

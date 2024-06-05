@@ -21,10 +21,7 @@ public class ShockBolt : MonoBehaviour
         {
             if (!hitEnemies.Contains(collision.gameObject))
             {
-                if (collision.transform.position.x - gameObject.transform.position.x >= 0)
-                    collision.gameObject.GetComponent<IDamageable>().Damaged(damage);
-                else
-                    collision.gameObject.GetComponent<IDamageable>().Damaged(-damage);
+                collision.gameObject.GetComponent<IDamageable>().Damaged(damage, transform.position, 0);
                 gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
                 hitEnemies.Add(collision.gameObject);
                 ricochetCount++;

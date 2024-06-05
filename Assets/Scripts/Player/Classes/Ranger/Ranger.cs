@@ -11,6 +11,9 @@ public class Ranger : Class
 
     public override void changeWeapon()
     {
+        if (!kitChangeable)
+            return;
+
         ItemSO item = GameObject.Find("WeaponSlot").GetComponent<EquippedSlot>().item;
 
         if (!item)
@@ -37,5 +40,6 @@ public class Ranger : Class
             gameObject.AddComponent<Knives>();
         else if (weapon == "Bow")
             gameObject.AddComponent<Bow>();
+        CooldownManager.instance.LoadCooldowns();
     }
 }

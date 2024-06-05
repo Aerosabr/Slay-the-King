@@ -2582,6 +2582,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 825461518803071646}
   - {fileID: 7436391579532452052}
   - {fileID: 8839738908088920341}
   m_Father: {fileID: 0}
@@ -4081,3 +4082,69 @@ CompositeCollider2D:
   m_OffsetDistance: 0.00005
   m_UseDelaunayMesh: 0
   m_CompositeGameObject: {fileID: 6689986123695722219}
+--- !u!1001 &3429920442176876125
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 7105544005749021979}
+    m_Modifications:
+    - target: {fileID: 44274060049457146, guid: ad0ded203991f9146b5a3d5c5fd1bca7, type: 3}
+      propertyPath: m_Name
+      value: StagePortal1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2660825391401229507, guid: ad0ded203991f9146b5a3d5c5fd1bca7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2660825391401229507, guid: ad0ded203991f9146b5a3d5c5fd1bca7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2660825391401229507, guid: ad0ded203991f9146b5a3d5c5fd1bca7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2660825391401229507, guid: ad0ded203991f9146b5a3d5c5fd1bca7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2660825391401229507, guid: ad0ded203991f9146b5a3d5c5fd1bca7, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2660825391401229507, guid: ad0ded203991f9146b5a3d5c5fd1bca7, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2660825391401229507, guid: ad0ded203991f9146b5a3d5c5fd1bca7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2660825391401229507, guid: ad0ded203991f9146b5a3d5c5fd1bca7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2660825391401229507, guid: ad0ded203991f9146b5a3d5c5fd1bca7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2660825391401229507, guid: ad0ded203991f9146b5a3d5c5fd1bca7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6806902589228224414, guid: ad0ded203991f9146b5a3d5c5fd1bca7, type: 3}
+      propertyPath: Stage
+      value: Boulder
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ad0ded203991f9146b5a3d5c5fd1bca7, type: 3}
+--- !u!4 &825461518803071646 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2660825391401229507, guid: ad0ded203991f9146b5a3d5c5fd1bca7, type: 3}
+  m_PrefabInstance: {fileID: 3429920442176876125}
+  m_PrefabAsset: {fileID: 0}

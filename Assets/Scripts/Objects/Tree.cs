@@ -8,7 +8,7 @@ public class Tree : Entity, IDamageable
     public Animator anim;
 
     #region IDamageable Components
-    public int Damaged(int amount)
+    public int Damaged(int amount, Vector3 origin, float kb)
     {
         int damage;
         if (amount > currentHealth)
@@ -21,13 +21,16 @@ public class Tree : Entity, IDamageable
             damage = currentHealth - amount;
             currentHealth -= amount;
         }
+
         anim.Play("Hit");
-        DamagePopup.Create(rb.transform.position, Mathf.Abs(damage), false);
+        if (kbResistance < kb)
+            StartCoroutine(KnockCoroutine(origin, kb - kbResistance));
+        DamagePopup.Create(transform.position, Mathf.Abs(damage), false);
 
         if (currentHealth <= 0)
         {
-            anim.SetBool("Felled", true);
-            TreeStage.instance.treeFelled();
+            anim.Play("Felled");
+            TreeStage.instance.StartCoroutine(TreeStage.instance.treeFelled());
         }
 
         return damage;
@@ -48,6 +51,16 @@ public class Tree : Entity, IDamageable
         }
 
         return damage;
+    }
+
+    public IEnumerator KnockCoroutine(Vector3 origin, float kb)
+    {
+        Vector2 force = (transform.position - origin).normalized * kb;
+        isMovable = false;
+        rb.velocity = force;
+        yield return new WaitForSeconds(.3f);
+        isMovable = true;
+        rb.velocity = new Vector2();
     }
 
     public int Healed(int amount)

@@ -11,10 +11,7 @@ public class Fireball : MonoBehaviour
     {
         if (collision.gameObject.tag == "Enemy")
         {
-            if (collision.transform.position.x - gameObject.transform.position.x >= 0)
-                collision.gameObject.GetComponent<IDamageable>().Damaged(Damage);
-            else
-                collision.gameObject.GetComponent<IDamageable>().Damaged(-Damage);
+            collision.gameObject.GetComponent<IDamageable>().Damaged(Damage, transform.position, 3);
             Destroy(gameObject);
         }
     }

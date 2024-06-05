@@ -30,14 +30,7 @@ public class Knife : MonoBehaviour
     {
         if (collision.gameObject.tag == "Enemy")
         {
-            if (collision.transform.position.x - gameObject.transform.position.x >= 0)
-            {
-                collision.gameObject.GetComponent<IDamageable>().Damaged((int)damage);
-            }
-            else
-            {
-                collision.gameObject.GetComponent<IDamageable>().Damaged((int)-damage);
-            }
+            collision.gameObject.GetComponent<IDamageable>().Damaged((int)damage, transform.position, 3);
             if (isDebuff)
                 collision.gameObject.GetComponent<IEffectable>().ApplyBuff(new IncreaseDamageTaken(20, 10f, "Throwing Knife - Ability 1", collision.gameObject));
         }
