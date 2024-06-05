@@ -36,6 +36,13 @@ public class InventoryManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(player == null)
+        {
+			player = GameObject.Find("PlayerManager").transform.GetChild(0).GetChild(0).GetComponent<Player>();
+			UpdatePlayerStatPanel();
+			equipCurrentWeapon();
+			InventoryMenu.SetActive(false);
+		}
         if (Input.GetButtonDown("InventoryMenu"))
             Inventory();
 
