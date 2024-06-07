@@ -11,7 +11,9 @@ public class ScavengerStage : MonoBehaviour
     public int numSpawned;
     public int numCollected;
     private bool Active = true;
-    [SerializeField] private GameObject Timer;
+    [SerializeField] private Text Timer;
+    public Text coinText;
+    public Slider starRating;
     private float timeElapsed = 30f;
 
     private void Awake()
@@ -24,10 +26,11 @@ public class ScavengerStage : MonoBehaviour
     {
         if (Active)
         {
-            if (timeElapsed >= 0)
+			UpdateCoinUI();
+			if (timeElapsed >= 0)
             {
                 timeElapsed -= Time.deltaTime;
-                Timer.GetComponent<Text>().text = timeElapsed.ToString("#.00") + "  Coins Collected: " + numCollected;
+                Timer.text = timeElapsed.ToString("F2") + "s";
             }
             else
                 EndStage();
@@ -67,4 +70,15 @@ public class ScavengerStage : MonoBehaviour
         }
         TeleportManager.instance.LoadNextStage("Scavenger");
     }
+
+    public void UpdateCoinUI()
+    {
+        coinText.text = "Coins Collected: " + numCollected;
+        if (numCollected == 50)
+            starRating.value = 1f;
+        else if (numCollected == 35)
+            starRating.value = 0.7f;
+        else if (numCollected == 20)
+            starRating.value = 0.4f;
+	}
 }

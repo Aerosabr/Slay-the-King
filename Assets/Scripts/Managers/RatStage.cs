@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RatStage : MonoBehaviour
 {
@@ -8,6 +9,9 @@ public class RatStage : MonoBehaviour
     public float xPos;
     public float yPos;
     public Transform spawnArea;
+    public int captures;
+    public Text ratText;
+    public Slider starRating;
 
     public void Awake()
     {
@@ -31,5 +35,16 @@ public class RatStage : MonoBehaviour
     public Vector2 FindSpawnPos()
     {
         return new Vector2(Random.Range(-xPos, xPos), Random.Range(-yPos, yPos));
+    }
+
+    public void UpdateRatUI()
+    {
+        ratText.text = "Rats caught: " + captures.ToString();
+        if (captures == 24)
+            starRating.value = 1f;
+        else if (captures == 16)
+            starRating.value = 0.7f;
+        else if (captures == 8)
+            starRating.value = 0.4f;
     }
 }

@@ -15,6 +15,7 @@ public class BattleStage : MonoBehaviour
     public int Credit = 50;
     public int Wave = 1;
     public GameObject WaveHUD;
+    public Text EnemyCountText;
     public List<GameObject> Enemies = new List<GameObject>();
     public bool Active = true;
     public bool Spawnable;
@@ -114,5 +115,11 @@ public class BattleStage : MonoBehaviour
         Active = false;
         Debug.Log("All players dead");
     }
+
+    //Use this for the EnemyCount UI
+    public void UpdateCount()
+    {
+        EnemyCountText.text = "Enemy: " + 90.ToString() + "/" + 90.ToString(); 
+	}
 }
  

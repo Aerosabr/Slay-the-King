@@ -164,7 +164,9 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
 
     public bool CheckAvailableSlot()
     {
-        bool found = false;
+        if (!GameManager.instance.canEquip)
+            return false;
+		bool found = false;
 		for (int i = 0; i < slots.Length; i++)
 		{
 			if (slots[i].item)

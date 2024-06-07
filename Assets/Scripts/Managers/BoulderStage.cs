@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BoulderStage : MonoBehaviour
 {
@@ -16,6 +17,9 @@ public class BoulderStage : MonoBehaviour
 
     public bool Spawning;
     public float spawnDelay = 0.5f;
+
+    public Text timerText;
+    public Slider starRating;
 
     public void OnDrawGizmos()
     {
@@ -36,11 +40,13 @@ public class BoulderStage : MonoBehaviour
     public void FixedUpdate()
     {
         Timer += Time.deltaTime;
-        if (Timer > timeInterval && spawnDelay > 0.15f)
+		UpdateScoreBoard(Timer);
+		if (Timer > timeInterval && spawnDelay > 0.15f)
         {
             timeInterval += 10f;
             spawnDelay -= 0.1f;
         }
+        
     }
 
     public IEnumerator SpawnBoulders()
@@ -60,5 +66,18 @@ public class BoulderStage : MonoBehaviour
         yield return new WaitForSeconds(1f);
         GameObject boulder = Instantiate(Boulder, spawnPos, Quaternion.identity);
     }
+
+    public void UpdateScoreBoard(float timer)
+    {
+        int second = Mathf.FloorToInt(timer);
+		timerText.text = "Time Elasped: " + second + "s";
+        if (second <= 30)
+            starRating.value = 1f;
+        else if (second < 20)
+            starRating.value = 0.7f;
+        else if (second < 10)
+            starRating.value = 0.4f;
+        
+	}
 }
 

@@ -11,7 +11,10 @@ public class MiningStage : MonoBehaviour
     public int rocksBroken;
     private bool Active = true;
 
-    [SerializeField] private GameObject Timer;
+    public Text rockText;
+    public Slider starRating;
+
+    [SerializeField] private Text Timer;
     private List<RuntimeAnimatorController> RAC = new List<RuntimeAnimatorController>();
 
     public void Awake()
@@ -24,10 +27,11 @@ public class MiningStage : MonoBehaviour
     {
         if(Active)
         {
-            if (timeRemaining >= 0)
+			UpdateRocksMineUI();
+			if (timeRemaining >= 0)
             {
                 timeRemaining -= Time.deltaTime;
-                Timer.GetComponent<Text>().text = timeRemaining.ToString("#.00");
+                Timer.text = timeRemaining.ToString("F2") + "s";
             }
             else
                 unequipPickaxes();
@@ -59,6 +63,17 @@ public class MiningStage : MonoBehaviour
         }
         CooldownManager.instance.LoadCooldowns();
         TeleportManager.instance.LoadNextStage("Mining");
+    }
+
+    public void UpdateRocksMineUI()
+    {
+        rockText.text = "Rocks broken: " + rocksBroken.ToString();
+        if (rocksBroken == 6)
+            starRating.value = 1f;
+        else if (rocksBroken == 4)
+            starRating.value = 0.7f;
+        else if (rocksBroken == 2)
+            starRating.value = 0.4f;
     }
 
 }

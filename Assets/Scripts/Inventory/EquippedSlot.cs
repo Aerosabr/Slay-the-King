@@ -54,7 +54,9 @@ public class EquippedSlot : MonoBehaviour, IPointerClickHandler
 
                 if (item.itemType != ItemType.weapon)
                 {
-                    UnEquipGear();
+					if (!GameManager.instance.canEquip)
+						return;
+					UnEquipGear();
                     slotInUse = false;
                 }
                 if (equipmentStatPanel.gameObject.activeSelf)
@@ -83,7 +85,7 @@ public class EquippedSlot : MonoBehaviour, IPointerClickHandler
                 {
 					equipmentStatPanel.gameObject.SetActive(true);
 				}
-				equipmentStatPanel.position = new Vector3(xPanelPlacement, -25f, 0) + transform.position;
+				equipmentStatPanel.localPosition = new Vector3(140, 15f, 0);
                 EquipmentSO equipment = (EquipmentSO)item;
                 equipmentStatPanel.GetComponent<EquipmentStats>().SetEquippedSlot(this);
                 equipmentStatPanel.GetComponent<EquipmentStats>().UpdateEquipmentStatPanel(equipment);
@@ -95,7 +97,9 @@ public class EquippedSlot : MonoBehaviour, IPointerClickHandler
 
     public void OnRightClick()
     {
-        UnEquipGear();
+		if (!GameManager.instance.canEquip)
+			return;
+		UnEquipGear();
     }
 
     public void EquipGear(ItemSO item)
