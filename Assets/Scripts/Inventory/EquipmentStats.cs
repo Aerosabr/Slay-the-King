@@ -47,8 +47,8 @@ public class EquipmentStats : MonoBehaviour
         attackNum.text = item.attack.ToString();
         defenseNum.text = item.defense.ToString();
         dexNum.text = item.dexterity.ToString();
-        cdrNum.text = item.cooldown_reduction.ToString();
-        attackspdNum.text = item.attack_speed.ToString();
+        cdrNum.text = item.cooldownReduction.ToString();
+        attackspdNum.text = item.attackSpeed.ToString();
         luckNum.text = item.luck.ToString();
 	}
 

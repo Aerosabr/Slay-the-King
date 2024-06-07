@@ -8,9 +8,9 @@ public class ItemCreation : MonoBehaviour
 {
     public static ItemCreation instance;
 
-	List<EquipmentSO> equipmentList = new List<EquipmentSO>();
-    List<ConsumeSO> consumeList = new List<ConsumeSO>();
-    List<ItemSO> itemList = new List<ItemSO>();
+	public List<EquipmentSO> equipmentList = new List<EquipmentSO>();
+    public List<ConsumeSO> consumeList = new List<ConsumeSO>();
+    public List<ItemSO> itemList = new List<ItemSO>();
 
 	private void Awake()
 	{
