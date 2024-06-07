@@ -18,7 +18,7 @@ public class BoulderStage : MonoBehaviour
     private bool Active = false;
     public bool Spawning;
     private float timeInterval = 6f;
-
+    private float dropOnPlayer = 2f;
     [SerializeField] private float timeElapsed;
     [SerializeField] private int numRocksSpawned = 1;
     [SerializeField] private float spawnDelay = 0.5f;
@@ -45,6 +45,9 @@ public class BoulderStage : MonoBehaviour
     {
         if (Active)
         {
+            if (dropOnPlayer > 0)
+                dropOnPlayer -= Time.deltaTime;
+
             timeElapsed += Time.deltaTime;
             if (timeElapsed > timeInterval && spawnDelay > 0.15f)
             {
@@ -79,27 +82,40 @@ public class BoulderStage : MonoBehaviour
     {
         for (int i = 0; i < numRocksSpawned; i++)
         {
-            bool searchLocation = true;
-            Vector3 SpawnArea = Vector3.zero;
-            while (searchLocation)
+            if (Active)
             {
-                searchLocation = false;
-                SpawnArea = new Vector3(Random.Range(-spawnX / 2, spawnX / 2), Random.Range(-spawnY / 2, spawnY / 2));
-                Collider2D[] colliders = Physics2D.OverlapCircleAll(SpawnArea, 1f);
-                foreach (Collider2D collider in colliders)
+                bool searchLocation = true;
+                Vector3 SpawnArea = Vector3.zero;
+                while (searchLocation)
                 {
-                    if (((1 << collider.gameObject.layer) & unspawnableLayers) != 0)
+                    if (dropOnPlayer <= 0)
                     {
-                        searchLocation = true;
-                        break;
+                        SpawnArea = PlayerManager.instance.Players[0].transform.position;
+                        dropOnPlayer = 2f;
+                        searchLocation = false;
+                    }
+                    else
+                    {
+                        searchLocation = false;
+                        SpawnArea = new Vector3(Random.Range(-spawnX / 2, spawnX / 2), Random.Range(-spawnY / 2, spawnY / 2));
+                        Collider2D[] colliders = Physics2D.OverlapCircleAll(SpawnArea, 1f);
+                        foreach (Collider2D collider in colliders)
+                        {
+                            if (((1 << collider.gameObject.layer) & unspawnableLayers) != 0)
+                            {
+                                searchLocation = true;
+                                break;
+                            }
+                        }
                     }
                 }
-            }
 
-            GameObject tc = Instantiate(TargetCircle, SpawnArea, Quaternion.identity);
-            tc.GetComponent<TargetCircle>().InitiateTarget(2f, 1f);
-            yield return new WaitForSeconds(1f);
-            Instantiate(Boulder, SpawnArea, Quaternion.identity);
+                GameObject tc = Instantiate(TargetCircle, SpawnArea, Quaternion.identity);
+                tc.GetComponent<TargetCircle>().InitiateTarget(2f, 1f);
+                yield return new WaitForSeconds(1f);
+                GameObject boulder = Instantiate(Boulder, SpawnArea, Quaternion.identity);
+                boulder.name = "BoulderOnPlayer";
+            }
         }
     }
 
