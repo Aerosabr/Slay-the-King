@@ -26,6 +26,16 @@ public class EquipmentSO : ItemSO
 			this.animator = equipment.animator;
 		}
 	}
+
+	public void ReadStats()
+	{
+		AddStat(mainStat.name, mainStat.value);
+		foreach(var stat in  subStats)
+		{
+			AddStat(stat.name, stat.value);
+		}
+
+	}
 	public void AddStat(string name, int value)
 	{
 		if (name == "Health")
