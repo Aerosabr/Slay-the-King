@@ -171,6 +171,13 @@ public class Player : Entity, IEffectable, IDamageable
     }
     #endregion
 
+    public void Revive(int hp)
+    {
+        currentHealth = hp;
+        GetComponent<PlayerSpriteController>().Movable = true;
+
+    }
+
     public Player GetPlayerComponent()
     {
         GameObject playerManager = GameObject.Find("PlayerManager");
