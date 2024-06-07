@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using Pathfinding;
 
 public class GoblinKing : Entity, IDamageable, IEffectable
 {
@@ -17,6 +18,15 @@ public class GoblinKing : Entity, IDamageable, IEffectable
     public GameObject childCollider;
     public int A3Counter = 0;
     public bool Charging;
+
+    //AI Pathfinding
+    public Seeker seeker;
+    public Path path;
+    public int currentWaypoint = 0;
+    public float nextWaypointDistance = 1f;
+    public float repathRate = 1f;
+    private float lastRepathTime = float.NegativeInfinity;
+    private AIPath aiPath;
     //Cooldowns
     public float A1, A1CD; //Slams ground, rupture wave
     public float A2, A2CD; //Slams ground, rupture around king
@@ -26,7 +36,8 @@ public class GoblinKing : Entity, IDamageable, IEffectable
 
     void Awake()
     {
-        player = GameObject.Find("PlayerManager").transform.GetChild(0).transform.GetChild(0).gameObject;
+        player = PlayerManager.instance.Players[0].gameObject;
+        GetComponent<AIDestinationSetter>().target = player.transform;
         currentHealth = maxHealth;
         rb = GetComponent<Rigidbody2D>();
         ESC = GetComponent<EnemySpriteController>();
@@ -46,9 +57,29 @@ public class GoblinKing : Entity, IDamageable, IEffectable
         A3 = A3CD;
         A4 = A4CD;
         A5 = A5CD;
+        seeker = GetComponent<Seeker>();
+        aiPath = GetComponent<AIPath>();
+        RequestPath();
     }
 
-    void Update()
+    void RequestPath()
+    {
+        if (seeker.IsDone())
+        {
+            seeker.StartPath((transform.position - new Vector3(0.07f, 0.8f)), player.transform.position, OnPathComplete);
+        }
+    }
+
+    public void OnPathComplete(Path p)
+    {
+        if (!p.error)
+        {
+            path = p;
+            currentWaypoint = 0;
+        }
+    }
+
+    void FixedUpdate()
     {
         IncrementCDs();
 
@@ -58,8 +89,21 @@ public class GoblinKing : Entity, IDamageable, IEffectable
         {
             if (!CheckAttacks())
             {
-                transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
-                ProcessDirection(player.transform.position);
+                if (Time.time >= lastRepathTime + repathRate)
+                {
+                    lastRepathTime = Time.time;
+                    RequestPath();
+                }
+
+                if (path == null || path.vectorPath == null || currentWaypoint >= path.vectorPath.Count)
+                    return;
+
+                ProcessDirection((Vector2)path.vectorPath[currentWaypoint] + new Vector2(0.07f, 0.8f));
+                rb.MovePosition(rb.position + (((Vector2)path.vectorPath[currentWaypoint] + new Vector2(0.07f, 0.8f) - rb.position).normalized * speed * Time.fixedDeltaTime));
+
+                if (Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]) < nextWaypointDistance)
+                    currentWaypoint++;
+
                 ESC.PlayAnimation("Run");
             }
         }
@@ -179,8 +223,10 @@ public class GoblinKing : Entity, IDamageable, IEffectable
         if (currentHealth <= 0)
         {
             ESC.PlayAnimation("Death");
+            aiPath.canMove = false;
             Destroy(rb);
             Destroy(GetComponent<BoxCollider2D>());
+            transform.rotation = Quaternion.Euler(0f, 0f, 0f);
             StartCoroutine(Death(2f));
         }
 
@@ -234,6 +280,7 @@ public class GoblinKing : Entity, IDamageable, IEffectable
     {
         ProcessDirection(player.transform.position); 
         isMovable = false;
+        aiPath.canMove = false;
         ESC.PlayAnimation("Slash");
         float angle = Mathf.Atan2(player.transform.position.y - (transform.position.y - 1.4f), player.transform.position.x - (transform.position.x - .16f));
         attackHitBoxPos.localPosition = new Vector2((Mathf.Cos(angle)) - .16f, (Mathf.Sin(angle)) - 1f);
@@ -252,6 +299,7 @@ public class GoblinKing : Entity, IDamageable, IEffectable
         ESC.PlayAnimation("Idle");
         yield return new WaitForSeconds(.5f);
         isMovable = true;
+        aiPath.canMove = true;
     }
     #endregion
 
@@ -260,6 +308,7 @@ public class GoblinKing : Entity, IDamageable, IEffectable
     {
         ProcessDirection(player.transform.position);
         isMovable = false;
+        aiPath.canMove = false;
         ESC.PlayAnimation("WaveSlam");
     }
 
@@ -273,6 +322,7 @@ public class GoblinKing : Entity, IDamageable, IEffectable
         ESC.PlayAnimation("Idle");
         yield return new WaitForSeconds(.5f);
         isMovable = true;
+        aiPath.canMove = true;
         A1 = A1CD;
     }
     #endregion
@@ -282,6 +332,7 @@ public class GoblinKing : Entity, IDamageable, IEffectable
     {
         ProcessDirection(player.transform.position);
         isMovable = false;
+        aiPath.canMove = false;
         ESC.PlayAnimation("SurroundSlam");
         attackHitBoxPos.position = new Vector2(transform.position.x - .16f, transform.position.y - 1.4f);
         GameObject tc = Instantiate(TargetCircle, attackHitBoxPos.position, Quaternion.identity);
@@ -299,6 +350,7 @@ public class GoblinKing : Entity, IDamageable, IEffectable
         ESC.PlayAnimation("Idle");
         yield return new WaitForSeconds(.5f);
         isMovable = true;
+        aiPath.canMove = true;
         A2 = A2CD;
     }
 
@@ -323,6 +375,7 @@ public class GoblinKing : Entity, IDamageable, IEffectable
     {
         ProcessDirection(player.transform.position);
         isMovable = false;
+        aiPath.canMove = false;
         ESC.PlayAnimation("InitialSpam");
         yield return new WaitForSeconds(1.5f);
         ProcessDirection(player.transform.position);
@@ -349,6 +402,7 @@ public class GoblinKing : Entity, IDamageable, IEffectable
             ESC.PlayAnimation("Idle");
             yield return new WaitForSeconds(.5f);
             isMovable = true;
+            aiPath.canMove = true;
             A3 = A3CD;
             A3Counter = 0;
         }
@@ -360,6 +414,7 @@ public class GoblinKing : Entity, IDamageable, IEffectable
     {
         ProcessDirection(player.transform.position);
         isMovable = false;
+        aiPath.canMove = false;
         Charging = true;
         ESC.PlayAnimation("Charge");
         float angle = Mathf.Atan2(player.transform.position.y - (transform.position.y - 1.4f), player.transform.position.x - (transform.position.x - .16f));
@@ -376,6 +431,7 @@ public class GoblinKing : Entity, IDamageable, IEffectable
             GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             yield return new WaitForSeconds(.5f);
             isMovable = true;
+            aiPath.canMove = true;
         }
         A4 = A4CD;
     }
@@ -392,6 +448,7 @@ public class GoblinKing : Entity, IDamageable, IEffectable
     {
         ProcessDirection(player.transform.position);
         isMovable = false;
+        aiPath.canMove = false;
         ESC.PlayAnimation("Jump");
         yield return new WaitForSeconds(1.5f);
         GetComponent<SpriteRenderer>().enabled = false;
@@ -425,6 +482,7 @@ public class GoblinKing : Entity, IDamageable, IEffectable
         ESC.PlayAnimation("Idle");
         yield return new WaitForSeconds(.5f);
         isMovable = true;
+        aiPath.canMove = true;
         A5 = A5CD;
     }
     #endregion

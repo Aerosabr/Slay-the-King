@@ -12,6 +12,7 @@ TagManager:
   - Projectile
   - EnemyCollider
   - Interactable
+  - Pathfinding
   layers:
   - Default
   - TransparentFX
@@ -25,7 +26,7 @@ TagManager:
   - Environment
   - Item
   - Interactable
-  - 
+  - Pathfinding
   - 
   - 
   - 
@@ -48,6 +49,9 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Pathfinding
+    uniqueID: 1872928677
     locked: 0
   - name: Environment
     uniqueID: 3788712421

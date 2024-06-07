@@ -10,6 +10,11 @@ public class BoulderStage : MonoBehaviour
     public float spawnY;
     public GameObject Boulder;
     public GameObject TargetCircle;
+    [SerializeField] private GameObject StageActive;
+    [SerializeField] private GameObject Preround;
+    [SerializeField] private BoxCollider2D box;
+    [SerializeField] private LayerMask unspawnableLayers;
+    private bool Active = false;
 
     public float Timer;
     public float timeInterval = 10f;
@@ -26,20 +31,25 @@ public class BoulderStage : MonoBehaviour
     {
         instance = this;
         Spawning = true;
-        StartCoroutine(SpawnBoulders());
-        foreach(GameObject player in PlayerManager.instance.Players)
-        {
-            player.transform.position = Vector2.zero;
-        }
+
+    }
+
+    private void Start()
+    {
+        foreach (GameObject player in PlayerManager.instance.Players)
+            player.GetComponent<Player>().CameraZoom(5);
     }
 
     public void FixedUpdate()
     {
-        Timer += Time.deltaTime;
-        if (Timer > timeInterval && spawnDelay > 0.15f)
+        if (Active)
         {
-            timeInterval += 10f;
-            spawnDelay -= 0.1f;
+            Timer += Time.deltaTime;
+            if (Timer > timeInterval && spawnDelay > 0.15f)
+            {
+                timeInterval += 10f;
+                spawnDelay -= 0.1f;
+            }
         }
     }
 
@@ -54,11 +64,48 @@ public class BoulderStage : MonoBehaviour
 
     public IEnumerator Spawn()
     {
-        Vector3 spawnPos = new Vector3(Random.Range(-spawnX / 2, spawnX / 2), Random.Range(-spawnY / 2, spawnY / 2));
-        GameObject tc = Instantiate(TargetCircle, spawnPos, Quaternion.identity);
+        bool searchLocation = true;
+        Vector3 SpawnArea = Vector3.zero;
+        while (searchLocation)
+        {
+            searchLocation = false;
+            SpawnArea = new Vector3(Random.Range(-spawnX / 2, spawnX / 2), Random.Range(-spawnY / 2, spawnY/ 2));
+            Collider2D[] colliders = Physics2D.OverlapCircleAll(SpawnArea, 2f);
+            foreach (Collider2D collider in colliders)
+            {
+                if (((1 << collider.gameObject.layer) & unspawnableLayers) != 0)
+                {
+                    searchLocation = true;
+                    break;
+                }
+            }
+        }
+
+        GameObject tc = Instantiate(TargetCircle, SpawnArea, Quaternion.identity);
         tc.GetComponent<TargetCircle>().InitiateTarget(1f, 1f);
         yield return new WaitForSeconds(1f);
-        GameObject boulder = Instantiate(Boulder, spawnPos, Quaternion.identity);
+        Instantiate(Boulder, SpawnArea, Quaternion.identity);
+    }
+
+    private void EndStage()
+    {
+        Active = false;
+        Spawning = false;
+        TeleportManager.instance.LoadNextStage("Boulder");
+        foreach (GameObject player in PlayerManager.instance.Players)
+            player.GetComponent<Player>().CameraZoom(10);
+    }
+
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            Destroy(box);
+            Preround.SetActive(false);
+            StageActive.SetActive(true);
+            Active = true;
+            StartCoroutine(SpawnBoulders());
+        }
     }
 }
 

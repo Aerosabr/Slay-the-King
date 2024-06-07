@@ -20,6 +20,7 @@ public class ChestStage : MonoBehaviour
         foreach(GameObject player in PlayerManager.instance.Players)
         {
             player.GetComponent<Player>().canInteract = true;
+            player.GetComponent<Player>().CameraZoom(5);
         }
     }
 
@@ -41,6 +42,8 @@ public class ChestStage : MonoBehaviour
                 break;
         }
         TeleportManager.instance.LoadNextStage("Chests");
+        foreach (GameObject i in PlayerManager.instance.Players)
+            i.GetComponent<Player>().CameraZoom(10);
     }
 }
 

@@ -6,18 +6,32 @@ using UnityEngine.UI;
 public class ScavengerStage : MonoBehaviour
 {
     public static ScavengerStage instance;
-    public GameObject Coin;
-    public int spawnRate;
+    [SerializeField] private Transform spawnArea;
+    [SerializeField] private float spawnRadius;
+    [SerializeField] private GameObject Coin;
+    [SerializeField] private int spawnRate;
+    [SerializeField] private LayerMask unspawnableLayers;
+    [SerializeField] private BoxCollider2D box;
     public int numSpawned;
     public int numCollected;
-    private bool Active = true;
+    private bool Active = false;
     [SerializeField] private GameObject Timer;
     private float timeElapsed = 30f;
+
+    public void OnDrawGizmos()
+    {
+        Gizmos.DrawWireCube(spawnArea.position, new Vector3(spawnRadius, spawnRadius));
+    }
 
     private void Awake()
     {
         instance = this;
-        SpawnCoins();
+    }
+
+    private void Start()
+    {
+        foreach (GameObject player in PlayerManager.instance.Players)
+            player.GetComponent<Player>().CameraZoom(5);
     }
 
     private void FixedUpdate()
@@ -36,19 +50,27 @@ public class ScavengerStage : MonoBehaviour
 
     private void SpawnCoins()
     {
-        int num = 1;
-        for (int i = -9; i < 10; i++)
+        for (int i = 0; i < 70; i++)
         {
-            for (int j = -7; j < 8; j++)
+            bool searchLocation = true;
+            Vector3 SpawnArea = Vector3.zero;
+            while (searchLocation)
             {
-                if (Random.Range(1, 101) <= spawnRate || num % 9 == 0)
+                searchLocation = false;
+                SpawnArea = new Vector3(Random.Range(-spawnRadius / 2, spawnRadius / 2), Random.Range(-spawnRadius / 2, spawnRadius / 2));
+                Collider2D[] colliders = Physics2D.OverlapCircleAll(SpawnArea, 1f);
+                foreach (Collider2D collider in colliders)
                 {
-                    Instantiate(Coin, new Vector2(i, j), Quaternion.identity);
-                    numSpawned++;
-                    Debug.Log("Spawned " + num + " Num spawned: " + numSpawned);
+                    if (((1 << collider.gameObject.layer) & unspawnableLayers) != 0)
+                    {
+                        searchLocation = true;
+                        break;
+                    }
                 }
-                num++;
             }
+            GameObject temp = Instantiate(Coin, SpawnArea, Quaternion.identity);
+            temp.SetActive(true);
+            numSpawned++;
         }
     }
 
@@ -61,10 +83,26 @@ public class ScavengerStage : MonoBehaviour
     {
         Active = false;
         foreach(GameObject obj in GameObject.FindGameObjectsWithTag("Item"))
-        {
-            Debug.Log(obj.name);
             Destroy(obj);
+
+        foreach(GameObject player in PlayerManager.instance.Players)
+        {
+            if (player.transform.position.y >= 15)
+                player.transform.position = new Vector2(player.transform.position.x, 14);
         }
+
         TeleportManager.instance.LoadNextStage("Scavenger");
+        foreach (GameObject player in PlayerManager.instance.Players)
+            player.GetComponent<Player>().CameraZoom(10);
+    }
+
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            Destroy(box);
+            Active = true;
+            SpawnCoins();
+        }
     }
 }

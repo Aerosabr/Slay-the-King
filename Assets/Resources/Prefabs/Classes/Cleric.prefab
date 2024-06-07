@@ -1054,6 +1054,7 @@ MonoBehaviour:
   Cost: 0
   Class: 
   Weapon: 
+  Level: 0
   AttackCD: 0
   Ability1CD: 0
   Ability2CD: 0
@@ -1061,7 +1062,9 @@ MonoBehaviour:
   MovementCD: 0
   Cooldowns: []
   rb: {fileID: 0}
+  mainCam: {fileID: 4792929880750468195}
   consumableSlot: []
+  canInteract: 0
 --- !u!114 &3909616853443829239
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1075,6 +1078,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: 
+  kitChangeable: 1
 --- !u!1 &8399789386500333002
 GameObject:
   m_ObjectHideFlags: 0

@@ -33,4 +33,10 @@ public class Rat : MonoBehaviour
     {
         point = new Vector2(Random.Range(-xPos, xPos), Random.Range(-yPos, yPos));
     }
+
+    public void Caught()
+    {
+        RatStage.instance.ratsCaught++;
+        Destroy(gameObject);
+    }
 }
