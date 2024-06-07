@@ -9,18 +9,28 @@ public class TreeStage : MonoBehaviour
     public Animator axe;
     public float timeElapsed;
     public bool treeCut;
+    private bool Active = false;
     [SerializeField] private GameObject Timer;
     private List<RuntimeAnimatorController> RAC = new List<RuntimeAnimatorController>();
+    [SerializeField] private GameObject StageActive;
+    [SerializeField] private GameObject Preround;
+    [SerializeField] private BoxCollider2D box;
 
     public void Awake()
     {
         instance = this;
+    }
+
+    private void Start()
+    {
+        foreach (GameObject player in PlayerManager.instance.Players)
+            player.GetComponent<Player>().CameraZoom(5);
         loadAxes();
     }
 
     public void FixedUpdate()
     {
-        if (!treeCut)
+        if (!treeCut && Active)
         {
             timeElapsed += Time.deltaTime;
             Timer.GetComponent<Text>().text = timeElapsed.ToString("#.00");
@@ -54,9 +64,22 @@ public class TreeStage : MonoBehaviour
 
     public IEnumerator treeFelled()
     {
-        yield return new WaitForSeconds(1f);
-        TeleportManager.instance.LoadNextStage("Tree");
         treeCut = true;
+        yield return new WaitForSeconds(1f);
+        foreach (GameObject player in PlayerManager.instance.Players)
+            player.GetComponent<Player>().CameraZoom(10);
+        TeleportManager.instance.LoadNextStage("Tree");
         unequipAxes();
+    }
+
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            Destroy(box);
+            Preround.SetActive(false);
+            StageActive.SetActive(true);
+            Active = true;
+        }
     }
 }

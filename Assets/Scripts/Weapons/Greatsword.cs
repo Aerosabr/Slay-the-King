@@ -137,7 +137,7 @@ public class Greatsword : MonoBehaviour
         GameObject slashwave = Instantiate(Slashwave, Player.transform.position, Player.transform.rotation);
         slashwave.transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(PSC.currentDirection.y, PSC.currentDirection.x) * Mathf.Rad2Deg);
         slashwave.GetComponent<Slashwave>().EditSlashwave(3f, Player.Attack);
-        slashwave.GetComponent<Rigidbody2D>().velocity = 5f * MapPoint(PSC.currentDirection, 1);
+        slashwave.GetComponent<Rigidbody2D>().velocity = 10f * MapPoint(PSC.currentDirection, 1);
         Player.Cooldowns[1].SetActive(true);
         Player.Cooldowns[1].GetComponent<CooldownUI>().StartCooldown(3f * ((100 - Player.CDR) / 100));
         PSC.isAttacking = false;

@@ -1290,6 +1290,7 @@ MonoBehaviour:
   Cost: 0
   Class: Berserker
   Weapon: 
+  Level: 0
   AttackCD: 0
   Ability1CD: 0
   Ability2CD: 0
@@ -1297,7 +1298,9 @@ MonoBehaviour:
   MovementCD: 0
   Cooldowns: []
   rb: {fileID: 0}
+  mainCam: {fileID: 6612301967260324955}
   consumableSlot: []
+  canInteract: 0
 --- !u!114 &7463477556518435577
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1311,6 +1314,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: 
+  kitChangeable: 1
 --- !u!1 &7426897919721724148
 GameObject:
   m_ObjectHideFlags: 0

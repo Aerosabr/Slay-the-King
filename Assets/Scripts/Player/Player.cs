@@ -12,6 +12,10 @@ public class Player : Entity, IEffectable, IDamageable
     public string Class;
     public string Weapon;
 
+    //Level
+    public int Level;
+    private int levelExp;
+
     //Ability Cooldowns
     public float AttackCD;
     public float Ability1CD;
@@ -21,6 +25,7 @@ public class Player : Entity, IEffectable, IDamageable
     public List<GameObject> Cooldowns = new List<GameObject>();
 
     public Rigidbody2D rb;
+    [SerializeField] private Camera mainCam;
 
     //ConsumableHotBar
     public ActivateConsumables[] consumableSlot;
@@ -166,6 +171,13 @@ public class Player : Entity, IEffectable, IDamageable
     }
     #endregion
 
+    public void Revive(int hp)
+    {
+        currentHealth = hp;
+        GetComponent<PlayerSpriteController>().Movable = true;
+
+    }
+
     public Player GetPlayerComponent()
     {
         GameObject playerManager = GameObject.Find("PlayerManager");
@@ -235,5 +247,20 @@ public class Player : Entity, IEffectable, IDamageable
         float angle = Mathf.Atan2(point.y, point.x);
         Vector2 temp = new Vector2(Mathf.Cos(angle) * radius, Mathf.Sin(angle) * radius);
         return temp;
+    }
+
+    public void GiveExperience(int amount)
+    {
+        levelExp += amount;
+        if (levelExp >= 1000)
+        {
+            Level++;
+            levelExp -= 1000;
+        }
+    }
+
+    public void CameraZoom(int num)
+    {
+        mainCam.orthographicSize = num;
     }
 }

@@ -31,7 +31,7 @@ public class Boulder : MonoBehaviour
 
     public void Contact()
     {
-        Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitbox.position, 1f, Damageable);
+        Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitbox.position, 2f, Damageable);
         foreach (Collider2D collider in detectedObjects)
         {
             Player player = collider.gameObject.GetComponent<Player>();

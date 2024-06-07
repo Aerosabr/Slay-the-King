@@ -6,17 +6,26 @@ using UnityEngine.UI;
 public class MiningStage : MonoBehaviour
 {
     public static MiningStage instance;
-    public Animator pickaxe;
-    public float timeRemaining;
-    public int rocksBroken;
-    private bool Active = true;
-
-    [SerializeField] private GameObject Timer;
+    public float timeRemaining = 30f;
+    public int rocksBroken = 0;
     private List<RuntimeAnimatorController> RAC = new List<RuntimeAnimatorController>();
+    [SerializeField] private GameObject Timer;
+    [SerializeField] private Animator pickaxe;
+    [SerializeField] private GameObject StageActive;
+    [SerializeField] private GameObject Preround;
+    [SerializeField] private BoxCollider2D box;
+    [SerializeField] private GameObject Rocks;
+    private bool Active = false;
 
-    public void Awake()
+    private void Awake()
     {
         instance = this;
+    }
+
+    private void Start()
+    {
+        foreach (GameObject player in PlayerManager.instance.Players)
+            player.GetComponent<Player>().CameraZoom(5);
         loadPickaxes();
     }
 
@@ -24,13 +33,18 @@ public class MiningStage : MonoBehaviour
     {
         if(Active)
         {
-            if (timeRemaining >= 0)
+            if (rocksBroken == 6)
+            {
+
+                StartCoroutine(EndStage());
+            }
+            else if (timeRemaining >= 0)
             {
                 timeRemaining -= Time.deltaTime;
                 Timer.GetComponent<Text>().text = timeRemaining.ToString("#.00");
             }
             else
-                unequipPickaxes();
+                StartCoroutine(EndStage());
         }
     }
 
@@ -58,7 +72,31 @@ public class MiningStage : MonoBehaviour
             increment++;
         }
         CooldownManager.instance.LoadCooldowns();
-        TeleportManager.instance.LoadNextStage("Mining");
     }
 
+    private IEnumerator EndStage()
+    {
+        Active = false;
+        yield return new WaitForSeconds(1f);
+        unequipPickaxes();
+        
+        foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Enemy"))
+            Destroy(obj);
+
+        TeleportManager.instance.LoadNextStage("Mining");
+        foreach (GameObject player in PlayerManager.instance.Players)
+            player.GetComponent<Player>().CameraZoom(10);
+    }
+
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            Destroy(box);
+            Preround.SetActive(false);
+            StageActive.SetActive(true);
+            Active = true;
+            Rocks.SetActive(true);
+        }
+    }
 }
