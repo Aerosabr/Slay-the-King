@@ -194,8 +194,8 @@ public class Player : Entity, IEffectable, IDamageable
         changeAttack(equipment.attack * change, 0);
         changeDefense(equipment.defense * change, 0);
         changeDexterity(equipment.dexterity * change, 0);
-        changeAttackSpeed(equipment.attack_speed * change, 0);
-        CDR += equipment.cooldown_reduction * change;
+        changeAttackSpeed(equipment.attackSpeed * change, 0);
+        CDR += equipment.cooldownReduction * change;
         Luck += equipment.luck * change;
     }
 
