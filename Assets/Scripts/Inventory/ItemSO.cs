@@ -14,6 +14,14 @@ public class ItemSO : ScriptableObject
 	[SerializeField]
 	public string itemDescription;
 	
+    public virtual void BuildItem(ItemSO item)
+    {
+        itemName = item.itemName;
+        itemSprite = item.itemSprite;
+        weaponType = item.weaponType;
+        itemType = item.itemType;
+        itemDescription = item.itemDescription;
+    }
 
 	public virtual bool UseItem(Player player)
     {

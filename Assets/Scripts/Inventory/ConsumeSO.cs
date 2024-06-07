@@ -20,6 +20,17 @@ public class ConsumeSO : ItemSO
 	public StatToChange statToChange = new StatToChange();
 	public int amountToChangeStat;
 
+	public override void BuildItem(ItemSO item)
+	{
+		ConsumeSO consumeable = (ConsumeSO)item;
+		statToChange = consumeable.statToChange;
+		itemName = item.itemName;
+		itemSprite = item.itemSprite;
+		weaponType = item.weaponType;
+		itemType = item.itemType;
+		itemDescription = item.itemDescription;
+	}
+
 	public override bool UseItem(Player player)
 	{
 		if (statToChange == StatToChange.health)
