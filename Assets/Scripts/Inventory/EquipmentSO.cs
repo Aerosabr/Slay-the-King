@@ -12,19 +12,22 @@ public class EquipmentSO : ItemSO
 
 	public override void BuildItem(ItemSO item)
 	{
-		if (item is EquipmentSO equipment)
-		{
-			this.health = equipment.health;
-			this.attack = equipment.attack;
-			this.defense = equipment.defense;
-			this.dexterity = equipment.dexterity;
-			this.cooldownReduction = equipment.cooldownReduction;
-			this.attackSpeed = equipment.attackSpeed;
-			this.luck = equipment.luck;
-			this.mainStat = equipment.mainStat;
-			this.subStats = new List<SubStat>(equipment.subStats);
-			this.animator = equipment.animator;
-		}
+		EquipmentSO equipment = (EquipmentSO)item;
+		this.itemName = item.itemName;
+		this.itemSprite = item.itemSprite;
+		this.weaponType = item.weaponType;
+		this.itemType = item.itemType;
+		this.itemDescription = item.itemDescription;
+		this.health = equipment.health;
+		this.attack = equipment.attack;
+		this.defense = equipment.defense;
+		this.dexterity = equipment.dexterity;
+		this.cooldownReduction = equipment.cooldownReduction;
+		this.attackSpeed = equipment.attackSpeed;
+		this.luck = equipment.luck;
+		this.mainStat = equipment.mainStat;
+		this.subStats = new List<SubStat>(equipment.subStats);
+		this.animator = equipment.animator;
 	}
 
 	public void ReadStats()

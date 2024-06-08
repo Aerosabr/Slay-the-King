@@ -152,19 +152,13 @@ public class ItemCreation : MonoBehaviour
 
 	public void CreateEquipment(int index, SubStat mainStat, List<SubStat> statList, Transform spot)
 	{
-        Debug.Log(1);
 		EquipmentSO newItem = ScriptableObject.CreateInstance<EquipmentSO>();
-        Debug.Log(2);
+        Debug.Log("Indexs" + index);
         newItem.BuildItem(equipmentList[index]);
-        Debug.Log(3);
         newItem.mainStat = mainStat;
-        Debug.Log(4);
         newItem.subStats = statList;
-        Debug.Log(5);
         newItem.ReadStats();
-        Debug.Log(6);
         SpawnDropItem(newItem, 1, spot);
-        Debug.Log(7);
     }
 
 
