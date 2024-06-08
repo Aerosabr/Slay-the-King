@@ -46,10 +46,11 @@ public class RatStage : MonoBehaviour
     {
         if (Active)
         {
-            if (timeElapsed >= 0)
+            UpdateRatUI();
+			if (timeElapsed >= 0)
             {
                 timeElapsed -= Time.deltaTime;
-                Timer.GetComponent<Text>().text = timeElapsed.ToString("#.00") + "  Rats Caught " + ratsCaught;
+                Timer.text = timeElapsed.ToString("F2") + "s";
             }
             else
                 StartCoroutine(EndStage());
