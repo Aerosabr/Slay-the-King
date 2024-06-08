@@ -32874,6 +32874,9 @@ MonoBehaviour:
   StageActive: {fileID: 1936201929}
   Preround: {fileID: 1086795047}
   box: {fileID: 813514269}
+  unspawnableLayers:
+    serializedVersion: 2
+    m_Bits: 896
   spawnArea: {fileID: 861453044}
   spawnRadius: 28
   maxEnemies: 0
@@ -32891,9 +32894,6 @@ MonoBehaviour:
   Boss: {fileID: 9088250604567957142, guid: 4d055585a3ca46743ac91d776706d690, type: 3}
   Active: 1
   Spawnable: 0
-  unspawnableLayers:
-    serializedVersion: 2
-    m_Bits: 896
   Map: {fileID: 1842653345}
 --- !u!4 &813514268
 Transform:
@@ -36154,7 +36154,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9088250604567957142, guid: 0e19617d7368da949bfa90818a87d3b0, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

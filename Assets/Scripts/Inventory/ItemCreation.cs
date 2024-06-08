@@ -93,11 +93,47 @@ public class ItemCreation : MonoBehaviour
                 equipment = possibleWeapons[UnityEngine.Random.Range(0, possibleWeapons.Count)];
                 break;
             case 3: //Accessory
-
+                List<string> temp2 = new List<string> { "Ring", "Amulet" };
+                equipment = temp2[UnityEngine.Random.Range(0, temp2.Count)];
                 break;
         }
 
         return equipment;
+    }
+
+    public List<SubStat> GenerateSubstats()
+    {
+        int lv = PlayerManager.instance.GetAverageLevel();
+        int num = UnityEngine.Random.Range(1, 101) + (int)(PlayerManager.instance.GetTotalLuck() * (2f / (float)PlayerManager.instance.Players.Count));
+        List<string> substatNames = new List<string> { "Health", "Attack", "Defense", "Dexterity", "Cooldown Reduction", "Attack Speed", "Luck" };
+        List<SubStat> substats = new List<SubStat>();
+        int numSubstats;
+
+        if (num < 51) //Common       
+            return substats;
+        else if (num < 81) //Uncommon
+            numSubstats = 1;
+        else if (num < 93) //Rare
+            numSubstats = 2;
+        else if (num < 99) //Epic
+            numSubstats = 3;
+        else //Legendary
+            numSubstats = 4;
+ 
+        int statPoints = lv * numSubstats;
+        for (int i = 0; i < numSubstats; i++)
+        {
+            substats.Add(new SubStat(substatNames[UnityEngine.Random.Range(0, substatNames.Count)], 1));
+            statPoints--;
+        }
+
+        while (statPoints > 0)
+        {
+            substats[UnityEngine.Random.Range(0, substats.Count)].increaseValue();
+            statPoints--;
+        }
+
+        return substats;
     }
 
 	public void CreateItem(int index, int quantity, Transform spot)
@@ -116,13 +152,20 @@ public class ItemCreation : MonoBehaviour
 
 	public void CreateEquipment(int index, SubStat mainStat, List<SubStat> statList, Transform spot)
 	{
+        Debug.Log(1);
 		EquipmentSO newItem = ScriptableObject.CreateInstance<EquipmentSO>();
-		newItem.BuildItem(equipmentList[index]);
-		newItem.mainStat = mainStat;
-		newItem.subStats = statList;
-		newItem.ReadStats();
-		SpawnDropItem(newItem, 1, spot);
-	}
+        Debug.Log(2);
+        newItem.BuildItem(equipmentList[index]);
+        Debug.Log(3);
+        newItem.mainStat = mainStat;
+        Debug.Log(4);
+        newItem.subStats = statList;
+        Debug.Log(5);
+        newItem.ReadStats();
+        Debug.Log(6);
+        SpawnDropItem(newItem, 1, spot);
+        Debug.Log(7);
+    }
 
 
     public void SpawnDropItem(ItemSO item, int quantity, Transform spot)
