@@ -30,7 +30,6 @@ public class MiningStage : MonoBehaviour
     {
         foreach (GameObject player in PlayerManager.instance.Players)
             player.GetComponent<Player>().CameraZoom(5);
-        loadPickaxes();
     }
 
     public void FixedUpdate()
@@ -93,11 +92,20 @@ public class MiningStage : MonoBehaviour
     private IEnumerator EndStage()
     {
         Active = false;
+
         yield return new WaitForSeconds(1f);
+        GameManager.instance.canEquip = true;
         unequipPickaxes();
         
         foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Enemy"))
             Destroy(obj);
+
+        if (rocksBroken == 6)
+            ItemCreation.instance.ThreeStarLoot();
+        else if (rocksBroken >= 4)
+            ItemCreation.instance.TwoStarLoot();
+        else if (rocksBroken >= 2)
+            ItemCreation.instance.OneStarLoot();
 
         TeleportManager.instance.LoadNextStage("Mining");
         foreach (GameObject player in PlayerManager.instance.Players)
@@ -109,6 +117,8 @@ public class MiningStage : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             Destroy(box);
+            loadPickaxes();
+            GameManager.instance.canEquip = false;
             Preround.SetActive(false);
             StageActive.SetActive(true);
             Active = true;

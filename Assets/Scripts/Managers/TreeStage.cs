@@ -26,7 +26,6 @@ public class TreeStage : MonoBehaviour
     {
         foreach (GameObject player in PlayerManager.instance.Players)
             player.GetComponent<Player>().CameraZoom(5);
-        loadAxes();
     }
 
     public void FixedUpdate()
@@ -68,10 +67,18 @@ public class TreeStage : MonoBehaviour
     {
         treeCut = true;
         yield return new WaitForSeconds(1f);
+        GameManager.instance.canEquip = true;
         foreach (GameObject player in PlayerManager.instance.Players)
             player.GetComponent<Player>().CameraZoomOutSlow(8);
         TeleportManager.instance.LoadNextStage("Tree");
         unequipAxes();
+
+        if (timeElapsed <= 10)
+            ItemCreation.instance.ThreeStarLoot();
+        else if (timeElapsed <= 20)
+            ItemCreation.instance.TwoStarLoot();
+        else if (timeElapsed <= 30)
+            ItemCreation.instance.OneStarLoot();
     }
 
     public void UpdateTreeRating()
@@ -89,6 +96,8 @@ public class TreeStage : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             Destroy(box);
+            loadAxes();
+            GameManager.instance.canEquip = false;
             Preround.SetActive(false);
             StageActive.SetActive(true);
             Active = true;
