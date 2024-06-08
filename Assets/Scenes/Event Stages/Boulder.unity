@@ -9399,9 +9399,16 @@ MonoBehaviour:
   spawnY: 30
   Boulder: {fileID: 1083875411549877624, guid: 37c035ac60b8d504991ee3d4312ff51e, type: 3}
   TargetCircle: {fileID: 8354398742441017810, guid: d878a7a4ea9118f44a8bfe4828125036, type: 3}
-  Timer: 0
-  timeInterval: 10
+  StageActive: {fileID: 1550331412}
+  Preround: {fileID: 1983704760}
+  box: {fileID: 759126857}
+  unspawnableLayers:
+    serializedVersion: 2
+    m_Bits: 512
+  Timer: {fileID: 1188539249}
   Spawning: 0
+  timeElapsed: 0
+  numRocksSpawned: 1
   spawnDelay: 0.5
   timerText: {fileID: 1188539251}
   starRating: {fileID: 1929487217}
@@ -9986,7 +9993,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Time Elaspsed: 0s'
+  m_Text: 'Time Elapsed: 0s'
 --- !u!222 &1188539252
 CanvasRenderer:
   m_ObjectHideFlags: 0

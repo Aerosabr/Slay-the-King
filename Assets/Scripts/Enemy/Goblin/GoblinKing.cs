@@ -280,7 +280,7 @@ public class GoblinKing : Entity, IDamageable, IEffectable
         //50 Gold, 25% equipment rate -> Accessories
         ItemCreation IC = ItemCreation.instance;
         IC.CreateItem(ItemCreation.instance.itemDict["Gold"], 50, transform);
-        if (Random.Range(1, 101) < 101)
+        if (Random.Range(1, 101) <= 25)
         {
             List<string> substatNames = new List<string> { "Health", "Attack", "Defense", "Dexterity", "Cooldown Reduction", "Attack Speed", "Luck" };
             string equipment = IC.GenerateRandomEquipment(3);

@@ -1134,6 +1134,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 2230456579743034368, guid: d13bc1430bb97eb45939f7bce40329c1, type: 3}
+      propertyPath: m_SortingOrder
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 2735030134605017973, guid: d13bc1430bb97eb45939f7bce40329c1, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -10874,7 +10878,7 @@ MonoBehaviour:
   - {fileID: 1428612285}
   Boss: {fileID: 890924342}
   Active: 1
-  Spawnable: 1
+  Spawnable: 0
   Map: {fileID: 1842653345}
 --- !u!4 &813514268
 Transform:
@@ -29741,7 +29745,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Enemy: 90/90'
+  m_Text: 'Enemies: 0'
 --- !u!222 &1985801496
 CanvasRenderer:
   m_ObjectHideFlags: 0

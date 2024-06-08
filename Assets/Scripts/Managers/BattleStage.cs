@@ -168,7 +168,7 @@ public class BattleStage : MonoBehaviour
     //Use this for the EnemyCount UI
     public void UpdateCount()
     {
-        EnemyCountText.text = "Enemy: " + 90.ToString() + "/" + 90.ToString(); 
+        EnemyCountText.text = "Enemies: " + (maxEnemies - enemiesKilled).ToString(); 
 	}
     public IEnumerator SpawnElites()
     {
@@ -194,7 +194,7 @@ public class BattleStage : MonoBehaviour
 
     private void NormalLoot()
     {
-        //12.5% Lv Exp, 50x Gold, 1 + 1 (50)% -> Weapon/Armor
+        //12.5% Lv Exp, 50x Gold, 1 + 1 (50%) -> Weapon/Armor
         ItemCreation IC = ItemCreation.instance;
         foreach (GameObject player in PlayerManager.instance.Players)
             player.GetComponent<Player>().GiveExperience(125);

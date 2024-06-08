@@ -177,9 +177,112 @@ public class ItemCreation : MonoBehaviour
 
 		// Add a collider
 		itemToDrop.AddComponent<BoxCollider2D>();
+        BoxCollider2D temp = itemToDrop.GetComponent<BoxCollider2D>();
+        temp.includeLayers = LayerMask.GetMask("Player");
 
         // Set the location
         itemToDrop.transform.position = spot.position;
 		itemToDrop.transform.localScale = new Vector3(.5f, .5f, .5f);
 	}
+
+    #region Event Stage Rewards
+    public void OneStarLoot()
+    {
+        //25x Gold, 1 + 1 (50)% -> Weapon/Armor
+        CreateItem(itemDict["Gold"], 25, PlayerManager.instance.Players[0].transform);
+        List<int> odds = new List<int> { 100, 50 };
+        for (int i = 0; i < 2; i++)
+        {
+            if (UnityEngine.Random.Range(1, 101) <= odds[i])
+            {
+                string equipment = GenerateRandomEquipment(UnityEngine.Random.Range(1, 3));
+                List<SubStat> subStats = GenerateSubstats(0);
+                SubStat mainStat;
+                switch (equipment)
+                {
+                    case "Helmet":
+                        mainStat = new SubStat("Health", PlayerManager.instance.GetAverageLevel());
+                        break;
+                    case "Chestplate":
+                        mainStat = new SubStat("Defense", PlayerManager.instance.GetAverageLevel());
+                        break;
+                    case "Leggings":
+                        mainStat = new SubStat("Dexterity", PlayerManager.instance.GetAverageLevel());
+                        break;
+                    default:
+                        mainStat = new SubStat("Attack", PlayerManager.instance.GetAverageLevel());
+                        break;
+                }
+
+                CreateEquipment(equipmentDict[equipment], mainStat, subStats, PlayerManager.instance.Players[0].transform);
+            }
+        }
+    }
+
+    public void TwoStarLoot()
+    {
+        //50x Gold, 2 + 1 (50%) + 1 (25%) -> Weapon/Armor
+        CreateItem(itemDict["Gold"], 50, PlayerManager.instance.Players[0].transform);
+        List<int> odds = new List<int> { 100, 100, 50, 25 };
+        for (int i = 0; i < 2; i++)
+        {
+            if (UnityEngine.Random.Range(1, 101) <= odds[i])
+            {
+                string equipment = GenerateRandomEquipment(UnityEngine.Random.Range(1, 3));
+                List<SubStat> subStats = GenerateSubstats(0);
+                SubStat mainStat;
+                switch (equipment)
+                {
+                    case "Helmet":
+                        mainStat = new SubStat("Health", PlayerManager.instance.GetAverageLevel());
+                        break;
+                    case "Chestplate":
+                        mainStat = new SubStat("Defense", PlayerManager.instance.GetAverageLevel());
+                        break;
+                    case "Leggings":
+                        mainStat = new SubStat("Dexterity", PlayerManager.instance.GetAverageLevel());
+                        break;
+                    default:
+                        mainStat = new SubStat("Attack", PlayerManager.instance.GetAverageLevel());
+                        break;
+                }
+
+                CreateEquipment(equipmentDict[equipment], mainStat, subStats, PlayerManager.instance.Players[0].transform);
+            }
+        }
+    }
+
+    public void ThreeStarLoot()
+    {
+        //100x Gold, 2 + 1 (50%) + 1 (25%) -> Weapon/Armor
+        CreateItem(itemDict["Gold"], 50, PlayerManager.instance.Players[0].transform);
+        List<int> odds = new List<int> { 100, 100, 50, 25 };
+        for (int i = 0; i < 2; i++)
+        {
+            if (UnityEngine.Random.Range(1, 101) <= odds[i])
+            {
+                string equipment = GenerateRandomEquipment(UnityEngine.Random.Range(1, 3));
+                List<SubStat> subStats = GenerateSubstats(1);
+                SubStat mainStat;
+                switch (equipment)
+                {
+                    case "Helmet":
+                        mainStat = new SubStat("Health", PlayerManager.instance.GetAverageLevel() + 1);
+                        break;
+                    case "Chestplate":
+                        mainStat = new SubStat("Defense", PlayerManager.instance.GetAverageLevel() + 1);
+                        break;
+                    case "Leggings":
+                        mainStat = new SubStat("Dexterity", PlayerManager.instance.GetAverageLevel() + 1);
+                        break;
+                    default:
+                        mainStat = new SubStat("Attack", PlayerManager.instance.GetAverageLevel() + 1);
+                        break;
+                }
+
+                CreateEquipment(equipmentDict[equipment], mainStat, subStats, PlayerManager.instance.Players[0].transform);
+            }
+        }
+    }
+    #endregion
 }
