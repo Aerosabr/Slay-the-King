@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using Pathfinding; 
+
 public class AxeHoblin : Entity, IDamageable, IEffectable
 {
     public Rigidbody2D rb;
@@ -12,13 +14,22 @@ public class AxeHoblin : Entity, IDamageable, IEffectable
     public LayerMask Damageable;
     public GameObject TargetCircle;
 
+    //AI Pathfinding
+    public Seeker seeker;
+    public Path path;
+    public int currentWaypoint = 0;
+    public float nextWaypointDistance = 1f;
+    public float repathRate = 1f;
+    private float lastRepathTime = float.NegativeInfinity;
+    private AIPath aiPath;
+
     //Cooldowns
     public float Ability, AbilityCD; //
 
-
     void Awake()
     {
-        player = GameObject.Find("PlayerManager").transform.GetChild(0).transform.GetChild(0).gameObject;
+        player = PlayerManager.instance.Players[0].gameObject;
+        GetComponent<AIDestinationSetter>().target = player.transform;
         currentHealth = maxHealth;
         rb = GetComponent<Rigidbody2D>();
         ESC = GetComponent<EnemySpriteController>();
@@ -28,9 +39,29 @@ public class AxeHoblin : Entity, IDamageable, IEffectable
         AbilityCD = 8f;
 
         Ability = AbilityCD;
+        seeker = GetComponent<Seeker>();
+        aiPath = GetComponent<AIPath>();
+        RequestPath();
     }
 
-    void Update()
+    void RequestPath()
+    {
+        if (seeker.IsDone())
+        {
+            seeker.StartPath((transform.position - new Vector3(0.03f, 0.3f)), player.transform.position, OnPathComplete);
+        }
+    }
+
+    public void OnPathComplete(Path p)
+    {
+        if (!p.error)
+        {
+            path = p;
+            currentWaypoint = 0;
+        }
+    }
+
+    void FixedUpdate()
     {
         if (Ability > 0)
             Ability -= Time.deltaTime;
@@ -40,8 +71,21 @@ public class AxeHoblin : Entity, IDamageable, IEffectable
         {
             if (!CheckAttacks())
             {
-                transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
-                ProcessDirection(player.transform.position);
+                if (Time.time >= lastRepathTime + repathRate)
+                {
+                    lastRepathTime = Time.time;
+                    RequestPath();
+                }
+
+                if (path == null || path.vectorPath == null || currentWaypoint >= path.vectorPath.Count)
+                    return;
+
+                ProcessDirection((Vector2)path.vectorPath[currentWaypoint] + new Vector2(0.03f, 0.3f));
+                rb.MovePosition(rb.position + (((Vector2)path.vectorPath[currentWaypoint] + new Vector2(0.03f, 0.3f) - rb.position).normalized * speed * Time.fixedDeltaTime));
+
+                if (Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]) < nextWaypointDistance)
+                    currentWaypoint++;
+
                 ESC.PlayAnimation("Run");
             }
         }
@@ -59,7 +103,7 @@ public class AxeHoblin : Entity, IDamageable, IEffectable
 
     public bool CheckAttacks()
     {
-        float dist = Vector2.Distance(transform.position - new Vector3(-0.04f, -0.4f), player.transform.position);
+        float dist = Vector2.Distance(transform.position - new Vector3(-0.03f, -0.3f), player.transform.position);
 
         if (Ability <= 0 && dist < 4)
         {
@@ -124,8 +168,10 @@ public class AxeHoblin : Entity, IDamageable, IEffectable
         if (currentHealth <= 0)
         {
             ESC.PlayAnimation("Death");
+            aiPath.canMove = false;
             Destroy(rb);
             Destroy(GetComponent<BoxCollider2D>());
+            transform.rotation = Quaternion.Euler(0f, 0f, 0f);
             StartCoroutine(Death(2f));
         }
 
@@ -179,6 +225,7 @@ public class AxeHoblin : Entity, IDamageable, IEffectable
     {
         ProcessDirection(player.transform.position);
         isMovable = false;
+        aiPath.canMove = false;
         ESC.PlayAnimation("Slash");
         float angle = Mathf.Atan2(player.transform.position.y - (transform.position.y - 0.3f), player.transform.position.x - (transform.position.x - .03f));
         attackHitBoxPos.localPosition = new Vector2(Mathf.Cos(angle) - .03f, Mathf.Sin(angle) - 0.3f);
@@ -197,6 +244,7 @@ public class AxeHoblin : Entity, IDamageable, IEffectable
         ESC.PlayAnimation("Idle");
         yield return new WaitForSeconds(.5f);
         isMovable = true;
+        aiPath.canMove = true;
     }
     #endregion
 
@@ -205,6 +253,7 @@ public class AxeHoblin : Entity, IDamageable, IEffectable
     {
         ProcessDirection(player.transform.position);
         isMovable = false;
+        aiPath.canMove = false;
         ESC.PlayAnimation("Spin");
         attackHitBoxPos.position = new Vector2(transform.position.x - .03f, transform.position.y - .3f);
         GameObject tc = Instantiate(TargetCircle, attackHitBoxPos.position, Quaternion.identity);
@@ -222,6 +271,7 @@ public class AxeHoblin : Entity, IDamageable, IEffectable
         ESC.PlayAnimation("Idle");
         yield return new WaitForSeconds(.5f);
         isMovable = true;
+        aiPath.canMove = true;
         Ability = AbilityCD;
     }
     #endregion

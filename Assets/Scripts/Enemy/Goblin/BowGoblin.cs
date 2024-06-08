@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using Pathfinding;
 
 public class BowGoblin : Entity, IDamageable, IEffectable
 {
@@ -14,33 +15,80 @@ public class BowGoblin : Entity, IDamageable, IEffectable
     public LayerMask Damageable;
     public GameObject arrowPrefab;
 
+    //AI Pathfinding
+    public Seeker seeker;
+    public Path path;
+    public int currentWaypoint = 0;
+    public float nextWaypointDistance = 1f;
+    public float repathRate = 1f;
+    private float lastRepathTime = float.NegativeInfinity;
+    private AIPath aiPath;
+
     void Awake()
     {
-        player = GameObject.Find("PlayerManager").transform.GetChild(0).transform.GetChild(0).gameObject;
+        player = PlayerManager.instance.Players[0].gameObject;
+        GetComponent<AIDestinationSetter>().target = player.transform;
         currentHealth = maxHealth;
         rb = GetComponent<Rigidbody2D>();
         ESC = GetComponent<EnemySpriteController>();
         attackHitBoxPos = transform.Find("AttackHitbox");
         Damageable = LayerMask.GetMask("Player");
         arrowPrefab = Resources.Load<GameObject>("Prefabs/Projectiles/GoblinArrow");
+        seeker = GetComponent<Seeker>();
+        aiPath = GetComponent<AIPath>();
+        RequestPath();
     }
 
-    void Update()
+    void RequestPath()
+    {
+        if (seeker.IsDone())
+        {
+            seeker.StartPath((transform.position - new Vector3(0.05f, 0.35f)), player.transform.position, OnPathComplete);
+        }
+    }
+
+    public void OnPathComplete(Path p)
+    {
+        if (!p.error)
+        {
+            path = p;
+            currentWaypoint = 0;
+        }
+    }
+
+    void FixedUpdate()
     {
         if (isStunned || !BattleStage.instance.Active)
+        {
             ESC.PlayAnimation("Idle");
+            rb.velocity = Vector2.zero;
+        }
         else if (!isStunned && currentHealth > 0)
         {
             if (currentHealth > 0 && isMovable)
             {
-                transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
-                ProcessDirection(player.transform.position);
+                if (Time.time >= lastRepathTime + repathRate)
+                {
+                    lastRepathTime = Time.time;
+                    RequestPath();
+                }
+
+                if (path == null || path.vectorPath == null || currentWaypoint >= path.vectorPath.Count)
+                    return;
+
+                ProcessDirection((Vector2)path.vectorPath[currentWaypoint] + new Vector2(0.05f, 0.35f));
+                rb.MovePosition(rb.position + (((Vector2)path.vectorPath[currentWaypoint] + new Vector2(0.05f, 0.35f) - rb.position).normalized * speed * Time.fixedDeltaTime));
+
+                if (Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]) < nextWaypointDistance)
+                    currentWaypoint++;
+
                 ESC.isMoving = true;
                 ESC.isAttacking = false;
                 ESC.PlayAnimation("Run");
             }
             else if (Attackable && !ESC.isAttacking)
             {
+                rb.velocity = Vector2.zero;
                 ESC.isMoving = false;
                 Attacking();
             }
@@ -108,9 +156,12 @@ public class BowGoblin : Entity, IDamageable, IEffectable
 
         if (currentHealth <= 0)
         {
+            isMovable = false;
             ESC.PlayAnimation("Death");
+            aiPath.canMove = false;
             Destroy(rb);
             Destroy(GetComponent<BoxCollider2D>());
+            transform.rotation = Quaternion.Euler(0f, 0f, 0f);
             StartCoroutine(Death(2f));
         }
         
@@ -140,7 +191,7 @@ public class BowGoblin : Entity, IDamageable, IEffectable
         isMovable = false;
         rb.velocity = force;
         yield return new WaitForSeconds(.3f);
-        if (!Attackable)
+        if (!Attackable)       
             isMovable = true;
 
         if(currentHealth > 0)
@@ -167,6 +218,7 @@ public class BowGoblin : Entity, IDamageable, IEffectable
         {
             isMovable = false;
             Attackable = true;
+            GetComponent<AIPath>().canMove = false;
         }
     }
 
@@ -176,12 +228,14 @@ public class BowGoblin : Entity, IDamageable, IEffectable
         {
             isMovable = true;
             Attackable = false;
+            GetComponent<AIPath>().canMove = true;
         }
     }
 
     public void Attacking()
     {
         ESC.isAttacking = true;
+        aiPath.canMove = false;
         ESC.PlayAnimation("Shoot");
     }
 
@@ -196,5 +250,6 @@ public class BowGoblin : Entity, IDamageable, IEffectable
         ESC.PlayAnimation("Idle");
         yield return new WaitForSeconds(.5f);
         ESC.isAttacking = false;
+        aiPath.canMove = true;
     }
 }

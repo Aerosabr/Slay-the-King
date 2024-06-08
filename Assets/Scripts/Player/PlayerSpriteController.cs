@@ -11,7 +11,7 @@ public class PlayerSpriteController : MonoBehaviour
     public Vector2 _movementInput;
     public Vector2 _smoothedMovementInput;
     public Vector2 _movementInputSmoothVelocity;
-    public float sprintMultiplier = 1f;
+    public bool Sprintable = true;
 
     //Sprite Animations
     public List<Animator> Sprites = new List<Animator>();
@@ -46,7 +46,11 @@ public class PlayerSpriteController : MonoBehaviour
         if (!isAttacking && Movable && !player.isStunned && player.isMovable)
         {
             _smoothedMovementInput = Vector2.SmoothDamp(_smoothedMovementInput, _movementInput, ref _movementInputSmoothVelocity, 0.1f);
-            _rigidbody.velocity = _smoothedMovementInput * player.movementSpeed * sprintMultiplier * 3;
+            if (Sprintable && isSprinting)
+                _rigidbody.velocity = _smoothedMovementInput * player.movementSpeed * 6;
+            else
+                _rigidbody.velocity = _smoothedMovementInput * player.movementSpeed * 3;
+
             keyboardDirection = _movementInput;
             UpdateSpriteParameters();
         }
@@ -76,13 +80,11 @@ public class PlayerSpriteController : MonoBehaviour
     //Detecting when player is sprinting
     public void OnSprintStart()
     {
-        sprintMultiplier = 2f;
         isSprinting = true;
     }
 
     public void OnSprintFinish()
     {
-        sprintMultiplier = 1f;
         isSprinting = false;
     }
 
@@ -128,9 +130,9 @@ public class PlayerSpriteController : MonoBehaviour
             if (twoHanded)
                 PlayAnimation("2HIdle");
             else
-				PlayAnimation("Idle");
-		}
-	}
+                PlayAnimation("Idle");
+        }
+    }
 
     public void PlayAnimation(string Name)
     {
