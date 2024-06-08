@@ -35,6 +35,17 @@ public class BombGoblin : Entity, IDamageable, IEffectable
         seeker = GetComponent<Seeker>();
         aiPath = GetComponent<AIPath>();
         RequestPath();
+        loadStats();
+    }
+
+    private void loadStats()
+    {
+        int multiplier = GameManager.instance.Floor;
+        baseMaxHealth *= multiplier;
+        maxHealth *= multiplier;
+        currentHealth *= multiplier;
+        baseAttack *= multiplier;
+        Attack *= multiplier;
     }
 
     void RequestPath()
