@@ -17,6 +17,7 @@ public class Knives : MonoBehaviour
     public bool MovementCD = true;
 
     public float dashDistance = 15f;
+    public bool isDashing = true;
 
     public void Awake()
     {
@@ -38,8 +39,30 @@ public class Knives : MonoBehaviour
         return new Vector2(Mathf.Cos(angle) * radius, Mathf.Sin(angle) * radius);
     }
 
-    #region Movement ability
-    public void OnDash()
+	#region Movement ability
+	public void CreateGhost()
+	{
+		transform.GetChild(4).GetChild(3).GetComponent<SpriteRenderer>().sprite = PSC.Sprites[0].GetComponent<SpriteRenderer>().sprite;
+		transform.GetChild(4).GetChild(3).GetChild(0).GetComponent<SpriteRenderer>().sprite = PSC.Sprites[1].GetComponent<SpriteRenderer>().sprite;
+		transform.GetChild(4).GetChild(3).GetChild(1).GetComponent<SpriteRenderer>().sprite = PSC.Sprites[2].GetComponent<SpriteRenderer>().sprite;
+		transform.GetChild(4).GetChild(3).GetChild(2).GetComponent<SpriteRenderer>().sprite = PSC.Sprites[3].GetComponent<SpriteRenderer>().sprite;
+		transform.GetChild(4).GetChild(3).GetChild(3).GetComponent<SpriteRenderer>().sprite = PSC.Sprites[4].GetComponent<SpriteRenderer>().sprite;
+		transform.GetChild(4).GetChild(3).GetChild(4).GetComponent<SpriteRenderer>().sprite = PSC.Sprites[5].GetComponent<SpriteRenderer>().sprite;
+		transform.GetChild(4).GetChild(3).GetChild(5).GetComponent<SpriteRenderer>().sprite = PSC.Sprites[6].GetComponent<SpriteRenderer>().sprite;
+		transform.GetChild(4).GetChild(3).GetChild(6).GetComponent<SpriteRenderer>().sprite = PSC.Sprites[7].GetComponent<SpriteRenderer>().sprite;
+		var clone = Instantiate(transform.GetChild(4).GetChild(3), transform.position, transform.rotation);
+		clone.gameObject.SetActive(true);
+		Destroy(clone.gameObject, 0.2f);
+	}
+	public IEnumerator GenerateGhost()
+	{
+		while (isDashing)
+		{
+			CreateGhost();
+			yield return null;
+		}
+	}
+	public void OnDash()
     {
         if (!PSC.isAttacking && MovementCD)
         {
@@ -52,9 +75,12 @@ public class Knives : MonoBehaviour
     public IEnumerator Dashing()
     {
         PSC.Movable = false;
+        isDashing = true;
+        StartCoroutine(GenerateGhost());
         yield return new WaitForSeconds(0.25f);
         Player.Cooldowns[4].SetActive(true);
         Player.Cooldowns[4].GetComponent<CooldownUI>().StartCooldown(5f);
+        isDashing = false;
         PSC.Movable = true;
     }
 
@@ -83,7 +109,7 @@ public class Knives : MonoBehaviour
 
     private IEnumerator AttackCast()
     {
-        PSC.Attack("Shoot", 2);
+        PSC.Attack("KnifeThrow", 2);
         yield return new WaitForSeconds(.5f);
         Player.Cooldowns[0].SetActive(true);
         Player.Cooldowns[0].GetComponent<CooldownUI>().StartCooldown(1 / Player.attackSpeed);
@@ -124,7 +150,7 @@ public class Knives : MonoBehaviour
 
     private IEnumerator Ability1Cast()
     {
-        PSC.Attack("Shoot", 2);
+        PSC.Attack("KnifeThrow", 2);
         yield return new WaitForSeconds(.5f);
         Player.Cooldowns[1].SetActive(true);
         Player.Cooldowns[1].GetComponent<CooldownUI>().StartCooldown(3f * ((100 - Player.CDR) / 100));
@@ -165,10 +191,13 @@ public class Knives : MonoBehaviour
 
     private IEnumerator Ability2Cast()
     {
+        isDashing = true;
+        StartCoroutine(GenerateGhost());
         PSC._rigidbody.velocity = new Vector2(PSC.currentDirection.x * dashDistance, PSC.currentDirection.y * dashDistance);
         yield return new WaitForSeconds(.2f);
+        isDashing = false;
         PSC._rigidbody.velocity = Vector2.zero;
-        PSC.Attack("Shoot", 2);
+        PSC.Attack("KnifeThrow", 2);
         yield return new WaitForSeconds(.5f);
         Player.Cooldowns[2].SetActive(true);
         Player.Cooldowns[2].GetComponent<CooldownUI>().StartCooldown(3f * ((100 - Player.CDR) / 100));
@@ -212,7 +241,7 @@ public class Knives : MonoBehaviour
 
     private IEnumerator UltimateCast()
     {
-        PSC.Attack("Shoot", 2);
+        PSC.Attack("KnifeSpam", 2);
         yield return new WaitForSeconds(.5f);
         
         StartCoroutine(Ultimate());

@@ -6,7 +6,9 @@ public class Mage : Class
 {
     public override bool checkEquippable(string weapon)
     {
-        return true;
+        if (weapon == "Staff" || weapon == "Wand")
+            return true;
+        return false;
     }
 
     public override void changeWeapon()

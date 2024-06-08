@@ -20,6 +20,7 @@ public class Greatsword : MonoBehaviour
     public bool MovementCD = true;
 
     public float dashDistance = 15f;
+    public bool isDashing = false;
 
     public void Awake()
     {
@@ -38,8 +39,31 @@ public class Greatsword : MonoBehaviour
         return temp;
     }
 
-    #region Player Movement
-    public void OnDash()
+	#region Player Movement
+
+	public void CreateGhost()
+	{
+		transform.GetChild(4).GetChild(3).GetComponent<SpriteRenderer>().sprite = PSC.Sprites[0].GetComponent<SpriteRenderer>().sprite;
+		transform.GetChild(4).GetChild(3).GetChild(0).GetComponent<SpriteRenderer>().sprite = PSC.Sprites[1].GetComponent<SpriteRenderer>().sprite;
+		transform.GetChild(4).GetChild(3).GetChild(1).GetComponent<SpriteRenderer>().sprite = PSC.Sprites[2].GetComponent<SpriteRenderer>().sprite;
+		transform.GetChild(4).GetChild(3).GetChild(2).GetComponent<SpriteRenderer>().sprite = PSC.Sprites[3].GetComponent<SpriteRenderer>().sprite;
+		transform.GetChild(4).GetChild(3).GetChild(3).GetComponent<SpriteRenderer>().sprite = PSC.Sprites[4].GetComponent<SpriteRenderer>().sprite;
+		transform.GetChild(4).GetChild(3).GetChild(4).GetComponent<SpriteRenderer>().sprite = PSC.Sprites[5].GetComponent<SpriteRenderer>().sprite;
+		transform.GetChild(4).GetChild(3).GetChild(5).GetComponent<SpriteRenderer>().sprite = PSC.Sprites[6].GetComponent<SpriteRenderer>().sprite;
+		transform.GetChild(4).GetChild(3).GetChild(6).GetComponent<SpriteRenderer>().sprite = PSC.Sprites[7].GetComponent<SpriteRenderer>().sprite;
+		var clone = Instantiate(transform.GetChild(4).GetChild(3), transform.position, transform.rotation);
+		clone.gameObject.SetActive(true);
+		Destroy(clone.gameObject, 0.2f);
+	}
+	public IEnumerator GenerateGhost()
+	{
+		while (isDashing)
+		{
+			CreateGhost();
+			yield return null;
+		}
+	}
+	public void OnDash()
     {
         if (!PSC.isAttacking && MovementCD)
         {
@@ -52,9 +76,12 @@ public class Greatsword : MonoBehaviour
     public IEnumerator Dashing()
     {
         PSC.Movable = false;
+        isDashing = true;
+        StartCoroutine(GenerateGhost());
         yield return new WaitForSeconds(0.25f);
         Player.Cooldowns[4].SetActive(true);
         Player.Cooldowns[4].GetComponent<CooldownUI>().StartCooldown(5f);
+        isDashing = false;
         PSC.Movable = true;
     }
 
@@ -83,8 +110,8 @@ public class Greatsword : MonoBehaviour
 
     private IEnumerator AttackCast()
     {
-        PSC.Attack("Stab", 2);
-        Player.Cooldowns[0].SetActive(true);
+        PSC.Attack("2HSlash", 2);
+		Player.Cooldowns[0].SetActive(true);
         Player.Cooldowns[0].GetComponent<CooldownUI>().StartCooldown(1 / Player.attackSpeed);
         Attack();
         yield return new WaitForSeconds(.5f);
@@ -130,7 +157,7 @@ public class Greatsword : MonoBehaviour
 
     private IEnumerator Ability1Cast()
     {
-        PSC.Attack("Stab", 2);
+        PSC.Attack("2HThrust", 2);
         PSC._rigidbody.velocity = new Vector2(PSC.currentDirection.x * dashDistance, PSC.currentDirection.y * dashDistance);
         yield return new WaitForSeconds(.1f);
         PSC._rigidbody.velocity = Vector2.zero;
@@ -167,7 +194,8 @@ public class Greatsword : MonoBehaviour
 
     private IEnumerator Ability2Cast()
     {
-        attackHitBoxPos.localPosition = Vector3.zero;
+		PSC.Attack("2HSpin", 2);
+		attackHitBoxPos.localPosition = Vector3.zero;
         attackHitBoxPos.gameObject.GetComponent<CircleCollider2D>().radius = Ability2Radius;
         Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, Ability2Radius, Damageable);
         foreach (Collider2D collider in detectedObjects)
@@ -207,7 +235,7 @@ public class Greatsword : MonoBehaviour
     private IEnumerator UltimateCast()
     {
         float cd = 10f * ((100 - Player.CDR) / 100);
-        PSC.Attack("Stab", 2);
+        PSC.Attack("2HSlam", 2);
         yield return new WaitForSeconds(.5f);
         attackHitBoxPos.localPosition = MapPoint(PSC.currentDirection, UltimateRadius);
         attackHitBoxPos.gameObject.GetComponent<CircleCollider2D>().radius = UltimateRadius;

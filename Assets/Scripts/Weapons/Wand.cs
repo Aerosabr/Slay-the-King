@@ -41,6 +41,7 @@ public class Wand : MonoBehaviour
     }
 
     #region Player Movement
+
     public void OnDash()
     {
         if (!PSC.isAttacking && MovementCD)

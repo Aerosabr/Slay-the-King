@@ -36,6 +36,28 @@ public class Scythe : MonoBehaviour
     }
 
     #region Player Movement
+    public void CreateGhost()
+	{
+		transform.GetChild(4).GetChild(3).GetComponent<SpriteRenderer>().sprite = PSC.Sprites[0].GetComponent<SpriteRenderer>().sprite;
+		transform.GetChild(4).GetChild(3).GetChild(0).GetComponent<SpriteRenderer>().sprite = PSC.Sprites[1].GetComponent<SpriteRenderer>().sprite;
+		transform.GetChild(4).GetChild(3).GetChild(1).GetComponent<SpriteRenderer>().sprite = PSC.Sprites[2].GetComponent<SpriteRenderer>().sprite;
+		transform.GetChild(4).GetChild(3).GetChild(2).GetComponent<SpriteRenderer>().sprite = PSC.Sprites[3].GetComponent<SpriteRenderer>().sprite;
+		transform.GetChild(4).GetChild(3).GetChild(3).GetComponent<SpriteRenderer>().sprite = PSC.Sprites[4].GetComponent<SpriteRenderer>().sprite;
+		transform.GetChild(4).GetChild(3).GetChild(4).GetComponent<SpriteRenderer>().sprite = PSC.Sprites[5].GetComponent<SpriteRenderer>().sprite;
+		transform.GetChild(4).GetChild(3).GetChild(5).GetComponent<SpriteRenderer>().sprite = PSC.Sprites[6].GetComponent<SpriteRenderer>().sprite;
+		transform.GetChild(4).GetChild(3).GetChild(6).GetComponent<SpriteRenderer>().sprite = PSC.Sprites[7].GetComponent<SpriteRenderer>().sprite;
+		var clone = Instantiate(transform.GetChild(4).GetChild(3), transform.position, transform.rotation);
+		clone.gameObject.SetActive(true);
+		Destroy(clone.gameObject, 0.2f);
+	}
+	public IEnumerator GenerateGhost()
+	{
+		while (dashing)
+		{
+			CreateGhost();
+			yield return null;
+		}
+	}
     public void OnDash()
     {
         if (!PSC.isAttacking && MovementCD)
@@ -49,9 +71,12 @@ public class Scythe : MonoBehaviour
     public IEnumerator Dashing()
     {
         PSC.Movable = false;
+        dashing = true;
+        StartCoroutine(GenerateGhost());
         yield return new WaitForSeconds(0.25f);
         Player.Cooldowns[4].SetActive(true);
         Player.Cooldowns[4].GetComponent<CooldownUI>().StartCooldown(5f);
+        dashing = false;
         PSC.Movable = true;
     }
 
@@ -80,7 +105,7 @@ public class Scythe : MonoBehaviour
 
     private IEnumerator AttackCast()
     {
-        PSC.Attack("Stab", 2);
+        PSC.Attack("ScytheSlash", 2);
         Player.Cooldowns[0].SetActive(true);
         Player.Cooldowns[0].GetComponent<CooldownUI>().StartCooldown(1 / Player.attackSpeed);
         Attack();
@@ -129,7 +154,7 @@ public class Scythe : MonoBehaviour
         attackHitBoxPos.gameObject.GetComponent<CircleCollider2D>().radius = Ability1Radius;
         for (int i = 0; i < 2; i++)
         {
-            PSC.Attack("Stab", 2);
+            PSC.Attack("ScytheCross", 1);
             Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, Ability1Radius, Damageable);
             foreach (Collider2D collider in detectedObjects)
             {
@@ -163,6 +188,7 @@ public class Scythe : MonoBehaviour
             Ability2CD = false;
             PSC.isAttacking = true;
             dashing = true;
+            StartCoroutine(GenerateGhost());
             GetComponent<CapsuleCollider2D>().enabled = true;
             GetComponent<CircleCollider2D>().enabled = true;
             GetComponent<BoxCollider2D>().enabled = false;
@@ -173,7 +199,7 @@ public class Scythe : MonoBehaviour
     private IEnumerator Ability2Cast()
     {
         PSC.currentDirection = MapPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition) - (transform.position - new Vector3(0.04f, 0.3f)), 1f);
-        PSC.PlayAnimation("Run");
+        PSC.PlayAnimation("ScytheDash");
         PSC._rigidbody.velocity = new Vector2(PSC.currentDirection.x * dashDistance, PSC.currentDirection.y * dashDistance);
         yield return new WaitForSeconds(.25f);       
         Player.Cooldowns[2].SetActive(true);
@@ -228,7 +254,7 @@ public class Scythe : MonoBehaviour
     private IEnumerator UltimateCast()
     {
         float cd = 10f * ((100 - Player.CDR) / 100);
-        PSC.Attack("Stab", 2);
+        PSC.Attack("ScytheDash", 2);
         attackHitBoxPos.localPosition = Vector2.zero;
         attackHitBoxPos.gameObject.GetComponent<CircleCollider2D>().radius = 5f;
         Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, 5f, Damageable);

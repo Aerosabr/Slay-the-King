@@ -6,7 +6,9 @@ public class Knight : Class
 {
     public override bool checkEquippable(string weapon)
     {
-        return true;
+        if(weapon == "Hammer" || weapon == "SwordShield")
+            return true;
+        return false;
     }
 
     public override void changeWeapon()
