@@ -104,6 +104,8 @@ public class RatStage : MonoBehaviour
             starRating.value = 0.7f;
         else if (captures == 8)
             starRating.value = 0.4f;
+    }
+
     private IEnumerator EndStage()
     {
         if (Active)

@@ -34,7 +34,6 @@ public class InventoryManager : MonoBehaviour
 		UpdatePlayerStatPanel();
 		equipCurrentWeapon();
         InventoryMenu.SetActive(false);
-		DontDestroyOnLoad(gameObject);
 	}
 
     // Update is called once per frame
