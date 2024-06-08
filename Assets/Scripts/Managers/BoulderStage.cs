@@ -15,7 +15,6 @@ public class BoulderStage : MonoBehaviour
     [SerializeField] private GameObject Preround;
     [SerializeField] private BoxCollider2D box;
     [SerializeField] private LayerMask unspawnableLayers;
-    [SerializeField] private GameObject Timer;
     private bool Active = false;
     public bool Spawning;
     private float timeInterval = 6f;
@@ -44,13 +43,7 @@ public class BoulderStage : MonoBehaviour
     private void Start()
     {
         foreach (GameObject player in PlayerManager.instance.Players)
-        {
             player.GetComponent<Player>().CameraZoom(5);
-            player.GetComponent<Class>().unequipWeapon(player.GetComponent<Player>().Weapon);
-            player.GetComponent<PlayerSpriteController>().Sprintable = false;
-        }
-
-        CooldownManager.instance.LoadCooldowns("None");
     }
 
     public void FixedUpdate()
@@ -68,7 +61,6 @@ public class BoulderStage : MonoBehaviour
                 spawnDelay -= 0.1f;
                 numRocksSpawned++;
             }
-            Timer.GetComponent<Text>().text = timeElapsed.ToString("#.00");
             bool alive = true;
             List<GameObject> temp = PlayerManager.instance.Players;
             for (int i = 0; i < temp.Count; i++)
@@ -138,7 +130,7 @@ public class BoulderStage : MonoBehaviour
         Spawning = false;
         int increment = 0;
         TeleportManager.instance.LoadNextStage("Boulder");
-
+        GameManager.instance.canEquip = true;
         yield return new WaitForSeconds(3f);
         foreach (GameObject player in PlayerManager.instance.Players)
         {
@@ -150,6 +142,12 @@ public class BoulderStage : MonoBehaviour
             temp.Revive(currentHP[increment]);
             increment++;
         }
+        if (timeElapsed >= 40)
+            ItemCreation.instance.ThreeStarLoot();
+        else if (timeElapsed >= 25)
+            ItemCreation.instance.TwoStarLoot();
+        else if (timeElapsed >= 10)
+            ItemCreation.instance.OneStarLoot();
         CooldownManager.instance.LoadCooldowns();
     }
 
@@ -158,13 +156,17 @@ public class BoulderStage : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             Destroy(box);
+
+            CooldownManager.instance.LoadCooldowns("None");
             Preround.SetActive(false);
             StageActive.SetActive(true);
             Active = true;
             foreach (GameObject player in PlayerManager.instance.Players)
             {
                 Player temp = player.GetComponent<Player>();
-                temp.CameraZoom(5);
+                player.GetComponent<Class>().unequipWeapon(player.GetComponent<Player>().Weapon);
+                player.GetComponent<PlayerSpriteController>().Sprintable = false;
+                GameManager.instance.canEquip = false;
                 maxHP.Add(temp.maxHealth);
                 currentHP.Add(temp.currentHealth);
                 temp.maxHealth = (temp.Defense / 4) + 1;
@@ -176,13 +178,12 @@ public class BoulderStage : MonoBehaviour
 
     public void UpdateScoreBoard(float timer)
     {
-        int second = Mathf.FloorToInt(timer);
-		timerText.text = "Time Elasped: " + second + "s";
-        if (second <= 30)
+		timerText.text = "Time Elapsed: " + timer.ToString("#.00") + "s";
+        if (timer >= 40)
             starRating.value = 1f;
-        else if (second < 20)
+        else if (timer >= 25)
             starRating.value = 0.7f;
-        else if (second < 10)
+        else if (timer >= 10)
             starRating.value = 0.4f;
         
 	}
