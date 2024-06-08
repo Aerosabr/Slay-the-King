@@ -8,7 +8,7 @@ public class Axe : MonoBehaviour
     public Player Player;
     public Transform attackHitBoxPos;
     public LayerMask Damageable;
-
+    public bool StageEnded = false;
     public bool AttackCD = true;
     private float AttackRadius = 0.5f;
 
@@ -33,7 +33,7 @@ public class Axe : MonoBehaviour
     #region Player Attack
     public void OnAttack()
     {
-        if (!PSC.isAttacking && AttackCD && PSC.Movable)
+        if (!PSC.isAttacking && AttackCD && PSC.Movable && !StageEnded)
         {
             AttackCD = false;
             PSC.isAttacking = true;

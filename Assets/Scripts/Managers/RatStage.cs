@@ -38,7 +38,6 @@ public class RatStage : MonoBehaviour
     {
         foreach (GameObject player in PlayerManager.instance.Players)
             player.GetComponent<Player>().CameraZoom(5);
-        loadNets();
     }
 
     private void FixedUpdate()
@@ -92,7 +91,7 @@ public class RatStage : MonoBehaviour
 
     public Vector2 FindSpawnPos()
     {
-        return new Vector2(Random.Range(-xPos, xPos), Random.Range(-yPos, yPos));
+        return new Vector2(Random.Range(-xPos / 2, xPos / 2), Random.Range(-yPos / 2, yPos / 2));
     }
 
     public void UpdateRatUI()
@@ -111,7 +110,18 @@ public class RatStage : MonoBehaviour
         if (Active)
         {
             Active = false;
+            foreach (GameObject player in PlayerManager.instance.Players)
+                player.GetComponent<Net>().StageEnded = true;
             yield return new WaitForSeconds(1f);
+
+            if (ratsCaught >= 24)
+                ItemCreation.instance.ThreeStarLoot();
+            else if (ratsCaught >= 16)
+                ItemCreation.instance.TwoStarLoot();
+            else if (ratsCaught >= 8)
+                ItemCreation.instance.OneStarLoot();
+
+            GameManager.instance.canEquip = true;
             unequipNets();
             Active = false;
             foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Enemy"))
@@ -128,6 +138,8 @@ public class RatStage : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             Destroy(box);
+            GameManager.instance.canEquip = false;
+            loadNets();
             Preround.SetActive(false);
             StageActive.SetActive(true);
             Active = true;

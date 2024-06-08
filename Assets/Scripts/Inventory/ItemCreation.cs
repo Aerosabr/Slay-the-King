@@ -255,7 +255,7 @@ public class ItemCreation : MonoBehaviour
     public void ThreeStarLoot()
     {
         //100x Gold, 2 + 1 (50%) + 1 (25%) -> Weapon/Armor
-        CreateItem(itemDict["Gold"], 50, PlayerManager.instance.Players[0].transform);
+        CreateItem(itemDict["Gold"], 100, PlayerManager.instance.Players[0].transform);
         List<int> odds = new List<int> { 100, 100, 50, 25 };
         for (int i = 0; i < 2; i++)
         {
