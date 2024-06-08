@@ -14,7 +14,7 @@ public class Player : Entity, IEffectable, IDamageable
 
     //Level
     public int Level;
-    private int levelExp;
+    public int levelExp;
 
     //Ability Cooldowns
     public float AttackCD;

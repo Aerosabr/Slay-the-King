@@ -101,14 +101,14 @@ public class ItemCreation : MonoBehaviour
         return equipment;
     }
 
-    public List<SubStat> GenerateSubstats()
+    public List<SubStat> GenerateSubstats(int bonus)
     {
-        int lv = PlayerManager.instance.GetAverageLevel();
+        int lv = PlayerManager.instance.GetAverageLevel() + bonus;
         int num = UnityEngine.Random.Range(1, 101) + (int)(PlayerManager.instance.GetTotalLuck() * (2f / (float)PlayerManager.instance.Players.Count));
         List<string> substatNames = new List<string> { "Health", "Attack", "Defense", "Dexterity", "Cooldown Reduction", "Attack Speed", "Luck" };
         List<SubStat> substats = new List<SubStat>();
         int numSubstats;
-
+        num = 99;
         if (num < 51) //Common       
             return substats;
         else if (num < 81) //Uncommon

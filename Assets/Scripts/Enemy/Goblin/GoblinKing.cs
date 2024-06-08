@@ -270,10 +270,47 @@ public class GoblinKing : Entity, IDamageable, IEffectable
     {
         yield return new WaitForSeconds(time);
         Destroy(gameObject);
-        Instantiate(Resources.Load<GameObject>("Prefabs/Gold"), transform.position, Quaternion.identity);
+        DropLoot();
         BattleStage.instance.enemiesKilled++;
     }
     #endregion
+
+    private void DropLoot()
+    {
+        //50 Gold, 25% equipment rate -> Accessories
+        ItemCreation IC = ItemCreation.instance;
+        IC.CreateItem(ItemCreation.instance.itemDict["Gold"], 50, transform);
+        if (Random.Range(1, 101) < 101)
+        {
+            List<string> substatNames = new List<string> { "Health", "Attack", "Defense", "Dexterity", "Cooldown Reduction", "Attack Speed", "Luck" };
+            string equipment = IC.GenerateRandomEquipment(3);
+            List<SubStat> subStats = IC.GenerateSubstats(2);
+            SubStat mainStat;
+            switch (equipment)
+            {
+                case "Helmet":
+                    mainStat = new SubStat("Health", PlayerManager.instance.GetAverageLevel() + 2);
+                    break;
+                case "Chestplate":
+                    mainStat = new SubStat("Defense", PlayerManager.instance.GetAverageLevel() + 2);
+                    break;
+                case "Leggings":
+                    mainStat = new SubStat("Dexterity", PlayerManager.instance.GetAverageLevel() + 2);
+                    break;
+                case "Ring":
+                    mainStat = new SubStat(substatNames[Random.Range(0, substatNames.Count)], PlayerManager.instance.GetAverageLevel() + 2);
+                    break;
+                case "Amulet":
+                    mainStat = new SubStat(substatNames[Random.Range(0, substatNames.Count)], PlayerManager.instance.GetAverageLevel() + 2);
+                    break;
+                default:
+                    mainStat = new SubStat("Attack", PlayerManager.instance.GetAverageLevel() + 2);
+                    break;
+            }
+
+            IC.CreateEquipment(IC.equipmentDict[equipment], mainStat, subStats, transform);
+        }
+    }
 
     #region Basic Attack
     public void BasicAttackCast()
