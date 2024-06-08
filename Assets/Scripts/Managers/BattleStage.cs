@@ -162,6 +162,7 @@ public class BattleStage : MonoBehaviour
             }
         }
         Active = false;
+        GameOver.instance.PopUp();
         Debug.Log("All players dead");
     }
 
