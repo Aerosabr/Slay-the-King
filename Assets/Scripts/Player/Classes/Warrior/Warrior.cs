@@ -6,7 +6,9 @@ public class Warrior : Class
 {
     public override bool checkEquippable(string weapon)
     {
-        return true;
+        if (weapon == "GreatSword" || weapon == "DualAxe")
+            return true;
+        return false;
     }
 
     public override void changeWeapon()

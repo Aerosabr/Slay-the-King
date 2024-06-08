@@ -9,8 +9,9 @@ public class TreeStage : MonoBehaviour
     public Animator axe;
     public float timeElapsed;
     public bool treeCut;
+    [SerializeField] private Text Timer;
+    public Slider starRating;
     private bool Active = false;
-    [SerializeField] private GameObject Timer;
     private List<RuntimeAnimatorController> RAC = new List<RuntimeAnimatorController>();
     [SerializeField] private GameObject StageActive;
     [SerializeField] private GameObject Preround;
@@ -33,7 +34,8 @@ public class TreeStage : MonoBehaviour
         if (!treeCut && Active)
         {
             timeElapsed += Time.deltaTime;
-            Timer.GetComponent<Text>().text = timeElapsed.ToString("#.00");
+            Timer.text = "Time Elapsed: " + timeElapsed.ToString("F2") + "s";
+            UpdateTreeRating();
         }
     }
 
@@ -72,6 +74,16 @@ public class TreeStage : MonoBehaviour
         unequipAxes();
     }
 
+    public void UpdateTreeRating()
+    {
+        if (timeElapsed < 10.0f)
+            starRating.value = 1f;
+        else if (timeElapsed < 20.0f)
+            starRating.value = 0.7f;
+        else if (timeElapsed < 30.0f)
+            starRating.value = 0.4f;
+    }
+    
     public void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Player")

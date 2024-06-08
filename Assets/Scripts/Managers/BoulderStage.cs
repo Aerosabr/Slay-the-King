@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+
 public class BoulderStage : MonoBehaviour
 {
     public static BoulderStage instance;
@@ -24,6 +25,9 @@ public class BoulderStage : MonoBehaviour
     [SerializeField] private float spawnDelay = 0.5f;
     private List<int> maxHP = new List<int>();
     private List<int> currentHP = new List<int>();      
+
+    public Text timerText;
+    public Slider starRating;
 
     public void OnDrawGizmos()
     {
@@ -57,6 +61,7 @@ public class BoulderStage : MonoBehaviour
                 dropOnPlayer -= Time.deltaTime;
 
             timeElapsed += Time.deltaTime;
+            UpdateScoreBoard(timeElapsed);
             if (timeElapsed > timeInterval && spawnDelay > 0.15f)
             {
                 timeInterval += 10f;
@@ -168,5 +173,18 @@ public class BoulderStage : MonoBehaviour
             StartCoroutine(SpawnBoulders());
         }
     }
+
+    public void UpdateScoreBoard(float timer)
+    {
+        int second = Mathf.FloorToInt(timer);
+		timerText.text = "Time Elasped: " + second + "s";
+        if (second <= 30)
+            starRating.value = 1f;
+        else if (second < 20)
+            starRating.value = 0.7f;
+        else if (second < 10)
+            starRating.value = 0.4f;
+        
+	}
 }
 

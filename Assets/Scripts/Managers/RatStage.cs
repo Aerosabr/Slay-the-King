@@ -10,6 +10,9 @@ public class RatStage : MonoBehaviour
     public float xPos;
     public float yPos;
     public Transform spawnArea;
+    public int captures;
+    public Text ratText;
+    public Slider starRating;
 
     [SerializeField] private Animator net;
     private List<RuntimeAnimatorController> RAC = new List<RuntimeAnimatorController>();
@@ -90,6 +93,17 @@ public class RatStage : MonoBehaviour
     public Vector2 FindSpawnPos()
     {
         return new Vector2(Random.Range(-xPos, xPos), Random.Range(-yPos, yPos));
+    }
+
+    public void UpdateRatUI()
+    {
+        ratText.text = "Rats caught: " + captures.ToString();
+        if (captures == 24)
+            starRating.value = 1f;
+        else if (captures == 16)
+            starRating.value = 0.7f;
+        else if (captures == 8)
+            starRating.value = 0.4f;
     }
 
     private IEnumerator EndStage()

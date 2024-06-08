@@ -7,7 +7,9 @@ using static UnityEditor.Progress;
 public class InventoryManager : MonoBehaviour
 {
     public GameObject InventoryMenu;
+    public static InventoryManager instance;
 	public Player player;
+    public ConvertPlayerToUI playerUI;
     public ItemSlot[] itemSlot;
     public EquipmentSlot[] equipmentSlot;
     public EquippedSlot[] equippedSlot;
@@ -27,6 +29,7 @@ public class InventoryManager : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
     {
+        instance = this;
         player = GameObject.Find("PlayerManager").transform.GetChild(0).GetChild(0).GetComponent<Player>();
 		UpdatePlayerStatPanel();
 		equipCurrentWeapon();
@@ -142,6 +145,20 @@ public class InventoryManager : MonoBehaviour
 		cdrNum.text = player.CDR.ToString();
 		attackspdNum.text = player.baseAttackSpeed.ToString();
 		luckNum.text = player.Luck.ToString();
+        playerUI.player = player.transform.parent;
+	}
+    
+    public void BeginTransfer()
+    {
+		DontDestroyOnLoad(gameObject);
+	}
+
+    public void EndTransfer()
+    {
+        Transform HUD = GameObject.Find("HUD").transform;
+        transform.SetParent(HUD, false);
+		player = GameObject.Find("PlayerManager").transform.GetChild(0).GetChild(0).GetComponent<Player>();
+        UpdatePlayerStatPanel();
 	}
 }
 
