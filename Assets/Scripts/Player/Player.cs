@@ -26,7 +26,7 @@ public class Player : Entity, IEffectable, IDamageable
 
     public Rigidbody2D rb;
     [SerializeField] private Camera mainCam;
-
+    private PlayerSpriteController PSC;
     //ConsumableHotBar
     public ActivateConsumables[] consumableSlot;
     public bool canInteract;
@@ -34,6 +34,7 @@ public class Player : Entity, IEffectable, IDamageable
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        PSC = GetComponent<PlayerSpriteController>();
 	}
 
     void Update()
@@ -109,9 +110,9 @@ public class Player : Entity, IEffectable, IDamageable
             DamagePopup.Create(rb.transform.position, damage, false);
             if (currentHealth <= 0)
             {
-                GetComponent<PlayerSpriteController>().PlayAnimation("Death");
-                GetComponent<PlayerSpriteController>()._rigidbody.velocity = Vector2.zero;
-                GetComponent<PlayerSpriteController>().Movable = false;
+                PSC.PlayAnimation("Death");
+                PSC._rigidbody.velocity = Vector2.zero;
+                PSC.Movable = false;
             }
         }
         
@@ -125,9 +126,9 @@ public class Player : Entity, IEffectable, IDamageable
         {
             damage = currentHealth;
             currentHealth = 0;
-            GetComponent<PlayerSpriteController>().PlayAnimation("Death");
-            GetComponent<PlayerSpriteController>()._rigidbody.velocity = Vector2.zero;
-            GetComponent<PlayerSpriteController>().Movable = false;
+            PSC.PlayAnimation("Death");
+            PSC._rigidbody.velocity = Vector2.zero;
+            PSC.Movable = false;
         }
         else
         {
@@ -174,7 +175,7 @@ public class Player : Entity, IEffectable, IDamageable
     public void Revive(int hp)
     {
         currentHealth = hp;
-        GetComponent<PlayerSpriteController>().Movable = true;
+        PSC.Movable = true;
 
     }
 
@@ -231,7 +232,7 @@ public class Player : Entity, IEffectable, IDamageable
         if (canInteract)
         {
             Transform attackHB = transform.Find("AttackHitbox");
-            attackHB.transform.localPosition = MapPoint(GetComponent<PlayerSpriteController>().currentDirection, 1f);
+            attackHB.transform.localPosition = MapPoint(PSC.currentDirection, 1f);
             attackHB.gameObject.GetComponent<CircleCollider2D>().radius = 1f;
             Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHB.position, 1f, LayerMask.GetMask("Interactable"));
             foreach (Collider2D collider in detectedObjects)
@@ -262,5 +263,22 @@ public class Player : Entity, IEffectable, IDamageable
     public void CameraZoom(int num)
     {
         mainCam.orthographicSize = num;
+    }
+
+    public void CameraZoomOutSlow(int num)
+    {
+        StartCoroutine(ZoomOutSlow(num));
+    }
+
+    public IEnumerator ZoomOutSlow(int num)
+    {
+        yield return new WaitForSeconds(0.02f);
+        if (mainCam.orthographicSize < num)
+        {
+            mainCam.orthographicSize += 0.04f;
+            StartCoroutine(ZoomOutSlow(num));
+        }
+        else
+            mainCam.orthographicSize = num;
     }
 }

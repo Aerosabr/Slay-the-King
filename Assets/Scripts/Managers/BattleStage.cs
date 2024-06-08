@@ -71,7 +71,7 @@ public class BattleStage : MonoBehaviour
         else
         {
             foreach (GameObject player in PlayerManager.instance.Players)
-                player.GetComponent<Player>().CameraZoom(10);
+                player.GetComponent<Player>().CameraZoomOutSlow(8);
 
             TeleportManager.instance.LoadNextStage("Battle");
         }
@@ -125,7 +125,7 @@ public class BattleStage : MonoBehaviour
         if (Wave == maxWaves)
         {
             foreach (GameObject player in PlayerManager.instance.Players)
-                player.GetComponent<Player>().CameraZoom(10);
+                player.GetComponent<Player>().CameraZoomOutSlow(8);
             
             TeleportManager.instance.LoadNextStage("Battle");
         }

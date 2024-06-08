@@ -34,15 +34,8 @@ public class Boulder : MonoBehaviour
         Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitbox.position, 2f, Damageable);
         foreach (Collider2D collider in detectedObjects)
         {
-            Player player = collider.gameObject.GetComponent<Player>();
-            int damage;
-            if (player.baseDefense > 9)
-            {
-                damage = (player.maxHealth / (player.baseDefense / 5)) + 1;
-                collider.gameObject.GetComponent<IDamageable>().trueDamaged(damage);
-            }
-            else
-                collider.gameObject.GetComponent<IDamageable>().trueDamaged(player.maxHealth);
+            if (collider.GetType().ToString() == "UnityEngine.BoxCollider2D")
+                collider.gameObject.GetComponent<IDamageable>().trueDamaged(1);
         }
     }
 }

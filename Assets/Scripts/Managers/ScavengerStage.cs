@@ -31,7 +31,12 @@ public class ScavengerStage : MonoBehaviour
     private void Start()
     {
         foreach (GameObject player in PlayerManager.instance.Players)
+        {
             player.GetComponent<Player>().CameraZoom(5);
+            player.GetComponent<Class>().unequipWeapon(player.GetComponent<Player>().Weapon);
+        }
+
+        CooldownManager.instance.LoadCooldowns("None");
     }
 
     private void FixedUpdate()
@@ -93,7 +98,12 @@ public class ScavengerStage : MonoBehaviour
 
         TeleportManager.instance.LoadNextStage("Scavenger");
         foreach (GameObject player in PlayerManager.instance.Players)
-            player.GetComponent<Player>().CameraZoom(10);
+        {
+            Player temp = player.GetComponent<Player>();
+            player.GetComponent<Class>().equipCurrent();
+            temp.CameraZoomOutSlow(8);
+        }
+        CooldownManager.instance.LoadCooldowns();
     }
 
     public void OnTriggerEnter2D(Collider2D collision)

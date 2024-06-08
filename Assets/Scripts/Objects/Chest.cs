@@ -4,12 +4,26 @@ using UnityEngine;
 
 public class Chest : MonoBehaviour, IInteractable
 {
-    public int num;
-    public Animator anim;
+    [SerializeField] private int num;
+    private bool Activated = false;
+    [SerializeField] private Animator anim;
 
     public void Interacted(Player player)
     {
-        ChestStage.instance.ChestOpened(num, player);
-        anim.Play("Opening");
+        if (!Activated)
+        {
+            Debug.Log(num + " Activated");
+            Activated = true;
+            ChestStage.instance.ChestOpened(num, player);
+            anim.Play("Opening");
+        } 
+    }
+
+    public void Disappear()
+    {
+        Debug.Log(num + " Disappearing");
+        Activated = true;
+        anim.Play("Disappear");
+        Debug.Log(num + " Disappearing");
     }
 }

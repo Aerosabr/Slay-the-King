@@ -59,8 +59,8 @@ public class RatStage : MonoBehaviour
         {
             player.GetComponent<Class>().unequipWeapon(player.GetComponent<Player>().Weapon);
             player.AddComponent<Net>();
-            //RAC.Add(player.GetComponent<PlayerSpriteController>().Sprites[5].GetComponent<Animator>().runtimeAnimatorController);
-            //player.GetComponent<PlayerSpriteController>().Sprites[5].GetComponent<Animator>().runtimeAnimatorController = net.runtimeAnimatorController;
+            RAC.Add(player.GetComponent<PlayerSpriteController>().Sprites[5].GetComponent<Animator>().runtimeAnimatorController);
+            player.GetComponent<PlayerSpriteController>().Sprites[5].GetComponent<Animator>().runtimeAnimatorController = net.runtimeAnimatorController;
         }
         CooldownManager.instance.LoadCooldowns("Net");
     }
@@ -72,7 +72,7 @@ public class RatStage : MonoBehaviour
         {
             Destroy(player.GetComponent<Net>());
             player.GetComponent<Class>().equipCurrent();
-            //player.GetComponent<PlayerSpriteController>().Sprites[5].GetComponent<Animator>().runtimeAnimatorController = RAC[increment];
+            player.GetComponent<PlayerSpriteController>().Sprites[5].GetComponent<Animator>().runtimeAnimatorController = RAC[increment];
             increment++;
         }
         CooldownManager.instance.LoadCooldowns();
@@ -94,15 +94,19 @@ public class RatStage : MonoBehaviour
 
     private IEnumerator EndStage()
     {
-        yield return new WaitForSeconds(1f);
-        unequipNets();
-        Active = false;
-        foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Enemy"))
-            Destroy(obj);
+        if (Active)
+        {
+            Active = false;
+            yield return new WaitForSeconds(1f);
+            unequipNets();
+            Active = false;
+            foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Enemy"))
+                Destroy(obj);
 
-        TeleportManager.instance.LoadNextStage("Rats");
-        foreach (GameObject player in PlayerManager.instance.Players)
-            player.GetComponent<Player>().CameraZoom(10);
+            TeleportManager.instance.LoadNextStage("Rats");
+            foreach (GameObject player in PlayerManager.instance.Players)
+                player.GetComponent<Player>().CameraZoomOutSlow(8);
+        }
     }
 
     public void OnTriggerEnter2D(Collider2D collision)

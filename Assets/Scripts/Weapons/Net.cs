@@ -8,7 +8,6 @@ public class Net : MonoBehaviour
     public Player Player;
     public Transform attackHitBoxPos;
     public LayerMask Damageable;
-
     public bool AttackCD = true;
     private float AttackRadius = 0.5f;
 
@@ -20,7 +19,7 @@ public class Net : MonoBehaviour
         Player = gameObject.GetComponent<Player>();
         attackHitBoxPos = transform.Find("AttackHitbox");
         Damageable = LayerMask.GetMask("Enemy");
-        PSC.twoHanded = false;
+        PSC.twoHanded = true;
     }
 
     public Vector2 MapPoint(Vector2 point, float radius)
@@ -44,11 +43,11 @@ public class Net : MonoBehaviour
 
     private IEnumerator AttackCast()
     {
-        PSC.Attack("Chop", 2);
+        PSC.Attack("2HSlam", 2);
         Player.Cooldowns[0].SetActive(true);
         Player.Cooldowns[0].GetComponent<CooldownUI>().StartCooldown(1 / Player.attackSpeed);
+        yield return new WaitForSeconds(.4f);
         Attack();
-        yield return new WaitForSeconds(.5f);
         PSC.isAttacking = false;
     }
 

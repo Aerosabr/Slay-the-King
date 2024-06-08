@@ -85,7 +85,7 @@ public class MiningStage : MonoBehaviour
 
         TeleportManager.instance.LoadNextStage("Mining");
         foreach (GameObject player in PlayerManager.instance.Players)
-            player.GetComponent<Player>().CameraZoom(10);
+            player.GetComponent<Player>().CameraZoomOutSlow(8);
     }
 
     public void OnTriggerEnter2D(Collider2D collision)
