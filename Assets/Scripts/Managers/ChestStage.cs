@@ -6,9 +6,9 @@ public class ChestStage : MonoBehaviour
 {
     public static ChestStage instance;
 
-    public GameObject Chest1;
-    public GameObject Chest2;
-    public GameObject Chest3;
+    [SerializeField] private GameObject Chest1;
+    [SerializeField] private GameObject Chest2;
+    [SerializeField] private GameObject Chest3;
 
     private void Awake()
     {
@@ -17,11 +17,15 @@ public class ChestStage : MonoBehaviour
 
     private void Start()
     {
-        foreach(GameObject player in PlayerManager.instance.Players)
+        foreach (GameObject player in PlayerManager.instance.Players)
         {
             player.GetComponent<Player>().canInteract = true;
             player.GetComponent<Player>().CameraZoom(5);
+            player.GetComponent<Class>().unequipWeapon(player.GetComponent<Player>().Weapon);
+            player.GetComponent<PlayerSpriteController>().Sprintable = false;
         }
+
+        CooldownManager.instance.LoadCooldowns("None");
     }
 
     public void ChestOpened(int num, Player player)
@@ -29,21 +33,26 @@ public class ChestStage : MonoBehaviour
         switch(num)
         {
             case 1:
-                Chest2.GetComponent<Chest>().anim.Play("Disappear");
-                Chest3.GetComponent<Chest>().anim.Play("Disappear");
+                Chest2.GetComponent<Chest>().Disappear();
+                Chest3.GetComponent<Chest>().Disappear();
                 break;
             case 2:
-                Chest1.GetComponent<Chest>().anim.Play("Disappear");
-                Chest3.GetComponent<Chest>().anim.Play("Disappear");
+                Chest1.GetComponent<Chest>().Disappear();
+                Chest3.GetComponent<Chest>().Disappear();
                 break;
             case 3:
-                Chest1.GetComponent<Chest>().anim.Play("Disappear");
-                Chest2.GetComponent<Chest>().anim.Play("Disappear");
+                Chest1.GetComponent<Chest>().Disappear();
+                Chest2.GetComponent<Chest>().Disappear();
                 break;
         }
         TeleportManager.instance.LoadNextStage("Chests");
         foreach (GameObject i in PlayerManager.instance.Players)
-            i.GetComponent<Player>().CameraZoom(10);
+        {
+            i.GetComponent<Player>().CameraZoomOutSlow(8);
+            i.GetComponent<Class>().equipCurrent();
+            i.GetComponent<PlayerSpriteController>().Sprintable = true;
+        }
+        CooldownManager.instance.LoadCooldowns();
     }
 }
 

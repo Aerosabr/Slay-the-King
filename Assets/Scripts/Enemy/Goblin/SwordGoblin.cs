@@ -195,8 +195,13 @@ public class SwordGoblin : Entity, IDamageable, IEffectable
     {
         yield return new WaitForSeconds(time);
         Destroy(gameObject);
-        Instantiate(Resources.Load<GameObject>("Prefabs/Gold"), transform.position, Quaternion.identity);
+        DropLoot();
         BattleStage.instance.enemiesKilled++;
+    }
+
+    private void DropLoot()
+    {
+        //1 Gold, 5% equipment rate -> Weapon/Armor
     }
 
     public bool CheckAttacks()

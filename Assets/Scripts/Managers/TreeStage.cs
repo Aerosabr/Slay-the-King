@@ -67,7 +67,7 @@ public class TreeStage : MonoBehaviour
         treeCut = true;
         yield return new WaitForSeconds(1f);
         foreach (GameObject player in PlayerManager.instance.Players)
-            player.GetComponent<Player>().CameraZoom(10);
+            player.GetComponent<Player>().CameraZoomOutSlow(8);
         TeleportManager.instance.LoadNextStage("Tree");
         unequipAxes();
     }

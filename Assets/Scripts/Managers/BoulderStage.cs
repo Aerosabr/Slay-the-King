@@ -22,6 +22,8 @@ public class BoulderStage : MonoBehaviour
     [SerializeField] private float timeElapsed;
     [SerializeField] private int numRocksSpawned = 1;
     [SerializeField] private float spawnDelay = 0.5f;
+    private List<int> maxHP = new List<int>();
+    private List<int> currentHP = new List<int>();      
 
     public void OnDrawGizmos()
     {
@@ -38,7 +40,13 @@ public class BoulderStage : MonoBehaviour
     private void Start()
     {
         foreach (GameObject player in PlayerManager.instance.Players)
+        {
             player.GetComponent<Player>().CameraZoom(5);
+            player.GetComponent<Class>().unequipWeapon(player.GetComponent<Player>().Weapon);
+            player.GetComponent<PlayerSpriteController>().Sprintable = false;
+        }
+
+        CooldownManager.instance.LoadCooldowns("None");
     }
 
     public void FixedUpdate()
@@ -123,13 +131,21 @@ public class BoulderStage : MonoBehaviour
     {
         Active = false;
         Spawning = false;
+        int increment = 0;
         TeleportManager.instance.LoadNextStage("Boulder");
-        yield return new WaitForSeconds(2f);
+
+        yield return new WaitForSeconds(3f);
         foreach (GameObject player in PlayerManager.instance.Players)
         {
-            player.GetComponent<Player>().CameraZoom(10);
-            player.GetComponent<Player>().Revive(player.GetComponent<Player>().maxHealth);
+            Player temp = player.GetComponent<Player>();
+            player.GetComponent<Class>().equipCurrent();
+            player.GetComponent<PlayerSpriteController>().Sprintable = true;
+            temp.CameraZoomOutSlow(8);
+            temp.maxHealth = maxHP[increment];
+            temp.Revive(currentHP[increment]);
+            increment++;
         }
+        CooldownManager.instance.LoadCooldowns();
     }
 
     public void OnTriggerEnter2D(Collider2D collision)
@@ -140,6 +156,15 @@ public class BoulderStage : MonoBehaviour
             Preround.SetActive(false);
             StageActive.SetActive(true);
             Active = true;
+            foreach (GameObject player in PlayerManager.instance.Players)
+            {
+                Player temp = player.GetComponent<Player>();
+                temp.CameraZoom(5);
+                maxHP.Add(temp.maxHealth);
+                currentHP.Add(temp.currentHealth);
+                temp.maxHealth = (temp.Defense / 4) + 1;
+                temp.currentHealth = temp.maxHealth;
+            }
             StartCoroutine(SpawnBoulders());
         }
     }

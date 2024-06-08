@@ -65,4 +65,20 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
+    public int GetTotalLuck()
+    {
+        int luck = 0;
+        foreach (GameObject player in Players)      
+            luck += player.GetComponent<Player>().Luck;
+        return luck;
+    }
+
+    public int GetAverageLevel()
+    {
+        int totalLvl = 0;
+        foreach (GameObject player in Players)
+            totalLvl += player.GetComponent<Player>().Level;
+
+        return totalLvl / Players.Count;
+    }
 }
