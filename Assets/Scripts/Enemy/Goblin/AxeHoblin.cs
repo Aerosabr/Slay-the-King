@@ -215,10 +215,40 @@ public class AxeHoblin : Entity, IDamageable, IEffectable
     {
         yield return new WaitForSeconds(time);
         Destroy(gameObject);
-        Instantiate(Resources.Load<GameObject>("Prefabs/Gold"), transform.position, Quaternion.identity);
+        DropLoot();
         BattleStage.instance.enemiesKilled++;
     }
     #endregion
+
+    private void DropLoot()
+    {
+        //5 Gold, 10% equipment rate -> Weapon/Armor
+        ItemCreation IC = ItemCreation.instance;
+        IC.CreateItem(ItemCreation.instance.itemDict["Gold"], 5, transform);
+        if (Random.Range(1, 101) < 101)
+        {
+            string equipment = IC.GenerateRandomEquipment(Random.Range(1, 3));
+            List<SubStat> subStats = IC.GenerateSubstats(1);
+            SubStat mainStat;
+            switch (equipment)
+            {
+                case "Helmet":
+                    mainStat = new SubStat("Health", PlayerManager.instance.GetAverageLevel() + 1);
+                    break;
+                case "Chestplate":
+                    mainStat = new SubStat("Defense", PlayerManager.instance.GetAverageLevel() + 1);
+                    break;
+                case "Leggings":
+                    mainStat = new SubStat("Dexterity", PlayerManager.instance.GetAverageLevel() + 1);
+                    break;
+                default:
+                    mainStat = new SubStat("Attack", PlayerManager.instance.GetAverageLevel() + 1);
+                    break;
+            }
+
+            IC.CreateEquipment(IC.equipmentDict[equipment], mainStat, subStats, transform);
+        }
+    }
 
     #region Basic Attack
     public void BasicAttackCast()

@@ -203,11 +203,11 @@ public class SwordGoblin : Entity, IDamageable, IEffectable
     {
         //1 Gold, 5% equipment rate -> Weapon/Armor
         ItemCreation IC = ItemCreation.instance;
-        //IC.CreateItem(ItemCreation.instance.itemDict["Gold"], 1, transform);
+        IC.CreateItem(ItemCreation.instance.itemDict["Gold"], 1, transform);
         if (Random.Range(1, 101) < 101)
         {
             string equipment = IC.GenerateRandomEquipment(Random.Range(1, 3));
-            //List<SubStat> subStats = IC.GenerateSubstats();
+            List<SubStat> subStats = IC.GenerateSubstats(0);
             SubStat mainStat;
             switch (equipment)
             {
@@ -224,12 +224,8 @@ public class SwordGoblin : Entity, IDamageable, IEffectable
                     mainStat = new SubStat("Attack", PlayerManager.instance.GetAverageLevel());
                     break;
             }
-            Debug.Log("Item");
-            Debug.Log(IC.equipmentDict[equipment]);
-            Debug.Log(mainStat.name + " " + mainStat.value);
 
-            IC.CreateEquipment(IC.equipmentDict[equipment], mainStat, new List<SubStat>(), transform);
-            Debug.Log("Test2");
+            IC.CreateEquipment(IC.equipmentDict[equipment], mainStat, subStats, transform);
         }
     }
 
