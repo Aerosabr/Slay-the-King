@@ -14,6 +14,7 @@ public class TeleportManager : MonoBehaviour
 
     public void LoadNextStage(string current)
     {
+        GameManager.instance.canEquip = true;
         int stage = GameManager.instance.Stage;
         Map.SetActive(false);
         if (stage >= 1 && stage <= 3)

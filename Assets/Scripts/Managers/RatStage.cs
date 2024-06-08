@@ -10,7 +10,6 @@ public class RatStage : MonoBehaviour
     public float xPos;
     public float yPos;
     public Transform spawnArea;
-    public int captures;
     public Text ratText;
     public Slider starRating;
     public Text Timer;
@@ -98,12 +97,12 @@ public class RatStage : MonoBehaviour
 
     public void UpdateRatUI()
     {
-        ratText.text = "Rats caught: " + captures.ToString();
-        if (captures == 24)
+        ratText.text = "Rats caught: " + ratsCaught.ToString();
+        if (ratsCaught == 24)
             starRating.value = 1f;
-        else if (captures == 16)
+        else if (ratsCaught == 16)
             starRating.value = 0.7f;
-        else if (captures == 8)
+        else if (ratsCaught == 8)
             starRating.value = 0.4f;
     }
 

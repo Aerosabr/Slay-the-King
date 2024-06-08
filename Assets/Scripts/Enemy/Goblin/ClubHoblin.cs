@@ -225,7 +225,7 @@ public class ClubHoblin : Entity, IDamageable, IEffectable
         //5 Gold, 10% equipment rate -> Weapon/Armor
         ItemCreation IC = ItemCreation.instance;
         IC.CreateItem(ItemCreation.instance.itemDict["Gold"], 5, transform);
-        if (Random.Range(1, 101) < 101)
+        if (Random.Range(1, 101) <= 10)
         {
             string equipment = IC.GenerateRandomEquipment(Random.Range(1, 3));
             List<SubStat> subStats = IC.GenerateSubstats(1);

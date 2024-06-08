@@ -7,9 +7,15 @@ public class SceneLoader : MonoBehaviour
 {
     public Animator Fade;
 
+    private void Awake()
+    {
+        Fade.gameObject.SetActive(false);
+    }
+
     //Loads scene transition
     public void SceneTransition(string Scene)
     {
+        Fade.gameObject.SetActive(true);
         StartCoroutine(LoadingScene(Scene, "Black"));
     }
 
@@ -20,10 +26,10 @@ public class SceneLoader : MonoBehaviour
         switch (Transition)
         {
             case "White":
-                Fade.SetTrigger("FadeToWhite");
+                Fade.Play("FadeToWhite");
                 break;
             case "Black":
-                Fade.SetTrigger("FadeToBlack");
+                Fade.Play("FadeToBlack");
                 break;
         }
         yield return new WaitForSeconds(2);
@@ -37,10 +43,10 @@ public class SceneLoader : MonoBehaviour
         switch (Transition)
         {
             case "White":
-                Fade.SetTrigger("FadeToWhite");
+                Fade.Play("FadeToWhite");
                 break;
             case "Black":
-                Fade.SetTrigger("FadeToBlack");
+                Fade.Play("FadeToBlack");
                 break;
         }
         yield return new WaitForSeconds(2);

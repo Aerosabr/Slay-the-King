@@ -148,6 +148,7 @@ public class SwordGoblin : Entity, IDamageable, IEffectable
             isMovable = false;
             ESC.PlayAnimation("Death");
             aiPath.canMove = false;
+            rb.constraints = RigidbodyConstraints2D.FreezeAll;
             Destroy(rb);
             Destroy(GetComponent<BoxCollider2D>());
             transform.rotation = Quaternion.Euler(0f, 0f, 0f);
@@ -193,6 +194,7 @@ public class SwordGoblin : Entity, IDamageable, IEffectable
 
     public IEnumerator Death(float time)
     {
+        
         yield return new WaitForSeconds(time);
         DropLoot();
         Destroy(gameObject);
@@ -204,7 +206,7 @@ public class SwordGoblin : Entity, IDamageable, IEffectable
         //1 Gold, 5% equipment rate -> Weapon/Armor
         ItemCreation IC = ItemCreation.instance;
         IC.CreateItem(ItemCreation.instance.itemDict["Gold"], 1, transform);
-        if (Random.Range(1, 101) < 101)
+        if (Random.Range(1, 101) <= 5)
         {
             string equipment = IC.GenerateRandomEquipment(Random.Range(1, 3));
             List<SubStat> subStats = IC.GenerateSubstats(0);
