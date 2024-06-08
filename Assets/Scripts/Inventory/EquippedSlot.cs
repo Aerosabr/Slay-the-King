@@ -16,7 +16,7 @@ public class EquippedSlot : MonoBehaviour, IPointerClickHandler
     // SLOT DATA
     public ItemSO item;
 
-    private InventoryManager inventoryManager;
+    public InventoryManager inventoryManager;
 	public Transform equipmentStatPanel;
 	// OTHER VARIABLES
 	public bool slotInUse;
@@ -30,7 +30,7 @@ public class EquippedSlot : MonoBehaviour, IPointerClickHandler
 
     private void Start()
     {
-        inventoryManager = GameObject.Find("InventoryCanvas").GetComponent<InventoryManager>();
+        
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -54,7 +54,9 @@ public class EquippedSlot : MonoBehaviour, IPointerClickHandler
 
                 if (item.itemType != ItemType.weapon)
                 {
-                    UnEquipGear();
+					if (!GameManager.instance.canEquip)
+						return;
+					UnEquipGear();
                     slotInUse = false;
                 }
                 if (equipmentStatPanel.gameObject.activeSelf)
@@ -83,7 +85,7 @@ public class EquippedSlot : MonoBehaviour, IPointerClickHandler
                 {
 					equipmentStatPanel.gameObject.SetActive(true);
 				}
-				equipmentStatPanel.position = new Vector3(xPanelPlacement, -25f, 0) + transform.position;
+				equipmentStatPanel.localPosition = new Vector3(140, 15f, 0);
                 EquipmentSO equipment = (EquipmentSO)item;
                 equipmentStatPanel.GetComponent<EquipmentStats>().SetEquippedSlot(this);
                 equipmentStatPanel.GetComponent<EquipmentStats>().UpdateEquipmentStatPanel(equipment);
@@ -95,7 +97,9 @@ public class EquippedSlot : MonoBehaviour, IPointerClickHandler
 
     public void OnRightClick()
     {
-        UnEquipGear();
+		if (!GameManager.instance.canEquip)
+			return;
+		UnEquipGear();
     }
 
     public void EquipGear(ItemSO item)
@@ -103,23 +107,21 @@ public class EquippedSlot : MonoBehaviour, IPointerClickHandler
 		EquipmentSO equipment = (EquipmentSO)item;
 		if (item.itemType == ItemType.weapon)
 		{
-            inventoryManager.player.transform.GetComponent<Player>().Weapon = item.weaponType;
-            inventoryManager.player.transform.GetComponent<Class>().changeWeapon();
+			inventoryManager.player.transform.GetComponent<Player>().Weapon = item.weaponType;
+			inventoryManager.player.transform.GetComponent<Class>().changeWeapon();
 			inventoryManager.player.transform.GetComponent<PlayerSpriteController>().ChangeCharacterAppearance(5, equipment.animator);
 		}
 		// Check if item already there
 		if (slotInUse)
-            UnEquipGear();
+			UnEquipGear();
 
-        // Update Image
-        slotImage.sprite = item.itemSprite;
+		// Update Image
+		slotImage.sprite = item.itemSprite;
 		slotIcon.SetActive(false);
 		// Update Player Stats
 		this.item = item;
-        equipment.EquipItem(inventoryManager);
+		equipment.EquipItem(inventoryManager);
 		slotInUse = true;
-        
-
 	}
 
     public void UnEquipGear()

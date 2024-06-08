@@ -19,6 +19,7 @@ public class BattleStage : MonoBehaviour
     public int Wave = 1;
     private int maxWaves;
     public GameObject WaveHUD;
+    public Text EnemyCountText;
     public List<GameObject> Enemies = new List<GameObject>();
     public List<GameObject> EliteEnemies = new List<GameObject>();
     public GameObject Boss;
@@ -160,6 +161,11 @@ public class BattleStage : MonoBehaviour
         Debug.Log("All players dead");
     }
 
+    //Use this for the EnemyCount UI
+    public void UpdateCount()
+    {
+        EnemyCountText.text = "Enemy: " + 90.ToString() + "/" + 90.ToString(); 
+	}
     public IEnumerator SpawnElites()
     {
         int counter = 0;

@@ -10,18 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dfac1462c84b2e345aed52a797a6491e, type: 3}
-  m_Name: Sword
+  m_Name: Daggers
   m_EditorClassIdentifier: 
-  itemName: Manticore Sword
-  itemSprite: {fileID: 21300000, guid: 158be32ff2ccad14e8831bd617f89478, type: 3}
-  weaponType: Sword
+  itemName: Daggers
+  itemSprite: {fileID: 21300000, guid: 1ff1175d56df9eb4f8cfa0ba429d9254, type: 3}
+  weaponType: Daggers
   itemType: 5
   itemDescription: 
   health: 0
-  attack: 3
+  attack: 0
   defense: 0
   dexterity: 0
-  cooldown_reduction: 0
-  attack_speed: 0
+  cooldownReduction: 0
+  attackSpeed: 0
   luck: 0
-  animator: {fileID: 0}
+  mainStat:
+    name: Attack
+    value: 12
+  subStats:
+  - name: Luck
+    value: 25
+  animator: {fileID: -477010166652165879, guid: 4c3a0c6e38c97f343aa262e645aafb8f, type: 3}

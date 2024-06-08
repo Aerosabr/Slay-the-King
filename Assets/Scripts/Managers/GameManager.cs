@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
     public int Floor = 1;
     public int Stage = 1;
 
+    public bool canEquip = true;
+
     public void Awake()
     {
         if (instance == null)

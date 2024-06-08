@@ -62,6 +62,9 @@ public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
 
     private void EquipGear()
     {
+        if (!GameManager.instance.canEquip)
+            return;
+
         if (item.itemType == ItemType.helmet)
             helmetSlot.EquipGear(item);
         if (item.itemType == ItemType.chest)
@@ -84,9 +87,20 @@ public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
         {
             if (thisItemSelected)
             {
-                EquipGear();
+                if(item.itemType == ItemType.weapon)
+                {
+                    if (inventoryManager.player.transform.GetComponent<Class>().checkEquippable(item.weaponType))
+                        EquipGear();
+				}
+                else
+                {
+					EquipGear();
+				}
 				if (equipmentStatPanel.gameObject.activeSelf)
 					equipmentStatPanel.gameObject.SetActive(false);
+				inventoryManager.DeselectAllSlots();
+				selectedShader.SetActive(false);
+				thisItemSelected = false;
 			}
             else
             {
@@ -96,7 +110,7 @@ public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
 
 				if (!equipmentStatPanel.gameObject.activeSelf)
 					equipmentStatPanel.gameObject.SetActive(true);
-				equipmentStatPanel.position = new Vector3(-320f, -25, 0) + transform.position;
+				equipmentStatPanel.localPosition = new Vector3(-244, 15, 0);
 				EquipmentSO equipment = (EquipmentSO) item;
 				equipmentStatPanel.GetComponent<EquipmentStats>().SetEquipmentSlot(this);
 				equipmentStatPanel.GetComponent<EquipmentStats>().UpdateEquipmentStatPanel(equipment);

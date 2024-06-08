@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEditor.SceneManagement;
 
 public class EquipmentStats : MonoBehaviour
 {
@@ -11,13 +12,15 @@ public class EquipmentStats : MonoBehaviour
     public EquippedSlot equippedSlot;
 
     public TMP_Text itemName;
-    public TMP_Text healthNum;
-	public TMP_Text attackNum;
-	public TMP_Text defenseNum;
-    public TMP_Text dexNum;
-    public TMP_Text cdrNum;
-    public TMP_Text attackspdNum;
-    public TMP_Text luckNum;
+    public TMP_Text mainName;
+	public TMP_Text mainNum;
+    public List<TMP_Text> subName;
+	public List<TMP_Text> subNum;
+
+    public Image itemIcon;
+    public Image itemBackground;
+
+    public List<Sprite> itemBackgroundList;
 
     public GameObject equipButton;
     public GameObject unequipButton;
@@ -42,15 +45,33 @@ public class EquipmentStats : MonoBehaviour
 	}
     public void UpdateEquipmentStatPanel(EquipmentSO item)
     {
+        ClearStatPanel();
+        int counter = 0;
         itemName.text = item.itemName;
-        healthNum.text = item.health.ToString();
-        attackNum.text = item.attack.ToString();
-        defenseNum.text = item.defense.ToString();
-        dexNum.text = item.dexterity.ToString();
-        cdrNum.text = item.cooldownReduction.ToString();
-        attackspdNum.text = item.attackSpeed.ToString();
-        luckNum.text = item.luck.ToString();
+
+        mainName.text = item.mainStat.name;
+        mainNum.text = item.mainStat.value.ToString();
+		foreach (var stat in item.subStats)
+		{
+            subName[counter].text = stat.name;
+            subNum[counter].text = stat.value.ToString();
+            counter += 1;
+		}
+
+        itemBackground.sprite = itemBackgroundList[counter];
+        itemIcon.sprite = item.itemSprite;
 	}
+
+    public void ClearStatPanel()
+    {
+        itemName.text = "";
+        mainName.text = "";
+        mainNum.text = "";
+        foreach (var name in subName)
+            name.text = "";
+        foreach (var num in subNum)
+            num.text = "";
+    }
 
     public void EquipButton()
     {

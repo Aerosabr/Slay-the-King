@@ -45,6 +45,7 @@ public class StageTeleport : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
+            InventoryManager.instance.BeginTransfer();
             SceneLoader.SceneTransition(Stage);
         }
     }

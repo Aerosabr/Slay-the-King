@@ -6,10 +6,14 @@ using UnityEngine.UI;
 public class MiningStage : MonoBehaviour
 {
     public static MiningStage instance;
+    
+    public Text rockText;
+    public Slider starRating;
+
+    [SerializeField] private Text Timer;
     public float timeRemaining = 30f;
     public int rocksBroken = 0;
     private List<RuntimeAnimatorController> RAC = new List<RuntimeAnimatorController>();
-    [SerializeField] private GameObject Timer;
     [SerializeField] private Animator pickaxe;
     [SerializeField] private GameObject StageActive;
     [SerializeField] private GameObject Preround;
@@ -33,6 +37,7 @@ public class MiningStage : MonoBehaviour
     {
         if(Active)
         {
+			UpdateRocksMineUI();
             if (rocksBroken == 6)
             {
 
@@ -41,7 +46,7 @@ public class MiningStage : MonoBehaviour
             else if (timeRemaining >= 0)
             {
                 timeRemaining -= Time.deltaTime;
-                Timer.GetComponent<Text>().text = timeRemaining.ToString("#.00");
+                Timer.text = timeRemaining.ToString("F2") + "s";
             }
             else
                 StartCoroutine(EndStage());
@@ -72,6 +77,17 @@ public class MiningStage : MonoBehaviour
             increment++;
         }
         CooldownManager.instance.LoadCooldowns();
+    }
+
+    public void UpdateRocksMineUI()
+    {
+        rockText.text = "Rocks broken: " + rocksBroken.ToString();
+        if (rocksBroken == 6)
+            starRating.value = 1f;
+        else if (rocksBroken == 4)
+            starRating.value = 0.7f;
+        else if (rocksBroken == 2)
+            starRating.value = 0.4f;
     }
 
     private IEnumerator EndStage()
