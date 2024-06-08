@@ -288,15 +288,6 @@ public class GoblinKing : Entity, IDamageable, IEffectable
             SubStat mainStat;
             switch (equipment)
             {
-                case "Helmet":
-                    mainStat = new SubStat("Health", PlayerManager.instance.GetAverageLevel() + 2);
-                    break;
-                case "Chestplate":
-                    mainStat = new SubStat("Defense", PlayerManager.instance.GetAverageLevel() + 2);
-                    break;
-                case "Leggings":
-                    mainStat = new SubStat("Dexterity", PlayerManager.instance.GetAverageLevel() + 2);
-                    break;
                 case "Ring":
                     mainStat = new SubStat(substatNames[Random.Range(0, substatNames.Count)], PlayerManager.instance.GetAverageLevel() + 2);
                     break;

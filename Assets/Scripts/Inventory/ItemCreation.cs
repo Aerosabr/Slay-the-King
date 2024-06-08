@@ -108,7 +108,7 @@ public class ItemCreation : MonoBehaviour
         List<string> substatNames = new List<string> { "Health", "Attack", "Defense", "Dexterity", "Cooldown Reduction", "Attack Speed", "Luck" };
         List<SubStat> substats = new List<SubStat>();
         int numSubstats;
-        num = 99;
+
         if (num < 51) //Common       
             return substats;
         else if (num < 81) //Uncommon
@@ -178,8 +178,8 @@ public class ItemCreation : MonoBehaviour
 		// Add a collider
 		itemToDrop.AddComponent<BoxCollider2D>();
 
-		// Set the location
-		itemToDrop.transform.position = spot.position + new Vector3(2.0f, 0, 0.0f);
+        // Set the location
+        itemToDrop.transform.position = spot.position;
 		itemToDrop.transform.localScale = new Vector3(.5f, .5f, .5f);
 	}
 }

@@ -154,6 +154,7 @@ public class BombGoblin : Entity, IDamageable, IEffectable
             isMovable = false;
             ESC.PlayAnimation("Death");
             aiPath.canMove = false;
+            rb.constraints = RigidbodyConstraints2D.FreezeAll;
             Destroy(rb);
             Destroy(GetComponent<BoxCollider2D>());
             Destroy(GetComponent<CircleCollider2D>());

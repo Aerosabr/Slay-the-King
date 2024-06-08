@@ -159,6 +159,8 @@ public class BowGoblin : Entity, IDamageable, IEffectable
             isMovable = false;
             ESC.PlayAnimation("Death");
             aiPath.canMove = false;
+            rb.velocity = Vector2.zero;
+            rb.constraints = RigidbodyConstraints2D.FreezeAll;
             Destroy(rb);
             Destroy(GetComponent<BoxCollider2D>());
             transform.rotation = Quaternion.Euler(0f, 0f, 0f);

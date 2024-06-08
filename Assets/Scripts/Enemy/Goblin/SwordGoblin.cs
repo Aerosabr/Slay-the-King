@@ -148,6 +148,7 @@ public class SwordGoblin : Entity, IDamageable, IEffectable
             isMovable = false;
             ESC.PlayAnimation("Death");
             aiPath.canMove = false;
+            rb.constraints = RigidbodyConstraints2D.FreezeAll;
             Destroy(rb);
             Destroy(GetComponent<BoxCollider2D>());
             transform.rotation = Quaternion.Euler(0f, 0f, 0f);
@@ -193,6 +194,7 @@ public class SwordGoblin : Entity, IDamageable, IEffectable
 
     public IEnumerator Death(float time)
     {
+        
         yield return new WaitForSeconds(time);
         DropLoot();
         Destroy(gameObject);
