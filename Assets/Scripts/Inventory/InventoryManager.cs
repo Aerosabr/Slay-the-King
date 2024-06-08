@@ -81,6 +81,7 @@ public class InventoryManager : MonoBehaviour
             if(item.itemName == "Gold")
             {
                 player.Money += quantity;
+                quantity = 0;
             }
             else
             {

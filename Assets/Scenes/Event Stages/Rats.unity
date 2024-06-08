@@ -7459,6 +7459,12 @@ MonoBehaviour:
   captures: 0
   ratText: {fileID: 1946711471}
   starRating: {fileID: 1004828075}
+  net: {fileID: 0}
+  StageActive: {fileID: 0}
+  Preround: {fileID: 0}
+  box: {fileID: 0}
+  Timer: {fileID: 0}
+  ratsCaught: 0
 --- !u!61 &647109679
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -9644,7 +9650,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1135395956
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9662,7 +9668,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 724.0967, y: 381.88538}
+  m_AnchoredPosition: {x: 693, y: 381.88538}
   m_SizeDelta: {x: 451.8065, y: 41.9491}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1135395957
