@@ -19,6 +19,7 @@ public class DualAxes : MonoBehaviour
     public bool MovementCD = true;
 
     public float dashDistance = 15f;
+    public bool isDashing = false;
 
     public void Awake()
     {
@@ -37,8 +38,32 @@ public class DualAxes : MonoBehaviour
         return temp;
     }
 
-    #region Player Movement
-    public void OnDash()
+	#region Player Movement
+
+	public void CreateGhost()
+	{
+		transform.GetChild(4).GetChild(3).GetComponent<SpriteRenderer>().sprite = PSC.Sprites[0].GetComponent<SpriteRenderer>().sprite;
+		transform.GetChild(4).GetChild(3).GetChild(0).GetComponent<SpriteRenderer>().sprite = PSC.Sprites[1].GetComponent<SpriteRenderer>().sprite;
+		transform.GetChild(4).GetChild(3).GetChild(1).GetComponent<SpriteRenderer>().sprite = PSC.Sprites[2].GetComponent<SpriteRenderer>().sprite;
+		transform.GetChild(4).GetChild(3).GetChild(2).GetComponent<SpriteRenderer>().sprite = PSC.Sprites[3].GetComponent<SpriteRenderer>().sprite;
+		transform.GetChild(4).GetChild(3).GetChild(3).GetComponent<SpriteRenderer>().sprite = PSC.Sprites[4].GetComponent<SpriteRenderer>().sprite;
+		transform.GetChild(4).GetChild(3).GetChild(4).GetComponent<SpriteRenderer>().sprite = PSC.Sprites[5].GetComponent<SpriteRenderer>().sprite;
+		transform.GetChild(4).GetChild(3).GetChild(5).GetComponent<SpriteRenderer>().sprite = PSC.Sprites[6].GetComponent<SpriteRenderer>().sprite;
+		transform.GetChild(4).GetChild(3).GetChild(6).GetComponent<SpriteRenderer>().sprite = PSC.Sprites[7].GetComponent<SpriteRenderer>().sprite;
+		var clone = Instantiate(transform.GetChild(4).GetChild(3), transform.position, transform.rotation);
+		clone.gameObject.SetActive(true);
+		Destroy(clone.gameObject, 0.2f);
+	}
+	public IEnumerator GenerateGhost()
+	{
+		while (isDashing)
+		{
+			CreateGhost();
+			yield return null;
+		}
+	}
+
+	public void OnDash()
     {
         if (!PSC.isAttacking && MovementCD)
         {
@@ -51,9 +76,12 @@ public class DualAxes : MonoBehaviour
     public IEnumerator Dashing()
     {
         PSC.Movable = false;
+        isDashing = true;
+        StartCoroutine(GenerateGhost());
         yield return new WaitForSeconds(0.25f);
         Player.Cooldowns[4].SetActive(true);
         Player.Cooldowns[4].GetComponent<CooldownUI>().StartCooldown(5f);
+        isDashing = false;
         PSC.Movable = true;
     }
 
@@ -131,7 +159,7 @@ public class DualAxes : MonoBehaviour
 
     private IEnumerator Ability1Cast()
     {
-        PSC.Attack("Stab", 2);       
+        PSC.Attack("DaggerThrow", 2);       
         yield return new WaitForSeconds(.2f);
         GameObject axe = Instantiate(ThrownAxe, Player.transform.position, Player.transform.rotation);
         axe.GetComponent<ThrownAxe>().EditAxe(transform.position, 5f, Player.Attack, this);
@@ -211,7 +239,6 @@ public class DualAxes : MonoBehaviour
     private IEnumerator UltimateCast()
     {
         float cd = 10f * ((100 - Player.CDR) / 100);
-        PSC.Attack("Stab", 2);
         yield return new WaitForSeconds(.5f);
         gameObject.GetComponent<IEffectable>().ApplyBuff(new AxeEnrage(20, .2f, .2f, 15f, "Mace - Ultimate", gameObject));
         PSC.isAttacking = false;

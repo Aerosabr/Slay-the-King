@@ -6,7 +6,9 @@ public class Rogue : Class
 {
     public override bool checkEquippable(string weapon)
     {
-        return true;
+        if (weapon == "Daggers" || weapon == "Scythe")
+            return true;
+        return false;
     }
 
     public override void changeWeapon()

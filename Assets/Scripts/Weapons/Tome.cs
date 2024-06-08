@@ -20,6 +20,7 @@ public class Tome : MonoBehaviour
     public bool MovementCD = true;
 
     public float dashDistance = 150f;
+    public bool isDashing = false;
 
     public void Awake()
     {
@@ -38,8 +39,30 @@ public class Tome : MonoBehaviour
         return new Vector2(Mathf.Cos(angle) * radius, Mathf.Sin(angle) * radius);
     }
 
-    #region Player Movement
-    public void OnDash()
+	#region Player Movement
+	public void CreateGhost()
+	{
+		transform.GetChild(4).GetChild(3).GetComponent<SpriteRenderer>().sprite = PSC.Sprites[0].GetComponent<SpriteRenderer>().sprite;
+		transform.GetChild(4).GetChild(3).GetChild(0).GetComponent<SpriteRenderer>().sprite = PSC.Sprites[1].GetComponent<SpriteRenderer>().sprite;
+		transform.GetChild(4).GetChild(3).GetChild(1).GetComponent<SpriteRenderer>().sprite = PSC.Sprites[2].GetComponent<SpriteRenderer>().sprite;
+		transform.GetChild(4).GetChild(3).GetChild(2).GetComponent<SpriteRenderer>().sprite = PSC.Sprites[3].GetComponent<SpriteRenderer>().sprite;
+		transform.GetChild(4).GetChild(3).GetChild(3).GetComponent<SpriteRenderer>().sprite = PSC.Sprites[4].GetComponent<SpriteRenderer>().sprite;
+		transform.GetChild(4).GetChild(3).GetChild(4).GetComponent<SpriteRenderer>().sprite = PSC.Sprites[5].GetComponent<SpriteRenderer>().sprite;
+		transform.GetChild(4).GetChild(3).GetChild(5).GetComponent<SpriteRenderer>().sprite = PSC.Sprites[6].GetComponent<SpriteRenderer>().sprite;
+		transform.GetChild(4).GetChild(3).GetChild(6).GetComponent<SpriteRenderer>().sprite = PSC.Sprites[7].GetComponent<SpriteRenderer>().sprite;
+		var clone = Instantiate(transform.GetChild(4).GetChild(3), transform.position, transform.rotation);
+		clone.gameObject.SetActive(true);
+		Destroy(clone.gameObject, 0.2f);
+	}
+	public IEnumerator GenerateGhost()
+	{
+		while (isDashing)
+		{
+			CreateGhost();
+			yield return null;
+		}
+	}
+	public void OnDash()
     {
         if (!PSC.isAttacking && MovementCD)
         {
@@ -55,12 +78,15 @@ public class Tome : MonoBehaviour
     public IEnumerator Dashing()
     {
         PSC.Movable = false;
+        isDashing = true;
+        StartCoroutine(GenerateGhost());
         yield return new WaitForSeconds(0.025f);
         GetComponent<CapsuleCollider2D>().enabled = false;
         GetComponent<CircleCollider2D>().enabled = false;
         GetComponent<BoxCollider2D>().enabled = true;
         Player.Cooldowns[4].SetActive(true);
         Player.Cooldowns[4].GetComponent<CooldownUI>().StartCooldown(5f);
+        isDashing = false;
         PSC.Movable = true;
     }
 
@@ -148,7 +174,7 @@ public class Tome : MonoBehaviour
     private IEnumerator Ability1Cast(Vector3 mousePosition)
     {
         mousePosition.z = 0;
-        PSC.Attack("HandCast", 2);
+        PSC.Attack("CastCircle", 2);
         GameObject Light = Instantiate(Holylight, mousePosition, Quaternion.identity);
         Light.GetComponent<HolyLight>().EditHolyLight(Player.Attack);
         yield return new WaitForSeconds(.5f);
@@ -182,7 +208,7 @@ public class Tome : MonoBehaviour
 
     private IEnumerator Ability2Cast()
     {
-        PSC.Attack("HandCast", 16);
+        PSC.Attack("HandCast", 2);
         yield return new WaitForSeconds(.2f);
         Ability2();
         Player.Cooldowns[2].SetActive(true);
@@ -226,7 +252,7 @@ public class Tome : MonoBehaviour
 
     private IEnumerator UltimateCast(Vector3 mousePosition)
     {
-        PSC.Attack("HandCast", 2);
+        PSC.Attack("CastCircle", 2);
         yield return new WaitForSeconds(.5f);
         GetComponent<IEffectable>().ApplyBuff(new TomesBlessing(50, 50, 50, 5f, "Tome - Ultimate", gameObject));
         Player.Cooldowns[3].SetActive(true);

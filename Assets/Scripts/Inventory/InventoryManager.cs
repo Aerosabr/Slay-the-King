@@ -78,17 +78,25 @@ public class InventoryManager : MonoBehaviour
     {
         if(item.itemType == ItemType.consumable || item.itemType == ItemType.collectible)
         {
-            for (int i = 0; i < itemSlot.Length; i++)
+            if(item.itemName == "Gold")
             {
-                if (itemSlot[i].isFull == false && itemSlot[i].quantity == 0 || itemSlot[i].item.itemName == item.itemName)
-                {
-                    int leftOverItems = itemSlot[i].AddItem(item, quantity);
-                    if (leftOverItems > 0)
-                        leftOverItems = AddItem(item, leftOverItems);
-
-                    return leftOverItems;
-                }
+                player.Money += quantity;
+                quantity = 0;
             }
+            else
+            {
+				for (int i = 0; i < itemSlot.Length; i++)
+				{
+					if (itemSlot[i].isFull == false && itemSlot[i].quantity == 0 || itemSlot[i].item.itemName == item.itemName)
+					{
+						int leftOverItems = itemSlot[i].AddItem(item, quantity);
+						if (leftOverItems > 0)
+							leftOverItems = AddItem(item, leftOverItems);
+
+						return leftOverItems;
+					}
+				}
+			}
             return quantity;
         }
         else

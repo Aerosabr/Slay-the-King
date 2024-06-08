@@ -24,6 +24,7 @@ public class Daggers : MonoBehaviour
     public bool MovementCD = true;
 
     public float dashDistance = 15f;
+    public bool isDashing = false;
 
     public void Awake()
     {
@@ -42,8 +43,30 @@ public class Daggers : MonoBehaviour
         return temp;
     }
 
-    #region Player Movement
-    public void OnDash()
+	#region Player Movement
+	public void CreateGhost()
+	{
+		transform.GetChild(4).GetChild(3).GetComponent<SpriteRenderer>().sprite = PSC.Sprites[0].GetComponent<SpriteRenderer>().sprite;
+		transform.GetChild(4).GetChild(3).GetChild(0).GetComponent<SpriteRenderer>().sprite = PSC.Sprites[1].GetComponent<SpriteRenderer>().sprite;
+		transform.GetChild(4).GetChild(3).GetChild(1).GetComponent<SpriteRenderer>().sprite = PSC.Sprites[2].GetComponent<SpriteRenderer>().sprite;
+		transform.GetChild(4).GetChild(3).GetChild(2).GetComponent<SpriteRenderer>().sprite = PSC.Sprites[3].GetComponent<SpriteRenderer>().sprite;
+		transform.GetChild(4).GetChild(3).GetChild(3).GetComponent<SpriteRenderer>().sprite = PSC.Sprites[4].GetComponent<SpriteRenderer>().sprite;
+		transform.GetChild(4).GetChild(3).GetChild(4).GetComponent<SpriteRenderer>().sprite = PSC.Sprites[5].GetComponent<SpriteRenderer>().sprite;
+		transform.GetChild(4).GetChild(3).GetChild(5).GetComponent<SpriteRenderer>().sprite = PSC.Sprites[6].GetComponent<SpriteRenderer>().sprite;
+		transform.GetChild(4).GetChild(3).GetChild(6).GetComponent<SpriteRenderer>().sprite = PSC.Sprites[7].GetComponent<SpriteRenderer>().sprite;
+		var clone = Instantiate(transform.GetChild(4).GetChild(3), transform.position, transform.rotation);
+		clone.gameObject.SetActive(true);
+		Destroy(clone.gameObject, 0.2f);
+	}
+	public IEnumerator GenerateGhost()
+	{
+		while (isDashing || dashing)
+		{
+			CreateGhost();
+			yield return null;
+		}
+	}
+	public void OnDash()
     {
         if (!PSC.isAttacking && MovementCD)
         {
@@ -56,9 +79,12 @@ public class Daggers : MonoBehaviour
     public IEnumerator Dashing()
     {
         PSC.Movable = false;
+        isDashing = true;
+        StartCoroutine(GenerateGhost());
         yield return new WaitForSeconds(0.25f);
         Player.Cooldowns[4].SetActive(true);
         Player.Cooldowns[4].GetComponent<CooldownUI>().StartCooldown(5f);
+        isDashing = false;
         PSC.Movable = true;
     }
 
@@ -130,7 +156,8 @@ public class Daggers : MonoBehaviour
             if (ability1Hit)
             {
                 PSC.currentDirection = MapPoint(dashEnemy.transform.position - (transform.position - new Vector3(0.04f, 0.3f)), 1f);
-                PSC.PlayAnimation("Run");
+                PSC.PlayAnimation("DaggerDash");
+                StartCoroutine(GenerateGhost());
                 dashing = true;
                 return;
             }
@@ -141,7 +168,7 @@ public class Daggers : MonoBehaviour
 
     private IEnumerator Ability1Cast()
     {
-        PSC.Attack("Stab", 2);
+        PSC.Attack("DaggerThrow", 2);
         Player.Cooldowns[1].SetActive(true);
         Player.Cooldowns[1].GetComponent<CooldownUI>().StartCooldown(3f * ((100 - Player.CDR) / 100));
         Ability1();
@@ -216,13 +243,15 @@ public class Daggers : MonoBehaviour
             Ability2CD = false;
             PSC.isAttacking = true;
             PSC.currentDirection = MapPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition) - (transform.position - new Vector3(0.04f, 0.3f)), 1f);
-            PSC.PlayAnimation("Run");
+            PSC.PlayAnimation("DaggerDash");
             StartCoroutine(Ability2Cast());
         }
     }
 
     private IEnumerator Ability2Cast()
     {
+        isDashing = true;
+        StartCoroutine(GenerateGhost());
         PSC._rigidbody.velocity = new Vector2(-PSC.currentDirection.x * (dashDistance / 2), -PSC.currentDirection.y * (dashDistance / 2));
         for (int i = 0; i < 3; i++)
         {
@@ -232,8 +261,9 @@ public class Daggers : MonoBehaviour
             dagger.GetComponent<Rigidbody2D>().velocity = 15f * MapPoint(PSC.currentDirection, 1f);
             yield return new WaitForSeconds(.1f);
         }
+        isDashing = false;
         PSC._rigidbody.velocity = Vector2.zero;
-        PSC.Attack("Stab", 2);
+        PSC.Attack("DaggerThrow", 2);
         Player.Cooldowns[2].SetActive(true);
         Player.Cooldowns[2].GetComponent<CooldownUI>().StartCooldown(3f * ((100 - Player.CDR) / 100));
         PSC.isAttacking = false;
@@ -273,7 +303,9 @@ public class Daggers : MonoBehaviour
     private IEnumerator UltimateCast()
     {
         PSC.currentDirection = MapPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition) - (transform.position - new Vector3(0.04f, 0.3f)), 1f);
-        PSC.PlayAnimation("Run");
+        PSC.PlayAnimation("DaggerDash");
+        isDashing = true;
+        StartCoroutine(GenerateGhost());
         PSC._rigidbody.velocity = new Vector2(PSC.currentDirection.x * dashDistance * 1.5f, PSC.currentDirection.y * dashDistance * 1.5f);
         yield return new WaitForSeconds(0.2f);
         Ability1CD = true;
@@ -289,6 +321,7 @@ public class Daggers : MonoBehaviour
         }
         else
             UltimateCD = true;
+        isDashing = false;
         GetComponent<CapsuleCollider2D>().enabled = false;
         GetComponent<CircleCollider2D>().enabled = false;
         GetComponent<BoxCollider2D>().enabled = true;

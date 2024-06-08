@@ -19,6 +19,7 @@ public class SwordShield : MonoBehaviour
     public bool MovementCD = true;
 
     public float dashDistance = 15f;
+    public bool isDashing = false
 
     public void Awake()
     {
@@ -36,8 +37,30 @@ public class SwordShield : MonoBehaviour
         return temp;
     }
 
-    #region Player Movement
-    public void OnDash()
+	#region Player Movement
+	public void CreateGhost()
+	{
+		transform.GetChild(4).GetChild(3).GetComponent<SpriteRenderer>().sprite = PSC.Sprites[0].GetComponent<SpriteRenderer>().sprite;
+		transform.GetChild(4).GetChild(3).GetChild(0).GetComponent<SpriteRenderer>().sprite = PSC.Sprites[1].GetComponent<SpriteRenderer>().sprite;
+		transform.GetChild(4).GetChild(3).GetChild(1).GetComponent<SpriteRenderer>().sprite = PSC.Sprites[2].GetComponent<SpriteRenderer>().sprite;
+		transform.GetChild(4).GetChild(3).GetChild(2).GetComponent<SpriteRenderer>().sprite = PSC.Sprites[3].GetComponent<SpriteRenderer>().sprite;
+		transform.GetChild(4).GetChild(3).GetChild(3).GetComponent<SpriteRenderer>().sprite = PSC.Sprites[4].GetComponent<SpriteRenderer>().sprite;
+		transform.GetChild(4).GetChild(3).GetChild(4).GetComponent<SpriteRenderer>().sprite = PSC.Sprites[5].GetComponent<SpriteRenderer>().sprite;
+		transform.GetChild(4).GetChild(3).GetChild(5).GetComponent<SpriteRenderer>().sprite = PSC.Sprites[6].GetComponent<SpriteRenderer>().sprite;
+		transform.GetChild(4).GetChild(3).GetChild(6).GetComponent<SpriteRenderer>().sprite = PSC.Sprites[7].GetComponent<SpriteRenderer>().sprite;
+		var clone = Instantiate(transform.GetChild(4).GetChild(3), transform.position, transform.rotation);
+		clone.gameObject.SetActive(true);
+		Destroy(clone.gameObject, 0.2f);
+	}
+	public IEnumerator GenerateGhost()
+	{
+		while (isDashing)
+		{
+			CreateGhost();
+			yield return null;
+		}
+	}
+	public void OnDash()
     {
         if (!PSC.isAttacking && MovementCD)
         {
@@ -50,9 +73,12 @@ public class SwordShield : MonoBehaviour
     public IEnumerator Dashing()
     {
         PSC.Movable = false;
+        isDashing = true;
+        StartCoroutine(GenerateGhost());
         yield return new WaitForSeconds(0.25f);
         Player.Cooldowns[4].SetActive(true);
         Player.Cooldowns[4].GetComponent<CooldownUI>().StartCooldown(5f);
+        isDashing = false;
         PSC.Movable = true;
     }
 
@@ -81,7 +107,7 @@ public class SwordShield : MonoBehaviour
 
     private IEnumerator AttackCast()
     {
-        PSC.Attack("Stab", 2);
+        PSC.Attack("DSlash", 2);
         Player.Cooldowns[0].SetActive(true);
         Player.Cooldowns[0].GetComponent<CooldownUI>().StartCooldown(1 / Player.attackSpeed);
         Attack();
@@ -126,7 +152,7 @@ public class SwordShield : MonoBehaviour
 
     private IEnumerator Ability1Cast()
     {
-        PSC.Attack("Stab", 2);
+        PSC.Attack("Block", 2);
         gameObject.GetComponent<IEffectable>().ApplyBuff(new IncreaseDefense(0, 1f, 2f, "Sword & Shield - Ability 1", gameObject));
         yield return new WaitForSeconds(3f);
         attackHitBoxPos.localPosition = MapPoint(PSC.currentDirection, Ability1Radius);
@@ -167,7 +193,7 @@ public class SwordShield : MonoBehaviour
 
     private IEnumerator Ability2Cast()
     {
-        PSC.PlayAnimation("Stab");
+        PSC.PlayAnimation("ShieldCast");
         attackHitBoxPos.localPosition = Vector2.zero;
         Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, Ability2Radius, Damageable);
         foreach (Collider2D collider in detectedObjects)
@@ -210,7 +236,7 @@ public class SwordShield : MonoBehaviour
     private IEnumerator UltimateCast()
     {
         float cd = 10f * ((100 - Player.CDR) / 100);
-        PSC.Attack("Stab", 2);
+        PSC.PlayAnimation("ShieldCast");
         gameObject.GetComponent<IEffectable>().ApplyBuff(new IncreaseDefense(0, 1f, 30f, "Sword & Shield - Ultimate Defense", gameObject));
         gameObject.GetComponent<IEffectable>().ApplyBuff(new Shield(gameObject.GetComponent<Entity>().maxHealth / 2, 30f, "Sword & Shield - Ultimate Shield", gameObject));
         yield return new WaitForSeconds(.25f);

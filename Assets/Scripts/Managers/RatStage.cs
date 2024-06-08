@@ -13,14 +13,14 @@ public class RatStage : MonoBehaviour
     public int captures;
     public Text ratText;
     public Slider starRating;
-
+    public Text Timer;
     [SerializeField] private Animator net;
     private List<RuntimeAnimatorController> RAC = new List<RuntimeAnimatorController>();
 
     [SerializeField] private GameObject StageActive;
     [SerializeField] private GameObject Preround;
     [SerializeField] private BoxCollider2D box;
-    [SerializeField] private GameObject Timer;
+
     private bool Active = false;
     private float timeElapsed = 30f;
     public int ratsCaught = 0;
@@ -46,10 +46,11 @@ public class RatStage : MonoBehaviour
     {
         if (Active)
         {
-            if (timeElapsed >= 0)
+            UpdateRatUI();
+			if (timeElapsed >= 0)
             {
                 timeElapsed -= Time.deltaTime;
-                Timer.GetComponent<Text>().text = timeElapsed.ToString("#.00") + "  Rats Caught " + ratsCaught;
+                Timer.text = timeElapsed.ToString("F2") + "s";
             }
             else
                 StartCoroutine(EndStage());

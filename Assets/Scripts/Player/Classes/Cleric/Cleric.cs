@@ -6,7 +6,9 @@ public class Cleric : Class
 {
     public override bool checkEquippable(string weapon)
     {
-        return true;
+        if (weapon == "MaceShield" || weapon == "Tome")
+            return true;
+        return false;
     }
 
     public override void changeWeapon()

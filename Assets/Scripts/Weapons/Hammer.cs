@@ -19,6 +19,7 @@ public class Hammer : MonoBehaviour
     public bool MovementCD = true;
 
     public float dashDistance = 15f;
+    public bool isDashing = false;
 
     public void Awake()
     {
@@ -36,8 +37,31 @@ public class Hammer : MonoBehaviour
         return temp;
     }
 
-    #region Player Movement
-    public void OnDash()
+	#region Player Movement
+
+	public void CreateGhost()
+	{
+		transform.GetChild(4).GetChild(3).GetComponent<SpriteRenderer>().sprite = PSC.Sprites[0].GetComponent<SpriteRenderer>().sprite;
+		transform.GetChild(4).GetChild(3).GetChild(0).GetComponent<SpriteRenderer>().sprite = PSC.Sprites[1].GetComponent<SpriteRenderer>().sprite;
+		transform.GetChild(4).GetChild(3).GetChild(1).GetComponent<SpriteRenderer>().sprite = PSC.Sprites[2].GetComponent<SpriteRenderer>().sprite;
+		transform.GetChild(4).GetChild(3).GetChild(2).GetComponent<SpriteRenderer>().sprite = PSC.Sprites[3].GetComponent<SpriteRenderer>().sprite;
+		transform.GetChild(4).GetChild(3).GetChild(3).GetComponent<SpriteRenderer>().sprite = PSC.Sprites[4].GetComponent<SpriteRenderer>().sprite;
+		transform.GetChild(4).GetChild(3).GetChild(4).GetComponent<SpriteRenderer>().sprite = PSC.Sprites[5].GetComponent<SpriteRenderer>().sprite;
+		transform.GetChild(4).GetChild(3).GetChild(5).GetComponent<SpriteRenderer>().sprite = PSC.Sprites[6].GetComponent<SpriteRenderer>().sprite;
+		transform.GetChild(4).GetChild(3).GetChild(6).GetComponent<SpriteRenderer>().sprite = PSC.Sprites[7].GetComponent<SpriteRenderer>().sprite;
+		var clone = Instantiate(transform.GetChild(4).GetChild(3), transform.position, transform.rotation);
+		clone.gameObject.SetActive(true);
+		Destroy(clone.gameObject, 0.2f);
+	}
+	public IEnumerator GenerateGhost()
+	{
+		while (isDashing)
+		{
+			CreateGhost();
+			yield return null;
+		}
+	}
+	public void OnDash()
     {
         if (!PSC.isAttacking && MovementCD)
         {
@@ -50,9 +74,12 @@ public class Hammer : MonoBehaviour
     public IEnumerator Dashing()
     {
         PSC.Movable = false;
+        isDashing = true;
+        StartCoroutine(GenerateGhost());
         yield return new WaitForSeconds(0.25f);
         Player.Cooldowns[4].SetActive(true);
         Player.Cooldowns[4].GetComponent<CooldownUI>().StartCooldown(5f);
+        isDashing = false;
         PSC.Movable = true;
     }
 
@@ -81,7 +108,7 @@ public class Hammer : MonoBehaviour
 
     private IEnumerator AttackCast()
     {
-        PSC.Attack("Stab", 2);
+        PSC.Attack("2HSlash", 2);
         Player.Cooldowns[0].SetActive(true);
         Player.Cooldowns[0].GetComponent<CooldownUI>().StartCooldown(1 / Player.attackSpeed);
         Attack();
@@ -128,7 +155,7 @@ public class Hammer : MonoBehaviour
     {
         attackHitBoxPos.localPosition = MapPoint(PSC.currentDirection, Ability1Radius);
         attackHitBoxPos.gameObject.GetComponent<CircleCollider2D>().radius = Ability1Radius;
-        PSC.Attack("Stab", 2);
+        PSC.Attack("2HSlam", 2);
         yield return new WaitForSeconds(1.5f);
         Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attackHitBoxPos.position, Ability1Radius, Damageable);
         foreach (Collider2D collider in detectedObjects)
@@ -171,7 +198,7 @@ public class Hammer : MonoBehaviour
 
     private IEnumerator Ability2Cast()
     {
-        PSC.PlayAnimation("Stab");
+        PSC.PlayAnimation("2HSlam");
         gameObject.GetComponent<IEffectable>().ApplyBuff(new Shield(gameObject.GetComponent<Entity>().maxHealth / 3, 25f, "Hammer - Ability 2", gameObject));
         if (Player.Cooldowns[1].activeSelf)
             Player.Cooldowns[1].GetComponent<CooldownUI>().remainingTime -= (6f * ((100 - Player.CDR) / 100)) / 2;
@@ -206,7 +233,7 @@ public class Hammer : MonoBehaviour
     private IEnumerator UltimateCast()
     {
         float cd = 10f * ((100 - Player.CDR) / 100);
-        PSC.Attack("Stab", 2);
+        PSC.Attack("2HSlam", 2);
         yield return new WaitForSeconds(.25f);
         attackHitBoxPos.localPosition = Vector2.zero;
         attackHitBoxPos.gameObject.GetComponent<CircleCollider2D>().radius = UltimateRadius;
