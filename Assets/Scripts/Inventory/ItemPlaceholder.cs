@@ -20,7 +20,8 @@ public class ItemPlaceholder : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "Player")
+        // && collision.GetType().ToString() == "UnityEngine.BoxCollider2D"
+        if (collision.gameObject.tag == "Player")
         {
             int leftOverItems = inventoryManager.AddItem(itemSO, quantity);
             if (leftOverItems <= 0)
