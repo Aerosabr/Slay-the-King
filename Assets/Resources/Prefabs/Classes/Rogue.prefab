@@ -743,17 +743,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a049d1a4df25a7143b911ce19cd5c703, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseMaxHealth: 10000
+  baseMaxHealth: 50
   healthMultiplier: 1
-  maxHealth: 10000
-  currentHealth: 10000
+  maxHealth: 50
+  currentHealth: 50
   Shield: 0
-  baseAttack: 100
+  baseAttack: 5
   attackMultiplier: 1
-  Attack: 100
-  baseDefense: 1
+  Attack: 5
+  baseDefense: 0
   defenseMultiplier: 1
-  Defense: 1
+  Defense: 0
   baseDexterity: 0
   dexterityMultiplier: 1
   Dexterity: 0
@@ -773,6 +773,8 @@ MonoBehaviour:
   Class: Rogue
   Weapon: 
   Level: 1
+  levelExp: 0
+  Money: 0
   AttackCD: 0
   Ability1CD: 0
   Ability2CD: 0
@@ -780,7 +782,7 @@ MonoBehaviour:
   MovementCD: 0
   Cooldowns: []
   rb: {fileID: 0}
-  mainCam: {fileID: 8608824231426473317}
+  mainCam: {fileID: 4792929880750468195, guid: 4ece98136438eaa47aeb82888e2666aa, type: 3}
   consumableSlot: []
   canInteract: 0
 --- !u!114 &-7733132764463408028

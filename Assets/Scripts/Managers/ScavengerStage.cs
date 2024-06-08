@@ -33,12 +33,8 @@ public class ScavengerStage : MonoBehaviour
     private void Start()
     {
         foreach (GameObject player in PlayerManager.instance.Players)
-        {
             player.GetComponent<Player>().CameraZoom(5);
-            player.GetComponent<Class>().unequipWeapon(player.GetComponent<Player>().Weapon);
-        }
 
-        CooldownManager.instance.LoadCooldowns("None");
     }
 
     private void FixedUpdate()
@@ -93,19 +89,24 @@ public class ScavengerStage : MonoBehaviour
         foreach(GameObject obj in GameObject.FindGameObjectsWithTag("Item"))
             Destroy(obj);
 
-        foreach(GameObject player in PlayerManager.instance.Players)
+        GameManager.instance.canEquip = true;
+        foreach (GameObject player in PlayerManager.instance.Players)
         {
             if (player.transform.position.y >= 15)
                 player.transform.position = new Vector2(player.transform.position.x, 14);
+
+            player.GetComponent<Class>().equipCurrent();
+            player.GetComponent<Player>().CameraZoomOutSlow(8);
         }
 
+        if (numCollected >= 50)
+            ItemCreation.instance.ThreeStarLoot();
+        else if (numCollected >= 35)
+            ItemCreation.instance.TwoStarLoot();
+        else if (numCollected >= 20)
+            ItemCreation.instance.OneStarLoot();
+
         TeleportManager.instance.LoadNextStage("Scavenger");
-        foreach (GameObject player in PlayerManager.instance.Players)
-        {
-            Player temp = player.GetComponent<Player>();
-            player.GetComponent<Class>().equipCurrent();
-            temp.CameraZoomOutSlow(8);
-        }
         CooldownManager.instance.LoadCooldowns();
     }
 
@@ -114,6 +115,11 @@ public class ScavengerStage : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             Destroy(box);
+            foreach (GameObject player in PlayerManager.instance.Players)
+                player.GetComponent<Class>().unequipWeapon(player.GetComponent<Player>().Weapon);
+
+            GameManager.instance.canEquip = false;
+            CooldownManager.instance.LoadCooldowns("None");
             Active = true;
             SpawnCoins();
         }

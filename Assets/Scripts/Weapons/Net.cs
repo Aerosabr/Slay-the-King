@@ -9,8 +9,8 @@ public class Net : MonoBehaviour
     public Transform attackHitBoxPos;
     public LayerMask Damageable;
     public bool AttackCD = true;
+    public bool StageEnded = false;
     private float AttackRadius = 0.5f;
-
     public float dashDistance = 15f;
 
     public void Awake()
@@ -32,7 +32,7 @@ public class Net : MonoBehaviour
     #region Player Attack
     public void OnAttack()
     {
-        if (!PSC.isAttacking && AttackCD && PSC.Movable)
+        if (!PSC.isAttacking && AttackCD && PSC.Movable && !StageEnded)
         {
             AttackCD = false;
             PSC.isAttacking = true;

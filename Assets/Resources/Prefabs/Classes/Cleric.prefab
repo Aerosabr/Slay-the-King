@@ -1025,17 +1025,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a049d1a4df25a7143b911ce19cd5c703, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseMaxHealth: 10000
+  baseMaxHealth: 50
   healthMultiplier: 1
-  maxHealth: 10000
-  currentHealth: 10000
+  maxHealth: 50
+  currentHealth: 50
   Shield: 0
-  baseAttack: 100
+  baseAttack: 5
   attackMultiplier: 1
-  Attack: 100
-  baseDefense: 1
+  Attack: 5
+  baseDefense: 0
   defenseMultiplier: 1
-  Defense: 1
+  Defense: 0
   baseDexterity: 0
   dexterityMultiplier: 1
   Dexterity: 0
@@ -1055,6 +1055,8 @@ MonoBehaviour:
   Class: Cleric
   Weapon: 
   Level: 1
+  levelExp: 0
+  Money: 0
   AttackCD: 0
   Ability1CD: 0
   Ability2CD: 0

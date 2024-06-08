@@ -17,8 +17,7 @@ public class StageTeleport : MonoBehaviour
         if (stage == "Random")
         {
             string[] Stages = { "Boulder", "Mining", "Rats", "Scavenger", "Tree", "Chests" };
-            //Stage = Stages[Random.Range(0, Stages.Length)];
-            Stage = "Mining";
+            Stage = Stages[Random.Range(0, Stages.Length)];
         }
         else
             Stage = stage;
