@@ -13,6 +13,7 @@ public class Pickaxe : MonoBehaviour
     private float AttackRadius = 0.5f;
 
     public float dashDistance = 15f;
+    public bool StageEnded = false;
 
     public void Awake()
     {
@@ -33,7 +34,7 @@ public class Pickaxe : MonoBehaviour
     #region Player Attack
     public void OnAttack()
     {
-        if (!PSC.isAttacking && AttackCD && PSC.Movable)
+        if (!PSC.isAttacking && AttackCD && PSC.Movable && !StageEnded)
         {
             AttackCD = false;
             PSC.isAttacking = true;

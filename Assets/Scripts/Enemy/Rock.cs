@@ -9,6 +9,15 @@ public class Rock : Entity, IDamageable
     {
         currentHealth = maxHealth;
         anim = GetComponent<Animator>();
+        loadStats();
+    }
+
+    private void loadStats()
+    {
+        int multiplier = GameManager.instance.Floor;
+        baseMaxHealth *= multiplier;
+        maxHealth *= multiplier;
+        currentHealth *= multiplier;
     }
 
     #region IDamageable Components
