@@ -576,6 +576,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Floor: 1
   Stage: 1
+  canEquip: 1
 --- !u!114 &49406595
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -592,8 +593,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b1d888e0e3eb7a94db714a58bfbd131c, type: 2}
   - {fileID: 11400000, guid: e9e4389ef6028f74e93b6d5dc7bf9daa, type: 2}
   - {fileID: 11400000, guid: 8d3ae0189b7681c4e8c6d83c88461738, type: 2}
-  - {fileID: 11400000, guid: 80000f92b4eaa0247abed89660a38210, type: 2}
-  - {fileID: 11400000, guid: ecc27f99f6239b649b70a1619d2caf52, type: 2}
   - {fileID: 11400000, guid: e1afbfbf757dfb4489db524cc0855dfd, type: 2}
   - {fileID: 11400000, guid: 0a6bc06563a216b4095f625848523d82, type: 2}
   - {fileID: 11400000, guid: a84ced71887bd474c95af8e5b33432bc, type: 2}
@@ -606,12 +605,15 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8b0c17163a75ef54484586ced747bfb4, type: 2}
   - {fileID: 11400000, guid: a33a7afad8aac68448e20c7d0245d640, type: 2}
   - {fileID: 11400000, guid: 0e4e7e3747ecea54b85aafee03e87b57, type: 2}
+  - {fileID: 11400000, guid: 80000f92b4eaa0247abed89660a38210, type: 2}
+  - {fileID: 11400000, guid: ecc27f99f6239b649b70a1619d2caf52, type: 2}
   consumeList:
   - {fileID: 11400000, guid: cd3eef6a2167f5644891444648a159c4, type: 2}
   - {fileID: 11400000, guid: 6c110bfa237d22c48b54dc8a07b77b21, type: 2}
   - {fileID: 11400000, guid: 661d057e4a774964b96f777c9265e5be, type: 2}
   itemList:
   - {fileID: 11400000, guid: c71c7439c2e79224ea54d5a44ece1e39, type: 2}
+  possibleWeapons: []
 --- !u!1 &53460619
 GameObject:
   m_ObjectHideFlags: 0
