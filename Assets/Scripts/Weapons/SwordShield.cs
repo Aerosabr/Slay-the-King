@@ -19,7 +19,7 @@ public class SwordShield : MonoBehaviour
     public bool MovementCD = true;
 
     public float dashDistance = 15f;
-    public bool isDashing = false
+    public bool isDashing = false;
 
     public void Awake()
     {
