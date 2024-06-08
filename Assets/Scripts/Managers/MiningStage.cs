@@ -99,6 +99,13 @@ public class MiningStage : MonoBehaviour
         foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Enemy"))
             Destroy(obj);
 
+        if (rocksBroken == 6)
+            ItemCreation.instance.ThreeStarLoot();
+        else if (rocksBroken >= 4)
+            ItemCreation.instance.TwoStarLoot();
+        else if (rocksBroken >= 2)
+            ItemCreation.instance.OneStarLoot();
+
         TeleportManager.instance.LoadNextStage("Mining");
         foreach (GameObject player in PlayerManager.instance.Players)
             player.GetComponent<Player>().CameraZoomOutSlow(8);

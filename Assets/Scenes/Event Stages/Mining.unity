@@ -2042,7 +2042,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 60s
+  m_Text: 30s
 --- !u!222 &625202124
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9688,12 +9688,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 717a146f933fa244bbab3ddfd7e7158f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickaxe: {fileID: -477010166652165879, guid: bec750e630aa9a14989514402feebbc1, type: 3}
-  timeRemaining: 30
-  rocksBroken: 0
   rockText: {fileID: 1222883569}
   starRating: {fileID: 1284386287}
   Timer: {fileID: 625202123}
+  timeRemaining: 30
+  rocksBroken: 0
+  pickaxe: {fileID: -477010166652165879, guid: bec750e630aa9a14989514402feebbc1, type: 3}
+  StageActive: {fileID: 1732168975}
+  Preround: {fileID: 227165742}
+  box: {fileID: 2120064348}
+  Rocks: {fileID: 1653690901}
 --- !u!61 &2120064348
 BoxCollider2D:
   m_ObjectHideFlags: 0
