@@ -92,7 +92,8 @@ public class MiningStage : MonoBehaviour
     private IEnumerator EndStage()
     {
         Active = false;
-
+        foreach (GameObject player in PlayerManager.instance.Players)
+            player.GetComponent<Pickaxe>().StageEnded = true;
         yield return new WaitForSeconds(1f);
         GameManager.instance.canEquip = true;
         unequipPickaxes();

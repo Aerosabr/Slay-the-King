@@ -7,6 +7,19 @@ public class Tree : Entity, IDamageable
     public Rigidbody2D rb;
     public Animator anim;
 
+    private void Awake()
+    {
+        loadStats();
+    }
+
+    private void loadStats()
+    {
+        int multiplier = GameManager.instance.Floor;
+        baseMaxHealth *= multiplier;
+        maxHealth *= multiplier;
+        currentHealth *= multiplier;
+    }
+
     #region IDamageable Components
     public int Damaged(int amount, Vector3 origin, float kb)
     {
