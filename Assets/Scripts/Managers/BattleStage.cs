@@ -44,8 +44,11 @@ public class BattleStage : MonoBehaviour
         foreach (GameObject player in PlayerManager.instance.Players)
             player.GetComponent<Player>().CameraZoom(5);
     }
-
-    private void StartStage()
+	private void FixedUpdate()
+	{
+		UpdateCount();
+	}
+	private void StartStage()
     {
         if (Spawnable)
         {
