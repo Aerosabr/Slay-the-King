@@ -34,6 +34,8 @@ public class Player : Entity, IEffectable, IDamageable
     public ActivateConsumables[] consumableSlot;
     public bool canInteract;
 
+    public Transform EffectVFX;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -44,6 +46,10 @@ public class Player : Entity, IEffectable, IDamageable
     {
         if (Buffs.Count > 0)
             HandleBuff();
+        if (isStunned)
+            EffectVFX.GetChild(0).gameObject.SetActive(true);
+        else
+            EffectVFX.GetChild(0).gameObject.SetActive(false);
     }
 
     #region IEffectable Components
