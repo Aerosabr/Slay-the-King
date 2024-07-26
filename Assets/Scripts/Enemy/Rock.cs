@@ -31,7 +31,7 @@ public class Rock : Entity, IDamageable
         }
         else
         {
-            damage = currentHealth - amount;
+            damage = amount;
             currentHealth -= amount;
         }
 

@@ -69,11 +69,17 @@ public class SwordGoblin : Entity, IDamageable, IEffectable
     {
         if (isStunned || !BattleStage.instance.Active)
         {
-            ESC.PlayAnimation("Idle");
-            rb.velocity = Vector2.zero;
+            if (currentHealth > 0)
+            {
+                ESC.PlayAnimation("Idle");
+                rb.velocity = Vector2.zero;
+                rb.constraints = RigidbodyConstraints2D.FreezePosition;
+            }
         }
         else if (!isStunned && currentHealth > 0 && isMovable)
         {
+            rb.constraints = RigidbodyConstraints2D.None;
+            rb.constraints = RigidbodyConstraints2D.FreezeRotation;
             if (!CheckAttacks())
             {
                 if (Time.time >= lastRepathTime + repathRate)
@@ -188,6 +194,7 @@ public class SwordGoblin : Entity, IDamageable, IEffectable
 
     public IEnumerator KnockCoroutine(Vector3 origin, float kb)
     {
+        rb.constraints = RigidbodyConstraints2D.None;
         Vector2 force = ((transform.position - new Vector3(0.04f, 0.4f)) - origin).normalized * kb;
         isMovable = false;
         rb.velocity = force;

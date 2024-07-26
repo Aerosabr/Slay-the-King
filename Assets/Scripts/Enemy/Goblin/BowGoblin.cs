@@ -24,6 +24,7 @@ public class BowGoblin : Entity, IDamageable, IEffectable
     private float lastRepathTime = float.NegativeInfinity;
     private AIPath aiPath;
 
+    private Vector3 tempPos;
     void Awake()
     {
         player = PlayerManager.instance.Players[0].gameObject;
@@ -71,11 +72,18 @@ public class BowGoblin : Entity, IDamageable, IEffectable
     {
         if (isStunned || !BattleStage.instance.Active)
         {
-            ESC.PlayAnimation("Idle");
-            rb.velocity = Vector2.zero;
+            if (currentHealth > 0)
+            {
+                ESC.PlayAnimation("Idle");
+                rb.velocity = Vector2.zero;
+                rb.constraints = RigidbodyConstraints2D.FreezePosition;
+            }
         }
         else if (!isStunned && currentHealth > 0)
         {
+            rb.constraints = RigidbodyConstraints2D.None;
+
+            rb.constraints = RigidbodyConstraints2D.FreezeRotation;
             if (currentHealth > 0 && isMovable)
             {
                 if (Time.time >= lastRepathTime + repathRate)
@@ -104,6 +112,8 @@ public class BowGoblin : Entity, IDamageable, IEffectable
                 Attacking();
             }
         }
+        else if (currentHealth <= 0)
+            transform.position = tempPos;
 
         if (Buffs.Count > 0)
             HandleBuff();
@@ -170,6 +180,7 @@ public class BowGoblin : Entity, IDamageable, IEffectable
             isMovable = false;
             ESC.PlayAnimation("Death");
             aiPath.canMove = false;
+            tempPos = transform.position;
             rb.velocity = Vector2.zero;
             rb.constraints = RigidbodyConstraints2D.FreezeAll;
             Destroy(rb);
@@ -191,7 +202,7 @@ public class BowGoblin : Entity, IDamageable, IEffectable
         }
         else
         {
-            damage = currentHealth - amount;
+            damage = amount;
             currentHealth -= amount;
         }
 

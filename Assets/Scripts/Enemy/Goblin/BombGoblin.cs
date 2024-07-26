@@ -69,11 +69,17 @@ public class BombGoblin : Entity, IDamageable, IEffectable
     {
         if (isStunned || !BattleStage.instance.Active)
         {
-            ESC.PlayAnimation("Idle");
-            rb.velocity = Vector2.zero;
-        } 
+            if (currentHealth > 0)
+            {
+                ESC.PlayAnimation("Idle");
+                rb.velocity = Vector2.zero;
+                rb.constraints = RigidbodyConstraints2D.FreezePosition;
+            }
+        }
         else if (!isStunned && currentHealth > 0)
         {
+            rb.constraints = RigidbodyConstraints2D.None;
+            rb.constraints = RigidbodyConstraints2D.FreezeRotation;
             if (currentHealth > 0 && isMovable)
             {
                 if (Time.time >= lastRepathTime + repathRate)

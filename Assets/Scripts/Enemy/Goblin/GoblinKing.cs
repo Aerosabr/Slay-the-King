@@ -95,9 +95,18 @@ public class GoblinKing : Entity, IDamageable, IEffectable
         IncrementCDs();
 
         if (isStunned || !BattleStage.instance.Active)
-            ESC.PlayAnimation("Idle");
+        {
+            if (currentHealth > 0)
+            {
+                ESC.PlayAnimation("Idle");
+                rb.velocity = Vector2.zero;
+                rb.constraints = RigidbodyConstraints2D.FreezePosition;
+            }
+        }
         else if (!isStunned && currentHealth > 0 && isMovable)
         {
+            rb.constraints = RigidbodyConstraints2D.None;
+            rb.constraints = RigidbodyConstraints2D.FreezeRotation;
             if (!CheckAttacks())
             {
                 if (Time.time >= lastRepathTime + repathRate)

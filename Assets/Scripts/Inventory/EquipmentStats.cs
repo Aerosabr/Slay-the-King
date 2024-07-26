@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using UnityEditor.SceneManagement;
 
 public class EquipmentStats : MonoBehaviour
 {
