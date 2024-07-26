@@ -189,7 +189,6 @@ public class PlayerSpriteController : MonoBehaviour
                 break;
         }
 
-        Debug.Log(Name);
         foreach (Animator sprite in Sprites)
             sprite.Play(Name);
     }
