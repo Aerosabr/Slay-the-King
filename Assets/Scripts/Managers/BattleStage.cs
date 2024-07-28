@@ -87,9 +87,19 @@ public class BattleStage : MonoBehaviour
     {
         while (Credit > 0)
         {
-            GameObject enemy = Enemies[Random.Range(0, Enemies.Count)];
+            int num = Random.Range(0, 10);
+            GameObject enemy;
+            if (num < 6)
+                enemy = Enemies[1];
+            else if (num < 9)
+                enemy = Enemies[2];
+            else
+                enemy = Enemies[0];
+
+            
             if (Credit >= enemy.GetComponent<Entity>().Cost)
             {
+                Debug.Log(num);
                 SpawnEnemy(enemy);
                 Credit -= enemy.GetComponent<Entity>().Cost;
                 yield return new WaitForSeconds(Random.Range(1f, 3f));

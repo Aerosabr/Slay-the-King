@@ -12,7 +12,8 @@ public class ArcaneVortex : MonoBehaviour
         transform.Rotate(0, 0, -1);
         foreach (GameObject enemy in Enemies)
         {
-            enemy.transform.position = Vector2.MoveTowards(enemy.transform.position, transform.position, .75f * Time.deltaTime);
+            if (enemy != null) 
+                enemy.transform.position = Vector2.MoveTowards(enemy.transform.position, transform.position, .75f * Time.deltaTime);
         }
     }
 
