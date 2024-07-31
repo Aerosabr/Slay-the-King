@@ -74,6 +74,9 @@ public class ClubHoblin : Entity, IDamageable, IEffectable
 
     void FixedUpdate()
     {
+        if (currentHealth <= 0)
+            return;
+
         if (Ability > 0)
             Ability -= Time.deltaTime;
         if (isStunned || !BattleStage.instance.Active)
@@ -188,7 +191,6 @@ public class ClubHoblin : Entity, IDamageable, IEffectable
         {
             ESC.PlayAnimation("Death");
             aiPath.canMove = false;
-            Destroy(rb);
             Destroy(GetComponent<BoxCollider2D>());
             transform.rotation = Quaternion.Euler(0f, 0f, 0f);
             StartCoroutine(Death(2f));

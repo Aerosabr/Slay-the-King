@@ -67,6 +67,9 @@ public class BombGoblin : Entity, IDamageable, IEffectable
 
     void FixedUpdate()
     {
+        if (currentHealth <= 0)
+            return;
+
         if (isStunned || !BattleStage.instance.Active)
         {
             if (currentHealth > 0)
@@ -172,7 +175,6 @@ public class BombGoblin : Entity, IDamageable, IEffectable
             ESC.PlayAnimation("Death");
             aiPath.canMove = false;
             rb.constraints = RigidbodyConstraints2D.FreezeAll;
-            Destroy(rb);
             Destroy(GetComponent<BoxCollider2D>());
             Destroy(GetComponent<CircleCollider2D>());
             transform.rotation = Quaternion.Euler(0f, 0f, 0f);

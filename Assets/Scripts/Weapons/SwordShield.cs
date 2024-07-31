@@ -10,7 +10,7 @@ public class SwordShield : MonoBehaviour
     public LayerMask Damageable;
 
     public bool AttackCD = true;
-    private float AttackRadius = 0.75f;
+    private float AttackRadius = 1f;
     public bool Ability1CD = true;
     private float Ability1Radius = 1.5f;
     public bool Ability2CD = true;

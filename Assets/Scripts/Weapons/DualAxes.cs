@@ -11,7 +11,7 @@ public class DualAxes : MonoBehaviour
     public GameObject ThrownAxe;
 
     public bool AttackCD = true;
-    private float AttackRadius = 0.5f;
+    private float AttackRadius = 1f;
     public bool Ability1CD = true;
     public bool Ability2CD = true;
     private float Ability2Radius = 1f;

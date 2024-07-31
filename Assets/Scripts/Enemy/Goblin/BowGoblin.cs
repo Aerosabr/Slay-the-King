@@ -70,6 +70,9 @@ public class BowGoblin : Entity, IDamageable, IEffectable
 
     void FixedUpdate()
     {
+        if (currentHealth <= 0)
+            return;
+
         if (isStunned || !BattleStage.instance.Active)
         {
             if (currentHealth > 0)
@@ -183,7 +186,6 @@ public class BowGoblin : Entity, IDamageable, IEffectable
             tempPos = transform.position;
             rb.velocity = Vector2.zero;
             rb.constraints = RigidbodyConstraints2D.FreezeAll;
-            Destroy(rb);
             Destroy(GetComponent<BoxCollider2D>());
             transform.rotation = Quaternion.Euler(0f, 0f, 0f);
             StartCoroutine(Death(2f));

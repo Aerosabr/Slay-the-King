@@ -10,7 +10,7 @@ public class Scythe : MonoBehaviour
     public LayerMask Damageable;
 
     public bool AttackCD = true;
-    private float AttackRadius = 1f;
+    private float AttackRadius = 1.25f;
     public bool Ability1CD = true;
     private float Ability1Radius = 1.5f;
     public bool Ability2CD = true;
