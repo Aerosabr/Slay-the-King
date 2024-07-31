@@ -11,7 +11,7 @@ public class Greatsword : MonoBehaviour
     public GameObject Slashwave;
 
     public bool AttackCD = true;
-    private float AttackRadius = 0.75f;
+    private float AttackRadius = 1.25f;
     public bool Ability1CD = true;
     public bool Ability2CD = true;
     private float Ability2Radius = 2.5f;

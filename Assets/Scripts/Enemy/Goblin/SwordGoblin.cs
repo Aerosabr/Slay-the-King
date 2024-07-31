@@ -67,6 +67,10 @@ public class SwordGoblin : Entity, IDamageable, IEffectable
 
     void FixedUpdate()
     {
+        if (currentHealth <= 0)     
+            return;
+        
+
         if (isStunned || !BattleStage.instance.Active)
         {
             if (currentHealth > 0)
@@ -166,7 +170,6 @@ public class SwordGoblin : Entity, IDamageable, IEffectable
             ESC.PlayAnimation("Death");
             aiPath.canMove = false;
             rb.constraints = RigidbodyConstraints2D.FreezeAll;
-            Destroy(rb);
             Destroy(GetComponent<BoxCollider2D>());
             transform.rotation = Quaternion.Euler(0f, 0f, 0f);
             StartCoroutine(Death(2f));
@@ -212,7 +215,7 @@ public class SwordGoblin : Entity, IDamageable, IEffectable
 
     public IEnumerator Death(float time)
     {
-        
+        rb.velocity = Vector2.zero;
         yield return new WaitForSeconds(time);
         DropLoot();
         Destroy(gameObject);

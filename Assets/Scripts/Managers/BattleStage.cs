@@ -15,7 +15,8 @@ public class BattleStage : MonoBehaviour
     public float spawnRadius;
     public int maxEnemies = 0;
     public int enemiesKilled = 0;
-    public int Credit = 50;
+    public int Credit = 25;
+    private int baseCredit;
     public int Wave = 1;
     private int maxWaves;
     public GameObject WaveHUD;
@@ -43,6 +44,9 @@ public class BattleStage : MonoBehaviour
     {
         foreach (GameObject player in PlayerManager.instance.Players)
             player.GetComponent<Player>().CameraZoom(5);
+        //Credit = 1;
+        Credit = 15 + (GameManager.instance.Floor * 10);
+        baseCredit = Credit;
     }
 	private void FixedUpdate()
 	{
@@ -133,7 +137,7 @@ public class BattleStage : MonoBehaviour
 
     public IEnumerator WaitUntilEnemiesKilled()
     {
-        while (enemiesKilled != maxEnemies)
+        while (enemiesKilled < maxEnemies)
         {
             yield return new WaitForSeconds(2f);
         }
@@ -149,7 +153,8 @@ public class BattleStage : MonoBehaviour
         }
         else 
         {
-            Credit = 50 + (Wave * 10);
+            //Credit = 1;
+            Credit = baseCredit + (Wave * 10);
             enemiesKilled = 0;
             maxEnemies = 0;
             Wave++;

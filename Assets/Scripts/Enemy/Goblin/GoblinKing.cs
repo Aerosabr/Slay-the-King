@@ -93,6 +93,8 @@ public class GoblinKing : Entity, IDamageable, IEffectable
     void FixedUpdate()
     {
         IncrementCDs();
+        if (currentHealth <= 0)
+            return;
 
         if (isStunned || !BattleStage.instance.Active)
         {
@@ -244,7 +246,6 @@ public class GoblinKing : Entity, IDamageable, IEffectable
         {
             ESC.PlayAnimation("Death");
             aiPath.canMove = false;
-            Destroy(rb);
             Destroy(GetComponent<BoxCollider2D>());
             transform.rotation = Quaternion.Euler(0f, 0f, 0f);
             StartCoroutine(Death(2f));
