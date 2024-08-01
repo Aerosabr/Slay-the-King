@@ -232,6 +232,7 @@ public class BowGoblin : Entity, IDamageable, IEffectable
 
     public IEnumerator Death(float time)
     {
+        rb.velocity = Vector2.zero;
         yield return new WaitForSeconds(time);
         Destroy(gameObject);
         DropLoot();

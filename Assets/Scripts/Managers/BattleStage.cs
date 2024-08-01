@@ -44,8 +44,8 @@ public class BattleStage : MonoBehaviour
     {
         foreach (GameObject player in PlayerManager.instance.Players)
             player.GetComponent<Player>().CameraZoom(5);
-        //Credit = 1;
-        Credit = 15 + (GameManager.instance.Floor * 10);
+        Credit = 5;
+        //Credit = 15 + (GameManager.instance.Floor * 10);
         baseCredit = Credit;
     }
 	private void FixedUpdate()
