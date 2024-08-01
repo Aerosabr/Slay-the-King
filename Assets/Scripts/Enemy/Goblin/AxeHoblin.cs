@@ -192,6 +192,8 @@ public class AxeHoblin : Entity, IDamageable, IEffectable
         {
             ESC.PlayAnimation("Death");
             aiPath.canMove = false;
+            rb.velocity = Vector2.zero;
+            rb.constraints = RigidbodyConstraints2D.FreezeAll;
             Destroy(GetComponent<BoxCollider2D>());
             transform.rotation = Quaternion.Euler(0f, 0f, 0f);
             StartCoroutine(Death(2f));
@@ -235,6 +237,7 @@ public class AxeHoblin : Entity, IDamageable, IEffectable
 
     public IEnumerator Death(float time)
     {
+        rb.velocity = Vector2.zero;
         yield return new WaitForSeconds(time);
         Destroy(gameObject);
         DropLoot();

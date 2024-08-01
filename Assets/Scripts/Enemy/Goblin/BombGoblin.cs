@@ -174,6 +174,7 @@ public class BombGoblin : Entity, IDamageable, IEffectable
             isMovable = false;
             ESC.PlayAnimation("Death");
             aiPath.canMove = false;
+            rb.velocity = Vector2.zero;
             rb.constraints = RigidbodyConstraints2D.FreezeAll;
             Destroy(GetComponent<BoxCollider2D>());
             Destroy(GetComponent<CircleCollider2D>());
@@ -218,6 +219,7 @@ public class BombGoblin : Entity, IDamageable, IEffectable
 
     public IEnumerator Death(float time)
     {
+        rb.velocity = Vector2.zero;
         yield return new WaitForSeconds(time);
         Destroy(gameObject);
         DropLoot();
