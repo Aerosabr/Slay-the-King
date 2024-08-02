@@ -143,10 +143,11 @@ public class ItemCreation : MonoBehaviour
 		SpawnDropItem(newItem, quantity, spot);
 	}
 
-	public void CreateConsumeable(int index, int quantity, Transform spot)
+	public void CreateConsumeable(int index, int quantity, Transform spot, int value)
 	{
 		ConsumeSO newItem = ScriptableObject.CreateInstance<ConsumeSO>();
 		newItem.BuildItem(consumeList[index]);
+        newItem.amountToChangeStat = value;
 		SpawnDropItem(newItem, quantity, spot);
 	}
 

@@ -115,7 +115,12 @@ public class PlayerSpriteController : MonoBehaviour
     private void UpdateSpriteParameters()
     {
         foreach (Animator sprite in Sprites)
-            sprite.SetFloat("speed", walkSpeed);
+        {
+            if (sprite.runtimeAnimatorController != null)
+            {
+                sprite.SetFloat("speed", walkSpeed);
+            }
+        }
 
         if (isMoving)
         {
@@ -190,6 +195,11 @@ public class PlayerSpriteController : MonoBehaviour
         }
 
         foreach (Animator sprite in Sprites)
-            sprite.Play(Name);
+        {
+            if (sprite.runtimeAnimatorController != null)
+            {
+                sprite.Play(Name);
+            }
+        }
     }
 }
