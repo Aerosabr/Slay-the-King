@@ -187,4 +187,24 @@ public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
         if (this.quantity <= 0)
             EmptySlot();
     }
+
+	public bool DeleteItem()
+	{
+		// Check if the inventory slot is empty before dropping items.
+		if (this.quantity <= 0 || string.IsNullOrEmpty(item.itemName))
+		{
+			// If the slot is empty, exit the method early without dropping an item.
+			if (equipmentStatPanel.gameObject.activeSelf)
+				equipmentStatPanel.gameObject.SetActive(false);
+            return false;
+		}
+
+		this.quantity -= 1;
+		if (this.quantity <= 0)
+		{
+			EmptySlot();
+			return true;
+		}
+		return false;
+	}
 }

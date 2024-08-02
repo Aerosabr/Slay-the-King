@@ -32,13 +32,17 @@ public class ConvertPlayerToUI : MonoBehaviour
             {
                 storedPlayer.GetChild(i).GetComponent<Animator>().runtimeAnimatorController = player.GetChild(0).GetChild(i).GetComponent<Animator>().runtimeAnimatorController;
             }
+
             if (player.GetChild(0).GetComponent<PlayerSpriteController>().twoHanded)
             {
                 storedPlayer.GetComponent<Animator>().Play("2HIdleS");
                 for (int i = 0; i < maxBodyParts; ++i)
                 {
-                    storedPlayer.GetChild(i).GetComponent<Animator>().runtimeAnimatorController = player.GetChild(0).GetChild(i).GetComponent<Animator>().runtimeAnimatorController;
-                    storedPlayer.GetChild(i).GetComponent<Animator>().Play("2HIdleS");
+                    if (player.GetChild(0).GetChild(i).GetComponent<Animator>().runtimeAnimatorController != null)
+                    {
+                        storedPlayer.GetChild(i).GetComponent<Animator>().runtimeAnimatorController = player.GetChild(0).GetChild(i).GetComponent<Animator>().runtimeAnimatorController;
+                        storedPlayer.GetChild(i).GetComponent<Animator>().Play("2HIdleS");
+                    }
                 }
             }
             else
@@ -46,8 +50,11 @@ public class ConvertPlayerToUI : MonoBehaviour
                 storedPlayer.GetComponent<Animator>().Play("IdleS");
                 for (int i = 0; i < maxBodyParts; ++i)
                 {
-                    storedPlayer.GetChild(i).GetComponent<Animator>().runtimeAnimatorController = player.GetChild(0).GetChild(i).GetComponent<Animator>().runtimeAnimatorController;
-                    storedPlayer.GetChild(i).GetComponent<Animator>().Play("IdleS");
+                    if (player.GetChild(0).GetChild(i).GetComponent<Animator>().runtimeAnimatorController != null)
+                    {
+                        storedPlayer.GetChild(i).GetComponent<Animator>().runtimeAnimatorController = player.GetChild(0).GetChild(i).GetComponent<Animator>().runtimeAnimatorController;
+                        storedPlayer.GetChild(i).GetComponent<Animator>().Play("IdleS");
+                    }
                 }
             }
         }

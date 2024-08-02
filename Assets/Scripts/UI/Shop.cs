@@ -69,7 +69,7 @@ public class Shop : MonoBehaviour
         {
             PlayerManager.instance.Players[0].GetComponent<Player>().Money -= 40;
             ItemCreation IC = ItemCreation.instance;
-            IC.CreateConsumeable(0, 1, PlayerManager.instance.Players[0].transform);
+            IC.CreateConsumeable(0, 1, PlayerManager.instance.Players[0].transform, 15);
         }
     }
 }

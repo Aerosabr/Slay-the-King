@@ -7,6 +7,8 @@ using TMPro;
 public class EquipmentStats : MonoBehaviour
 {
     public GameObject statPanel;
+    public GameObject deleteBTN;
+    public GameObject dropBTN;
     public EquipmentSlot equipmentSlot;
     public EquippedSlot equippedSlot;
 
@@ -29,18 +31,24 @@ public class EquipmentStats : MonoBehaviour
         equipmentSlot = slot;
         equipButton.SetActive(true);
         unequipButton.SetActive(false);
-    }
+		deleteBTN.SetActive(true);
+		dropBTN.SetActive(true);
+	}
     public void SetEquippedSlot(EquippedSlot slot)
     {
 		equippedSlot = slot;
 		equipButton.SetActive(false);
 		unequipButton.SetActive(true);
+		deleteBTN.SetActive(false);
+		dropBTN.SetActive(false);
 	}
 
     public void disableButton()
     {
 		equipButton.SetActive(false);
 		unequipButton.SetActive(false);
+        deleteBTN.SetActive(false);
+        dropBTN.SetActive(false);
 	}
     public void UpdateEquipmentStatPanel(EquipmentSO item)
     {
@@ -97,4 +105,16 @@ public class EquipmentStats : MonoBehaviour
             equippedSlot.thisItemSelected = false;
         }
     }
+
+	public void DeleteButton()
+	{
+		bool isGone = equipmentSlot.DeleteItem();
+		if (isGone)
+			statPanel.SetActive(false);
+	}
+
+	public void DropButton()
+	{
+		equipmentSlot.OnRightClick();
+	}
 }
