@@ -224,4 +224,25 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
 		}
 	}
 
+    public bool DeleteItem()
+    {
+		// Check if the inventory slot is empty before dropping items.
+		if (this.quantity <= 0 || string.IsNullOrEmpty(item.itemName))
+		{
+			// Slot is empty, so do nothing and return early.
+			if (itemStatPanel.gameObject.activeSelf)
+				itemStatPanel.gameObject.SetActive(false);
+			return false;
+		}
+
+		this.quantity -= 1;
+		quantityText.text = this.quantity.ToString();
+        if (this.quantity <= 0)
+        {
+            EmptySlot();
+            return true;
+        }
+        return false;
+	}
+
 }

@@ -82,4 +82,16 @@ public class ItemStats : MonoBehaviour
 			consumeSlot.UseConsumable();
 	}
 
+	public void DeleteButton()
+	{
+		bool isGone = slot.DeleteItem();
+		if(isGone)
+			statPanel.SetActive(false);
+	}
+
+	public void DropButton()
+	{
+		slot.OnRightClick();
+	}
+
 }
