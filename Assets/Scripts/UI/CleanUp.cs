@@ -6,6 +6,7 @@ public class CleanUp : MonoBehaviour
 {
 	public Transform PlayerHUD;
 	public Transform PlayerManager;
+	
 	private void Awake()
 	{
 		GameObject playerHUDObject = GameObject.Find("PlayerHUD");
@@ -28,6 +29,11 @@ public class CleanUp : MonoBehaviour
 				Destroy(PlayerManager.GetChild(2).GetChild(0).gameObject);
 			if (PlayerManager.GetChild(3).childCount > 0)
 				Destroy(PlayerManager.GetChild(3).GetChild(0).gameObject);
+			PlayerManager manager = PlayerManager.GetComponent<PlayerManager>();
+			manager.NumPlayers = 0;
+			manager.Players.Clear();
+			manager.player1Weapon = "";
+			
 		}
 	}
 }
