@@ -26,9 +26,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3896524878818595163}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.03, y: -0.3, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.04, y: -0.1, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5651209541059400872}
@@ -67,7 +67,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.35
+  m_Radius: 0.28
 --- !u!50 &5299056914674475195
 Rigidbody2D:
   serializedVersion: 4
@@ -413,6 +413,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   TargetCircle: {fileID: 0}
+  attackCollider: {fileID: 3896524878818595163}
   seeker: {fileID: 0}
   currentWaypoint: 0
   nextWaypointDistance: 1

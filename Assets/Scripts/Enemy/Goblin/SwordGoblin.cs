@@ -13,6 +13,7 @@ public class SwordGoblin : Entity, IDamageable, IEffectable
     public Transform attackHitBoxPos;
     public bool Attackable;
     public LayerMask Damageable;
+    [SerializeField] private GameObject attackCollider;
 
     //AI Pathfinding
     public Seeker seeker;
@@ -170,6 +171,7 @@ public class SwordGoblin : Entity, IDamageable, IEffectable
             ESC.PlayAnimation("Death");
             aiPath.canMove = false;
             rb.velocity = Vector2.zero;
+            attackCollider.SetActive(false);
             rb.constraints = RigidbodyConstraints2D.FreezeAll;
             Destroy(GetComponent<BoxCollider2D>());
             transform.rotation = Quaternion.Euler(0f, 0f, 0f);

@@ -18,6 +18,7 @@ public class GoblinKing : Entity, IDamageable, IEffectable
     public GameObject childCollider;
     public int A3Counter = 0;
     public bool Charging;
+    [SerializeField] private GameObject attackCollider;
 
     //AI Pathfinding
     public Seeker seeker;
@@ -247,6 +248,7 @@ public class GoblinKing : Entity, IDamageable, IEffectable
             ESC.PlayAnimation("Death");
             aiPath.canMove = false;
             rb.velocity = Vector2.zero;
+            attackCollider.SetActive(false);
             rb.constraints = RigidbodyConstraints2D.FreezeAll;
             Destroy(GetComponent<BoxCollider2D>());
             transform.rotation = Quaternion.Euler(0f, 0f, 0f);
