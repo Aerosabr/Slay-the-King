@@ -14,6 +14,7 @@ public class BowGoblin : Entity, IDamageable, IEffectable
     public bool Attackable;
     public LayerMask Damageable;
     public GameObject arrowPrefab;
+    [SerializeField] private GameObject attackCollider;
 
     //AI Pathfinding
     public Seeker seeker;
@@ -185,6 +186,7 @@ public class BowGoblin : Entity, IDamageable, IEffectable
             aiPath.canMove = false;
             tempPos = transform.position;
             rb.velocity = Vector2.zero;
+            attackCollider.SetActive(false);
             rb.constraints = RigidbodyConstraints2D.FreezeAll;
             Destroy(GetComponent<BoxCollider2D>());
             transform.rotation = Quaternion.Euler(0f, 0f, 0f);
