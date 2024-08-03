@@ -21,6 +21,7 @@ public class SinglePlayerUI : MonoBehaviour
 	{
 		pManager.StartGame();
 		cam.SetActive(false);
+		iCreator.possibleWeapons.Clear();
 		iCreator.LoadPossibleWeapons();
 	}
 
