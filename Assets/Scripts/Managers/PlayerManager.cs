@@ -8,7 +8,6 @@ using UnityEngine.SceneManagement;
 public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager instance;
-    public GameObject cam;
     public List<GameObject> Players = new List<GameObject>();
     public int NumPlayers = 0;
     public string player1Weapon;
@@ -61,7 +60,6 @@ public class PlayerManager : MonoBehaviour
 			temp.transform.GetChild(1).GetComponent<SpriteRenderer>().color = CharacterCustomization.instance.skinColor;
 			temp.SetActive(true);
             Players.Add(temp);
-            cam.SetActive(false);
         }
     }
 

@@ -10397,8 +10397,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 811880939}
-        m_TargetAssemblyTypeName: PlayerManager, Assembly-CSharp
+      - m_Target: {fileID: 2069170767}
+        m_TargetAssemblyTypeName: SinglePlayerUI, Assembly-CSharp
         m_MethodName: AddPlayer
         m_Mode: 3
         m_Arguments:
@@ -13297,6 +13297,7 @@ GameObject:
   - component: {fileID: 2069170764}
   - component: {fileID: 2069170765}
   - component: {fileID: 2069170766}
+  - component: {fileID: 2069170767}
   m_Layer: 5
   m_Name: SingleplayerUI
   m_TagString: Untagged
@@ -13349,6 +13350,21 @@ MonoBehaviour:
   targetYUpPosition: -3
   speed: 0.2
   startOff: 0
+--- !u!114 &2069170767
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2069170763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2264ea88f073e3346bc9075c7ccd34de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pManager: {fileID: 0}
+  iCreator: {fileID: 0}
+  cam: {fileID: 0}
 --- !u!1 &2070080505
 GameObject:
   m_ObjectHideFlags: 0
@@ -13642,8 +13658,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 811880939}
-        m_TargetAssemblyTypeName: PlayerManager, Assembly-CSharp
+      - m_Target: {fileID: 2069170767}
+        m_TargetAssemblyTypeName: SinglePlayerUI, Assembly-CSharp
         m_MethodName: StartGame
         m_Mode: 1
         m_Arguments:
