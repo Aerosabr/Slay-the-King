@@ -25,6 +25,7 @@ public class Daggers : MonoBehaviour
 
     public float dashDistance = 15f;
     public bool isDashing = false;
+    [SerializeField] private bool ultimateDash = false;
 
     public void Awake()
     {
@@ -305,6 +306,7 @@ public class Daggers : MonoBehaviour
         PSC.currentDirection = MapPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition) - (transform.position - new Vector3(0.04f, 0.3f)), 1f);
         PSC.PlayAnimation("DaggerDash");
         isDashing = true;
+        ultimateDash = true;
         StartCoroutine(GenerateGhost());
         PSC._rigidbody.velocity = new Vector2(PSC.currentDirection.x * dashDistance * 1.5f, PSC.currentDirection.y * dashDistance * 1.5f);
         yield return new WaitForSeconds(0.2f);
@@ -322,6 +324,7 @@ public class Daggers : MonoBehaviour
         else
             UltimateCD = true;
         isDashing = false;
+        ultimateDash = false;
         GetComponent<CapsuleCollider2D>().enabled = false;
         GetComponent<CircleCollider2D>().enabled = false;
         GetComponent<BoxCollider2D>().enabled = true;
@@ -339,7 +342,7 @@ public class Daggers : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Enemy")
+        if (collision.gameObject.tag == "Enemy" && ultimateDash && collision is BoxCollider2D)
         {
             collision.gameObject.GetComponent<IDamageable>().Damaged(Player.Attack, transform.position, 3);
         }
