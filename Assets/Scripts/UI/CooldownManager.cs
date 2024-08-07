@@ -6,12 +6,15 @@ public class CooldownManager : MonoBehaviour
 {
     public static CooldownManager instance;
     public List<GameObject> Cooldowns = new List<GameObject>();
+	public ActivateConsumables[] activeSlot;
 
-    void Awake()
+	void Awake()
     {
         instance = this;
-        PlayerManager.instance.Players[0].GetComponent<Player>().Cooldowns = Cooldowns;
-    }
+        Player player = PlayerManager.instance.Players[0].GetComponent<Player>();
+        player.Cooldowns = Cooldowns;
+        player.consumableSlot = activeSlot;
+}
 
     public void LoadCooldowns()
     {
