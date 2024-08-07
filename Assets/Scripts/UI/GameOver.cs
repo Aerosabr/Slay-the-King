@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameOver : MonoBehaviour
 {
@@ -18,5 +19,11 @@ public class GameOver : MonoBehaviour
 	{
 		inventory.SetActive(false);
 		gameOver.SetActive(true);
+	}
+
+	public void ToMainMenu()
+	{
+		SceneLoader sceneManager = GameObject.Find("SceneManager").GetComponent<SceneLoader>();
+		sceneManager.SceneTransition("MainMenu");
 	}
 }
